@@ -12,7 +12,9 @@ require('dotenv').config()
 
 //Used to access static files from public folder
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 //Configure View Engine
 app.set('view engine', 'ejs');
@@ -30,19 +32,18 @@ connection.connect(function (error) {
     if (error) {
         console.log("Error in Connecting Database");
         throw error;
-    }
-    else {
+    } else {
         console.log("Connected to Database");
     }
 });
 
 
 
-app.get("/business",function(req,res){
+app.get("/business", function (req, res) {
     res.render('index');
 });
 
 
-app.listen(3000,function(){
+app.listen(3000, function () {
     console.log("Connected at 3000");
 })
