@@ -1,9 +1,63 @@
-html,body{
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500&display=swap');
+
+html,
+body {
     padding: 0;
     margin: 0;
 }
 
-.header-div{
-    text-align: center;
-    padding-top: 5%;
+
+/* Business Home Starts */
+
+.business-first-div {
+    position: relative;
 }
+
+.home-heading {
+    position: relative;
+    font-family: 'Hind Siliguri', sans-serif;
+    width: 75%;
+    margin: 5%;
+    color: rgb(243, 247, 10);
+    text-shadow: 2px 2px 5px rgb(92, 90, 90);
+    font-size: 2.7rem;
+}
+
+.business-home-desc {
+    position: relative;
+    width: 90%;
+    margin: 5%;
+    color: rgba(255, 255, 255, 0.884);
+    font-family: 'Shippori Mincho B1', serif;
+    
+}
+
+.business-home-img {
+    height: 100%;
+    width: 100%;
+    filter: blur(1.5px);
+    -webkit-filter: blur(1.5px);
+}
+
+.business-home-card {
+    background-color: rgba(15, 15, 15, 0.829);
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    width: 40%;
+    height: 58%;
+}
+
+.selling-btn{
+    position: relative;
+    margin-bottom: 15%;
+    margin-left: 5%;
+    
+}
+
+/* Business Home Ends */
+
+
+/* Business Home Ends */
