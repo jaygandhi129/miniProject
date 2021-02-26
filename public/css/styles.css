@@ -78,8 +78,88 @@ body {
 }
 
 /* Responsive */
+@media (max-width:810px) and (min-width:730px){
+  .home-heading{
+    font-size: 2.2rem;
+  }
+  .business-home-desc{
+    font-size: 1.7rem;
+    margin-top: 8%;
+  }
+  .selling-btn{
+    font-size: 1.2rem;
+    width: 55%;
+    margin-top: 10%;
+  }
+  .business-home-card{
+    margin-top: 9%;
+  }
+  .business-logo{
+    width: 22%;
+  }
+}
+@media (max-width:730px) {
+  .business-logo {
+    width: 35%;
+    height: 35%;
+    margin-top: 6%;
+  }
 
-@media (max-width:450px) {
+  .business-home-card {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12%;
+  }
+
+  .home-heading {
+    font-size: 2.2rem;
+    margin-top: 10%;
+    width: 80%;
+  }
+
+  .business-home-desc {
+    font-size: 1.7rem;
+  }
+
+  .selling-btn {
+    margin-top: 8%;
+    width: 45%;
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 8px 4px;
+  }
+}
+@media (max-width:729px) and (min-width:560px) {
+  .business-logo {
+    width: 30%;
+    height: 30%;
+    margin-top: 5%;
+  }
+
+  .business-home-card {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 9%;
+  }
+
+  .home-heading {
+    font-size: 2.3rem;
+    width: 85%;
+    margin-top: 10%;
+  }
+
+  .selling-btn {
+    margin-top: 6%;
+    width: 50%;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 8px 4px;
+  }
+
+}
+@media (max-width:450px) and (min-width:330px) {
   .business-logo {
     width: 35%;
     height: 35%;
@@ -119,7 +199,7 @@ body {
     width: 85%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25%;
+    margin-top: 20%;
   }
 
   .home-heading {
@@ -140,5 +220,7 @@ body {
   }
 
 }
+
+
 
 /* Business Home Ends */
