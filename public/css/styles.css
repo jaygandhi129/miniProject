@@ -11,50 +11,44 @@ body {
 /* Business Home Starts */
 .business-first-div {
   position: relative;
+  background-image: url("../images/business-home-bg.jpg");
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0;
+  height: 100vh;
+
 }
 
 .business-logo {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  width: 7%;
-  border-radius: 10%;
-}
-
-.business-title {
-  position: absolute;
-  top: 3.5%;
-  left: 15%;
-  font-size: 4rem;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  text-shadow: 2px 2px 5px rgb(92, 90, 90);
+  border-radius: 3%;
+  width: 15%;
+  height: 15%;
+  margin-left: 7%;
+  margin-top: 2%;
 }
 
 .business-title-span {
   position: absolute;
-  top: 90%;
-  left: 63%;
   font-size: 2rem;
   color: white;
   font-style: italic;
+
 }
 
 .home-heading {
-  position: relative;
   font-family: 'Hind Siliguri', sans-serif;
-  width: 75%;
-  margin: 5%;
   color: rgb(243, 247, 10);
   text-shadow: 2px 2px 5px rgb(92, 90, 90);
   font-size: 2.7rem;
+  margin-left: 5%;
+  margin-bottom: 5%;
 }
 
 .business-home-desc {
-  position: relative;
   width: 90%;
-  margin: 5%;
+  margin-left: 5%;
   color: rgba(255, 255, 255, 0.884);
   font-family: 'Shippori Mincho B1', serif;
 }
@@ -68,411 +62,83 @@ body {
 
 .business-home-card {
   background-color: rgba(15, 15, 15, 0.829);
-  position: absolute;
-  top: 25%;
-  left: 5%;
   width: 40%;
-  height: 58%;
+  height: fit-content;
+  padding-top: 3%;
+  margin-left: 7%;
+  margin-top: 4%;
 }
 
 .selling-btn {
   position: relative;
   margin-bottom: 15%;
   margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 6%;
 }
 
-/* Business Home Ends */
-/* Business Home Ends */
+/* Responsive */
 
-
-@media only screen and (max-width: 1028px) {
-  .business-first-div {
-    position: relative;
-  }
-
-  .business-home-img {
-    height: 100vh;
-    width: 100%;
-    display: block;
-    padding-bottom: 30%;
-    filter: blur(1.5px);
-    -webkit-filter: blur(1.5px);
-  }
-
+@media (max-width:450px) {
   .business-logo {
-    position: absolute;
-    top: 6%;
-    left: 5%;
-    width: 9%;
-    border-radius: 10%;
-  }
-
-  .business-title {
-    position: absolute;
-    top: 5%;
-    left: 20%;
-    font-size: 2.2rem;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-  }
-
-  .business-title-span {
-    position: absolute;
-    top: 90%;
-    left: 58%;
-    font-size: 1.3rem;
-    color: white;
-    font-style: italic;
+    width: 35%;
+    height: 35%;
+    margin-top: 5%;
   }
 
   .business-home-card {
-    background-color: rgba(15, 15, 15, 0.829);
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 60%;
-    height: 70%;
-  }
-
-  .selling-btn {
-    position: relative;
-    margin-bottom: 15%;
-    margin-left: 5%;
-    margin-top: 6%;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12%;
   }
 
   .home-heading {
-    position: relative;
-    font-family: 'Hind Siliguri', sans-serif;
-    width: 75%;
-    margin: 5%;
-    color: rgb(243, 247, 10);
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-    font-size: 2rem;
+    font-size: 2.3rem;
+    margin-top: 10%;
   }
 
-  .business-home-desc {
-    position: relative;
-    width: 90%;
-    margin: 5%;
-    color: rgba(255, 255, 255, 0.884);
-    font-family: 'Shippori Mincho B1', serif;
-    font-size: 1.3rem;
+  .selling-btn {
+    margin-top: 8%;
+    width: 50%;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 8px 4px;
   }
+
 }
 
-@media only screen and (max-width: 823px) {
-  .business-first-div {
-    position: relative;
-  }
-
-  .business-home-img {
-    height: 100vh;
-    width: 100%;
-    display: block;
-    padding-bottom: 30%;
-    filter: blur(1.5px);
-    -webkit-filter: blur(1.5px);
-  }
-
+@media (max-width:330px) {
   .business-logo {
-    position: absolute;
-    top: 6%;
-    left: 5%;
-    width: 9%;
-    border-radius: 10%;
-  }
-
-  .business-title {
-    position: absolute;
-    top: 5%;
-    left: 20%;
-    font-size: 2.2rem;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-  }
-
-  .business-title-span {
-    position: absolute;
-    top: 90%;
-    left: 58%;
-    font-size: 1.3rem;
-    color: white;
-    font-style: italic;
-  }
-
-  .business-home-card {
-    background-color: rgba(15, 15, 15, 0.829);
-    position: absolute;
-    top: 20%;
-    left: 5%;
-    width: 80%;
+    width: 50%;
     height: 50%;
-  }
-
-  .selling-btn {
-    position: relative;
-    margin-bottom: 15%;
-    margin-left: 5%;
-    margin-top: 6%;
-  }
-
-  .home-heading {
-    position: relative;
-    font-family: 'Hind Siliguri', sans-serif;
-    width: 75%;
-    margin: 5%;
-    color: rgb(243, 247, 10);
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-    font-size: 2rem;
-  }
-
-  .business-home-desc {
-    position: relative;
-    width: 90%;
-    margin: 5%;
-    color: rgba(255, 255, 255, 0.884);
-    font-family: 'Shippori Mincho B1', serif;
-    font-size: 1.3rem;
-  }
-}
-
-
-@media only screen and (max-height: 731px){
-  .business-first-div {
-    position: relative;
-  }
-
-  .business-home-img {
-    height: 100vh;
-    width: 100%;
-    display: block;
-    padding-bottom: 30%;
-    filter: blur(1.5px);
-    -webkit-filter: blur(1.5px);
-  }
-
-  .business-logo {
-    position: absolute;
-    top: 6%;
-    left: 5%;
-    width: 9%;
-    border-radius: 10%;
-  }
-
-  .business-title {
-    position: absolute;
-    top: 5%;
-    left: 20%;
-    font-size: 2.2rem;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-  }
-
-  .business-title-span {
-    position: absolute;
-    top: 90%;
-    left: 58%;
-    font-size: 1.3rem;
-    color: white;
-    font-style: italic;
+    margin-top: 5%;
   }
 
   .business-home-card {
-    background-color: rgba(15, 15, 15, 0.829);
-    position: absolute;
-    top: 20%;
-    left: 8%;
     width: 85%;
-    height: 20%;
-  }
-
-  .selling-btn {
-    position: relative;
-    margin-bottom: 15%;
-    margin-left: 5%;
-    margin-top: 6%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
   }
 
   .home-heading {
-    position: relative;
-    font-family: 'Hind Siliguri', sans-serif;
-    width: 75%;
-    margin: 5%;
-    color: rgb(243, 247, 10);
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-top: 10%;
   }
 
   .business-home-desc {
-    position: relative;
-    width: 90%;
-    margin: 5%;
-    color: rgba(255, 255, 255, 0.884);
-    font-family: 'Shippori Mincho B1', serif;
     font-size: 1.3rem;
   }
-}
 
-@media only screen and (max-width: 680px) {
-  .business-first-div {
-    position: relative;
-  }
-
-  .business-home-img {
-    height: 100vh;
-    width: 100%;
-    display: block;
-    padding-bottom: 30%;
-    filter: blur(1.5px);
-    -webkit-filter: blur(1.5px);
-  }
-
-  .business-logo {
-    position: absolute;
-    top: 6%;
-    left: 5%;
-    width: 9%;
-    border-radius: 10%;
-  }
-
-  .business-title {
-    position: absolute;
-    top: 5%;
-    left: 20%;
-    font-size: 2.2rem;
+  .selling-btn {
+    margin-top: 8%;
+    width: 60%;
+    font-size: 1.1rem;
     text-align: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
+    padding: 8px 4px;
   }
 
-  .business-title-span {
-    position: absolute;
-    top: 90%;
-    left: 58%;
-    font-size: 1.3rem;
-    color: white;
-    font-style: italic;
-  }
-
-  .business-home-card {
-    background-color: rgba(15, 15, 15, 0.829);
-    position: absolute;
-    top: 20%;
-    left: 8%;
-    width: 85%;
-    height: 70%;
-  }
-
-  .selling-btn {
-    position: relative;
-    margin-bottom: 15%;
-    margin-left: 5%;
-    margin-top: 6%;
-  }
-
-  .home-heading {
-    position: relative;
-    font-family: 'Hind Siliguri', sans-serif;
-    width: 75%;
-    margin: 5%;
-    color: rgb(243, 247, 10);
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-    font-size: 2rem;
-  }
-
-  .business-home-desc {
-    position: relative;
-    width: 90%;
-    margin: 5%;
-    color: rgba(255, 255, 255, 0.884);
-    font-family: 'Shippori Mincho B1', serif;
-    font-size: 1.3rem;
-  }
 }
 
-
-@media only screen and (max-height: 640px){
-  .business-first-div {
-    position: relative;
-  }
-
-  .business-home-img {
-    height: 100vh;
-    width: 100%;
-    display: block;
-    padding-bottom: 30%;
-    filter: blur(1.5px);
-    -webkit-filter: blur(1.5px);
-  }
-
-  .business-logo {
-    position: absolute;
-    top: 6%;
-    left: 5%;
-    width: 9%;
-    border-radius: 10%;
-  }
-
-  .business-title {
-    position: absolute;
-    top: 5%;
-    left: 20%;
-    font-size: 2.2rem;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-  }
-
-  .business-title-span {
-    position: absolute;
-    top: 90%;
-    left: 58%;
-    font-size: 1.3rem;
-    color: white;
-    font-style: italic;
-  }
-
-  .business-home-card {
-    background-color: rgba(15, 15, 15, 0.829);
-    position: absolute;
-    top: 20%;
-    left: 8%;
-    width: 85%;
-    height: 60%;
-  }
-
-  .selling-btn {
-    position: relative;
-    margin-bottom: 15%;
-    margin-left: 5%;
-    margin-top: 6%;
-  }
-
-  .home-heading {
-    position: relative;
-    font-family: 'Hind Siliguri', sans-serif;
-    width: 75%;
-    margin: 5%;
-    color: rgb(243, 247, 10);
-    text-shadow: 2px 2px 5px rgb(92, 90, 90);
-    font-size: 2rem;
-  }
-
-  .business-home-desc {
-    position: relative;
-    width: 90%;
-    margin: 5%;
-    color: rgba(255, 255, 255, 0.884);
-    font-family: 'Shippori Mincho B1', serif;
-    font-size: 1.3rem;
-  }
-}
+/* Business Home Ends */
