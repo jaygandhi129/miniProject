@@ -3,11 +3,13 @@
 </head>
 
 <body>
+  <!-- home page starts -->
   <section id="home">
 
     <div class="business-first-div container-fluid">
       <div class="container-fluid">
         <img src="./images/logo-seller.png" alt="business-logo" class="business-logo">
+        <button class="btn btn-warning login-btn"><i class="fas fa-user-circle"></i> Login</button>
       </div>
       <div class="business-home-card container-fluid">
         <div class="container-fluid">
@@ -18,14 +20,68 @@
           </h3>
         </div>
         <div class="container-fluid">
-          <button class="btn btn-warning btn-lg selling-btn">Start Selling</button>
+          <button class="btn btn-warning btn-lg selling-btn">Start Selling <i class="far fa-smile"></i></button>
         </div>
       </div>
 
     </div>
 
   </section>
-  <div class="line"></div>
-
+  <!-- Home Page Ends -->
+  <!-- Benefits Start -->
+  <section id="benefits">
+    <div class="container-fluid">
+      <h1 class="benefits-heading">Why you should sell on NearCart?</h1>
+    </div>
+    <!-- Carousal -->
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <img src="/images/easy-connect.jpg" class="d-block carousal-img" alt="connect-customers-img">
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="carousal-item-heading">Easy to connect with customers.</h5>
+            <p class="carousal-item-para">Turn your retail store into an online store and connect with your customers.</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <img src="./images/grow.png" class="d-block carousal-img" alt="Grow-your-business-img">
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="carousal-item-heading">Grow your business in local market.</h5>
+            <p class="carousal-item-para">Keep serving to customers within your locality  as a way to Give back to your community.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="./images/advertise.jpg" class="d-block carousal-img" alt="Advertise-img">
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="carousal-item-heading">Advertise your business and boost your sales.</h5>
+            <p class="carousal-item-para">Use this platform to show your products to  anyone, anywhere thus making your store digitally visible.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="./images/earn.png" class="d-block carousal-img" alt="earn-img">
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="carousal-item-heading">Earn More</h5>
+            <p class="carousal-item-para">Use this platform to show your products to  anyone, anywhere thus making your store digitally visible.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"  data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"  data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+  <!-- Benefits End -->
+  
 
   <%- include("partials/footer") -%>

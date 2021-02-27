@@ -6,6 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-color: #fffff5;
 }
 
 /* Business Home Starts */
@@ -29,17 +30,9 @@ body {
   margin-top: 2%;
 }
 
-.business-title-span {
-  position: absolute;
-  font-size: 2rem;
-  color: white;
-  font-style: italic;
-
-}
-
 .home-heading {
   font-family: 'Hind Siliguri', sans-serif;
-  color: rgb(243, 247, 10);
+  color: #f3f70a;
   text-shadow: 2px 2px 5px rgb(92, 90, 90);
   font-size: 2.7rem;
   margin-left: 5%;
@@ -53,12 +46,6 @@ body {
   font-family: 'Shippori Mincho B1', serif;
 }
 
-.business-home-img {
-  height: 100%;
-  width: 100%;
-  filter: blur(1.5px);
-  -webkit-filter: blur(1.5px);
-}
 
 .business-home-card {
   background-color: rgba(15, 15, 15, 0.829);
@@ -221,6 +208,34 @@ body {
 
 }
 
+.login-btn{
+  margin-left: 60%;
+  margin-top: 2%;
+  box-shadow: gray 1px 1px 5px;
+  font-size: 1.1rem;
 
+}
 
 /* Business Home Ends */
+
+/* Benefits Start */
+.benefits-heading{
+  text-align: center;
+  margin-top: 3%;
+}
+
+.carousal-img{
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 8%;
+  margin-top: 2%;
+}
+
+.carousal-item-heading{
+  font-size: 1.6rem;
+}
+.carousal-item-para{
+  font-size: 1.1rem;
+}
+/* Benefits Ends */
