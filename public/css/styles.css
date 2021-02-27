@@ -64,6 +64,17 @@ body {
   margin-bottom: 6%;
 }
 
+.login-btn{
+  margin-left: 60%;
+  margin-top: 2%;
+  box-shadow: gray 1px 1px 5px;
+  font-size: 1.1rem;
+
+}
+.inline-div{
+  display: inline-block;
+}
+
 /* Responsive */
 @media (max-width:810px) and (min-width:730px){
   .home-heading{
@@ -75,14 +86,19 @@ body {
   }
   .selling-btn{
     font-size: 1.2rem;
-    width: 55%;
+    width: 65%;
     margin-top: 10%;
   }
   .business-home-card{
-    margin-top: 9%;
+    margin-top: 6%;
   }
   .business-logo{
     width: 22%;
+  }
+  .login-btn{
+    width: 15%;
+    display: inline;
+    margin-left: 45%;
   }
 }
 @media (max-width:730px) {
@@ -115,6 +131,12 @@ body {
     font-size: 1.4rem;
     text-align: center;
     padding: 8px 4px;
+  }
+  .login-btn{
+    width: 20%;
+    display: inline;
+    margin-left: 30%;
+    margin-top: 5%;
   }
 }
 @media (max-width:729px) and (min-width:560px) {
@@ -172,6 +194,11 @@ body {
     text-align: center;
     padding: 8px 4px;
   }
+  .login-btn{
+    width: 22%;
+    display: inline;
+    margin-left: 30%;
+  }
 
 }
 
@@ -205,16 +232,16 @@ body {
     text-align: center;
     padding: 8px 4px;
   }
+  .login-btn{
+    width: 25%;
+    display: inline;
+    margin-left: 12%;
+  }
 
 }
 
-.login-btn{
-  margin-left: 60%;
-  margin-top: 2%;
-  box-shadow: gray 1px 1px 5px;
-  font-size: 1.1rem;
 
-}
+
 
 /* Business Home Ends */
 
