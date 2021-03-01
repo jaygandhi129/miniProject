@@ -179,7 +179,7 @@ body {
     width: 85%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 12%;
+    margin-top: 7%;
   }
 
   .home-heading {
@@ -195,9 +195,9 @@ body {
     padding: 8px 4px;
   }
   .login-btn{
-    width: 22%;
+    width: 30%;
     display: inline;
-    margin-left: 30%;
+    margin-left: 15%;
   }
 
 }
@@ -228,14 +228,15 @@ body {
   .selling-btn {
     margin-top: 8%;
     width: 60%;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-align: center;
     padding: 8px 4px;
   }
   .login-btn{
-    width: 25%;
+    width: 30%;
     display: inline;
-    margin-left: 12%;
+    margin-left: 8%;
+    font-size: 0.8rem;
   }
 
 }
@@ -264,5 +265,108 @@ body {
 }
 .carousal-item-para{
   font-size: 1.1rem;
+}
+
+
+
+
+
+
+
+
+
+/* Responsive */
+@media (max-width:1280px) and (min-width:1251px){
+  .carousel-item{
+    padding-bottom: 6%;
+  }
+}
+@media (max-width:1250px) and (min-width:873px){
+  .carousel-item{
+    padding-bottom: 7%;
+  }
+}
+@media (max-width:872px) and (min-width:771px){
+  .carousel-item{
+    padding-bottom: 13%;
+  }
+  .carousal-img{
+    width:50%;
+  }
+}
+@media (max-width:770px) and (min-width:601px){
+  .carousel-item{
+    padding-bottom: 20%;
+  }
+  .carousal-img{
+    width:55%;
+  }
+}
+@media (max-width:600px) and (min-width:566px){
+  .carousel-item{
+    padding-bottom: 25%;
+  }
+  .carousal-img{
+    width:60%;
+  }
+}
+@media (max-width:566px) and (min-width:521px){
+  .carousel-item{
+    padding-bottom: 23%;
+  }
+  .carousal-item-heading{
+    font-size:1.3rem;
+  }
+  .carousal-item-para{
+    font-size: 1rem;
+  }
+  .carousal-img{
+    width:50%;
+  }
+}
+@media (max-width:520px) and (min-width:352px){
+  .carousel-item{
+    padding-bottom: 20%;
+  }
+  .carousal-item-para{
+    display: none;
+  }
+  .hide-on-mobile{
+    display: none;
+  }
+  .carousal-img{
+    width:55%;
+  }
+}
+@media (max-width:351px) and (min-width:282px){
+  .carousel-item{
+    padding-bottom: 25%;
+  }
+  .hide-on-mobile{
+    display: none;
+  }
+  .carousal-item-para{
+    display: none;
+  }
+  .carousal-item-heading{
+    font-size:1.3rem;
+  }
+}
+@media (max-width:281px){
+  .carousel-item{
+    padding-bottom: 28%;
+  }
+  .carousal-item-heading{
+    font-size:1.1rem;
+  }
+  .hide-on-mobile{
+    display: none;
+  }
+  .carousal-item-para{
+    display: none;
+  }
+  .carousal-img{
+    width:60%;
+  }
 }
 /* Benefits Ends */
