@@ -1,0 +1,433 @@
+.sell-steps {
+    font-family: Roboto,Helvetica,Arial,sans-serif!important;
+    background: rgb(255, 255, 255)!important
+}
+
+.navbar-inverse {
+    background-color: #333;
+    border-color: #333;
+    border-radius: 0;
+    color: #fff;
+    min-height: 80px
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+    font-size: 21px
+}
+
+.rg-logoo {
+    max-width: 180px;
+    margin-top: -15px;
+    display: inline
+}
+
+.navbar-inverse .navbar-header {
+    margin-top: 10px
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+    font-size: 14px;
+    padding-top: 30px
+}
+
+.nav-container {
+    margin-top: 4px
+}
+
+.sell-slider-container .bx-wrapper {
+    box-shadow: none;
+    border: none
+}
+
+.panel-card {
+    background-color: #fff;
+    box-shadow: 1px 1px 6px 1px rgba(0,0,0,.25);
+    border: none;
+    border-radius: 1px;
+    padding: 20px
+}
+
+.login-heading {
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 15px
+}
+
+label {
+    font-weight: 500;
+    font-size: 13px;
+    color: #7b7b7b
+}
+
+.sell-login-summery {
+    margin-top: 70px
+}
+
+.sell-login-summery img {
+    margin: auto;
+    display: block
+}
+
+.sell-login-summery .login-summery-box {
+    margin-bottom: 50px
+}
+
+.sell-login-summery .login-summery-box b {
+    margin-bottom: 5px;
+    display: block
+}
+
+.sell-steps .sell-steps-main-heading,.sell-pricing .sell-pricing-main-heading {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 36px;
+    color: #333
+}
+
+.sell-steps {
+    font-size: 15px;
+    color: #999
+}
+
+.sell-steps .sell-step-heading {
+    font-size: 19px;
+    color: #00a699
+}
+
+.sell-steps ul {
+    margin-left: -15px;
+    margin-top: 15px
+}
+
+.sell-steps ul li {
+    margin-bottom: 8px;
+    line-height: 24px
+}
+
+.footer {
+    background-color: #1b1b1b;
+    background-image: -moz-linear-gradient(top,#222222,#111111);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#222222),to(#111111));
+    background-image: -webkit-linear-gradient(top,#222222,#111111);
+    background-image: -o-linear-gradient(top,#222222,#111111);
+    background-image: linear-gradient(to bottom,#222222,#111111);
+    background-repeat: repeat-x;
+    border-color: #252525
+}
+
+.sell-contact .download-app,.sell-contact .social {
+    color: #aaa;
+    font-size: 20px;
+    margin-top: 38px;
+    font-weight: lighter
+}
+
+.copyright {
+    padding: 18px;
+    background-color: #333;
+    color: #cecece
+}
+
+.sell-steps,.sell-pricing {
+    margin-bottom: 50px
+}
+
+
+.sell-steps .sell-steps-icon {
+    background: #f8f8f8
+}
+
+.sell-steps .sell-step {
+    position: relative;
+    padding-bottom: 50px
+}
+
+.sell-steps-icon{
+    z-index: 1;
+    color: rgb(3, 28, 109);
+    font-size: 4rem;
+}
+
+.verti-line {
+    background: #333;
+    position: absolute;
+    height: 100%;
+    z-index: 0;
+    width: 1px;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 80px auto;
+    padding: 1px;
+}
+
+.verti-line1 {
+    padding: 1px;
+}
+
+.verti-line2 {
+    padding: 1px;
+}
+
+.verti-line3 {
+    padding: 1px;
+}
+.sell-steps ul li {
+    list-style: outside!important
+}
+
+.sell-pricing .sell-pricing-type {
+    color: #00a699;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 700
+}
+
+.sell-pricing .sell-pricing-val {
+    color: #000;
+    font-size: 18px;
+    text-align: center
+}
+
+.sell-pricing .sell-pricing-info {
+    font-size: 15px;
+    margin: 10px 0;
+    color: #3c3c3c
+}
+
+.open-str-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.text-cut {
+    color: #999!important
+}
+
+.sell-website {
+    margin: 50px 0
+}
+
+.sell-website img {
+    margin: auto
+}
+
+.sell-website .btn-tell-me {
+    margin-bottom: 70px;
+    width: 200px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px
+}
+
+@media(min-width: 768px) {
+    .open-str-container {
+        width:750px
+    }
+}
+
+@media(min-width: 992px) {
+    .open-str-container {
+        width:970px
+    }
+}
+
+@media(min-width: 1200px) {
+    .open-str-container {
+        width:1170px
+    }
+}
+
+@media(max-width: 768px) {
+    .navbar-inverse .navbar-brand {
+        font-size:18px!important
+    }
+
+    .sell-login-summery {
+        text-align: center
+    }
+
+    .sell-login-summery-icon {
+        margin: auto;
+        display: block
+    }
+
+    .sell-login-summery {
+        margin-top: 50px!important
+    }
+
+    .sell-steps .sell-steps-main-heading,.sell-pricing .sell-pricing-main-heading {
+        margin: 40px 0!important;
+        font-size: 20px!important
+    }
+
+    .sell-steps .sell-steps-img {
+        max-width: 250px;
+        margin: auto;
+        display: block
+    }
+}
+
+@media(max-width: 1024px) {
+    .popup.btn {
+        margin-top:10px;
+        display: block!important
+    }
+}
+
+@media(max-width: 992px) {
+    .sell-login-summery {
+        text-align:center
+    }
+
+    #section2-fold1a h2 {
+        margin: 30px 0 35px!important;
+        font-size: 20px!important
+    }
+
+    #section2-fold1a .greyish-text {
+        font-size: 16px!important
+    }
+
+    .rg-logoo {
+        margin-top: -30px!important
+    }
+
+    .open-str-container {
+        padding-right: 0!important;
+        padding-left: 0!important
+    }
+
+    .open-str-container .mobile-nav a {
+        color: #fff!important;
+        font-size: 13px;
+        text-decoration: none!important
+    }
+
+    .footer {
+        padding: 5px 12px;
+        text-align: center
+    }
+
+    .popup.btn {
+        margin-right: 0!important
+    }
+}
+
+@media(max-width: 623px) {
+    .sell-login-summery-icon {
+        padding-top:15px;
+        padding-bottom: 20px
+    }
+
+    .sell-login-summery {
+        font-size: 13px
+    }
+
+    .sell-steps .sell-step-heading {
+        font-size: 15px!important;
+        text-align: center;
+        margin-top: 10px
+    }
+
+    .sell-steps ul li {
+        font-size: 13px
+    }
+
+    .sell-contact .download-app,.sell-contact .social {
+        font-size: 14px!important;
+        margin-top: 15px!important
+    }
+
+    .sell-login-summery .login-summery-box {
+        margin-bottom: 25px
+    }
+
+    .sell-website {
+        margin: 0!important
+    }
+
+    .sell-website h2 {
+        font-size: 20px
+    }
+
+    .sell-website .btn-tell-me {
+        margin-top: 15px
+    }
+
+    .rg-logoo {
+        max-width: 120px!important;
+        margin-right: 15px;
+        margin-top: -13px
+    }
+}
+
+#section2-fold1a h2 {
+    margin: 100px 0 35px;
+    font-size: 35pt;
+    font-weight: 400
+}
+
+#section2-fold1a .greyish-text {
+    color: #5a5a5a;
+    font-size: 16pt;
+    font-weight: 400;
+    margin: 10px 0 25px
+}
+
+.text-cut {
+    text-decoration: line-through
+}
+
+#error_msg_request,#error_msg_request2 {
+    font-size: 13px;
+    padding-left: 30px;
+    color: red;
+    margin-bottom: 12px
+}
+
+#succ_msg_request {
+    font-size: 18px;
+    padding-left: 30px;
+    color: green;
+    margin-bottom: 12px
+}
+
+.input-opnstr {
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 1px
+}
+
+.mar-top--20 {
+    margin-top: -20px
+}
+
+.main-img img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.social-icon {
+    padding-right: 12px;
+    margin-top: 40px
+}
+
+.popup.btn {
+    display: inline-block
+}
+
+.mar-left-30 {
+    margin-left: 30px
+}
+
+
