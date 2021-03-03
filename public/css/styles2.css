@@ -1,6 +1,6 @@
 .sell-steps {
     font-family: Roboto,Helvetica,Arial,sans-serif!important;
-    background: rgb(255, 255, 255)!important
+    background-color: white!important
 }
 
 .navbar-inverse {
@@ -125,19 +125,13 @@ label {
     font-weight: lighter
 }
 
-.copyright {
-    padding: 18px;
-    background-color: #333;
-    color: #cecece
-}
-
 .sell-steps,.sell-pricing {
     margin-bottom: 50px
 }
 
 
 .sell-steps .sell-steps-icon {
-    background: #f8f8f8
+    background: #ffffff
 }
 
 .sell-steps .sell-step {
@@ -174,6 +168,7 @@ label {
 
 .verti-line3 {
     padding: 1px;
+    height: 170%;
 }
 .sell-steps ul li {
     list-style: outside!important
@@ -431,3 +426,41 @@ label {
 }
 
 
+.sell-step-2, .sell-step-4{
+    margin-left: 6%;
+    width: 35%;
+    text-align: justify;
+}
+
+.sell-step-1, .sell-step-3{
+    margin-right: 6%;
+    width: 35%;
+    text-align: justify;
+}
+
+.sell-step{
+    margin-left: 0;
+    margin-right: 0;
+}
+.row{
+    margin: 0;
+}
+
+.sell-steps-img-1{
+    width: 35%;
+    margin-left: 40%;
+}
+
+.sell-steps-img-2{
+    width: 35%;
+    margin-left:65%;
+}
+.sell-steps-img-3{
+    width: 50%;
+    margin-left:35%;
+}
+
+.sell-steps-img-4{
+    width: 47%;
+    margin-left:65%;
+}
