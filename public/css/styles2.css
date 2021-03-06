@@ -1,496 +1,599 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap');
+
+
+
+
+
+.sell-steps-main-heading{
+  font-family: 'Work Sans', sans-serif;
+
+}
 .sell-steps {
-    font-family: Roboto,Helvetica,Arial,sans-serif!important;
-    background-color: white!important
+  font-family: Roboto, Helvetica, Arial, sans-serif !important;
+  background-color: white !important
 }
 
 .navbar-inverse {
-    background-color: #333;
-    border-color: #333;
-    border-radius: 0;
-    color: #fff;
-    min-height: 80px
+  background-color: #333;
+  border-color: #333;
+  border-radius: 0;
+  color: #fff;
+  min-height: 80px
 }
 
 .navbar-inverse .navbar-brand {
-    color: #fff;
-    font-size: 21px
+  color: #fff;
+  font-size: 21px
 }
 
 .rg-logoo {
-    max-width: 180px;
-    margin-top: -15px;
-    display: inline
+  max-width: 180px;
+  margin-top: -15px;
+  display: inline
 }
 
 .navbar-inverse .navbar-header {
-    margin-top: 10px
+  margin-top: 10px
 }
 
 .navbar-inverse .navbar-nav>li>a {
-    color: #fff;
-    font-size: 14px;
-    padding-top: 30px
+  color: #fff;
+  font-size: 14px;
+  padding-top: 30px
 }
 
 .nav-container {
-    margin-top: 4px
+  margin-top: 4px
 }
 
 .sell-slider-container .bx-wrapper {
-    box-shadow: none;
-    border: none
+  box-shadow: none;
+  border: none
 }
 
 .panel-card {
-    background-color: #fff;
-    box-shadow: 1px 1px 6px 1px rgba(0,0,0,.25);
-    border: none;
-    border-radius: 1px;
-    padding: 20px
+  background-color: #fff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, .25);
+  border: none;
+  border-radius: 1px;
+  padding: 20px
 }
 
 .login-heading {
-    text-align: center;
-    font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 15px
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 15px
 }
 
 label {
-    font-weight: 500;
-    font-size: 13px;
-    color: #7b7b7b
+  font-weight: 500;
+  font-size: 13px;
+  color: #7b7b7b
 }
 
 .sell-login-summery {
-    margin-top: 70px
+  margin-top: 70px
 }
 
 .sell-login-summery img {
-    margin: auto;
-    display: block
+  margin: auto;
+  display: block
 }
 
 .sell-login-summery .login-summery-box {
-    margin-bottom: 50px
+  margin-bottom: 50px
 }
 
 .sell-login-summery .login-summery-box b {
-    margin-bottom: 5px;
-    display: block
+  margin-bottom: 5px;
+  display: block
 }
 
-.sell-steps .sell-steps-main-heading,.sell-pricing .sell-pricing-main-heading {
-    text-align: center;
-    margin: 50px 0;
-    font-size: 36px;
-    color: #333
+.sell-steps .sell-steps-main-heading, .sell-pricing .sell-pricing-main-heading {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 36px;
+  color: #333
+}
+
+.sell-img-hide-pc {
+  display: none;
 }
 
 .sell-steps {
-    font-size: 15px;
-    color: #999
+  font-size: 15px;
+  color: #999
 }
 
 .sell-steps .sell-step-heading {
-    font-size: 25px;
-    color: #00a699
+  font-size: 25px;
+  color: #ff5e14
 }
 
 .sell-steps ul {
-    margin-left: -15px;
-    margin-top: 15px
+  margin-left: -15px;
+  margin-top: 15px
 }
 
 .sell-steps ul li {
-    margin-bottom: 8px;
-    line-height: 24px;
-    font-size: 18px;
+  margin-bottom: 8px;
+  line-height: 24px;
+  font-size: 17.5px;
+  color: #363d38;
 }
 
 .footer {
-    background-color: #1b1b1b;
-    background-image: -moz-linear-gradient(top,#222222,#111111);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#222222),to(#111111));
-    background-image: -webkit-linear-gradient(top,#222222,#111111);
-    background-image: -o-linear-gradient(top,#222222,#111111);
-    background-image: linear-gradient(to bottom,#222222,#111111);
-    background-repeat: repeat-x;
-    border-color: #252525
+  background-color: #1b1b1b;
+  background-image: -moz-linear-gradient(top, #222222, #111111);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
+  background-image: -webkit-linear-gradient(top, #222222, #111111);
+  background-image: -o-linear-gradient(top, #222222, #111111);
+  background-image: linear-gradient(to bottom, #222222, #111111);
+  background-repeat: repeat-x;
+  border-color: #252525
 }
 
-.sell-contact .download-app,.sell-contact .social {
-    color: #aaa;
-    font-size: 20px;
-    margin-top: 38px;
-    font-weight: lighter
+.sell-contact .download-app, .sell-contact .social {
+  color: #aaa;
+  font-size: 20px;
+  margin-top: 38px;
+  font-weight: lighter
 }
 
-.sell-steps,.sell-pricing {
-    margin-bottom: 50px
+.sell-steps, .sell-pricing {
+  margin-bottom: 50px
 }
-
 
 .sell-steps .sell-steps-icon {
-    background: #ffffff
+  background: #ffffff
 }
 
 .sell-steps .sell-step {
-    position: relative;
-    padding-bottom: 50px
+  position: relative;
+  padding-bottom: 50px
 }
 
-.sell-step-3{
+.sell-step-3 {
   padding-top: 50px;
 }
-.sell-steps-icon{
-    z-index: 1;
-    color: rgb(3, 28, 109);
-    font-size: 4rem;
+
+.sell-steps-icon {
+  z-index: 1;
+  color: rgb(3, 28, 109);
+  font-size: 4rem;
 }
-.sell-steps-img-2{
+
+.sell-steps-img-2 {
   padding-top: 2px;
 }
 
 .verti-line {
-    background: #333;
-    position: absolute;
-    height: 100%;
-    z-index: 0;
-    width: 1px;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 80px auto;
-    padding: 1px;
+  background: #333;
+  position: absolute;
+  height: 100%;
+  z-index: 0;
+  width: 1px;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 80px auto;
+  padding: 1px;
 }
 
 .verti-line1 {
-    padding: 1px;
+  padding: 1px;
 }
 
 .verti-line2 {
-    padding: 1px;
+  padding: 1px;
 }
 
 .verti-line3 {
-    padding: 1px;
-    height: 170%;
+  padding: 1px;
+  height: 170%;
 }
+
 .sell-steps ul li {
-    list-style: outside!important
+  list-style: outside !important
 }
 
 .sell-pricing .sell-pricing-type {
-    color: #00a699;
-    font-size: 25px;
-    text-align: center;
-    font-weight: 700
+  color: #00a699;
+  font-size: 25px;
+  text-align: center;
+  font-weight: 700
 }
 
 .sell-pricing .sell-pricing-val {
-    color: #000;
-    font-size: 18px;
-    text-align: center
+  color: #000;
+  font-size: 18px;
+  text-align: center
 }
 
 .sell-pricing .sell-pricing-info {
-    font-size: 15px;
-    margin: 10px 0;
-    color: #3c3c3c
+  font-size: 15px;
+  margin: 10px 0;
+  color: #3c3c3c
 }
 
 .open-str-container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto
 }
 
 .text-cut {
-    color: #999!important
+  color: #999 !important
 }
 
 .sell-website {
-    margin: 50px 0
+  margin: 50px 0
 }
 
 .sell-website img {
-    margin: auto
+  margin: auto
 }
 
 .sell-website .btn-tell-me {
-    margin-bottom: 70px;
-    width: 200px;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 12px
+  margin-bottom: 70px;
+  width: 200px;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 12px
 }
 
-.sell-step-heading{
+.sell-step-heading {
   font-size: 20px;
 }
-.sell-step-2{
+
+.sell-step-2 {
   padding-top: 20px;
 }
 
+.testimonials-section{
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Starts*/
+
+
+
 @media(min-width: 768px) {
-    .open-str-container {
-        width:750px
-    }
-}
-
-@media(min-width: 992px) {
-    .open-str-container {
-        width:970px
-    }
-}
-
-@media(min-width: 1200px) {
-    .open-str-container {
-        width:1170px
-    }
-}
-
-@media(max-width: 768px) {
-    .navbar-inverse .navbar-brand {
-        font-size:18px!important
-    }
-
-    .sell-login-summery {
-        text-align: center
-    }
-
-    .sell-login-summery-icon {
-        margin: auto;
-        display: block
-    }
-
-    .sell-login-summery {
-        margin-top: 50px!important
-    }
-
-    .sell-steps .sell-steps-main-heading,.sell-pricing .sell-pricing-main-heading {
-        margin: 40px 0!important;
-        font-size: 20px!important
-    }
-
-    .sell-steps .sell-steps-img {
-        max-width: 250px;
-        margin: auto;
-        display: block
-    }
-}
-
-@media(max-width: 1024px) {
-    .popup.btn {
-        margin-top:10px;
-        display: block!important
-    }
-}
-
-@media(max-width: 992px) {
-    .sell-login-summery {
-        text-align:center
-    }
-
-    #section2-fold1a h2 {
-        margin: 30px 0 35px!important;
-        font-size: 20px!important
-    }
-
-    #section2-fold1a .greyish-text {
-        font-size: 16px!important
-    }
-
-    .rg-logoo {
-        margin-top: -30px!important
-    }
-
-    .open-str-container {
-        padding-right: 0!important;
-        padding-left: 0!important
-    }
-
-    .open-str-container .mobile-nav a {
-        color: #fff!important;
-        font-size: 13px;
-        text-decoration: none!important
-    }
-
-    .footer {
-        padding: 5px 12px;
-        text-align: center
-    }
-
-    .popup.btn {
-        margin-right: 0!important
-    }
-}
-
-@media(max-width: 623px) {
-
-    .sell-login-summery-icon {
-        padding-top:15px;
-        padding-bottom: 20px
-    }
-
-    .sell-login-summery {
-        font-size: 13px
-    }
-
-    .sell-steps .sell-step-heading {
-        font-size: 15px!important;
-        text-align: center;
-        margin-top: 10px
-    }
-
-    .sell-steps ul li {
-        font-size: 13px
-    }
-
-    .sell-contact .download-app,.sell-contact .social {
-        font-size: 14px!important;
-        margin-top: 15px!important
-    }
-
-    .sell-login-summery .login-summery-box {
-        margin-bottom: 25px
-    }
-
-    .sell-website {
-        margin: 0!important
-    }
-
-    .sell-website h2 {
-        font-size: 20px
-    }
-
-    .sell-website .btn-tell-me {
-        margin-top: 15px
-    }
-
-    .rg-logoo {
-        max-width: 120px!important;
-        margin-right: 15px;
-        margin-top: -13px
-    }
-     .verti-line1 {
-      display: none;
-    }
-    .verti-line2 {
-     display: none;
-   }
-   .verti-line3 {
-    display: none;
+  .open-str-container {
+    width: 750px
   }
 }
 
+@media(min-width: 992px) {
+  .open-str-container {
+    width: 970px
+  }
+}
+
+@media(min-width: 1200px) {
+  .open-str-container {
+    width: 1170px
+  }
+}
+
+@media(max-width: 768px) {
+  .navbar-inverse .navbar-brand {
+    font-size: 18px !important
+  }
+
+  .sell-login-summery {
+    text-align: center
+  }
+
+  .sell-login-summery-icon {
+    margin: auto;
+    display: block
+  }
+
+  .sell-login-summery {
+    margin-top: 50px !important
+  }
+
+  .sell-steps .sell-steps-main-heading, .sell-pricing .sell-pricing-main-heading {
+    margin: 40px 0 !important;
+    font-size: 20px !important
+  }
+
+  .sell-steps .sell-steps-img {
+    max-width: 250px;
+    margin: auto;
+    display: block
+  }
+}
+
+@media(max-width: 1024px) {
+  .popup.btn {
+    margin-top: 10px;
+    display: block !important
+  }
+}
+
+@media(max-width: 992px) {
+  .sell-login-summery {
+    text-align: center
+  }
+
+  #section2-fold1a h2 {
+    margin: 30px 0 35px !important;
+    font-size: 20px !important
+  }
+
+  #section2-fold1a .greyish-text {
+    font-size: 16px !important
+  }
+
+  .rg-logoo {
+    margin-top: -30px !important
+  }
+
+  .open-str-container {
+    padding-right: 0 !important;
+    padding-left: 0 !important
+  }
+
+  .open-str-container .mobile-nav a {
+    color: #fff !important;
+    font-size: 13px;
+    text-decoration: none !important
+  }
+
+  .footer {
+    padding: 5px 12px;
+    text-align: center
+  }
+
+  .popup.btn {
+    margin-right: 0 !important
+  }
+}
+
+@media(max-width: 768px) {
+  .sell-login-summery-icon {
+    padding-top: 15px;
+    padding-bottom: 20px
+  }
+
+  .sell-login-summery {
+    font-size: 13px
+  }
+
+  .sell-step-1, .sell-step-3,.sell-step-2, .sell-step-4  {
+    margin-left: 15%  !important;
+    width: 70% !important;
+  }
+
+  .sell-img-hide-mobile {
+    display: none;
+  }
+
+  .sell-img-hide-pc {
+    display: block;
+  }
+
+  .sell-contact .download-app, .sell-contact .social {
+    font-size: 14px !important;
+    margin-top: 15px !important
+  }
+
+  .sell-login-summery .login-summery-box {
+    margin-bottom: 25px
+  }
+
+  .sell-website {
+    margin: 0 !important
+  }
+
+  .sell-website h2 {
+    font-size: 20px
+  }
+
+  .sell-website .btn-tell-me {
+    margin-top: 15px
+  }
+
+  .rg-logoo {
+    max-width: 120px !important;
+    margin-right: 15px;
+    margin-top: -13px
+  }
+
+  .verti-line1 {
+    display: none;
+  }
+
+  .verti-line2 {
+    display: none;
+  }
+
+  .verti-line3 {
+    display: none;
+  }
+
+  .sell-steps-icon {
+    display: none;
+  }
+  .sell-step-1{
+    padding-top: 5%;
+  }
+  .sell-step-3{
+    padding-top: 5%;
+  }
+  .sell-step-4{
+    padding-top: 5%;
+  }
+}
+@media (max-width: 451px){
+  .sell-step-1, .sell-step-3,.sell-step-2, .sell-step-4  {
+    margin-left: 10%  !important;
+    width: 80% !important;
+  }
+  .sell-step-1{
+    padding-top: 5%;
+  }
+  .sell-step-3{
+    padding-top: 5%;
+  }
+  .sell-step-4{
+    padding-top: 5%;
+  }
+}
+@media (max-width: 361px){
+  .sell-step-1, .sell-step-3,.sell-step-2, .sell-step-4  {
+    margin-left: 5%  !important;
+    width: 90% !important;
+  }
+  .sell-step-1{
+    padding-top: 5%;
+  }
+  .sell-step-3{
+    padding-top: 5%;
+  }
+  .sell-step-4{
+    padding-top: 5%;
+  }
+}
 #section2-fold1a h2 {
-    margin: 100px 0 35px;
-    font-size: 35pt;
-    font-weight: 400
+  margin: 100px 0 35px;
+  font-size: 35pt;
+  font-weight: 400
 }
 
 #section2-fold1a .greyish-text {
-    color: #5a5a5a;
-    font-size: 16pt;
-    font-weight: 400;
-    margin: 10px 0 25px
+  color: #5a5a5a;
+  font-size: 16pt;
+  font-weight: 400;
+  margin: 10px 0 25px
 }
 
 .text-cut {
-    text-decoration: line-through
+  text-decoration: line-through
 }
 
-#error_msg_request,#error_msg_request2 {
-    font-size: 13px;
-    padding-left: 30px;
-    color: red;
-    margin-bottom: 12px
+#error_msg_request, #error_msg_request2 {
+  font-size: 13px;
+  padding-left: 30px;
+  color: red;
+  margin-bottom: 12px
 }
 
 #succ_msg_request {
-    font-size: 18px;
-    padding-left: 30px;
-    color: green;
-    margin-bottom: 12px
+  font-size: 18px;
+  padding-left: 30px;
+  color: green;
+  margin-bottom: 12px
 }
 
 .input-opnstr {
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 1px
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 1px
 }
 
 .mar-top--20 {
-    margin-top: -20px
+  margin-top: -20px
 }
 
 .main-img img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
 
 .social-icon {
-    padding-right: 12px;
-    margin-top: 40px
+  padding-right: 12px;
+  margin-top: 40px
 }
 
 .popup.btn {
-    display: inline-block
+  display: inline-block
 }
 
 .mar-left-30 {
-    margin-left: 30px
+  margin-left: 30px
 }
 
-
-.sell-step-2, .sell-step-4{
-    margin-left: 6%;
-    width: 35%;
-    text-align: justify;
+.sell-step-2, .sell-step-4 {
+  margin-left: 6%;
+  width: 35%;
+  text-align: justify;
 }
 
-.sell-step-1, .sell-step-3{
-    margin-right: 6%;
-    width: 35%;
-    text-align: justify;
+.sell-step-1, .sell-step-3 {
+  margin-right: 6%;
+  width: 35%;
+  text-align: justify;
 }
 
-.sell-step{
-    margin-left: 0;
-    margin-right: 0;
-}
-.row{
-    margin: 0;
+.sell-step {
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.sell-steps-img-1{
-    width: 35%;
-    margin-left: 40%;
+.row {
+  margin: 0;
 }
 
-.sell-steps-img-2{
-    width: 35%;
-    margin-left:65%;
-}
-.sell-steps-img-3{
-    width: 50%;
-    margin-left:35%;
+.sell-steps-img-1 {
+  width: 35%;
+  margin-left: 40%;
 }
 
-.sell-steps-img-4{
-    width: 47%;
-    margin-left:65%;
+.sell-steps-img-2 {
+  width: 35%;
+  margin-left: 65%;
 }
 
+.sell-steps-img-3 {
+  width: 50%;
+  margin-left: 35%;
+}
+
+.sell-steps-img-4 {
+  width: 47%;
+  margin-left: 65%;
+}
 
 /* success stories start */
+.testimonials-heading{
+  text-align: center;
+  font-family: 'Work Sans', sans-serif;
+}
 
 .testimonials-section {
   background: #fff;
@@ -513,6 +616,7 @@ label {
   -ms-flex-pack: center;
   justify-content: center;
 }
+
 .slider__nav {
   width: 12px;
   height: 12px;
@@ -529,25 +633,32 @@ label {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
 .slider__nav:checked {
   -webkit-animation: check 0.4s linear forwards;
   animation: check 0.4s linear forwards;
 }
-.slider__nav:checked:nth-of-type(1) ~ .slider__inner {
+
+.slider__nav:checked:nth-of-type(1)~.slider__inner {
   left: 0%;
 }
-.slider__nav:checked:nth-of-type(2) ~ .slider__inner {
+
+.slider__nav:checked:nth-of-type(2)~.slider__inner {
   left: -100%;
 }
-.slider__nav:checked:nth-of-type(3) ~ .slider__inner {
+
+.slider__nav:checked:nth-of-type(3)~.slider__inner {
   left: -200%;
 }
-.slider__nav:checked:nth-of-type(4) ~ .slider__inner {
+
+.slider__nav:checked:nth-of-type(4)~.slider__inner {
   left: -300%;
 }
-.slider__nav:checked:nth-of-type(5) ~ .slider__inner {
+
+.slider__nav:checked:nth-of-type(5)~.slider__inner {
   left: -400%;
 }
+
 .slider__inner {
   position: absolute;
   top: 80px;
@@ -564,6 +675,7 @@ label {
   -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
 }
+
 .slider__contents {
   height: 100%;
   text-align: center;
@@ -587,6 +699,7 @@ label {
   -ms-flex-pack: center;
   justify-content: center;
 }
+
 .slider__caption {
   font-size: 14px;
   color: #111;
@@ -594,6 +707,7 @@ label {
   font-family: 'Roboto';
   font-weight: bold;
 }
+
 .slider__txt {
   font-size: 22px;
   font-weight: bold;
@@ -604,6 +718,7 @@ label {
   margin-bottom: 20px;
   max-width: 750px;
 }
+
 quote {
   font-family: 'Arial';
   font-weight: bold;
@@ -617,6 +732,7 @@ quote {
     outline-color: #333;
     box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
   }
+
   100% {
     outline-color: #333;
     box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
@@ -628,9 +744,11 @@ quote {
     outline-color: #333;
     box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
   }
+
   100% {
     outline-color: #333;
     box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
   }
 }
+
 /* success stories end */
