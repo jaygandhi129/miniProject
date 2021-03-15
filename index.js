@@ -20,32 +20,41 @@ app.use(bodyParser.urlencoded({
 app.set('view engine', 'ejs');
 
 //Establishing Connection to database
-var connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_SCHEMA,
-    dateStrings: 'date'
-});
+// var connection = mysql.createConnection({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     database: process.env.DB_SCHEMA,
+//     dateStrings: 'date'
+// });
 
-connection.connect(function (error) {
-    if (error) {
-        console.log("Error in Connecting Database");
-        throw error;
-    } else {
-        console.log("Connected to Database");
-    }
-});
+// connection.connect(function (error) {
+//     if (error) {
+//         console.log("Error in Connecting Database");
+//         throw error;
+//     } else {
+//         console.log("Connected to Database");
+//     }
+// });
 
 
 
+/************************************Seller Starts*************************************************/
+
+//Seller Landing Page
 app.get("/business", function (req, res) {
     res.render('index');
 });
 
+//Seller Register Page-1
 app.get("/business/register",function(req, res){
     res.render('sellerRegister1');
 })
+
+
+
+
+/************************************Seller Ends*************************************************/
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Connected at 3000");
