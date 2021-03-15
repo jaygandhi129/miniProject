@@ -43,6 +43,9 @@ app.get("/business", function (req, res) {
     res.render('index');
 });
 
+app.get("/business/register",function(req, res){
+    res.render('sellerRegister1');
+})
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Connected at 3000");
