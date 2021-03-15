@@ -67,6 +67,8 @@
   text-decoration: none;
 }
 
+/*Responsive*/
+
 @media (max-width:700px){
   
   .selling-warning{
