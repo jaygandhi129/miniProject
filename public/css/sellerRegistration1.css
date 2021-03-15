@@ -67,6 +67,12 @@
   text-decoration: none;
 }
 
+.checked:focus{
+  outline: none;
+  box-shadow: none;
+}
+
+
 /*Responsive*/
 
 @media (max-width:700px){
