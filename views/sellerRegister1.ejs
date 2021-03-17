@@ -39,17 +39,18 @@
                             <input class="form-control" type="text"
                                 style="margin-top: 15px;background: rgb(255,255,255);color: rgb(0,41,102);font-family: 'Work Sans', sans-serif;font-size: 18px;text-align: left;border: 3px none rgb(0,41,102) ;border-bottom: 1px solid rgb(0,41,102) ;"
                                 placeholder="Business Name" pattern="[A-Za-z0-9\s]*" required>
-                                <div class="invalid-feedback">Business Name cannot be blank.</div>
-                                <input class="form-control" type="text"
+                            <div class="invalid-feedback">Business Name cannot be blank.</div>
+                            <input class="form-control" type="text"
                                 style="margin-top: 15px;background: rgb(255,255,255);font-family: 'Work Sans', sans-serif;color: rgb(0,41,102);font-size: 18px;text-align: left;border-color: rgb(0,41,102);border-bottom-style: solid;border-bottom-color: rgb(0,41,102);"
                                 placeholder="Owner Name" pattern="[A-Za-z\s]*" required>
-                                <div class="invalid-feedback">Owner Name must contain alphabets only.</div>
-                                <input class="form-control" type="text"
+                            <div class="invalid-feedback">Owner Name must contain alphabets only.</div>
+                            <input class="form-control" type="text"
                                 style="margin-top: 15px;background: rgb(255,255,255);color: rgb(0,41,102);font-family: 'Work Sans', sans-serif;font-size: 18px;text-align: left;border-color: rgb(0,41,102);border-bottom-style: solid;border-bottom-color: rgb(0,41,102);"
                                 placeholder="Mobile Number" pattern="[0-9]{10}*">
-                                <div class="invalid-feedback">Mobile Number must contain digits only of length 10.</div>
-                            </div>
-                        <div class="form-check"><input class="form-check-input checked" required type="checkbox" id="formCheck-1"
+                            <div class="invalid-feedback">Mobile Number must contain digits only of length 10.</div>
+                        </div>
+                        <div class="form-check"><input class="form-check-input checked" required type="checkbox"
+                                id="formCheck-1"
                                 style="margin-top: 11px;border-color: rgb(0,41,102);border-top-color: rgb(0,border-right-color: 0;border-bottom-color: 0);border-left-color: 0,"><label
                                 class="form-check-label" for="formCheck-1" style="margin-top: 5px;">I agree to Terms and
                                 Conditions</label></div>
@@ -81,27 +82,29 @@
             </div>
             <div id="multistep-start-row" class="row">
                 <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
-                    <form id="main-form" class="multisteps-form__form needs-validation" novalidate >
+                    <form id="main-form" class="multisteps-form__form needs-validation" novalidate>
                         <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active"
                             data-animation="scaleIn">
                             <h3 class="text-center multisteps-form__title">User Info</h3>
                             <div id="form-content" class="multisteps-form__content">
                                 <div class="row g-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Name</label>
                                         <input type="text" class="form-control" pattern="[A-Za-z\s]*" required>
                                         <div class="invalid-feedback">Name must contain alphabets only.</div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="inputPassword4" class="form-label">Mobile No</label>
+                                    <div class="col-md-6 first-page-valid">
+                                        <label for="inputPassword4 " class="form-label">Mobile
+                                            No</label>
                                         <input type="tel" class="form-control" pattern="[0-9]{10}" required>
                                         <div class="invalid-feedback">Mobile No must contain 10 digits.</div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="inputPassword4" class="form-label">Date of Birth</label>
+                                    <div class="col-md-6 first-page-valid">
+                                        <label for="inputPassword4 " class="form-label">Date of
+                                            Birth</label>
                                         <input type="date" class="form-control" required>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Gender</label>
                                         <br>
                                         <div class="form-check form-check-inline">
@@ -121,42 +124,43 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-12 first-page-valid">
                                         <label for="inputAddress" class="form-label">Address</label>
                                         <input type="text" class="form-control" id="inputAddress"
                                             placeholder="1234 Main St" required>
                                         <div class="invalid-feedback">Address cannot be blank.</div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 first-page-valid">
                                         <label for="inputCity" class="form-label">City</label>
                                         <input type="text" class="form-control" id="inputCity" required>
                                         <div class="invalid-feedback">City cannot be blank.</div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 first-page-valid">
                                         <label for="inputState" class="form-label">State</label>
                                         <select id="inputState" class="form-select" required>
                                             <option selected>Choose...</option>
                                             <option>...</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 first-page-valid">
                                         <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" class="form-control" id="inputZip" required pattern="[0-9]{6}">
+                                        <input type="text" class="form-control" id="inputZip" required
+                                            pattern="[0-9]{6}">
                                         <div class="invalid-feedback">Zip Code must contain 6 digits.</div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 first-page-valid">
                                         <label for="inputAddress" class="form-label">Email ID</label>
                                         <input type="email" class="form-control" id="inputAddress"
                                             placeholder="example@domain.com" required>
                                         <div class="invalid-feedback">Email cannot be blank.</div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Aadhar No</label>
                                         <input type="text" class="form-control" required pattern="[0-9]{16}">
                                         <div class="invalid-feedback">Aadhar Number must contain 16 digits.</div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4" class="form-label">Pan No</label>
                                         <input type="text" class="form-control" required pattern="[A-Z0-9]{10}">
                                         <div class="invalid-feedback">Pan No must contain 10 alphanumeric.</div>
@@ -228,45 +232,109 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/js/bootstrap.bundle.min.js">
     </script>
     <script src="/Multi-step-form.js"></script>
+    
+
+
+    <!-------------------------------------- Form Validation------------------ -->
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+        (function () {
+            'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation');
-  var next1 = document.getElementById('next-button1');
-  var next2 = document.getElementById('next-button1');
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation');
+            var first_page_valid = document.getElementsByClassName("first-page-valid");
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated');
+                    }, false)
+                    first_page_valid[0].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[0].classList.add('was-validated');
+                    }, false)
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+                    first_page_valid[1].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[1].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[2].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[2].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[3].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[3].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[4].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[4].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[5].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[5].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[6].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[6].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[7].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[7].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[8].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[8].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[9].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[9].classList.add('was-validated');
+                    }, false)
+                    first_page_valid[10].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[10].classList.add('was-validated');
+                    }, false)
 
-        form.classList.add('was-validated')
-      }, false)
-    //   next1.addEventListener('click', function (event) {
-    //     if (!form.checkValidity()) {
-    //       event.preventDefault()
-    //       event.stopPropagation()  
-    //     }
-
-    //     form.classList.add('was-validated')
-    //   }, false)
-    //   next2.addEventListener('click', function (event) {
-    //     if (!form.checkValidity()) {
-    //       event.preventDefault()
-    //       event.stopPropagation()
-    //     }
-
-    //     form.classList.add('was-validated')
-    //   }, false)
-    })
-})()
+                })
+        })()
     </script>
 </body>
 
