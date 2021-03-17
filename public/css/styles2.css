@@ -377,7 +377,17 @@ label {
     margin-right: 0 !important
   }
 }
+@media (max-width: 1100px) and (min-width: 850px){
+  .sell-steps .sell-steps-img {
+    padding-top: 50px;
+  }
+}
 
+@media (max-width: 850px) and (min-width: 768px){
+  .sell-steps .sell-steps-img {
+    padding-top: 100px;
+  }
+}
 @media(max-width: 768px) {
   .sell-login-summery-icon {
     padding-top: 15px;
@@ -427,7 +437,6 @@ label {
     margin-right: 15px;
     margin-top: -13px
   }
-
   .verti-line1 {
     display: none;
   }
@@ -439,7 +448,9 @@ label {
   .verti-line3 {
     display: none;
   }
-
+  .bullets{
+    margin-left: 10px;
+  }
   .sell-steps-icon {
     display: none;
   }
@@ -482,6 +493,11 @@ label {
   .sell-step-4{
     padding-top: 5%;
   }
+
+  .sell-steps ul {
+    margin-left: 5px;
+  }
+
 }
 #section2-fold1a h2 {
   margin: 100px 0 35px;
@@ -568,22 +584,22 @@ label {
 }
 
 .sell-steps-img-1 {
-  width: 35%;
+  width: 55%;
   margin-left: 40%;
 }
 
 .sell-steps-img-2 {
-  width: 35%;
+  width: 55%;
   margin-left: 65%;
 }
 
 .sell-steps-img-3 {
-  width: 50%;
+  width: 65%;
   margin-left: 35%;
 }
 
 .sell-steps-img-4 {
-  width: 47%;
+  width: 55%;
   margin-left: 65%;
 }
 
