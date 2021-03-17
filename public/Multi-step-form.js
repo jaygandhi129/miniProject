@@ -130,10 +130,15 @@ DOMstrings.stepsBar.addEventListener('click', e => {
 });
 
 //PREV/NEXT BTNS CLICK
+
+var forms = document.querySelectorAll('.needs-validation');
+var next1 = document.getElementById('next-button1');
+var next2 = document.getElementById('next-button1');
+
+
 DOMstrings.stepsForm.addEventListener('click', e => {
 
   const eventTarget = e.target;
-
   //check if we clicked on `PREV` or NEXT` buttons
   if (!(eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) || eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`)))
   {
@@ -150,13 +155,22 @@ DOMstrings.stepsForm.addEventListener('click', e => {
     activePanelNum--;
 
   } else {
-
-    activePanelNum++;
-
+    Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+        if (!form.checkValidity()) {
+          e.preventDefault()
+          e.stopPropagation()  
+        }
+        form.classList.add('was-validated')
+        console.log(form.classList.contains("was-validated"))
+    })
+    if (form.classList.contains("was-validated")){
+      activePanelNum++;}
   }
-
+ 
   setActiveStep(activePanelNum);
   setActivePanel(activePanelNum);
+
 
 });
 
