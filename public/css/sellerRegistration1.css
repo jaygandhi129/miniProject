@@ -163,7 +163,7 @@ body{
   transition-delay: 0s;
   position: relative;
   padding-top: 20px;
-  color: rgba(108, 117, 125, 0.7);
+  color: rgb(0,41,102);;
   text-indent: -9999px;
   border: none;
   background-color: transparent;
@@ -209,6 +209,7 @@ body{
   width: 100%;
   height: 2px;
   content: '';
+  color: rgb(0,41,102);
   background-color: currentColor;
   z-index: 1;
 }
@@ -218,7 +219,7 @@ body{
 }
 
 .multisteps-form__progress-btn.js-active {
-  color: #007bff;
+  color: rgb(0,41,102);
 }
 
 .multisteps-form__progress-btn.js-active:before {
@@ -261,9 +262,26 @@ body{
   transform: scale(1);
 }
 
+.js-btn-next{
+  background-color: rgb(0,41,102);
+  border-color: rgb(0,41,102);
+}
+
+.js-btn-prev{
+  background-color: rgb(0,41,102);
+  border-color: rgb(0,41,102);
+}
+
+.form-control:focus {
+  border-color: rgb(0,41,102);
+  box-shadow: 0 0 0 0.2rem rgba(0, 41, 102, 0.25);
+}
+
 /* Responsive */
 @media (min-width:991px){
   .multisteps-form{
     padding-left: 25%;
   }
 }
+
+
