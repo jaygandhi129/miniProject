@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <%if(flag===false){%>
     <section class="login-clean" style="padding-bottom: 130px;padding-top: 130px;background: rgb(245,248,255);">
         <div class="container">
             <div class="row">
@@ -29,8 +30,9 @@
                         style="color: rgb(255,0,0);font-size: 16px;font-family: 'Work Sans', sans-serif;text-align: left;width: 600px;">
                         * Selling Narcotic Drugs, Alchohol or illegal products is strictly prohibited *</p>
                 </div>
+
                 <div class="col-md-6 register-card">
-                    <form method="post" action="/business/register/main"style="max-width: 387px;box-shadow: inset 8px 0px rgb(68,81,93);"
+                    <form method="post" action="/business/register/home" style="max-width: 387px;box-shadow: inset 8px 0px rgb(68,81,93);"
                         class="needs-validation" novalidate>
                         <h2 class="visually-hidden">Login Form</h2><img src="/images/logo-seller-2%20-%20Copy.png"
                             style="width: 160px;margin-right: auto;margin-left: auto;">
@@ -63,8 +65,7 @@
         </div>
     </section>
 
-
-
+<%}else {%>
     <section>
         <div id="multple-step-form-n" class="container overflow-hidden"
             style="margin-top: 0px;margin-bottom: 10px;padding-bottom: 300px;padding-top: 57px;">
@@ -89,14 +90,14 @@
                             <div id="form-content" class="multisteps-form__content">
                                 <div class="row g-3">
                                     <div class="col-md-6 first-page-valid">
-                                        <label for="inputEmail4" class="form-label">Name</label>
-                                        <input type="text" class="form-control" pattern="[A-Za-z\s]*" required>
+                                        <label for="inputEmail4" class="form-label">Owner Name</label>
+                                        <input type="text" value="<%=b_owner%>" class="form-control" pattern="[A-Za-z\s]*" required readonly>
                                         <div class="invalid-feedback">Name must contain alphabets only.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4 " class="form-label">Mobile
                                             No</label>
-                                        <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                        <input type="tel" value="<%=b_mobile%>" class="form-control" pattern="[0-9]{10}" required readonly>
                                         <div class="invalid-feedback">Mobile No must contain 10 digits.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
@@ -190,7 +191,7 @@
                                     <div class="row g-3">
                                         <div class="col-md-6 first-page-valid">
                                             <label for="inputEmail4" class="form-label">Business Name</label>
-                                            <input type="text" class="form-control" pattern="[A-Za-z\s]*" required>
+                                            <input type="text" value="<%=b_name%>" class="form-control" pattern="[A-Za-z\s]*" required readonly>
                                             <div class="invalid-feedback">Name must contain alphabets only.</div>
                                         </div>
 
@@ -281,7 +282,7 @@
             </div>
         </div>
     </section>
-
+<%}%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/js/bootstrap.bundle.min.js">
     </script>
