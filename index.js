@@ -1,6 +1,6 @@
+const bodyParser = require("body-parser")
 const express = require('express');
 const app = express();
-const bodyParser = require("body-parser")
 const path = require('path');
 const md5 = require('md5');
 const ejs = require("ejs")
@@ -53,6 +53,12 @@ app.get("/business/register",function(req, res){
     res.render('sellerRegister1');
 })
 
+app.post("/business/register",function(req,res){
+  var b_name=req.body.b_name;
+  var b_owner=req.body.b_owner;
+  var b_mobile=parseInt(req.body.b_mobile);
+ console.log(b_name,b_mobile);
+})
 
 
 
