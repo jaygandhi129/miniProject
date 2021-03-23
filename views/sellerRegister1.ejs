@@ -83,7 +83,7 @@
             </div>
             <div id="multistep-start-row" class="row">
                 <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
-                    <form id="main-form" class="multisteps-form__form needs-validation" novalidate>
+                    <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/business/register/nextstep" novalidate>
                         <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active"
                             data-animation="scaleIn">
                             <h3 class="text-center multisteps-form__title">User Info</h3>
@@ -91,61 +91,61 @@
                                 <div class="row g-3">
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Owner Name</label>
-                                        <input type="text" value="<%=b_owner%>" class="form-control" pattern="[A-Za-z\s]*" required readonly>
+                                        <input type="text" name="sName" value="<%=b_owner%>" class="form-control" pattern="[A-Za-z\s]*" required readonly >
                                         <div class="invalid-feedback">Name must contain alphabets only.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4 " class="form-label">Mobile
                                             No</label>
-                                        <input type="tel" value="<%=b_mobile%>" class="form-control" pattern="[0-9]{10}" required readonly>
+                                        <input type="tel" name="sPhoneNo" value="<%=b_mobile%>" class="form-control" pattern="[0-9]{10}" required readonly>
                                         <div class="invalid-feedback">Mobile No must contain 10 digits.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4 " class="form-label">Date of
                                             Birth</label>
-                                        <input type="date" class="form-control" required>
+                                        <input type="date" name="sDOB" class="form-control" required>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Gender</label>
                                         <br>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                value="male">
+                                            <input class="form-check-input" name="sGender" type="radio"
+                                                value="M">
                                             <label class="form-check-label" for="inlineRadio1">Male</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                value="female">
+                                            <input class="form-check-input" name="sGender" type="radio"
+                                                value="F">
                                             <label class="form-check-label" for="inlineRadio2">Female</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                value="other">
+                                            <input class="form-check-input" name="sGender" type="radio"
+                                                value="O">
                                             <label class="form-check-label" for="inlineRadio2">Other</label>
                                         </div>
                                     </div>
 
                                     <div class="col-12 first-page-valid">
                                         <label for="inputAddress" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="inputAddress"
+                                        <input type="text" name="sAddress" class="form-control" id="inputAddress"
                                             placeholder="1234 Main St" required>
                                         <div class="invalid-feedback">Address cannot be blank.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" class="form-control" id="inputCity" required>
+                                        <input type="text" name="sCity" class="form-control" id="inputCity" required>
                                         <div class="invalid-feedback">City cannot be blank.</div>
                                     </div>
                                     <div class="col-md-4 first-page-valid">
                                         <label for="inputState" class="form-label">State</label>
-                                        <select id="inputState" class="form-select" required>
+                                        <select id="inputState" name="sState" class="form-select" required>
                                             <option selected>Choose...</option>
-                                            <option>...</option>
+                                            <option>Maharashtra</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 first-page-valid">
                                         <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" class="form-control" id="inputZip" required
+                                        <input type="text" name="sZip" class="form-control" id="inputZip" required
                                             pattern="[0-9]{6}">
                                         <div class="invalid-feedback">Zip Code must contain 6 digits.</div>
                                     </div>
@@ -153,22 +153,22 @@
 
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Aadhar No</label>
-                                        <input type="text" class="form-control" required pattern="[0-9]{16}">
+                                        <input type="text" name="sAadhar" class="form-control" required pattern="[0-9]{16}">
                                         <div class="invalid-feedback">Aadhar Number must contain 16 digits.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4" class="form-label">Pan No</label>
-                                        <input type="text" class="form-control" required pattern="[A-Z0-9]{10}">
+                                        <input type="text" name="sPAN" class="form-control" required pattern="[A-Z0-9]{10}">
                                         <div class="invalid-feedback">PAN No must contain 10 alphanumeric.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Password</label>
-                                        <input type="password" class="form-control" required>
+                                        <input type="password" name="sPassword" class="form-control" required>
                                         <div class="invalid-feedback">Password cannot be blank.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" required>
+                                        <input type="password" name="sCpassword" class="form-control" required>
                                         <div class="invalid-feedback">Password cannot be blank.</div>
                                     </div>
 
@@ -191,13 +191,13 @@
                                     <div class="row g-3">
                                         <div class="col-md-6 first-page-valid">
                                             <label for="inputEmail4" class="form-label">Business Name</label>
-                                            <input type="text" value="<%=b_name%>" class="form-control" pattern="[A-Za-z\s]*" required readonly>
+                                            <input type="text" name="bName" value="<%=b_name%>" class="form-control" pattern="[A-Za-z\s]*" required readonly>
                                             <div class="invalid-feedback">Name must contain alphabets only.</div>
                                         </div>
 
                                         <div class="col-md-6 first-page-valid">
                                             <label for="inputState" class="form-label">Category</label>
-                                            <select id="inputState" class="form-select" required>
+                                            <select id="inputState" name="bCategory" class="form-select" required>
                                                 <option selected>Choose...</option>
                                                 <option>...</option>
                                             </select>
@@ -206,28 +206,28 @@
                                         <div class="col-md-6 first-page-valid">
                                             <label for="inputPassword4 " class="form-label">Business Mobile
                                                 No</label>
-                                            <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                            <input type="tel" name="bMobile" class="form-control" pattern="[0-9]{10}" required>
                                             <div class="invalid-feedback">Mobile No must contain 10 digits.</div>
                                         </div>
                                         <div class="col-md-6 first-page-valid">
                                             <label for="inputPassword4" class="form-label">GSTIN Number</label>
-                                            <input type="text" class="form-control" required pattern="[A-Z0-9]{15}">
+                                            <input type="text" name="bGST" class="form-control" required pattern="[A-Z0-9]{15}">
                                             <div class="invalid-feedback">GSTIN Number must contain 15 alphanumeric.
                                             </div>
                                         </div>
                                         <div class="col-12 first-page-valid">
                                             <label for="inputAddress" class="form-label">Email ID</label>
-                                            <input type="email" class="form-control" id="inputAddress"
+                                            <input type="email" name="bEmail" class="form-control" id="inputAddress"
                                                 placeholder="example@domain.com" required>
                                             <div class="invalid-feedback">Email cannot be blank.</div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Shop Photo</label>
-                                            <input class="form-control" type="file" id="formFile">
+                                            <input class="form-control" name="bShop_photo" type="file" id="formFile">
                                         </div>
                                         <div class="col-12 first-page-valid">
                                             <label for="inputAddress" class="form-label">Website</label>
-                                            <input type="text" class="form-control" id="inputAddress"
+                                            <input type="text" class="form-control" id="inputAddress" name="bWebsite"
                                                 placeholder="www.example.com">
                                             <div class="invalid-feedback">Website must match specified format.</div>
                                         </div>
@@ -249,24 +249,24 @@
                                     <div class="col-12 first-page-valid">
                                         <label for="inputAddress" class="form-label">Address</label>
                                         <input type="text" class="form-control" id="inputAddress"
-                                            placeholder="1234 Main St" required>
+                                            placeholder="1234 Main St" name="bAddress" required>
                                         <div class="invalid-feedback">Address cannot be blank.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" class="form-control" id="inputCity" required>
+                                        <input type="text" name="bCity" class="form-control" id="inputCity" required>
                                         <div class="invalid-feedback">City cannot be blank.</div>
                                     </div>
                                     <div class="col-md-4 first-page-valid">
                                         <label for="inputState" class="form-label">State</label>
-                                        <select id="inputState" class="form-select" required>
+                                        <select id="inputState" name="bState" class="form-select" required>
                                             <option selected>Choose...</option>
-                                            <option>...</option>
+                                            <option>Maharashtra</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 first-page-valid">
                                         <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" class="form-control" id="inputZip" required
+                                        <input type="text" name="bZip" class="form-control" id="inputZip" required
                                             pattern="[0-9]{6}">
                                         <div class="invalid-feedback">Zip Code must contain 6 digits.</div>
                                     </div>

@@ -6,6 +6,7 @@ const md5 = require('md5');
 const ejs = require("ejs")
 const mysql = require('mysql')
 const multer = require("multer");
+const { connect } = require("http2");
 
 require('dotenv').config()
 
@@ -57,6 +58,43 @@ app.post("/business/register/home",function(req,res){
   var b_mobile=parseInt(req.body.b_mobile);
  res.render("sellerRegister1",{flag :true ,b_name,b_owner,b_mobile});
 })
+
+app.post("/business/register/nextstep",function(req,res){
+    var data = req.body;
+    var sPassword = md5(data.sPassword);
+    var query = "INSERT INTO seller_details (sName, sPhoneNo, sDOB, sGender, sAddress, sCity, sState, sZip, sAadhar, sPAN, sPassword) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    var list = [data.sName, data.sPhoneNo, data.sDOB, data.sGender, data.sAddress, data.sCity, data.sState, data.sZip, data.sAadhar, data.sPAN, data.sPassword]
+    connection.query(query, list, function(err, rows){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("Successfully inserted seller data.");
+            var seller;
+            connection.query("SELECT sId from seller_details where sPhoneNo = ?",data.sPhoneNo, function(err, row){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    seller = row[0].sId;
+                    var query2 = "INSERT INTO business_details (seller, bName, bCategory, bMobile, bGST,bEmail, bWebsite, bAddress, bCity, bState, bZip) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    var list = [seller, data.bName, data.bCategory, data.bMobile, data.bGST,data.bEmail, data.bWebsite, data.bAddress, data.bCity, data.bState, data.bZip];
+                    connection.query(query2, list,function(err){
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            console.log("Successfully inserted business data.");
+                            res.redirect("/business");
+                        }
+                    });
+                    
+                }
+            });
+            
+        }
+    });
+  });
 
 
 
