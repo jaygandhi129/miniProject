@@ -83,7 +83,8 @@
             </div>
             <div id="multistep-start-row" class="row">
                 <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
-                    <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/business/register/nextstep" novalidate>
+                    <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/business/register/nextstep"
+                    oninput='sCpassword.setCustomValidity(sCpassword.value != sPassword.value ? "Passwords do not match." : "")' novalidate>
                         <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active"
                             data-animation="scaleIn">
                             <h3 class="text-center multisteps-form__title">User Info</h3>
@@ -163,13 +164,13 @@
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Password</label>
-                                        <input type="password" name="sPassword" class="form-control" required>
-                                        <div class="invalid-feedback">Password cannot be blank.</div>
+                                        <input type="password" name="sPassword" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$" required>
+                                        <div class="invalid-feedback">Password must be of length greater than 8 and contain 1 Uppercase, 1 Lowercase , 1 Number and 1 Symbol.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4" class="form-label">Confirm Password</label>
                                         <input type="password" name="sCpassword" class="form-control" required>
-                                        <div class="invalid-feedback">Password cannot be blank.</div>
+                                        <div class="invalid-feedback">Passwords does not match.</div>
                                     </div>
 
                                 </div>
@@ -238,6 +239,7 @@
                                         class="btn btn btn-primary js-btn-prev" type="button"
                                         title="Prev">Prev</button><button
                                         class="btn btn btn-primary ml-auto js-btn-next" id="next-button2" type="button"
+                                        style="margin-left: 2%;"
                                         title="Next">Next</button></div>
                             </div>
                         </div>
@@ -273,7 +275,7 @@
                                 </div>
                                 <div id="next-prev-buttons-1" class="button-row mt-4"><button
                                         class="btn btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                                    <button class="btn btn btn-primary ml-auto js-btn-next" type="submit"
+                                    <button class="btn btn btn-primary ml-auto" type="submit" style="margin-left: 1%; background: rgb(0,41,102);"
                                         title="Next">Submit</button></div>
                             </div>
                         </div>
@@ -304,6 +306,7 @@
             // Loop over them and prevent submission
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
+                    //For whole form
                     form.addEventListener('submit', function (event) {
                         if (!form.checkValidity()) {
                             event.preventDefault()
@@ -311,6 +314,7 @@
                         }
                         form.classList.add('was-validated');
                     }, false)
+                    //Field wise validation
                     first_page_valid[0].addEventListener('change', function (event) {
                         if (!form.checkValidity()) {
                             event.preventDefault()
@@ -388,6 +392,14 @@
                             event.stopPropagation()
                         }
                         first_page_valid[10].classList.add('was-validated');
+                    }, false)
+
+                    first_page_valid[11].addEventListener('change', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        first_page_valid[11].classList.add('was-validated');
                     }, false)
 
                 })

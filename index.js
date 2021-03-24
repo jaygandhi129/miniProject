@@ -7,6 +7,7 @@ const ejs = require("ejs")
 const mysql = require('mysql')
 const multer = require("multer");
 const { connect } = require("http2");
+const func = require('./func');
 
 require('dotenv').config()
 
@@ -42,7 +43,7 @@ app.get("/",function(req,res){
 
 /************************************Seller Starts*************************************************/
 
-//Seller Landing Page
+//Seller Home Page
 app.get("/business", function (req, res) {
     res.render('index');
 });
@@ -85,7 +86,8 @@ app.post("/business/register/nextstep",function(req,res){
                         }
                         else{
                             console.log("Successfully inserted business data.");
-                            res.redirect("/business");
+                            func.sendmail(data.bEmail);
+                            res.redirect("/business/register/success");
                         }
                     });
                     
@@ -95,8 +97,15 @@ app.post("/business/register/nextstep",function(req,res){
         }
     });
   });
+  //Seller Register Success Page
+  app.get("/business/register/success",function(req, res){
+    res.render('success_bregister');
+  });
 
-
+  // Seller Login Starts //
+  app.get("/business/login",function (req, res) {
+      res.render('sellerLogin');
+  });
 
 
 /************************************Seller Ends*************************************************/
