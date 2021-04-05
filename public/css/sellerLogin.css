@@ -1,10 +1,16 @@
+html body{
+  padding:0;
+  margin: 0;
+  background-color: #f7f7e8;
+}
+
 .login-fg .form-container {
   color: #ccc;
   position: relative
 }
 
 .login-fg .login {
-  min-height: 100vh;
+  min-height: 100%;
   position: relative;
   display: -webkit-box;
   display: -moz-box;
@@ -13,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 15px
+  /* padding: 30px 15px; */
 }
 
 .login-fg .login-section {
@@ -50,7 +56,7 @@
 }
 
 .login-fg .form-container img {
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
   height: 40px
 }
 
@@ -151,14 +157,14 @@
 }
 
 .login-fg .form-container .btn-fg {
-  background: #0f96f9;
+  background: #333;
   border: none;
   color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
 }
 
 .login-fg .form-container .btn-fg:hover {
-  background: #108ae4
+  background:rgb(0,41,102);
 }
 
 .login-fg .logo a {
@@ -166,6 +172,10 @@
   color: #333;
   font-size: 39px;
   text-shadow: 1px 0px #000
+}
+.linkButton{
+/* color:rgb(0,41,102) !important; */
+font-weight: bold;
 }
 
 .login-fg .form-container .checkbox {
@@ -287,6 +297,11 @@ input[type=radio] {
   border-radius: 20px
 }
 
+.login-img{
+  height: 97vh;
+  width: 100%;
+}
+
 .login-fg .login-section .social li a span {
   margin-right: 7px
 }
@@ -361,13 +376,24 @@ input[type=radio] {
     display: none
   }
 }
-
 @media (max-width: 768px) {
   .login-fg .login-section .social li a {
     width: 100px
   }
-
+  .login-img {
+    display: none;
+  }
+  .login{
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30%;
+  }
   .login-fg .logo a {
     font-size: 26px;
   }
+}
+@media (max-width: 768px) {
+.login{
+  padding-top: 45%;
+}
 }
