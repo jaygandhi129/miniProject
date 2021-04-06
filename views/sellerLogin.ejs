@@ -24,6 +24,9 @@
                         </div>
                         <h3>Login into your account</h3>
 
+                        <%if (messages.error){%>
+                            <%=messages.error%>
+                        <%}%>
 
                         <div class="form-container">
                             <form action="#" method="GET">
