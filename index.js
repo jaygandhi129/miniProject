@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+}
 const bodyParser = require("body-parser")
 const express = require('express');
 const app = express();
@@ -11,7 +14,8 @@ const { connect } = require("http2");
 const func = require('./func');
 const flash = require('express-flash')
 const session = require('express-session')
-require('dotenv').config()
+const passport = require('passport')
+
 
 app.use(bodyParser.json());
  app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,29 +58,30 @@ connection.connect(function (error) {
 // passport configure
 
 
-const passport = require('passport')
+
 const initializePassport = require('./passport-config');
 initializePassport(passport,
    mobile=>{
+  const query = "SELECT sPhoneNo from seller_details where sPhoneNo = ?";
   var phone;
-  const query = "SELECT sPhoneNo, sId from seller_details where sPhoneNo = ?";
-  connection.query(query,[mobile],function(err, rows){
+  connection.query(query,parseInt(mobile),function(err, rows){
     if (err){
       console.log(err);
     }else{
-      phone = rows.sPhoneNo;
-      id = rows.sId;
+      phone = rows[0].sPhoneNo;
     }
   })
+  
+  console.log(phone);
   return phone;
 },id=>{
   var id;
   const query = "SELECT sId from seller_details where sPhoneNo = ?";
-  connection.query(query,[mobile],function(err, rows){
+  connection.query(query,mobile,function(err, rows){
     if (err){
       console.log(err);
     }else{
-      id = rows.sId;
+      id = rows[0].sId;
     }
   })
   return id;

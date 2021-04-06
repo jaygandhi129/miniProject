@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt')
 
 function initialize(passport, getUserByMobile, getUserById){
   const authenticateUser = async (mobile,password,done)=>{
-  const user =  getUserByMobile(mobile)
+    const user =  getUserByMobile(mobile)
+    console.log(mobile);
   if (user == null){
     return done(null, false, {message: 'No user with that Mobile Number'})
   }
@@ -28,4 +29,4 @@ function initialize(passport, getUserByMobile, getUserById){
 
 }
 
-modules.exports = initialize
+module.exports = initialize
