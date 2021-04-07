@@ -27,11 +27,10 @@ function initialize(passport){
         return done(null, false, {'message':'No user found'}); 
     } 
     if(md5(password) !== rows[0].sPassword){
-      console.log("Password wrong "+bcrypt.hash(password,10)+ "   " + rows[0].sPassword);
+      console.log("Password wrong");
       return done(null, false, {'message':'Oops! Wrong password.'});
     }
     else{
-      console.log(password);
       return done(null, rows[0]);
     }
     // bcrypt.compare(password, rows[0].sPassword).then(function(){
