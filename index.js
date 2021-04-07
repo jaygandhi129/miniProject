@@ -115,9 +115,9 @@ app.post("/business/register/home", checkNotAuthenticated,function (req, res) {
 
 app.post("/business/register/nextstep", checkNotAuthenticated,async (req, res) => {
   var data = req.body;
-  var sPassword = await bcrypt.hash(data.sPassword, 10);
+  var sPassword = md5(data.sPassword);
   var query = "INSERT INTO seller_details (sName, sPhoneNo, sDOB, sGender, sAddress, sCity, sState, sZip, sAadhar, sPAN, sPassword) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  var list = [data.sName, data.sPhoneNo, data.sDOB, data.sGender, data.sAddress, data.sCity, data.sState, data.sZip, data.sAadhar, data.sPAN, data.sPassword]
+  var list = [data.sName, data.sPhoneNo, data.sDOB, data.sGender, data.sAddress, data.sCity, data.sState, data.sZip, data.sAadhar, data.sPAN, sPassword]
   connection.query(query, list, function (err, rows) {
     if (err) {
       console.log(err);

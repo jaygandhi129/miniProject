@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
 const mysql = require('mysql')
+const md5 = require('md5');
 
 var connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -25,12 +26,32 @@ function initialize(passport){
         console.log("User not found");
         return done(null, false, {'message':'No user found'}); 
     } 
-    if (password !== rows[0].sPassword){
-      console.log("Password wrong "+ password + rows[0].sPassword);
-        return done(null, false, {'message':'Oops! Wrong password.'});}
-      else{
-        return done(null, rows[0]);	
-      }
+    if(md5(password) !== rows[0].sPassword){
+      console.log("Password wrong "+bcrypt.hash(password,10)+ "   " + rows[0].sPassword);
+      return done(null, false, {'message':'Oops! Wrong password.'});
+    }
+    else{
+      console.log(password);
+      return done(null, rows[0]);
+    }
+    // bcrypt.compare(password, rows[0].sPassword).then(function(){
+    //   console.log(bool);
+    //   if(bool == false){
+    //     console.log("Password wrong "+bcrypt.hash(password,10)+ "   " + rows[0].sPassword);
+    //     return done(null, false, {'message':'Oops! Wrong password.'});
+    //   }
+    //   else{
+    //     console.log(password);
+    //     return done(null, rows[0]);
+    //   }
+    // })
+    // if (bcrypt.compare(password ,rows[0].sPassword)){
+    //   console.log("Password wrong "+bcrypt.hash(password,10)+ "   " + rows[0].sPassword);
+    //     return done(null, false, {'message':'Oops! Wrong password.'});}
+    //   else{
+    //     console.log(password);
+    //     return done(null, rows[0]);	
+    //   }
     })
 }
   ))
