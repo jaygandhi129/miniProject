@@ -175,6 +175,10 @@ app.get('/dashboard',checkAuthenticated,function(req, res){
   res.render('dashboard',{name:req.user.sName});
 });
 
+app.get('/addproduct',checkAuthenticated,function(req,res){
+  res.render('addProducts');
+});
+
 /************************************Seller Ends*************************************************/
 
 app.listen(process.env.PORT || 3000, function () {
