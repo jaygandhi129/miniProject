@@ -41,7 +41,7 @@ CREATE TABLE `business_details` (
   UNIQUE KEY `bEmail` (`bEmail`),
   KEY `sellerBusiness` (`seller`),
   CONSTRAINT `sellerBusiness` FOREIGN KEY (`seller`) REFERENCES `seller_details` (`sId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `business_details` (
 
 LOCK TABLES `business_details` WRITE;
 /*!40000 ALTER TABLE `business_details` DISABLE KEYS */;
-INSERT INTO `business_details` VALUES (1,1008,'ABC','...',7709708626,'888888888888888','jaygandhi129@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101);
+INSERT INTO `business_details` VALUES (1,1008,'ABC','...',7709708626,'888888888888888','jaygandhi129@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101),(16,1027,'ABC','...',5621324512,'512452132521232','jaygandhi129@rediffmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101),(17,1028,'baagbsda','...',5462132512,'845215621251212','yash@jstar.org','','Sujaynagar-8','Akluj','Maharashtra',413101);
 /*!40000 ALTER TABLE `business_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ CREATE TABLE `seller_details` (
   UNIQUE KEY `sAadhar` (`sAadhar`),
   UNIQUE KEY `sPAN` (`sPAN`),
   CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8mb4'M',_utf8mb4'F',_utf8mb4'O')))
-) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1029 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `seller_details` (
 
 LOCK TABLES `seller_details` WRITE;
 /*!40000 ALTER TABLE `seller_details` DISABLE KEYS */;
-INSERT INTO `seller_details` VALUES (1008,'XYZ',7878787878,'2021-03-23','M','dhdfhfdh','Akluj','Maharashtra',413101,7777777777777777,'7777777777','454545');
+INSERT INTO `seller_details` VALUES (1008,'XYZ',7878787878,'2021-03-23','M','dhdfhfdh','Akluj','Maharashtra',413101,7777777777777777,'7777777777','$2y$10$uAEwzRK1TlnDyCpV40jFeOKMDIXkFBObrimRQkEFXA5zDaPkofBvO '),(1027,'XYZ',2222222222,'2021-04-06','M','sadsasdsadsadasdadssa','Akluj','Maharashtra',413101,4455522223323252,'2152162545','Abc@1234'),(1028,'asfsdfsdf',3333333333,'2021-04-07','F','sadsadfsa','Akluj','Maharashtra',413101,8546215214521623,'5412154218','dc02c947d1b6c77047f17e5f01ea39ed');
 /*!40000 ALTER TABLE `seller_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -101,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-23 22:57:08
+-- Dump completed on 2021-04-08 15:49:22
