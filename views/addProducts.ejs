@@ -21,8 +21,8 @@
         </a>
         <hr class="sidebar-divider my-0">
         <ul class="navbar-nav text-light" id="accordionSidebar">
-          <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/sellerprofile"><i class="fas fa-user"></i><span>Profile</span></a></li>
           <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-boxes"></i><span>My Products</span></a></li>
           <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa fa-list-alt"></i><span>Orders</span></a></li>
           <li class="nav-item"><a class="nav-link" href="register.html"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
@@ -72,14 +72,14 @@
 
           <!-- form started -->
 
-          <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/addproduct">
+          <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/addproduct" enctype="multipart/form-data">
             <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
 
               <div id="form-content" class="multisteps-form__content">
                 <div class="row g-3">
                   <div class="col-md-6 first-page-valid">
                     <label for="inputEmail4" class="form-label">Product Name</label>
-                    <input type="text" name="sName" class="form-control">
+                    <input type="text" name="pName" class="form-control">
                   </div>
 
                   <div class="col-md-6 first-page-valid">
@@ -117,7 +117,7 @@
 
                   <div class="col-md-6">
                       <label for="formFile" class="form-label">Product Image</label>
-                      <input class="form-control" name="bShop_photo" type="file" id="formFile">
+                      <input class="form-control" name="product_photo" type="file" id="formFile">
                   </div>
 
                   <div class="col-md-6 first-page-valid">

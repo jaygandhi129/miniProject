@@ -46,7 +46,7 @@ web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
-
+serviceAccKey.json
 # Optional npm cache directory
 .npm
 

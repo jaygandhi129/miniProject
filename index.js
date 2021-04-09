@@ -15,6 +15,8 @@ const flash = require('express-flash')
 const session = require('express-session')
 const passport = require('passport')
 const method_override = require('method-override');
+var admin = require('firebase-admin');
+const { format } = require('util');
 
 
 app.use(bodyParser.json());
@@ -65,21 +67,69 @@ initializePassport(passport);
 
 
 function checkAuthenticated(req, res, next) {
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     return next()
-  }
-  else{
+  } else {
     res.redirect('/business/login');
   }
 }
+
 function checkNotAuthenticated(req, res, next) {
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     res.redirect('/dashboard');
-  }
-  else{
+  } else {
     next()
   }
 }
+
+
+/////////////////////Firebase and Multer Configure///////////////////////////////
+var firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
+};
+var serviceAccount = require(process.env.FIREBASE_SERVICEACC_KEY);
+admin.initializeApp({
+  credential: admin.credential.cert(require(process.env.FIREBASE_SERVICEACC_KEY))
+});
+var storage = admin.storage();
+var bucket = storage.bucket('gs://cornerkart-cd3d7.appspot.com');
+var extension;
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 2000000
+  },
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  }
+});
+
+// Check File Type
+function checkFileType(file, cb) {
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('Error: Images Only!');
+  }
+};
+
+
+
+
 
 
 
@@ -95,13 +145,13 @@ app.get("/business", function (req, res) {
 });
 
 //Seller Register Page-1
-app.get("/business/register",checkNotAuthenticated, function (req, res) {
+app.get("/business/register", checkNotAuthenticated, function (req, res) {
   res.render('sellerRegister1', {
     flag: false
   });
 })
 
-app.post("/business/register/home", checkNotAuthenticated,function (req, res) {
+app.post("/business/register/home", checkNotAuthenticated, function (req, res) {
   var b_name = req.body.b_name;
   var b_owner = req.body.b_owner;
   var b_mobile = parseInt(req.body.b_mobile);
@@ -113,7 +163,7 @@ app.post("/business/register/home", checkNotAuthenticated,function (req, res) {
   });
 })
 
-app.post("/business/register/nextstep", checkNotAuthenticated,async (req, res) => {
+app.post("/business/register/nextstep", checkNotAuthenticated, async (req, res) => {
   var data = req.body;
   var sPassword = md5(data.sPassword);
   var query = "INSERT INTO seller_details (sName, sPhoneNo, sDOB, sGender, sAddress, sCity, sState, sZip, sAadhar, sPAN, sPassword) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -148,37 +198,89 @@ app.post("/business/register/nextstep", checkNotAuthenticated,async (req, res) =
   });
 });
 //Seller Register Success Page
-app.get("/business/register/success", checkNotAuthenticated,function (req, res) {
+app.get("/business/register/success", checkNotAuthenticated, function (req, res) {
   res.render('success_bregister');
 });
 
 // Seller Login Starts //
-app.get("/business/login", checkNotAuthenticated,function (req, res) {
+app.get("/business/login", checkNotAuthenticated, function (req, res) {
   res.render('sellerLogin');
 });
 
 
-app.post("/business/login", checkNotAuthenticated,passport.authenticate('local', {
+app.post("/business/login", checkNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/dashboard',
   failureRedirect: '/business/login',
   failureFlash: true
 }));
 
-app.delete('/logout',(req, res) => {
+app.delete('/logout', (req, res) => {
   req.logOut();
   res.redirect('/business/login');
 })
 
 
 //Seller Dashboard Starts////////////////
-app.get('/dashboard',checkAuthenticated,function(req, res){
-  res.render('dashboard',{name:req.user.sName});
+app.get('/dashboard', checkAuthenticated, function (req, res) {
+  res.render('dashboard', {
+    name: req.user.sName
+  });
 });
 
-app.get('/addproduct',checkAuthenticated,function(req,res){
+app.get('/addproduct', checkAuthenticated, function (req, res) {
   res.render('addProducts');
 });
 
+app.post('/addproduct', upload.fields([{ name: 'product_photo', maxCount: 1 }]), checkAuthenticated, function (req, res) {
+  var pDetails = req.body;
+  extension = path.extname(req.files.product_photo[0].originalname);
+  console.log(req.files.product_photo[0].originalname);
+  blob = bucket.file('Product/' + pDetails.pName + '-photo' + extension);
+  blobStream = blob.createWriteStream({
+    metadata: {
+      contentType: blob.mimetype
+    }
+  });
+  blobStream.on('error', err => {
+    console.log(err);
+    next(err);
+  });
+
+  blobStream.on('finish', () => {
+    // The public URL can be used to directly access the file via HTTP.
+    const publicUrl = format(
+      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+    );
+    console.log(publicUrl);
+    console.log(bucket.name);
+    console.log(blob.name);
+    // res.status(200).send(publicUrl);
+  });
+  blobStream.end(req.files.product_photo[0].buffer);
+  var photo = pDetails.pId + '-photo' + extension;
+
+  res.redirect('/addproduct');
+
+});
+
+///Retrive file from firebase storage
+// app.get('/test',checkAuthenticated, function (req, res){
+//   bucket.file('Product/Mi-photo.PNG').get(function (err,file,apiResponse){
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+//       console.log("ID is:"+file.id);
+//       res.render('test',{id:file.id});
+//     }
+//   })
+// })
+
+
+
+app.get('/sellerprofile', checkAuthenticated, function (req, res) {
+  res.render('profile');
+});
 /************************************Seller Ends*************************************************/
 
 app.listen(process.env.PORT || 3000, function () {

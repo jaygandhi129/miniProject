@@ -21,11 +21,11 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sellerprofile"><i class="fas fa-user"></i><span>Profile</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-boxes"></i><span>My Products</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa fa-list-alt"></i><span>Orders</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="register.html"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
+                    <li class="nav-item"><form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit" style="color:rgba(255, 255, 255, .8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i class="fa fa-power-off"></i><span>Logout</span></button></form></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -51,7 +51,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"><%=name%>></span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        <div class="dropdown-divider"></div><form action="/logout?_method=DELETE" method="post"><button class="dropdown-item" style="color:rgba(19, 19, 19, 0.8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button></form>
                                     </div>
                                 </div>
                             </li>
@@ -60,7 +60,7 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#" style="background: rgba(0,41,102,0.93);"><i class="fas fa-plus-circle fa-sm text-white-50"></i>&nbsp;Add a Product&nbsp;</a>
+                        <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/addproduct" style="background: rgba(0,41,102,0.93);"><i class="fas fa-plus-circle fa-sm text-white-50"></i>&nbsp;Add a Product&nbsp;</a>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-xl-3 mb-4">
