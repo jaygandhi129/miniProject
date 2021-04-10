@@ -1,5 +1,5 @@
-var nodemailer = require('nodemailer');
 require('dotenv').config();
+var nodemailer = require('nodemailer');
 
 
 var html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -277,10 +277,6 @@ var html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "htt
 <!--[if !vml]><!-->
 <table cellpadding="0" cellspacing="0" class="icons-inner" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block; margin-right: -4px; padding-left: 0px; padding-right: 0px;" valign="top">
 <!--<![endif]-->
-<tr style="vertical-align: top;" valign="top">
-<td align="center" style="word-break: break-word; vertical-align: top; text-align: center; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 6px;" valign="top"><a href="https://www.designedwithbee.com/"><img align="center" alt="Designed with BEE" class="icon" height="32" src="images/bee.png" style="border:0;" width="null"/></a></td>
-<td style="word-break: break-word; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 15px; color: #9d9d9d; vertical-align: middle; letter-spacing: undefined;" valign="middle"><a href="https://www.designedwithbee.com/" style="color:#9d9d9d;text-decoration:none;">Designed with BEE</a></td>
-</tr>
 </table>
 </td>
 </tr>
@@ -309,7 +305,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'cornerkart4@gmail.com',
-        pass: 'jaytejaspoojasd'
+        pass: process.env.EMAIL_PASS
     }
 });
 
