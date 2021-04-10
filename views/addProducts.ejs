@@ -79,12 +79,12 @@
                 <div class="row g-3">
                   <div class="col-md-6 first-page-valid">
                     <label for="inputEmail4" class="form-label">Product Name</label>
-                    <input type="text" name="pName" class="form-control">
+                    <input type="text" name="pName" class="form-control" required>
                   </div>
 
                   <div class="col-md-6 first-page-valid">
                       <label for="inputState" class="form-label">Category</label>
-                      <select id="inputState" name="bCategory" class="form-select" required>
+                      <select id="inputState" name="pCategory" class="form-select" required>
                           <option selected>Choose...</option>
                           <option>...</option>
                       </select>
@@ -95,40 +95,40 @@
 
                   <div class="col-md-12 first-page-valid">
                     <label for="inputEmail4" class="form-label">Description</label>
-                    <input type="text" name="sName" class="form-control">
+                    <input type="text" name="pDescription" class="form-control" required>
                   </div>
 
                   <div class="col-md-6 first-page-valid">
                     <label for="inputEmail4" class="form-label">MRP(₹)</label>
-                    <input type="text" name="sName" class="form-control">
+                    <input type="text" name="pMRP" class="form-control" required>
                   </div>
 
                   <div class="col-md-6 first-page-valid">
                     <label for="inputEmail4" class="form-label">Your Price(₹)</label>
-                    <input type="text" name="sName" class="form-control">
+                    <input type="text" name="pPrice" class="form-control" required>
                   </div>
 
                   <div class="col-md-6 first-page-valid">
                     <label for="inputEmail4" class="form-label">Quantity Avaliable</label>
-                    <input type="text" name="sName" class="form-control">
+                    <input type="text" name="pQuantity" class="form-control" required>
                   </div>
 
 
 
                   <div class="col-md-6">
                       <label for="formFile" class="form-label">Product Image</label>
-                      <input class="form-control" name="product_photo" type="file" id="formFile">
+                      <input class="form-control" name="product_photo" type="file" id="formFile" required>
                   </div>
 
                   <div class="col-md-6 first-page-valid">
                     <label for="inputEmail4" class="form-label">Can you provide delivery of this products?</label>
                     <br>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" name="sGender" type="radio" value="Y">
+                      <input class="form-check-input" name="pDelivery" type="radio" value="Y" required>
                       <label class="form-check-label" for="inlineRadio1">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" name="sGender" type="radio" value="N">
+                      <input class="form-check-input" name="pDelivery" type="radio" value="N" required>
                       <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                   </div>
