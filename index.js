@@ -14,7 +14,9 @@ const session = require('express-session')
 const passport = require('passport')
 const method_override = require('method-override');
 var admin = require('firebase-admin');
-const { format } = require('util');
+const {
+  format
+} = require('util');
 
 
 app.use(bodyParser.json());
@@ -46,7 +48,7 @@ var connection = mysql.createConnection({
   dateStrings: 'date'
 });
 
-connection.connect(function (error) {
+connection.connect(function(error) {
   if (error) {
     console.log("Error in Connecting Database");
     throw error;
@@ -96,7 +98,7 @@ const upload = multer({
   limits: {
     fileSize: 2000000
   },
-  fileFilter: function (req, file, cb) {
+  fileFilter: function(req, file, cb) {
     checkFileType(file, cb);
   }
 });
@@ -123,25 +125,25 @@ function checkFileType(file, cb) {
 
 
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
   res.send("Hi");
 });
 
 /************************************Seller Starts*************************************************/
 
 //Seller Home Page
-app.get("/business", function (req, res) {
+app.get("/business", function(req, res) {
   res.render('index');
 });
 
 //Seller Register Page-1
-app.get("/business/register", checkNotAuthenticated, function (req, res) {
+app.get("/business/register", checkNotAuthenticated, function(req, res) {
   res.render('sellerRegister1', {
     flag: false
   });
 })
 
-app.post("/business/register/home", checkNotAuthenticated, function (req, res) {
+app.post("/business/register/home", checkNotAuthenticated, function(req, res) {
   var b_name = req.body.b_name;
   var b_owner = req.body.b_owner;
   var b_mobile = parseInt(req.body.b_mobile);
@@ -158,20 +160,20 @@ app.post("/business/register/nextstep", checkNotAuthenticated, async (req, res) 
   var sPassword = md5(data.sPassword);
   var query = "INSERT INTO seller_details (sName, sPhoneNo, sDOB, sGender, sAddress, sCity, sState, sZip, sAadhar, sPAN, sPassword) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   var list = [data.sName, data.sPhoneNo, data.sDOB, data.sGender, data.sAddress, data.sCity, data.sState, data.sZip, data.sAadhar, data.sPAN, sPassword]
-  connection.query(query, list, function (err, rows) {
+  connection.query(query, list, function(err, rows) {
     if (err) {
       console.log(err);
     } else {
       console.log("Successfully inserted seller data.");
       var seller;
-      connection.query("SELECT sId from seller_details where sPhoneNo = ?", data.sPhoneNo, function (err, row) {
+      connection.query("SELECT sId from seller_details where sPhoneNo = ?", data.sPhoneNo, function(err, row) {
         if (err) {
           console.log(err);
         } else {
           seller = row[0].sId;
           var query2 = "INSERT INTO business_details (seller, bName, bCategory, bMobile, bGST,bEmail, bWebsite, bAddress, bCity, bState, bZip) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
           var list = [seller, data.bName, data.bCategory, data.bMobile, data.bGST, data.bEmail, data.bWebsite, data.bAddress, data.bCity, data.bState, data.bZip];
-          connection.query(query2, list, function (err) {
+          connection.query(query2, list, function(err) {
             if (err) {
               console.log(err);
             } else {
@@ -188,12 +190,12 @@ app.post("/business/register/nextstep", checkNotAuthenticated, async (req, res) 
   });
 });
 //Seller Register Success Page
-app.get("/business/register/success", checkNotAuthenticated, function (req, res) {
+app.get("/business/register/success", checkNotAuthenticated, function(req, res) {
   res.render('success_bregister');
 });
 
 // Seller Login Starts //
-app.get("/business/login", checkNotAuthenticated, function (req, res) {
+app.get("/business/login", checkNotAuthenticated, function(req, res) {
   res.render('sellerLogin');
 });
 
@@ -211,68 +213,110 @@ app.delete('/logout', (req, res) => {
 
 
 //Seller Dashboard Starts////////////////
-app.get('/dashboard', checkAuthenticated, function (req, res) {
+app.get('/dashboard', checkAuthenticated, function(req, res) {
   res.render('dashboard', {
     name: req.user.sName
   });
 });
 
-app.get('/addproduct', checkAuthenticated, function (req, res) {
+app.get('/addproduct', checkAuthenticated, function(req, res) {
   res.render('addProducts');
 });
 
-app.post('/addproduct', upload.fields([{ name: 'product_photo', maxCount: 1 }]), checkAuthenticated, function (req, res) {
-  var pDetails = req.body;
-  extension = path.extname(req.files.product_photo[0].originalname);
-  console.log(req.files.product_photo[0].originalname);
-  blob = bucket.file('Product/' + pDetails.pName + '-photo' + extension);
-  blobStream = blob.createWriteStream({
-    metadata: {
-      contentType: blob.mimetype
-    }
-  });
-  blobStream.on('error', err => {
-    console.log(err);
-    next(err);
-  });
+app.post('/addproduct', upload.fields([{
+      name: 'product_photo',
+      maxCount: 1
+    }]), checkAuthenticated, function(req, res) {
+      var pDetails = req.body;
+      var sId = req.user.sId;
+      var query = "SELECT * FROM products WHERE pName = ?";
+      connection.query(query, [pDetails.pName], function(err, rows) {
 
-  blobStream.on('finish', () => {
-    // The public URL can be used to directly access the file via HTTP.
-    const publicUrl = format(
-      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-    );
-    console.log(publicUrl);
-    console.log(bucket.name);
-    console.log(blob.name);
-    // res.status(200).send(publicUrl);
-  });
-  blobStream.end(req.files.product_photo[0].buffer);
-  var photo = pDetails.pId + '-photo' + extension;
+        if (err) {
+          console.log(err);
+        } else if (rows.length) {
+          connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId,pDetails.pDelivery], function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Data Inserted Successfully");
+              res.redirect("/addproduct");
+            }
+          })
+        } else {
+          connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), pDetails.pCategory,pDetails.pDescription], function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              extension = path.extname(req.files.product_photo[0].originalname);
+              console.log(req.files.product_photo[0].originalname);
+              blob = bucket.file('Product/' + pDetails.pName + '-photo' + extension);
+              blobStream = blob.createWriteStream({
+                metadata: {
+                  contentType: blob.mimetype
+                }
+              });
+              blobStream.on('error', err => {
+                console.log(err);
+                next(err);
+              });
 
-  res.redirect('/addproduct');
+              blobStream.on('finish', () => {
+                // The public URL can be used to directly access the file via HTTP.
+                const publicUrl = format(
+                  `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+                );
+                console.log(publicUrl);
+                console.log(bucket.name);
+                console.log(blob.name);
+                // res.status(200).send(publicUrl);
+              });
+              blobStream.end(req.files.product_photo[0].buffer);
+              var photo = pDetails.pId + '-photo' + extension;
+              var query = "SELECT * FROM products WHERE pName = ?";
+              connection.query(query,[pDetails.pName], function(err, rows) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId,pDetails.pDelivery], function(err) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log("Data Inserted Successfully");
+                      res.redirect("/addproduct");
+                    }
+                  })
+                }
+              });
+            }
+          });
+        }
+      });
 
 });
 
-///Retrive file from firebase storage
-// app.get('/test',checkAuthenticated, function (req, res){
-//   bucket.file('Product/Mi-photo.PNG').get(function (err,file,apiResponse){
-//     if(err){
-//       console.log(err);
-//     }
-//     else{
-//       console.log("ID is:"+file.id);
-//       res.render('test',{id:file.id});
-//     }
-//   })
-// })
+
+
+      ///Retrive file from firebase storage
+      // app.get('/test',checkAuthenticated, function (req, res){
+      //   bucket.file('Product/Mi-photo.PNG').get(function (err,file,apiResponse){
+      //     if(err){
+      //       console.log(err);
+      //     }
+      //     else{
+      //       console.log("ID is:"+file.id);
+      //       res.render('test',{id:file.id});
+      //     }
+      //   })
+      // })
 
 
 
-app.get('/sellerprofile', checkAuthenticated, function (req, res) {
-  res.render('profile');
-});
-/************************************Seller Ends*************************************************/
+      app.get('/sellerprofile', checkAuthenticated, function(req, res) {
+        res.render('profile');
+      });
+      /************************************Seller Ends*************************************************/
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Connected at 3000");
-})
+      app.listen(process.env.PORT || 3000, function() {
+        console.log("Connected at 3000");
+      });
