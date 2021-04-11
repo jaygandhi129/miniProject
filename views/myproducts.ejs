@@ -30,7 +30,7 @@
         <ul class="navbar-nav text-light" id="accordionSidebar">
           <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
           <li class="nav-item"><a class="nav-link" href="/sellerprofile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-boxes"></i><span>My Products</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/myproducts"><i class="fas fa-boxes"></i><span>My Products</span></a></li>
           <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa fa-list-alt"></i><span>Orders</span></a></li>
           <li class="nav-item"><a class="nav-link" href="register.html"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
         </ul>
@@ -74,14 +74,15 @@
         </div>
 
         <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <table class="table table-image table-striped nowrap display table-bordered" id="test-table">
+          <div class="row ">
+            <div class="col-12 ">
+              <table class="table table-image table-striped nowrap display table-bordered " id="test-table">
                 <thead>
                   <tr>
                     <th scope="col">Sr No.</th>
                     <th scope="col">Image</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Price</th>
                     <th scope="col">Edit</th>
@@ -94,9 +95,10 @@
                       <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep">
                     </td>
                     <td>Bootstrap 4 CDN and Starter Template</td>
+                    <td>Clothing</td>
                     <td>Cristina</td>
                     <td>913</td>
-                    <td>2.846</td>
+                    <td><button class="btn btn-primary edit-btn" id="edit-btn">Edit</button></td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
@@ -104,6 +106,18 @@
                       <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg" class="img-fluid img-thumbnail" alt="Sheep">
                     </td>
                     <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                    <td>Clothing</td>
+                    <td>Cristina</td>
+                    <td>1.434</td>
+                    <td><button class="btn btn-primary edit-btn" id="edit-btn">Edit</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td class="w-25">
+                      <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg" class="img-fluid img-thumbnail" alt="Sheep">
+                    </td>
+                    <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                    <td>Clothing</td>
                     <td>Cristina</td>
                     <td>1.434</td>
                     <td>3.417</td>
@@ -123,6 +137,5 @@
       </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
-    <script src="theme.js">
-
+    <script src="theme.js"></script>
     <%- include("partials/footer") -%>

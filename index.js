@@ -318,6 +318,10 @@ app.post('/addproduct', upload.fields([{
       app.get('/myproducts',checkAuthenticated, function(req,res){
         res.render('myproducts');
       });
+      app.post('/myproducts',checkAuthenticated, function(req,res){
+        console.log("Server Side " + req.body.name);
+        res.redirect('/business')
+      })
       /************************************Seller Ends*************************************************/
 
       app.listen(process.env.PORT || 3000, function() {
