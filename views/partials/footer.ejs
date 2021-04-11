@@ -7,6 +7,32 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
+
+    <script>
+      $(document).ready(function() {
+//Only needed for the filename of export files.
+//Normally set in the title tag of your page.
+document.title='Simple DataTable';
+// DataTable initialisation
+$('#test-table').DataTable(
+  {
+    "dom": '<"dt-buttons"Bf><"clear">lirtp',
+    "paging": true,
+    "autoWidth": true,
+    "buttons": [
+      'colvis',
+      'copyHtml5',
+      'csvHtml5',
+      'excelHtml5',
+      'pdfHtml5',
+      'print'
+    ]
+  }
+);
+});
+    </script>
+
+
 </body>
 
 </html>

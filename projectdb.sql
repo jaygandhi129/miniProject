@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -62,15 +62,19 @@ DROP TABLE IF EXISTS `inventory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventory` (
-  `sId` int NOT NULL,
-  `pId` int NOT NULL,
+  `iId` int NOT NULL AUTO_INCREMENT,
   `sellerPrice` float NOT NULL,
   `stockAvailable` int NOT NULL,
-  PRIMARY KEY (`sId`,`pId`),
+  `sId` int DEFAULT NULL,
+  `pId` int DEFAULT NULL,
+  `iDelivery` char(1) NOT NULL,
+  PRIMARY KEY (`iId`),
+  UNIQUE KEY `sId` (`sId`,`pId`),
   KEY `pId` (`pId`),
   CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`sId`) REFERENCES `seller_details` (`sId`),
-  CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
+  CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N')))
+) ENGINE=InnoDB AUTO_INCREMENT=100007 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,6 +83,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
+INSERT INTO `inventory` VALUES (100004,1999.99,3,1028,50005,'Y'),(100005,1001.88,122,1028,50006,'N'),(100006,2222.33,12,1028,50007,'Y');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,10 +97,11 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `pId` int NOT NULL AUTO_INCREMENT,
   `pName` varchar(100) NOT NULL,
-  `pMrp` int NOT NULL,
+  `pMrp` float NOT NULL,
   `pCategory` varchar(45) NOT NULL,
+  `pDescription` varchar(200) NOT NULL,
   PRIMARY KEY (`pId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50008 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,6 +110,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (50005,'Sonata',2001,'...','Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm hcidbc'),(50006,'Titan',2000,'...','asas asas asasa asas'),(50007,'Fasttrack',1234.56,'...','Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm hcidbc');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-09  0:02:33
+-- Dump completed on 2021-04-11  0:00:41

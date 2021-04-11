@@ -315,6 +315,9 @@ app.post('/addproduct', upload.fields([{
       app.get('/sellerprofile', checkAuthenticated, function(req, res) {
         res.render('profile');
       });
+      app.get('/myproducts',checkAuthenticated, function(req,res){
+        res.render('myproducts');
+      });
       /************************************Seller Ends*************************************************/
 
       app.listen(process.env.PORT || 3000, function() {
