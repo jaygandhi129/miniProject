@@ -84,44 +84,33 @@
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">My Price</th>
+                    <th scope="col">MRP</th>
+                    <th scope="col">Delivery Avaliable</th>
                     <th scope="col">Edit</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td class="w-25">
-                      <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep">
-                    </td>
-                    <td>Bootstrap 4 CDN and Starter Template</td>
-                    <td>Clothing</td>
-                    <td>Cristina</td>
-                    <td>913</td>
-                    <td><button class="btn btn-primary edit-btn" id="edit-btn">Edit</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td class="w-25">
-                      <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg" class="img-fluid img-thumbnail" alt="Sheep">
-                    </td>
-                    <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                    <td>Clothing</td>
-                    <td>Cristina</td>
-                    <td>1.434</td>
-                    <td><button class="btn btn-primary edit-btn" id="edit-btn">Edit</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td class="w-25">
-                      <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg" class="img-fluid img-thumbnail" alt="Sheep">
-                    </td>
-                    <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                    <td>Clothing</td>
-                    <td>Cristina</td>
-                    <td>1.434</td>
-                    <td>3.417</td>
-                  </tr>
+
+                  <% rows.forEach(function(row){ %>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td class="w-25">
+
+                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
+                      </td>
+                      <td><%= row.pName %></td>
+                      <td><%=  row.pCategory %></td>
+                      <td><%=  row.stockAvailable %></td>
+                      <td><%=  row.sellerPrice %></td>
+                      <td><%=  row.pMrp %></td>
+                      <td><%=  row.iDelivery %></td>
+                      <td><button class="btn btn-primary edit-btn" id="edit-btn">Edit</button></td>
+                    </tr>
+
+                <%  }); %>
+
+
                 </tbody>
               </table>
             </div>
