@@ -224,33 +224,38 @@ app.get('/addproduct', checkAuthenticated, function(req, res) {
 });
 
 app.post('/addproduct', upload.fields([{
-      name: 'product_photo',
-      maxCount: 1
-    }]), checkAuthenticated, function(req, res) {
-      var pDetails = req.body;
-      var sId = req.user.sId;
-      var query = "SELECT * FROM products WHERE pName = ?";
-      connection.query(query, [pDetails.pName], function(err, rows) {
+  name: 'product_photo',
+  maxCount: 1
+}]), checkAuthenticated, function(req, res) {
+  var pDetails = req.body;
+  var sId = req.user.sId;
+  var query = "SELECT * FROM products WHERE pName = ?";
+  connection.query(query, [pDetails.pName], function(err, rows) {
 
+    if (err) {
+      console.log(err);
+    } else if (rows.length) {
+      connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery], function(err) {
         if (err) {
           console.log(err);
-        } else if (rows.length) {
-          connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId,pDetails.pDelivery], function(err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("Data Inserted Successfully");
-              res.redirect("/addproduct");
-            }
-          })
         } else {
-          connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), pDetails.pCategory,pDetails.pDescription], function(err) {
+          console.log("Data Inserted Successfully");
+          res.redirect("/addproduct");
+        }
+      })
+    } else {
+      connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), pDetails.pCategory, pDetails.pDescription], function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          extension = path.extname(req.files.product_photo[0].originalname);
+          //console.log(req.files.product_photo[0].originalname);
+          var query2 = "SELECT pId FROM products WHERE pName = ?"
+          connection.query(query2, pDetails.pName, function(err, rows2) {
             if (err) {
               console.log(err);
             } else {
-              extension = path.extname(req.files.product_photo[0].originalname);
-              console.log(req.files.product_photo[0].originalname);
-              blob = bucket.file('Product/' + pDetails.pName + '-photo' + extension);
+              blob = bucket.file('Product/' + rows2[0].pId + '-photo' + extension);
               blobStream = blob.createWriteStream({
                 metadata: {
                   contentType: blob.mimetype
@@ -266,64 +271,74 @@ app.post('/addproduct', upload.fields([{
                 const publicUrl = format(
                   `https://storage.googleapis.com/${bucket.name}/${blob.name}`
                 );
-                console.log(publicUrl);
-                console.log(bucket.name);
-                console.log(blob.name);
+              //  console.log(publicUrl);
+              //  console.log(bucket.name);
+              //  console.log(blob.name);
                 // res.status(200).send(publicUrl);
               });
               blobStream.end(req.files.product_photo[0].buffer);
-              var photo = pDetails.pId + '-photo' + extension;
-              var query = "SELECT * FROM products WHERE pName = ?";
-              connection.query(query,[pDetails.pName], function(err, rows) {
+            //  console.log(blob.id);
+
+
+              var query3 = "UPDATE products SET pPhotoId = ? WHERE pId = ?";
+              connection.query(query3, [blob.id, rows2[0].pId], function(err) {
                 if (err) {
                   console.log(err);
                 } else {
-                  connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId,pDetails.pDelivery], function(err) {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      console.log("Data Inserted Successfully");
-                      res.redirect("/addproduct");
-                    }
-                  })
+                  console.log("Photo Id updated Successfully");
                 }
               });
             }
           });
+          var query = "SELECT * FROM products WHERE pName = ?";
+          connection.query(query, [pDetails.pName], function(err, rows) {
+            if (err) {
+              console.log(err);
+            } else {
+              connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery], function(err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log("Data Inserted Successfully");
+                  res.redirect("/addproduct");
+                }
+              })
+            }
+          });
         }
       });
-
+    }
+  });
 });
 
 
 
-      ///Retrive file from firebase storage
-      // app.get('/test',checkAuthenticated, function (req, res){
-      //   bucket.file('Product/Mi-photo.PNG').get(function (err,file,apiResponse){
-      //     if(err){
-      //       console.log(err);
-      //     }
-      //     else{
-      //       console.log("ID is:"+file.id);
-      //       res.render('test',{id:file.id});
-      //     }
-      //   })
-      // })
 
 
 
-      app.get('/sellerprofile', checkAuthenticated, function(req, res) {
-        res.render('profile');
+
+app.get('/sellerprofile', checkAuthenticated, function(req, res) {
+  res.render('profile');
+});
+app.get('/myproducts', checkAuthenticated, function(req, res) {
+  var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+  var photos = [];
+  connection.query(query, req.user.sId, function(err, rows) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('myproducts', {
+        rows
       });
-      app.get('/myproducts',checkAuthenticated, function(req,res){
-        res.render('myproducts');
-      });
-      app.post('/myproducts',checkAuthenticated, function(req,res){
-        console.log("Server Side " + req.body.name);
-        res.redirect('/business')
-      })
-      /************************************Seller Ends*************************************************/
+    }
+  });
+});
+app.post('/myproducts', checkAuthenticated, function(req, res) {
+  console.log("Server Side " + req.body.name);
+  res.redirect('/business')
+})
+/************************************Seller Ends*************************************************/
 
-      app.listen(process.env.PORT || 3000, function() {
-        console.log("Connected at 3000");
-      });
+app.listen(process.env.PORT || 3000, function() {
+  console.log("Connected at 3000");
+});
