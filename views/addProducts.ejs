@@ -84,10 +84,17 @@
 
                   <div class="col-md-6 first-page-valid">
                       <label for="inputState" class="form-label">Category</label>
-                      <select id="inputState" name="pCategory" class="form-select" required>
-                          <option selected>Choose...</option>
-                          <option>...</option>
+                      <select id="inputState" name="pCategory" class="form-select" onchange="showfield(this.options[this.selectedIndex].value)" required>
+                        <option selected></option>
+                        <option hidden>Choose...</option>
+
+                          <% rows.forEach(function(row){ %>
+                            
+                            <option><%= row.pCategory%></option>
+                          <% }); %>
+                          <option value = "Other">Other</option>
                       </select>
+                      <div id="div1"></div>
                   </div>
 
 
@@ -163,6 +170,13 @@
         </footer>
       </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+
+      <script type="text/javascript">
+      function showfield(name){
+        if(name=='Other')document.getElementById('div1').innerHTML=' <input type="text" class="form-control" placeholder="Enter Category" name="oCategory" style="margin-top:2%;"  required/>';
+        else document.getElementById('div1').innerHTML='';
+      }
+      </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
     <script src="theme.js"></script>
 </body>

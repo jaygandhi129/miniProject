@@ -138,11 +138,24 @@
                                         <div class="invalid-feedback">City cannot be blank.</div>
                                     </div>
                                     <div class="col-md-4 first-page-valid">
-                                        <label for="inputState" class="form-label">State</label>
-                                        <select id="inputState" name="sState" class="form-select" required>
-                                            <option selected>Choose...</option>
-                                            <option>Maharashtra</option>
-                                        </select>
+                                        <label for="" class="form-label">State</label>
+
+                                          <input list="states" name="sState" id="state">
+                                          <datalist id="states">
+                            
+                                            <% states.forEach(function(state){ %>
+                                              <option value= <%= state %> >
+                                            <% }); %>
+
+                                          </datalist>
+
+
+
+
+
+
+
+
                                     </div>
                                     <div class="col-md-2 first-page-valid">
                                         <label for="inputZip" class="form-label">Zip</label>
@@ -296,6 +309,13 @@
 
     <!-------------------------------------- Form Validation------------------ -->
     <script>
+
+
+
+
+
+
+
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
             'use strict'

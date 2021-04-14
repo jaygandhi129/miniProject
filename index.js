@@ -138,7 +138,7 @@ app.get("/business", function(req, res) {
 
 //Seller Register Page-1
 app.get("/business/register", checkNotAuthenticated, function(req, res) {
-  res.render('sellerRegister1', {
+    res.render('sellerRegister1', {
     flag: false
   });
 })
@@ -147,11 +147,49 @@ app.post("/business/register/home", checkNotAuthenticated, function(req, res) {
   var b_name = req.body.b_name;
   var b_owner = req.body.b_owner;
   var b_mobile = parseInt(req.body.b_mobile);
+  var states = [ "Andhra Pradesh",
+                  "Arunachal Pradesh",
+                  "Assam",
+                  "Bihar",
+                  "Chhattisgarh",
+                  "Goa",
+                  "Gujarat",
+                  "Haryana",
+                  "Himachal Pradesh",
+                  "Jammu and Kashmir",
+                  "Jharkhand",
+                  "Karnataka",
+                  "Kerala",
+                  "Madhya Pradesh",
+                  "Maharashtra",
+                  "Manipur",
+                  "Meghalaya",
+                  "Mizoram",
+                  "Nagaland",
+                  "Odisha",
+                  "Punjab",
+                  "Rajasthan",
+                  "Sikkim",
+                  "Tamil Nadu",
+                  "Telangana",
+                  "Tripura",
+                  "Uttarakhand",
+                  "Uttar Pradesh",
+                  "West Bengal",
+                  "Andaman and Nicobar Islands",
+                  "Chandigarh",
+                  "Dadra and Nagar Haveli",
+                  "Daman and Diu",
+                  "Delhi",
+                  "Lakshadweep",
+                  "Puducherry"]
+
   res.render("sellerRegister1", {
     flag: true,
     b_name,
     b_owner,
-    b_mobile
+    b_mobile,
+    states:states
   });
 })
 
@@ -220,7 +258,15 @@ app.get('/dashboard', checkAuthenticated, function(req, res) {
 });
 
 app.get('/addproduct', checkAuthenticated, function(req, res) {
-  res.render('addProducts');
+  var query = "SELECT distinct pCategory from products"
+  connection.query(query,function(err,rows){
+    if(err){
+      console.log(err);
+    }else{
+      res.render('addProducts',{rows});
+
+    }
+  });
 });
 
 app.post('/addproduct', upload.fields([{
@@ -244,7 +290,11 @@ app.post('/addproduct', upload.fields([{
         }
       })
     } else {
-      connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), pDetails.pCategory, pDetails.pDescription], function(err) {
+      var category = pDetails.pCategory;
+      if(pDetails.pCategory == "Other"){
+        category = pDetails.oCategory;
+      }
+      connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), category, pDetails.pDescription], function(err) {
         if (err) {
           console.log(err);
         } else {
@@ -360,13 +410,35 @@ app.post("/editProduct",checkAuthenticated,function(req,res){
     if (err) {
       console.log(err);
     } else {
+      console.log("Server : "+rows[0]);
       res.render('myproducts', {
         rows,edit:true,editValue
       });
     }
   });
 });
-app.post("/editProduct")
+app.post("/saveProduct",checkAuthenticated,function(req,res){
+  var data = req.body;
+  var query = "UPDATE inventory i SET i.stockAvailable = ? , i.sellerPrice = ? , i.iDelivery = ? where iId = ?";
+  connection.query(query,[parseInt(data.stockAvailable), parseFloat(data.sellerPrice) ,data.iDelivery ,parseInt(data.savebtn)],function(err,rows){
+    if(err){
+      console.log(err);
+    }else{
+      var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+      console.log("Products data updated successfully");
+      connection.query(query, req.user.sId, function(err, rows) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Server : "+rows[0]);
+          res.render('myproducts', {
+            rows,edit:false
+          });
+        }
+      });
+    }
+  });
+});
 
 
 
