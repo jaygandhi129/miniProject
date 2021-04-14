@@ -328,7 +328,7 @@ app.get('/myproducts', checkAuthenticated, function(req, res) {
       console.log(err);
     } else {
       res.render('myproducts', {
-        rows
+        rows,edit:false
       });
     }
   });
@@ -350,6 +350,24 @@ app.post('/myproducts', checkAuthenticated, function(req, res) {
     res.redirect('/business')
   }
 })
+
+app.post("/editProduct",checkAuthenticated,function(req,res){
+  var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+  var photos = [];
+  var editValue=req.body.editbtn;
+  console.log("edit : "+editValue);
+  connection.query(query, req.user.sId, function(err, rows) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('myproducts', {
+        rows,edit:true,editValue
+      });
+    }
+  });
+});
+app.post("/editProduct")
+
 
 
 /************************************Seller Ends*************************************************/
