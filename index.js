@@ -240,7 +240,7 @@ app.post('/addproduct', upload.fields([{
           console.log(err);
         } else {
           console.log("Data Inserted Successfully");
-          res.redirect("/addproduct");
+          res.redirect("/myproducts");
         }
       })
     } else {
@@ -300,7 +300,7 @@ app.post('/addproduct', upload.fields([{
                   console.log(err);
                 } else {
                   console.log("Data Inserted Successfully");
-                  res.redirect("/addproduct");
+                  res.redirect("/myproducts");
                 }
               })
             }
@@ -321,7 +321,7 @@ app.get('/sellerprofile', checkAuthenticated, function(req, res) {
   res.render('profile');
 });
 app.get('/myproducts', checkAuthenticated, function(req, res) {
-  var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+  var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
   var photos = [];
   connection.query(query, req.user.sId, function(err, rows) {
     if (err) {
@@ -335,8 +335,23 @@ app.get('/myproducts', checkAuthenticated, function(req, res) {
 });
 app.post('/myproducts', checkAuthenticated, function(req, res) {
   console.log("Server Side " + req.body.name);
-  res.redirect('/business')
+  console.log(req.body.deleteproduct);
+  var inventid=req.body.deleteproduct;
+  var query4="delete from inventory where iId=?";
+  connection.query(query4,inventid, function(err, rows) {
+    if (err) {
+      console.log(err);
+    } else {
+    console.log("deleted");
+    res.redirect('/myproducts');
+    }
+  })
+  if (req.body.name==="undefined"){
+    res.redirect('/business')
+  }
 })
+
+
 /************************************Seller Ends*************************************************/
 
 app.listen(process.env.PORT || 3000, function() {
