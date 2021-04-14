@@ -41,7 +41,7 @@ CREATE TABLE `business_details` (
   UNIQUE KEY `bEmail` (`bEmail`),
   KEY `sellerBusiness` (`seller`),
   CONSTRAINT `sellerBusiness` FOREIGN KEY (`seller`) REFERENCES `seller_details` (`sId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,8 +73,8 @@ CREATE TABLE `inventory` (
   KEY `pId` (`pId`),
   CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`sId`) REFERENCES `seller_details` (`sId`),
   CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
-  CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8'Y',_utf8'N')))
-) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N')))
+) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE `products` (
   `pDescription` varchar(200) NOT NULL,
   `pPhotoId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`pId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50016 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50016 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,8 +139,8 @@ CREATE TABLE `seller_details` (
   UNIQUE KEY `sPhoneNo` (`sPhoneNo`),
   UNIQUE KEY `sAadhar` (`sAadhar`),
   UNIQUE KEY `sPAN` (`sPAN`),
-  CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8'M',_utf8'F',_utf8'O')))
-) ENGINE=InnoDB AUTO_INCREMENT=1030 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8mb4'M',_utf8mb4'F',_utf8mb4'O')))
+) ENGINE=InnoDB AUTO_INCREMENT=1030 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
