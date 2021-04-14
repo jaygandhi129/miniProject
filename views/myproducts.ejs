@@ -181,24 +181,37 @@
                 </thead>
                 <tbody>
 
+
                   <% rows.forEach(function(row){ %>
-                    <%if( editValue === row.iId){%>
-                      <% console.log("Website : "+editValue)%>
+
+
+                    <%if( editValue == row.iId){%>
                   <tr>
                     <th scope="row">1</th>
                     <td class="w-25">
 
                       <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
                     </td>
-                    <form class="" action="/editProduct" method="post">
+                    <form class="" action="/saveProduct" method="post">
 
                       <td><%= row.pName %></td>
-                      <td><%=  row.pCategory %></td>
-                      <td><input type="text" name="stockAvailable" value=<%=  row.stockAvailable %>></td>
-                      <td><input type="text" name="sellerPrice" value=<%=  row.sellerPrice %>></td>
+                      <td ><%=  row.pCategory %></td>
+                      <td><input class="form-control" type="text" name="stockAvailable" value=<%=  row.stockAvailable %>></td>
+                      <td><input class="form-control" type="text" name="sellerPrice" value=<%=  row.sellerPrice %>></td>
                       <td><%=  row.pMrp %></td>
-                      <td><input type="text" name="iDelivery" value=<%=  row.iDelivery %>></td>
-                      <td><button class="btn btn-primary edit-btn" id="edit-btn" type="submit" style="width:90%;" value=<%= row.iId %>>Save</button></td>
+                      <td>
+                        <select id="inputState" name="iDelivery" class="form-select" required>
+                            <option selected><%=  row.iDelivery %></option>
+                            <% if  (row.iDelivery == "N") {%>
+                            <option>Y</option>
+                          <%}else{%>
+                            <option>N</option>
+                          <%}%>
+                        </select>
+                      </td>
+
+
+                      <td><button class="btn btn-primary edit-btn" id="edit-btn" type="submit" name="savebtn" style="width:90%;" value=<%= row.iId %>>Save</button></td>
                     </form>
 
                   </tr>

@@ -25,13 +25,7 @@
       ],
       scrollX: true
     });
-    $("#edit-btn").click(function(){
-    $('tbody').on('click', 'tr', function () {
-      data = table.row(this).data()[2]
-      $.post('/myproducts',{name:data},function (data,status) {
-      })
-      });
-    });
+
   });
 </script>
 
