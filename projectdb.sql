@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,13 +35,14 @@ CREATE TABLE `business_details` (
   `bCity` varchar(45) NOT NULL,
   `bState` varchar(45) NOT NULL,
   `bZip` int NOT NULL,
+  `bPhotoId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`bId`),
   UNIQUE KEY `bMobile` (`bMobile`),
   UNIQUE KEY `bGST` (`bGST`),
   UNIQUE KEY `bEmail` (`bEmail`),
   KEY `sellerBusiness` (`seller`),
   CONSTRAINT `sellerBusiness` FOREIGN KEY (`seller`) REFERENCES `seller_details` (`sId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +51,7 @@ CREATE TABLE `business_details` (
 
 LOCK TABLES `business_details` WRITE;
 /*!40000 ALTER TABLE `business_details` DISABLE KEYS */;
-INSERT INTO `business_details` VALUES (1,1008,'ABC','...',7709708626,'888888888888888','jaygandhi129@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101),(16,1027,'ABC','...',5621324512,'512452132521232','jaygandhi129@rediffmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101),(17,1028,'baagbsda','...',5462132512,'845215621251212','yash@jstar.org','','Sujaynagar-8','Akluj','Maharashtra',413101),(18,1029,'mybusiness','...',7756901721,'AB1234567808767','dhoblesaurabh35@gmail.com','','PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR','NAGPUR','Maharashtra',440015);
+INSERT INTO `business_details` VALUES (18,1029,'mybusiness','...',7756901721,'AB1234567808767','dhoblesaurabh35@gmail.com','','PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR','NAGPUR','Maharashtra',440015,NULL),(26,1044,'Gada Electronics','Electronics and Accessories',6363636363,'542198546523251','sdfsd@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101,'Seller%2F1044%2F26-photo.jpg');
 /*!40000 ALTER TABLE `business_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,7 +76,7 @@ CREATE TABLE `inventory` (
   CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
   CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N'))),
   CONSTRAINT `inventory_chk_1` CHECK ((`stockAvailable` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=100025 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +103,7 @@ CREATE TABLE `products` (
   `pDescription` varchar(200) NOT NULL,
   `pPhotoId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`pId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50025 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50026 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +112,6 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (50018,'Tide',20,'Detergent','Kyu !! Chouk gaye !!','Product%2F50018-photo.jpg');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `seller_details` (
   UNIQUE KEY `sAadhar` (`sAadhar`),
   UNIQUE KEY `sPAN` (`sPAN`),
   CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8mb4'M',_utf8mb4'F',_utf8mb4'O')))
-) ENGINE=InnoDB AUTO_INCREMENT=1030 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1045 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `seller_details` (
 
 LOCK TABLES `seller_details` WRITE;
 /*!40000 ALTER TABLE `seller_details` DISABLE KEYS */;
-INSERT INTO `seller_details` VALUES (1008,'XYZ',7878787878,'2021-03-23','M','dhdfhfdh','Akluj','Maharashtra',413101,7777777777777777,'7777777777','$2y$10$uAEwzRK1TlnDyCpV40jFeOKMDIXkFBObrimRQkEFXA5zDaPkofBvO '),(1027,'XYZ',2222222222,'2021-04-06','M','sadsasdsadsadasdadssa','Akluj','Maharashtra',413101,4455522223323252,'2152162545','Abc@1234'),(1028,'asfsdfsdf',3333333333,'2021-04-07','F','sadsadfsa','Akluj','Maharashtra',413101,8546215214521623,'5412154218','dc02c947d1b6c77047f17e5f01ea39ed'),(1029,'Saurabh Dhoble',7756901721,'2021-04-13','M','23, Manish Nagar, Nagpur','NAGPUR','Maharashtra',440015,9911881277336659,'9011882275','10b8e822d03fb4fd946188e852a4c3e2');
+INSERT INTO `seller_details` VALUES (1029,'Saurabh Dhoble',7756901721,'2021-04-13','M','23, Manish Nagar, Nagpur','NAGPUR','Maharashtra',440015,9911881277336659,'9011882275','10b8e822d03fb4fd946188e852a4c3e2'),(1044,'Jethalal Gada',2312121212,'2021-04-15','M','Hhjahj','Akluj','Maharashtra',413101,7578555555555555,'2222222222','dc02c947d1b6c77047f17e5f01ea39ed');
 /*!40000 ALTER TABLE `seller_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-14 23:52:43
+-- Dump completed on 2021-04-15 23:42:05

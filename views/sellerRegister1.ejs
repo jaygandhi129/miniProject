@@ -84,7 +84,7 @@
             <div id="multistep-start-row" class="row">
                 <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
                     <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/business/register/nextstep"
-                    oninput='sCpassword.setCustomValidity(sCpassword.value != sPassword.value ? "Passwords do not match." : "")' novalidate>
+                    oninput='sCpassword.setCustomValidity(sCpassword.value != sPassword.value ? "Passwords do not match." : "")' novalidate enctype="multipart/form-data">
                         <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active"
                             data-animation="scaleIn">
                             <h3 class="text-center multisteps-form__title">User Info</h3>
@@ -140,11 +140,10 @@
                                     <div class="col-md-4 first-page-valid">
                                         <label for="" class="form-label">State</label>
 
-                                          <input list="states" name="sState" id="state">
+                                          <input list="states" name="sState" id="state" class="form-control">
                                           <datalist id="states">
-                            
                                             <% states.forEach(function(state){ %>
-                                              <option value= <%= state %> >
+                                              <option><%=state%></option>
                                             <% }); %>
 
                                           </datalist>
@@ -213,7 +212,28 @@
                                             <label for="inputState" class="form-label">Category</label>
                                             <select id="inputState" name="bCategory" class="form-select" required>
                                                 <option selected>Choose...</option>
-                                                <option>...</option>
+                                                <option>Grocery</option>
+                                                <option>Clothing</option>
+                                                <option>Electrical</option>
+                                                <option>Electronics and Accessories</option>
+                                                <option>Stationary</option>
+                                                <option>Hardware</option>
+                                                <option>Automobile Accessories</option>
+                                                <option>Cosmetics</option>
+                                                <option>Sports and Fitness</option>
+                                                <option>Furniture</option>
+                                                <option>Cutlery</option>
+                                                <option>Gift Shop</option>
+                                                <option>Toys</option>
+                                                <option>Bags and Luggage</option>
+                                                <option>Footware</option>
+                                                <option>Spectacles/Lenses</option>
+                                                <option>Watch</option>
+                                                <option>Books</option>
+                                                <option>Imitation Jewellery</option>
+                                                <option>Baby Care</option>
+
+
                                             </select>
                                         </div>
 
