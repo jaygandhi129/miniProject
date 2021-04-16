@@ -299,7 +299,7 @@ app.get('/dashboard', checkAuthenticated, function (req, res) {
     else{
       console.log(rows[0].bPhotoId);
       res.render('dashboard', {
-        name: req.user.sName, 
+        name: req.user.sName,
         source: rows[0].bPhotoId
       });
     }
@@ -420,7 +420,17 @@ app.post('/addproduct', upload.fields([{
 
 
 app.get('/sellerprofile', checkAuthenticated, function (req, res) {
-  res.render('profile');
+
+  var query="SELECT s.sId, s.sName,s.sPhoneNo,s.sDOB,b.bName,b.bCategory,b.bMobile,b.bGST,b.bEmail,b.bWebsite,b.bAddress,b.bCity,b.bState,b.bZip,b.bPhotoId from seller_details s inner join business_details b on b.seller=s.sId where s.sId =?";
+  connection.query(query,req.user.sId,function(err,rows){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.render('profile',{rows});
+    }
+  });
+
 });
 app.get('/myproducts', checkAuthenticated, function (req, res) {
   var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
