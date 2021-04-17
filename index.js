@@ -418,7 +418,7 @@ app.post('/addproduct', upload.fields([{
 
 
 
-
+//profile.ejs starts
 app.get('/sellerprofile', checkAuthenticated, function (req, res) {
 
   var query="SELECT s.sId, s.sName,s.sPhoneNo,s.sDOB,b.bName,b.bCategory,b.bMobile,b.bGST,b.bEmail,b.bWebsite,b.bAddress,b.bCity,b.bState,b.bZip,b.bPhotoId from seller_details s inner join business_details b on b.seller=s.sId where s.sId =?";
@@ -432,6 +432,35 @@ app.get('/sellerprofile', checkAuthenticated, function (req, res) {
   });
 
 });
+
+app.post("/updateprofileseller", checkAuthenticated, function(req,res){
+  var data=req.body;
+  var query="UPDATE seller_details SET sName=?,sDOB=? where sId=?";
+  connection.query(query,[data.sName,data.sDOB,req.user.sId],function(err,rows){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.redirect('/sellerprofile');
+    }
+  });
+})
+
+app.post("/updateprofilebusiness", checkAuthenticated, function(req,res){
+  var data=req.body;
+  var query="UPDATE business_details SET bName=?,bCategory=?,bMobile=?,bEmail=?,bWebsite=?,bAddress=?,bCity=?,bState=?,bZip=? where seller=?";
+  connection.query(query,[data.bName,data.bCategory,data.bMobile,data.bEmail,data.bWebsite,data.bAddress,data.bCity,data.bState,data.bZip,req.user.sId],function(err,rows){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.redirect('/sellerprofile');
+    }
+  });
+})
+//profile.ejs ends
+
+//myproducts.ejs starts
 app.get('/myproducts', checkAuthenticated, function (req, res) {
   var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
   var photos = [];
@@ -506,7 +535,7 @@ app.post("/saveProduct", checkAuthenticated, function (req, res) {
   });
 });
 
-
+//myproducts.ejs ends
 
 /************************************Seller Ends*************************************************/
 

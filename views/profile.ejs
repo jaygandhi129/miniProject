@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -64,14 +65,13 @@
         </nav>
         <div class="container-fluid">
           <div class="d-sm-flex justify-content-between align-items-center mb-4">
-            <h3 class="text-dark mb-0">Profile</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block align-right" role="button" href="/profile" style="background: rgba(0,41,102,0.93);">
-              &nbsp;Edit&nbsp;</a>
+            <h3 class="text-dark mb-0">Profile</h3>
           </div>
           <div class="row mb-3">
             <div class="col-lg-4">
               <div class="card mb-3">
                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-                  <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
+                  <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" disabled>Change Photo</button></div>
                 </div>
               </div>
             </div>
@@ -79,14 +79,17 @@
               <div class="row">
                 <div class="col">
                   <div class="card shadow mb-3">
-                    <div class="card-header py-3">
-                      <p class="text-primary m-0 fw-bold">Seller Info</p>
+                    <div class="card-header py-3 container-fluid">
+                      <h4 class="text-primary m-0 fw-bold">Seller Info
+                      <button class="btn btn-primary btn-sm d-sm-inline-block sellereditbutt" style="background: rgba(0,41,102,0.93); float:right;">
+                        Edit</button></h4>
+
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form action="/updateprofileseller" method="post">
                         <div class="row">
                           <div class="col">
-                            <div class="mb-3"><label class="form-label" for="Name"><strong>Name</strong></label><input class="form-control" type="text" id="username" name="sName" placeholder="Name" value="<%=rows[0].sName%>"></div>
+                            <div class="mb-3"><label class="form-label" for="Name"><strong>Name</strong></label><input class="form-control sdis" type="text" id="username" name="sName" placeholder="Name" value="<%=rows[0].sName%>" readonly></div>
                           </div>
 
                           <div class="col">
@@ -99,10 +102,10 @@
                                 value="<%=rows[0].sPhoneNo%>" readonly> </div>
                           </div>
                           <div class="col">
-                            <div class="mb-3"><label class="form-label" for="dob"><strong>Birth Date</strong></label><input class="form-control" type="date" id="last_name" placeholder="Dob" name="sDOB" value="<%=rows[0].sDOB%>"></div>
+                            <div class="mb-3"><label class="form-label" for="dob"><strong>Birth Date</strong></label><input class="form-control sdis" type="date" id="last_name" placeholder="Dob" name="sDOB" value="<%=rows[0].sDOB%>" readonly></div>
                           </div>
                         </div>
-                        <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                        <div class="mb-3"><button class="btn btn-primary btn-sm ssave" type="submit" disabled>Save Settings</button></div>
                       </form>
                     </div>
                   </div>
@@ -112,25 +115,28 @@
           </div>
           <div class="card shadow mb-5">
             <div class="card-header py-3">
-              <p class="text-primary m-0 fw-bold">Business Details</p>
+              <p class="text-primary m-0 fw-bold">Business Details
+              <button class="btn btn-primary btn-sm d-sm-inline-block businesseditbutt" style="background: rgba(0,41,102,0.93); float:right;">
+                Edit</button></p>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-                  <form>
+                  <form action="/updateprofilebusiness" method="post">
                     <div class="row">
                       <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bName"><strong>Business Name</strong></label><input class="form-control" type="text" id="bname" placeholder="Business Name" name="bName" value="<%=rows[0].bName%>"></div>
+                        <div class="mb"><label class="form-label" for="bName"><strong>Business Name</strong></label><input class="form-control bdis" type="text" id="bname" placeholder="Business Name" name="bName" value="<%=rows[0].bName%>" readonly>
+                        </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bCategory"><strong>Business Category</strong></label><input class="form-control" type="text" id="bCategory" placeholder="Business Category" name="bCategory"
-                            value="<%=rows[0].bCategory%>"></div>
+                        <div class="mb"><label class="form-label" for="bCategory"><strong>Business Category</strong></label><input class="form-control bdis" type="text" id="bCategory" placeholder="Business Category" name="bCategory"
+                            value="<%=rows[0].bCategory%>" readonly></div>
                       </div>
                     </div>
 
                     <div class="row bpadd">
                       <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bMobile"><strong>Business Mobile</strong></label><input class="form-control" type="text" id="bmobile" placeholder="Business Mobile" name="bmobile" value="<%=rows[0].bMobile%>"
+                        <div class="mb"><label class="form-label" for="bMobile"><strong>Business Mobile</strong></label><input class="form-control bdis" type="text" id="bmobile" placeholder="Business Mobile" name="bMobile" value="<%=rows[0].bMobile%>"
                             readonly></div>
                       </div>
                       <div class="col-md-6">
@@ -140,33 +146,35 @@
 
                     <div class="row bpadd">
                       <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bEmail"><strong>Business Email</strong></label><input class="form-control" type="text" id="bemail" placeholder="abc@example.com" name="bEmail" value="<%=rows[0].bEmail%>"></div>
+                        <div class="mb"><label class="form-label" for="bEmail"><strong>Business Email</strong></label><input class="form-control bdis" type="text" id="bemail" placeholder="abc@example.com" name="bEmail" value="<%=rows[0].bEmail%>"
+                            readonly></div>
                       </div>
                       <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bsite"><strong>Website</strong></label><input class="form-control" type="text" id="bsite" placeholder="www.eg.com" name="bWebsite" value="<%=rows[0].bEmail%>"></div>
+                        <div class="mb"><label class="form-label" for="bsite"><strong>Website</strong></label><input class="form-control bdis" type="text" id="bsite" placeholder="www.eg.com" name="bWebsite" value="<%=rows[0].bWebsite%>" readonly></div>
                       </div>
                     </div>
 
                     <div class="row bpadd">
                       <div class="col-md-12">
-                        <div class="mb"><label class="form-label" for="badd"><strong>Shop Address</strong></label><input class="form-control" type="text" id="bmobile" placeholder="Business Address" name="bAddress" value="<%=rows[0].bAddress%>"></div>
+                        <div class="mb"><label class="form-label" for="badd"><strong>Shop Address</strong></label><input class="form-control bdis" type="text" id="bmobile" placeholder="Business Address" name="bAddress" value="<%=rows[0].bAddress%>"
+                            readonly></div>
                       </div>
 
                       <div class="row bpadd">
                         <div class="col-md-4">
-                          <div class="mb"><label class="form-label" for="bcity"><strong>City</strong></label><input class="form-control" type="text" id="bcity" placeholder="City" name="bCity" value="<%=rows[0].bCity%>"></div>
+                          <div class="mb"><label class="form-label" for="bcity"><strong>City</strong></label><input class="form-control bdis" type="text" id="bcity" placeholder="City" name="bCity" value="<%=rows[0].bCity%>" readonly></div>
                         </div>
                         <div class="col-md-4">
-                          <div class="mb"><label class="form-label" for="bstate"><strong>State</strong></label><input class="form-control" type="text" id="bstate" placeholder="State" name="bState" value="<%=rows[0].bState%>"></div>
+                          <div class="mb"><label class="form-label" for="bstate"><strong>State</strong></label><input class="form-control bdis" type="text" id="bstate" placeholder="State" name="bState" value="<%=rows[0].bState%>" readonly></div>
                         </div>
                         <div class="col-md-4">
-                          <div class="mb"><label class="form-label" for="bzip"><strong>Pin Code</strong></label><input class="form-control" type="text" id="bzip" placeholder="Zip" name="bZip" value="<%=rows[0].bZip%>"></div>
+                          <div class="mb"><label class="form-label" for="bzip"><strong>Pin Code</strong></label><input class="form-control bdis" type="text" id="bzip" placeholder="Zip" name="bZip" value="<%=rows[0].bZip%>" readonly></div>
                         </div>
                       </div>
 
                     </div>
 
-                    <div class="mb-3 bpadd"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                    <div class="mb-3 bpadd"><button class="btn btn-primary btn-sm bsave" type="submit" disabled>Save Settings</button></div>
 
 
 
@@ -189,6 +197,7 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
   <script src="theme.js"></script>
+
 </body>
 
 </html>
