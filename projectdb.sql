@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `business_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `business_details` (
   `bId` int NOT NULL AUTO_INCREMENT,
   `seller` int NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `business_details` (
   UNIQUE KEY `bEmail` (`bEmail`),
   KEY `sellerBusiness` (`seller`),
   CONSTRAINT `sellerBusiness` FOREIGN KEY (`seller`) REFERENCES `seller_details` (`sId`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +61,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `inventory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventory` (
   `iId` int NOT NULL AUTO_INCREMENT,
   `sellerPrice` float NOT NULL,
@@ -74,9 +74,9 @@ CREATE TABLE `inventory` (
   KEY `pId` (`pId`),
   CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`sId`) REFERENCES `seller_details` (`sId`),
   CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
-  CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8'Y',_utf8'N'))),
+  CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N'))),
   CONSTRAINT `inventory_chk_1` CHECK ((`stockAvailable` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
   `pId` int NOT NULL AUTO_INCREMENT,
   `pName` varchar(100) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `products` (
   `pDescription` varchar(200) NOT NULL,
   `pPhotoId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`pId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50026 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50026 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `seller_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8*/;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seller_details` (
   `sId` int NOT NULL AUTO_INCREMENT,
   `sName` varchar(45) NOT NULL,
@@ -139,8 +139,8 @@ CREATE TABLE `seller_details` (
   UNIQUE KEY `sPhoneNo` (`sPhoneNo`),
   UNIQUE KEY `sAadhar` (`sAadhar`),
   UNIQUE KEY `sPAN` (`sPAN`),
-  CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8'M',_utf8'F',_utf8'O')))
-) ENGINE=InnoDB AUTO_INCREMENT=1045 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8mb4'M',_utf8mb4'F',_utf8mb4'O')))
+) ENGINE=InnoDB AUTO_INCREMENT=1045 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
