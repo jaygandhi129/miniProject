@@ -79,19 +79,21 @@
 $(document).ready(function(){
 
   function enable1() {
-
   $(".sdis").removeAttr("readonly");
-
   $(".ssave").removeAttr("disabled");
-
 }
 
 $( ".sellereditbutt" ).on( "click", enable1 );
-
 
 function enable2(){
   $(".bdis").removeAttr("readonly");
   $(".bsave").removeAttr("disabled");
 }
 $( ".businesseditbutt" ).on( "click", enable2 );
+
+$('ul li a').click(function(){
+    $('li a').removeClass("active");
+    $(this).addClass("active");
+});
+
 })

@@ -313,10 +313,20 @@ app.get('/addproduct', checkAuthenticated, function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render('addProducts', {
-        rows
+      var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+      connection.query(query2,req.user.sId, function (err, rows1) {
+        if (err) {
+          console.log(err);
+        }
+        else{
+          res.render('addProducts', {
+            rows,
+            edit: false,
+            name:rows1[0].sName,
+            source:rows1[0].bPhotoId
+        });
+      }
       });
-
     }
   });
 });
@@ -427,7 +437,7 @@ app.get('/sellerprofile', checkAuthenticated, function (req, res) {
       console.log(err);
     }
     else {
-      res.render('profile',{rows});
+      res.render('profile',{rows,name:rows[0].sName,source:rows[0].bPhotoId});
     }
   });
 
@@ -468,9 +478,20 @@ app.get('/myproducts', checkAuthenticated, function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render('myproducts', {
-        rows,
-        edit: false
+      var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+      connection.query(query2,req.user.sId, function (err, rows1) {
+        if (err) {
+          console.log(err);
+        }
+        else{
+          res.render('myproducts', {
+            rows,
+            edit: false,
+            name:rows1[0].sName,
+            source:rows1[0].bPhotoId
+        })
+      }
+
       });
     }
   });
