@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.19
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -51,7 +51,7 @@ CREATE TABLE `business_details` (
 
 LOCK TABLES `business_details` WRITE;
 /*!40000 ALTER TABLE `business_details` DISABLE KEYS */;
-INSERT INTO `business_details` VALUES (18,1029,'mybusiness','...',7756901721,'AB1234567808767','dhoblesaurabh35@gmail.com','','PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR','NAGPUR','Maharashtra',440015,NULL),(26,1044,'Gada Electronics','Electronics and Accessories',6363636363,'542198546523251','sdfsd@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101,'Seller%2F1044%2F26-photo.jpg');
+INSERT INTO `business_details` VALUES (18,1029,'mybusiness','...',888888888,'AB1234567808767','sdjain36@gmail.com','www.nearcart.com','nagpurrrr','rtyuiiuytre','Jharkhand',413005,NULL),(26,1044,'Gada Electronics','Electronics and Accessories',6363636363,'542198546523251','sdfsd@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101,'Seller%2F1044%2F26-photo.jpg');
 /*!40000 ALTER TABLE `business_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-15 23:42:05
+-- Dump completed on 2021-04-17 18:39:39

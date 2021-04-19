@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
   <!-- Custom StyleSheet -->
-  <link rel="stylesheet" href="./css/cstyles.css"/>
+  <link rel="stylesheet" href="./css/cstyles.css" />
   <!-- Bootstrap -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -33,94 +33,75 @@
   </button> -->
 
   <!-- Modal -->
+  <%if(pincode==undefined){%>
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" style="margin-top:5%;">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title title" id="staticBackdropLabel" >ENTER YOUR PINCODE</h4>
+          <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
         </div>
+
         <div class="modal-body" style="margin-top:3%;">
-          <div class="row g-2">
-            <div class="col col-auto">
-              <input type="text" class="form-control form-control-lg" placeholder="Ex: 444000" name="" value="" required>
+          <form class="" action="/" method="post">
+
+
+            <div class="row g-2">
+              <div class="col col-auto">
+                <input type="text" class="form-control form-control-lg" placeholder="Ex: 444000" name="pincode" value="" required>
+              </div>
+              <div class="col col-auto">
+                <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+              </div>
             </div>
-            <div class="col col-auto">
-              <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+            <div class="row">
+              <p style="margin-top:3%;color:grey;font-size:1.4rem;">* Products will be shown which are available in this Pincode</p>
             </div>
-          </div>
-          <div class="row">
-            <p style="margin-top:3%;color:grey;font-size:1.4rem;">* Products will be shown which are available in this Pincode</p>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+  <%}%>
 
   <!-- Header -->
   <header id="header" class="header">
-    <div class="navigation">
-      <div class="container">
-        <nav class="nav">
-          <div class="nav__hamburger">
-            <svg>
-              <use xlink:href="./images/sprite.svg#icon-menu"></use>
-            </svg>
-          </div>
-
-          <div class="nav__logo">
-            <a href="/" class="scroll-link">
-              PHONE
-            </a>
-          </div>
-
-          <div class="nav__menu">
-            <div class="menu__top">
-              <span class="nav__category">PHONE</span>
-              <a href="#" class="close__toggle">
-                <svg>
-                  <use xlink:href="./images/sprite.svg#icon-cross"></use>
-                </svg>
-              </a>
-            </div>
-            <ul class="nav__list">
-              <li class="nav__item">
-                <a href="#header" class="nav__link scroll-link">Home</a>
-              </li>
-              <li class="nav__item">
-                <a href="#category" class="nav__link scroll-link">Category</a>
-              </li>
-              <li class="nav__item">
-                <a href="#news" class="nav__link scroll-link">Blog</a>
-              </li>
-              <li class="nav__item">
-                <a href="#contact" class="nav__link scroll-link">Contact</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="nav__icons">
-            <a href="#" class="icon__item">
-              <svg class="icon__user">
-                <use xlink:href="./images/sprite.svg#icon-user"></use>
-              </svg>
-            </a>
-
-            <a href="#" class="icon__item">
-              <svg class="icon__search">
-                <use xlink:href="./images/sprite.svg#icon-search"></use>
-              </svg>
-            </a>
-
-            <a href="#" class="icon__item">
-              <svg class="icon__cart">
-                <use xlink:href="./images/sprite.svg#icon-shopping-basket"></use>
-              </svg>
-              <span id="cart__total">0</span>
-            </a>
-          </div>
-        </nav>
-      </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
+  </div>
+</nav>
+
 
     <!-- Hero -->
     <div class="hero">
