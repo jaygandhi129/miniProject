@@ -8,8 +8,10 @@
 
     var collapseEl = sidebar.querySelector('.collapse');
     var collapseElementList = [].slice.call(document.querySelectorAll('.sidebar .collapse'))
-    var sidebarCollapseList = collapseElementList.map(function (collapseEl) {
-      return new bootstrap.Collapse(collapseEl, { toggle: false });
+    var sidebarCollapseList = collapseElementList.map(function(collapseEl) {
+      return new bootstrap.Collapse(collapseEl, {
+        toggle: false
+      });
     });
 
     for (var toggle of sidebarToggles) {
@@ -76,24 +78,24 @@
 })(); // End of use strict
 
 //save and edit Button of products page
-$(document).ready(function(){
+$(document).ready(function() {
 
   function enable1() {
-  $(".sdis").removeAttr("readonly");
-  $(".ssave").removeAttr("disabled");
-}
+    $(".sdis").removeAttr("readonly");
+    $(".ssave").removeAttr("disabled");
+  }
 
-$( ".sellereditbutt" ).on( "click", enable1 );
+  $(".sellereditbutt").on("click", enable1);
 
-function enable2(){
-  $(".bdis").removeAttr("readonly");
-  $(".bsave").removeAttr("disabled");
-}
-$( ".businesseditbutt" ).on( "click", enable2 );
+  function enable2() {
+    $(".bdis").removeAttr("readonly");
+    $(".bsave").removeAttr("disabled");
+  }
+  $(".businesseditbutt").on("click", enable2);
 
-$('ul li a').click(function(){
+  $('ul li a').click(function() {
     $('li a').removeClass("active");
     $(this).addClass("active");
-});
+  });
 
 })

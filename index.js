@@ -17,6 +17,8 @@ var admin = require('firebase-admin');
 const {
   format
 } = require('util');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser('MY SECRET'));
 
 
 app.use(bodyParser.json());
@@ -123,9 +125,21 @@ function checkFileType(file, cb) {
 
 
 app.get("/", function (req, res) {
-  res.render('customerHome');
+
+  res.render('customerHome',{pincode:req.cookies.pincode});
+
 });
 
+app.post("/",function(req,res){
+  var pincode=req.body.pincode;
+  let options = {
+       maxAge: 1000 * 60 * 1, // would expire after 30 minutes
+       httpOnly: true, // The cookie only accessible by the web server
+       signed: false // Indicates if the cookie should be signed
+   }
+   res.cookie('pincode', pincode, options);// options is optional
+   res.redirect("/");
+});
 
 
 
