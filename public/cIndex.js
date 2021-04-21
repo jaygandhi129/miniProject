@@ -1,103 +1,77 @@
-/*
-=============
-Navigation
-=============
- */
-const navOpen = document.querySelector(".nav__hamburger");
-const navClose = document.querySelector(".close__toggle");
-const menu = document.querySelector(".nav__menu");
-const scrollLink = document.querySelectorAll(".scroll-link");
-const navContainer = document.querySelector(".nav__menu");
-
-navOpen.addEventListener("click", () => {
-  menu.classList.add("open");
-  document.body.classList.add("active");
-  navContainer.style.left = "0";
-  navContainer.style.width = "30rem";
-});
-
-navClose.addEventListener("click", () => {
-  menu.classList.remove("open");
-  document.body.classList.remove("active");
-  navContainer.style.left = "-30rem";
-  navContainer.style.width = "0";
-});
-
-/*
-=============
-PopUp
-=============
- */
-const popup = document.querySelector(".popup");
-const closePopup = document.querySelector(".popup__close");
-
-if (popup) {
-  closePopup.addEventListener("click", () => {
-    popup.classList.add("hide__popup");
-  });
-
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      popup.classList.remove("hide__popup");
-    }, 500);
-  });
+function openSearch() {
+  document.getElementById("myOverlay").style.display = "block";
 }
 
-/*
-=============
-Fixed Navigation
-=============
- */
+function closeSearch() {
+  document.getElementById("myOverlay").style.display = "none";
+}
 
-const navBar = document.querySelector(".navigation");
-const gotoTop = document.querySelector(".goto-top");
+$(document).ready(function(){
+	$("#search-field").on("click",function(){
+		$("#search-field").animate({
+            "width": "200px"
+        }); 
+        $("#search-field").css({ 
+            color: '#000'
+        }); 
+        $("#form").css({
+            backgroundColor: '#fff'
+        });
+        $("#icon-busca").css({
+            color: '#56aa1c'
+        }); 
+        $("#search-field::-webkit-input-placeholder").css(
+            { color: '#ccc'
+        });
+        $("#search-field:-moz-placeholder").css(
+            { color: '#ccc'
+        });
+        $("#search-field::-moz-placeholder").css(
+            { color: '#ccc'
+        });
+        $("#search-field:-ms-input-placeholder").css(
+            { color: '#ccc'
+        });
+    })
 
-// Smooth Scroll
-Array.from(scrollLink).map(link => {
-  link.addEventListener("click", e => {
-    // Prevent Default
-    e.preventDefault();
-
-    const id = e.currentTarget.getAttribute("href").slice(1);
-    const element = document.getElementById(id);
-    const navHeight = navBar.getBoundingClientRect().height;
-    const fixNav = navBar.classList.contains("fix__nav");
-    let position = element.offsetTop - navHeight;
-
-    if (!fixNav) {
-      position = position - navHeight;
-    }
-
-    window.scrollTo({
-      left: 0,
-      top: position,
-    });
-    navContainer.style.left = "-30rem";
-    document.body.classList.remove("active");
-  });
+    $('#search-field, #botao-limpa').blur(function(){
+        setTimeout(function(){
+            if(!$('#search-field, #botao-limpa').is(':focus')){
+                $("#search-field").animate({
+                    "width": "172px"
+                }); 
+            }
+        },10);
+        $("#form").css({
+            backgroundColor: '#36752d' 
+        }); 
+        $("#search-field").css({
+            color: '#fff'
+        });
+        $("#icon-busca").css({
+            color: '#fff'
+        }); 
+    });;    
 });
 
-// Fix NavBar
+document.getElementById("link-nacional").disabled = true;
+document.getElementById("link-internacional").disabled = true;
 
-window.addEventListener("scroll", e => {
-  const scrollHeight = window.pageYOffset;
-  const navHeight = navBar.getBoundingClientRect().height;
-  if (scrollHeight > navHeight) {
-    navBar.classList.add("fix__nav");
-  } else {
-    navBar.classList.remove("fix__nav");
-  }
+$('#search-field').keyup(function(){
+  var text = $(this).val();
 
-  if (scrollHeight > 300) {
-    gotoTop.classList.add("show-top");
-  } else {
-    gotoTop.classList.remove("show-top");
-  }
+if(text=="") {
+   document.getElementById('botao-limpa').style.display = 'none';
+}else {
+   document.getElementById('botao-limpa').style.display = 'block';
+}
+
 });
-
-
-//Location Modal Pop up
-
-  $(window).on('load', function() {
-    $('#staticBackdrop').modal('show');
-  });
+function limpa() {
+  if(document.getElementById('search-field').value!="") {
+  document.getElementById('search-field').value="";
+  document.getElementById('botao-limpa').style.display = 'none';
+  document.getElementById("search-field").focus();
+  document.getElementById("search-field").click();
+  }
+}

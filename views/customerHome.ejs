@@ -2,39 +2,34 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
-
-  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-  <!-- Carousel -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
-">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-  <!-- Custom StyleSheet -->
-  <link rel="stylesheet" href="./css/cstyles.css" />
-  <!-- Bootstrap -->
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <title>Phone Shop</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Untitled</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./css/cstyles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
 </head>
 
-<body>
-  <!-- Button trigger modal -->
-  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<body style="background: rgb(249,248,248);">
 
-  </button> -->
+  <!-- Pincode Modal Starts -->
+  <%if(pincode===undefined){%>
+  <script>
+    function showModal(){
+      $('#staticBackdrop').modal('show');
+    }
 
-  <!-- Modal -->
-  <%if(pincode==undefined){%>
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    $(window).on('load', function () {
+      $('#staticBackdrop').modal('show');
+    });
+  </script>
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" style="margin-top:5%;">
       <div class="modal-content">
         <div class="modal-header">
@@ -47,14 +42,16 @@
 
             <div class="row g-2">
               <div class="col col-auto">
-                <input type="text" class="form-control form-control-lg" placeholder="Ex: 444000" name="pincode" value="" required>
+                <input type="text" class="form-control form-control-md" placeholder="Ex: 444000" name="pincode" value=""
+                  required>
               </div>
               <div class="col col-auto">
-                <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+                <button type="submit" class="btn btn-warning btn-md">Submit</button>
               </div>
             </div>
             <div class="row">
-              <p style="margin-top:3%;color:grey;font-size:1.4rem;">* Products will be shown which are available in this Pincode</p>
+              <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are available in this
+                Pincode</p>
             </div>
           </form>
         </div>
@@ -62,1039 +59,442 @@
     </div>
   </div>
   <%}%>
-
-  <!-- Header -->
-  <header id="header" class="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-
-    <!-- Hero -->
-    <div class="hero">
-      <div class="glide" id="glide_1">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
-            <li class="glide__slide">
-              <div class="hero__center">
-                <div class="hero__left">
-                  <span class="">New Inspiration 2020</span>
-                  <h1 class="">PHONES MADE FOR YOU!</h1>
-                  <p>Trending from mobile and headphone style collection</p>
-                  <a href="#"><button class="hero__btn">SHOP NOW</button></a>
-                </div>
-                <div class="hero__right">
-                  <div class="hero__img-container">
-                    <img class="banner_01" src="./images/banner_01.png" alt="banner2" />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="glide__slide">
-              <div class="hero__center">
-                <div class="hero__left">
-                  <span>New Inspiration 2020</span>
-                  <h1>PHONES MADE FOR YOU!</h1>
-                  <p>Trending from mobile and headphone style collection</p>
-                  <a href="#"><button class="hero__btn">SHOP NOW</button></a>
-                </div>
-                <div class="hero__right">
-                  <img class="banner_02" src="./images/banner_02.png" alt="banner2" />
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="glide__bullets" data-glide-el="controls[nav]">
-          <button class="glide__bullet" data-glide-dir="=0"></button>
-          <button class="glide__bullet" data-glide-dir="=1"></button>
-        </div>
-
-        <div class="glide__arrows" data-glide-el="controls">
-          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-            <svg>
-              <use xlink:href="./images/sprite.svg#icon-arrow-left2"></use>
-            </svg>
-          </button>
-          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-            <svg>
-              <use xlink:href="./images/sprite.svg#icon-arrow-right2"></use>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- End Header -->
-
-  <!-- Main -->
-  <main id="main">
-    <div class="container">
-      <!-- Collection -->
-      <section id="collection" class="section collection">
-        <div class="collection__container" data-aos="fade-up" data-aos-duration="1200">
-          <div class="collection__box">
-            <div class="img__container">
-              <img class="collection_02" src="./images/collection_02.png" alt="">
-            </div>
-            <div class="collection__content">
-              <div class="collection__data">
-                <span>New Colors Introduced</span>
-                <h1>HEADPHONES</h1>
-                <a href="#shop">SHOP NOW</a>
-              </div>
-            </div>
-          </div>
-          <div class="collection__box">
-            <div class="img__container">
-              <img class="collection_01" src="./images/collection_01.png" alt="">
-            </div>
-            <div class="collection__content">
-              <div class="collection__data">
-                <span>Phone Device Presets</span>
-                <h1>SMARTPHONES</h1>
-                <a href="#">SHOP NOW</a>
-              </div>
-            </div>
-          </div>
-      </section>
-
-      <!-- Latest Products -->
-      <section class="section latest__products" id="latest">
-        <div class="title__container">
-          <div class="section__title active" data-id="Latest Products">
-            <span class="dot"></span>
-            <h1 class="primary__title">Latest Products</h1>
-          </div>
-        </div>
-        <div class="container" data-aos="fade-up" data-aos-duration="1200">
-          <div class="glide" id="glide_2">
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides latest-center">
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="/images/products/iPhone/iphone6.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Apple iPhone 11</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$750</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="/images/products/sumsung/samsung5.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Samsung Galaxy</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$900</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="/images/products/headphone/headphone4.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Sony WH-CH510</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$600</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="/images/products/sumsung/samsung3.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Samsung Galaxy</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$850</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="./images/products/iPhone/iphone2.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Apple iPhone 11</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$450</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="images/products/headphone/headphone2.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Sony WH-CH510</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$300</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="images/products/sumsung/samsung1.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Samsung Galaxy</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$300</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="images/products/headphone/headphone1.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Sony WH-CH510</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$250</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="product">
-                    <div class="product__header">
-                      <img src="images/products/iPhone/iphone1.jpeg" alt="product">
-                    </div>
-                    <div class="product__footer">
-                      <h3>Apple iPhone XR</h3>
-                      <div class="rating">
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                        </svg>
-                        <svg>
-                          <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                        </svg>
-                      </div>
-                      <div class="product__price">
-                        <h4>$550</h4>
-                      </div>
-                      <a href="#"><button type="submit" class="product__btn">Add To Cart</button></a>
-                    </div>
-                    <ul>
-                      <li>
-                        <a data-tip="Quick View" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Wishlist" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a data-tip="Add To Compare" data-place="left" href="#">
-                          <svg>
-                            <use xlink:href="./images/sprite.svg#icon-loop2"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-              </ul>
-            </div>
-
-            <div class="glide__arrows" data-glide-el="controls">
-              <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-                <svg>
-                  <use xlink:href="./images/sprite.svg#icon-arrow-left2"></use>
-                </svg>
+  <!-- Pincode Modal Ends -->
+  
+    <div></div>
+    <div class="text-nowrap">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+          <div class="dropdown ">
+              <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
               </button>
-              <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-                <svg>
-                  <use xlink:href="./images/sprite.svg#icon-arrow-right2"></use>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="category__section section" id="category">
-        <div class="tab__list">
-          <div class="title__container tabs">
-            <div class="section__titles category__titles ">
-              <div class="section__title filter-btn active" data-id="All Products">
-                <span class="dot"></span>
-                <h1 class="primary__title">All Products</h1>
-              </div>
-            </div>
-            <div class="section__titles">
-              <div class="section__title filter-btn" data-id="Trending Products">
-                <span class="dot"></span>
-                <h1 class="primary__title">Trending Products</h1>
-              </div>
-            </div>
-
-            <div class="section__titles">
-              <div class="section__title filter-btn" data-id="Special Products">
-                <span class="dot"></span>
-                <h1 class="primary__title">Special Products</h1>
-              </div>
-            </div>
-
-            <div class="section__titles">
-              <div class="section__title filter-btn" data-id="Featured Products">
-                <span class="dot"></span>
-                <h1 class="primary__title">Featured Products</h1>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="category__container" data-aos="fade-up" data-aos-duration="1200">
-          <div class="category__center"></div>
-        </div>
-    </div>
-    </section>
-
-    <!-- Facility Section -->
-    <section class="facility__section section" id="facility">
-      <div class="container">
-        <div class="facility__contianer" data-aos="fade-up" data-aos-duration="1200">
-          <div class="facility__box">
-            <div class="facility-img__container">
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-airplane"></use>
-              </svg>
-            </div>
-            <p>FREE SHIPPING WORLD WIDE</p>
-          </div>
-
-          <div class="facility__box">
-            <div class="facility-img__container">
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-credit-card-alt"></use>
-              </svg>
-            </div>
-            <p>100% MONEY BACK GUARANTEE</p>
-          </div>
-
-          <div class="facility__box">
-            <div class="facility-img__container">
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-credit-card"></use>
-              </svg>
-            </div>
-            <p>MANY PAYMENT GATWAYS</p>
-          </div>
-
-          <div class="facility__box">
-            <div class="facility-img__container">
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-headphones"></use>
-              </svg>
-            </div>
-            <p>24/7 ONLINE SUPPORT</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    </div>
-
-    <!-- Testimonial Section -->
-    <section class="section testimonial" id="testimonial">
-      <div class="testimonial__container">
-        <div class="glide" id="glide_4">
-          <div class="glide__track" data-glide-el="track">
-            <ul class="glide__slides">
-              <li class="glide__slide">
-                <div class="testimonial__box">
-                  <div class="client__image">
-                    <img src="./images/profile1.jpg" alt="profile">
-                  </div>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga hic nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.ipsum dolor sit amet consectetur adipisicing
-                    elit. Recusandae fuga hic nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.</p>
-                  <div class="client__info">
-                    <h3>John Smith</h3>
-                    <span>Founder at Apple</span>
-                  </div>
-                </div>
-              </li>
-              <li class="glide__slide">
-                <div class="testimonial__box">
-                  <div class="client__image">
-                    <img src="./images/profile2.jpg" alt="profile">
-                  </div>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga hic nesciunt tempore
-                    quibusdam consequatur
-                    eligendi unde officia ex quae.ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga hic
-                    nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.adipisicing elit. Recusandae fuga hic
-                    nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.</p>
-                  <div class="client__info">
-                    <h3>John Smith</h3>
-                    <span>Founder at Apple</span>
-                  </div>
-                </div>
-              </li>
-              <li class="glide__slide">
-                <div class="testimonial__box">
-                  <div class="client__image">
-                    <img src="./images/profile3.jpg" alt="profile">
-                  </div>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga hic nesciunt tempore
-                    quibusdam consequatur
-                    eligendi unde officia ex quae.ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga hic
-                    nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.adipisicing elit. Recusandae fuga hic
-                    nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.</p>
-                  <div class="client__info">
-                    <h3>John Smith</h3>
-                    <span>Founder at Apple</span>
-                  </div>
-                </div>
-
-              </li>
-              <li class="glide__slide">
-                <div class="testimonial__box">
-                  <div class="client__image">
-                    <img src="./images/profile4.jpg" alt="">
-                  </div>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga hic nesciunt tempore
-                    quibusdam consequatur
-                    eligendi unde officia ex quae.adipisicing elit. Recusandae fuga hic
-                    nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.
-                    hic
-                    nesciunt tempore
-                    quibusdam consequatur eligendi unde officia ex quae.</p>
-                  <div class="client__info">
-                    <h3>John Smith</h3>
-                    <span>Founder at Apple</span>
-                  </div>
-                </div>
-              </li>
+            
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/changePincode">Change Pincode</a></li>
             </ul>
           </div>
-
-          <div class="glide__bullets" data-glide-el="controls[nav]">
-            <button class="glide__bullet" data-glide-dir="=0"></button>
-            <button class="glide__bullet" data-glide-dir="=1"></button>
-            <button class="glide__bullet" data-glide-dir="=2"></button>
-            <button class="glide__bullet" data-glide-dir="=3"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!--New Section  -->
-    <section class="section news" id="news">
-      <div class="container">
-        <div class="title__container">
-          <div class="section__titles">
-            <div class="section__title active">
-              <span class="dot"></span>
-              <h1 class="primary__title">Phone News</h1>
+          <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="2. Login.html">Login or Signup</a>
+            <div class="container" style="margin-left:0">
+              <a class="navbar-brand expand" href="#"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="./images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -17px;" href="#">Categories</a></li>
+                        <li class="nav-item"></li>
+                    </ul>
+                    <div class="row padMar">
+                        <div class="col text-start padMar">
+                            <div class="input-group search-bar-with-btn" style="width: 347.462px;height: 25px;margin-bottom: 18px;"><input class="form-control autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
+                        </div>
+                    </div>
+                    <form class="d-sm-block me-auto" target="_self">
+                        <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
+                    </form>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                    </ul><span class="navbar-text actions"> <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="2. Login.html">Login or Signup</a></span>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="news__container">
-          <div class="glide" id="glide_5">
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides">
-                <li class="glide__slide">
-                  <div class="new__card">
-                    <div class="card__header">
-                      <img src="./images/news1.jpg" alt="">
+        </nav>
+    </div>
+    <section id="carousel">
+        <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <div class="bg-light border rounded border-light pulse animated hero-nature carousel-hero jumbotron py-5 px-4">
+                        <h1 class="hero-title">Hero Nature</h1>
+                        <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                        <p><a class="btn btn-primary hero-button plat" role="button" href="#">Learn more</a></p>
                     </div>
-                    <div class="card__footer">
-                      <h3>Styling White Shirts After A Cool Day</h3>
-                      <span>By Admin</span>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo praesentium, numquam non
-                        provident rem sed minus natus unde vel modi!</p>
-                      <a href="#"><button>Read More</button></a>
+                </div>
+                <div class="carousel-item">
+                    <div class="bg-light border rounded border-light pulse animated hero-photography carousel-hero jumbotron py-5 px-4">
+                        <h1 class="hero-title">Hero Photography</h1>
+                        <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                        <p><a class="btn btn-primary hero-button plat" role="button" href="#">Learn more</a></p>
                     </div>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="new__card">
-                    <div class="card__header">
-                      <img src="./images/news2.jpg" alt="">
+                </div>
+                <div class="carousel-item active">
+                    <div class="bg-light border rounded border-light pulse animated hero-technology carousel-hero jumbotron py-5 px-4" style="height: 405px;">
+                        <h1 class="hero-title">Hero Technology</h1>
+                        <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                        <p><a class="btn btn-primary hero-button plat" role="button" href="#">Learn more</a></p>
                     </div>
-                    <div class="card__footer">
-                      <h3>Styling White Shirts After A Cool Day</h3>
-                      <span>By Admin</span>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo praesentium, numquam non
-                        provident rem sed minus natus unde vel modi!</p>
-                      <a href="#"><button>Read More</button></a>
-                    </div>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="new__card">
-                    <div class="card__header">
-                      <img src="./images/news3.jpg" alt="">
-                    </div>
-                    <div class="card__footer">
-                      <h3>Styling White Shirts After A Cool Day</h3>
-                      <span>By Admin</span>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo praesentium, numquam non
-                        provident rem sed minus natus unde vel modi!</p>
-                      <a href="#"><button>Read More</button></a>
-                    </div>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="new__card">
-                    <div class="card__header">
-                      <img src="./images/news4.jpg" alt="">
-                    </div>
-                    <div class="card__footer">
-                      <h3>Styling White Shirts After A Cool Day</h3>
-                      <span>By Admin</span>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo praesentium, numquam non
-                        provident rem sed minus natus unde vel modi!</p>
-                      <a href="#"><button>Read More</button></a>
-                    </div>
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="new__card">
-                    <div class="card__header">
-                      <img src="./images/news5.jpg" alt="">
-                    </div>
-                    <div class="card__footer">
-                      <h3>Styling White Shirts After A Cool Day</h3>
-                      <span>By Admin</span>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo praesentium, numquam non
-                        provident rem sed minus natus unde vel modi!</p>
-                      <a href="#"><button>Read More</button></a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                </div>
             </div>
-          </div>
-
+            <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carousel-1" data-bs-slide-to="0"></li>
+                <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carousel-1" data-bs-slide-to="2" class="active"></li>
+            </ol>
         </div>
-      </div>
     </section>
+    <section>
+        <div id="myOverlay" class="overlay"><span class="closebtn" style="color: #9baabf;" onclick="closeSearch()" title="Close Overlay">X</span>
+            <div class="overlay-content">
+                <form action="/action_page.php"><input class="form-control" type="text" placeholder="Search.." name="Search"><button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button></form>
+            </div>
+        </div>
+    </section><div class="bootstrap_cards2">
+<div class="container py-5">
+    <!-- For Demo Purpose-->
+    <header class="text-center mb-5">
+        <h1 class="display-4 font-weight-bold">Explore Products</h1>
+    </header>
 
-    <!-- NewsLetter -->
-    <section class="section newsletter" id="contact">
-      <div class="container">
-        <div class="newsletter__content">
-          <div class="newsletter__data">
-            <h3>SUBSCRIBE TO OUR NEWSLETTER</h3>
-            <p>A short sentence describing what someone will receive by subscribing</p>
-          </div>
-          <form action="#">
-            <input type="email" placeholder="Enter your email address" class="newsletter__email">
-            <a class="newsletter__link" href="#">subscribe</a>
-          </form>
+    
+    <!-- First Row [Prosucts]-->
+    <h2 class="font-weight-bold mb-2">From the Shop</h2>
+    <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+    
+    <div class="row pb-5 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556485076/shoes-1_gthops.jpg" alt="" class="img-fluid d-block mx-auto mb-3">
+                    <h5> <a href="#" class="text-dark">Awesome product</a></h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- End Main -->
-
-  <!-- Footer -->
-  <footer id="footer" class="section footer">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer-top__box">
-          <h3>EXTRAS</h3>
-          <a href="#">Brands</a>
-          <a href="#">Gift Certificates</a>
-          <a href="#">Affiliate</a>
-          <a href="#">Specials</a>
-          <a href="#">Site Map</a>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556485077/shoes-3_rk25rt.jpg" alt="" class="img-fluid d-block mx-auto mb-3">
+                    <h5> <a href="#" class="text-dark">Awesome product</a></h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="footer-top__box">
-          <h3>INFORMATION</h3>
-          <a href="#">About Us</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms & Conditions</a>
-          <a href="#">Contact Us</a>
-          <a href="#">Site Map</a>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556485078/shoes-2_g4qame.jpg" alt="" class="img-fluid d-block mx-auto mb-3">
+                    <h5> <a href="#" class="text-dark">Awesome product</a></h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="footer-top__box">
-          <h3>MY ACCOUNT</h3>
-          <a href="#">My Account</a>
-          <a href="#">Order History</a>
-          <a href="#">Wish List</a>
-          <a href="#">Newsletter</a>
-          <a href="#">Returns</a>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556485078/shoes-4_vgfjy9.jpg" alt="" class="img-fluid d-block mx-auto mb-3">
+                    <h5> <a href="#" class="text-dark">Awesome product</a></h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="footer-top__box">
-          <h3>CONTACT US</h3>
-          <div>
-            <span>
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-location"></use>
-              </svg>
-            </span>
-            42 Dream House, Dreammy street, 7131 Dreamville, USA
-          </div>
-          <div>
-            <span>
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-envelop"></use>
-              </svg>
-            </span>
-            company@gmail.com
-          </div>
-          <div>
-            <span>
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-phone"></use>
-              </svg>
-            </span>
-            456-456-4512
-          </div>
-          <div>
-            <span>
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-paperplane"></use>
-              </svg>
-            </span>
-            Dream City, USA
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="footer__bottom">
-      <div class="footer-bottom__box">
 
-      </div>
-      <div class="footer-bottom__box">
-
-      </div>
+    
+    <!-- Second Row [Team]-->
+    <h2 class="font-weight-bold mb-2">Our Team</h2>
+    <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+    
+    <div class="row pb-5 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-body p-0"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg" alt="" class="w-100 card-img-top">
+                    <div class="p-4">
+                        <h5 class="mb-0">Mark Rockwell</h5>
+                        <p class="small text-muted">CEO - Consultant</p>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-body p-0"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-3_ybnq8v.jpg" alt="" class="w-100 card-img-top">
+                    <div class="p-4">
+                        <h5 class="mb-0">Mark Rockwell</h5>
+                        <p class="small text-muted">CEO - Consultant</p>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-body p-0"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570799924/profile-4_s3fort.jpg" alt="" class="w-100 card-img-top">
+                    <div class="p-4">
+                        <h5 class="mb-0">Mark Rockwell</h5>
+                        <p class="small text-muted">CEO - Consultant</p>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-body p-0"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-2_ujssbj.jpg" alt="" class="w-100 card-img-top">
+                    <div class="p-4">
+                        <h5 class="mb-0">Mark Rockwell</h5>
+                        <p class="small text-muted">CEO - Consultant</p>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <!-- Third Row [Profiles]-->
+    <h2 class="font-weight-bold mb-2">Active Profiles</h2>
+    <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+    
+    <div class="row pb-5 mb-4">
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-0">
+                    <div class="bg-primary px-5 py-4 text-center card-img-top"><img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-4.jpg" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                        <h5 class="text-white mb-0">Emma Nevoresky</h5>
+                        <p class="small text-white mb-0">Elite user</p>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"><i class="fa fa-picture-o mr-1 text-primary"></i>Photos</small>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-primary"></i>Followers</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-0">
+                    <div class="bg-success px-5 py-4 text-center card-img-top"><img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-2.jpg" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                        <h5 class="text-white mb-0">Samuel Hardy</h5>
+                        <p class="small text-white mb-0">Elite user</p>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"><i class="fa fa-picture-o mr-1 text-success"></i>Photos</small>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-success"></i>Followers</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-0">
+                    <div class="bg-info px-5 py-4 text-center card-img-top"><img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-7.jpg" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                        <h5 class="text-white mb-0">Tom Sunderland</h5>
+                        <p class="small text-white mb-0">Elite user</p>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"><i class="fa fa-picture-o mr-1 text-info"></i>Photos</small>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-info"></i>Followers</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-0">
+                    <div class="bg-warning px-5 py-4 text-center card-img-top"><img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-1.jpg" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                        <h5 class="text-white mb-0">John Tarly</h5>
+                        <p class="small text-white mb-0">Elite user</p>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"><i class="fa fa-picture-o mr-1 text-warning"></i>Photos</small>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-warning"></i>Followers</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </footer>
-  <!-- End Footer -->
 
-
-  <!-- Go To -->
-
-  <a href="#header" class="goto-top scroll-link">
-    <svg>
-      <use xlink:href="./images/sprite.svg#icon-arrow-up"></use>
-    </svg>
-  </a>
-
-
-  <!-- Glide Carousel Script -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
-  <!-- Animate On Scroll -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-  <!-- Custom JavaScript -->
-  <script src="./cProducts.js"></script>
-  <script src="./cIndex.js"></script>
-  <script src="./cSlider.js"></script>
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-
-
+    
+    <!-- First Row [Statistics]-->
+    <h2 class="font-weight-bold mb-2">Latest Statistics</h2>
+    <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+    
+    <div class="row pb-5">
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card-->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-5"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+                    <h5>Products Sales</h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <div class="progress rounded-pill">
+                        <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;" class="progress-bar rounded-pill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card -->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-5"><i class="fa fa-tasks fa-2x mb-3 text-success"></i>
+                    <h5>Completed Tasks</h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <div class="progress rounded-pill">
+                        <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;" class="progress-bar bg-success rounded-pill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <!-- Card -->
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-5"><i class="fa fa-user-circle-o fa-2x mb-3 text-info"></i>
+                    <h5>New Users</h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <div class="progress rounded-pill">
+                        <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;" class="progress-bar bg-info rounded-pill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card -->
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <div class="card rounded shadow-sm border-0">
+                <div class="card-body p-5"><i class="fa fa-shopping-bag fa-2x mb-3 text-warning"></i>
+                    <h5>New Products</h5>
+                    <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <div class="progress rounded-pill">
+                        <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;" class="progress-bar bg-warning rounded-pill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <footer id="myFooter">
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-12 col-sm-6 col-md-3"><img src="assets/img/logo.png" style="height: 61px;margin: 62px 0px 0px;margin-top: 70px;"></div>
+                <div class="col-12 col-sm-6 col-md-2">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Catagories<br></a></li>
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Signup</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-2">
+                    <h5>Our Company</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Company Information<br></a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">Be a Seller</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                    <h5>Other Links</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li></li>
+                        <li></li>
+                        <li><a href="#">Terms and Conditions</a></li>
+                    </ul><a href="#">Privacy Policy</a>
+                </div>
+                <div class="col-md-3 social-networks">
+                    <div></div><a class="facebook" href="#"><i class="fa fa-facebook"></i></a><a class="twitter" href="#"><i class="fa fa-twitter"></i></a><a class="google" href="#"><i class="fa fa-google-plus"></i></a><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a><button class="btn btn-primary" style="margin-top:20px;" type="button">Contact us</button>
+                </div>
+            </div>
+            <div class="row footer-copyright">
+                <div class="col">
+                    <p>© 2021 CornerKart</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+    <script src="./cIndex.js"></script>
 </body>
 
 </html>

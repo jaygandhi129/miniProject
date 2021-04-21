@@ -133,12 +133,17 @@ app.get("/", function (req, res) {
 app.post("/",function(req,res){
   var pincode=req.body.pincode;
   let options = {
-       maxAge: 1000 * 60 * 1, // would expire after 30 minutes
+       maxAge: 1000 * 60 * 15, // would expire after 30 minutes
        httpOnly: true, // The cookie only accessible by the web server
        signed: false // Indicates if the cookie should be signed
    }
    res.cookie('pincode', pincode, options);// options is optional
    res.redirect("/");
+});
+
+app.get("/changepincode",function(req,res){
+  res.clearCookie("pincode");
+  res.redirect("/");
 });
 
 
