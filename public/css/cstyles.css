@@ -757,5 +757,19 @@ label {
   }
   .search-bar-with-btn{
     margin-top: 5%;
+    margin-left: 5%;
+  }
+  .padMar{
+    padding: 0;
+  }
+  .catagory-div{
+    margin-bottom: 7%;
+  }
+
+  .search-bar-input{
+    width:150px!important;
+    height: 70%;
+    margin: 0;
+    padding: 0;
   }
 }

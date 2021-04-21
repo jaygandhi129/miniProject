@@ -42,7 +42,7 @@
 
             <div class="row g-2">
               <div class="col col-auto">
-                <input type="text" class="form-control form-control-md" placeholder="Ex: 444000" name="pincode" value=""
+                <input type="text" class="form-control form-control-md search-bar-input" placeholder="Ex: 444000" name="pincode" value=""
                   required>
               </div>
               <div class="col col-auto">
@@ -75,21 +75,24 @@
           </div>
           <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="2. Login.html">Login or Signup</a>
             <div class="container" style="margin-left:0">
-              <a class="navbar-brand expand" href="#"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="./images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+              <a class="navbar-brand expand" href="/"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="./images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto catagory-div">
                         <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -17px;" href="#">Categories</a></li>
                         <li class="nav-item"></li>
                     </ul>
+                    <ul class="navbar-nav me-auto desktop-hidden">
+                        <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                    </ul>
                     <div class="row padMar">
                         <div class="col text-start padMar">
-                            <div class="input-group search-bar-with-btn" style="width: 347.462px;height: 25px;margin-bottom: 18px;"><input class="form-control autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
+                            <div class="input-group search-bar-with-btn" style="width: 340.462px;height: 25px;margin-bottom: 18px;"><input class="form-control autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
                         </div>
                     </div>
                     <form class="d-sm-block me-auto" target="_self">
                         <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
                     </form>
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto mob-hidden">
                         <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
                     </ul><span class="navbar-text actions"> <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="2. Login.html">Login or Signup</a></span>
                 </div>
