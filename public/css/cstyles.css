@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600&display=swap');
+body{
+   font-family: 'Archivo', sans-serif;
+}
 div.jumbotron.carousel-hero {
   color: #fff;
   text-align: center;
@@ -497,7 +501,6 @@ a:focus {
 }
 
 label {
-  font-family: 'Roboto';
   font-weight: 300;
   font-size: 11px;
   margin-bottom: 5px;
@@ -733,7 +736,7 @@ label {
 @media (max-width: 680px){
   .pincode-btn{
     width:120%;
-    
+
   }
   .pincode-div{
     display:block;
