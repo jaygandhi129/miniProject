@@ -146,8 +146,10 @@ app.get("/changepincode",function(req,res){
   res.redirect("/");
 });
 
-
-
+// Customer Login
+app.get("/login",function(req,res){
+  res.render("cLoginSignup");
+});
 
 
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>CornerKart Login & Signup</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./css/login.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <section>
+    <div class="container">
+      <div class="user signinBx">
+        <div class="imgBx"><img src="./images/loginLogo.png" class="login_image" alt="" width="15px"/></div>
+        <div class="formBx">
+          <form action="" onsubmit="return false;"autocomplete="off">
+            <h2>Log In</h2>
+            <input type="text" name="" placeholder="Name" autocomplete="off" required/>
+            <input type="password" name="" placeholder="Password" autocomplete="new-password" required/>
+            <%# <input type="submit" name="" value="Login" /> %>
+						<button type="submit" class="btn" style="margin-left:0; margin-top:6px;background-color:#048f83;color: white;">Log In</button>
+
+            <p class="signup">
+              Don't have an account ?
+              <a href="#" onclick="toggleForm();">Sign Up.</a>
+            </p>
+          </form>
+        </div>
+      </div>
+      <div class="user signupBx">
+        <div class="formBx">
+          <form action="" onsubmit="return false;" autocomplete="off">
+            <h2>Create an account</h2>
+            <input type="text" name="" placeholder="Name" autocomplete="off" required/>
+            <input type="text" name="" placeholder="Mobile" autocomplete="off" required/>
+            <input type="email" name="" placeholder="Email Address" autocomplete="off" required/>
+            <input type="text" name="" placeholder="Your Area Pincode" autocomplete="off" required/>
+            <div id="emailHelp" class="form-text" style="font-size:0.7rem;">* Products will be shown which are available in this Pincode.</div>
+            <input type="password" name="" placeholder="Confirm Password" autocomplete="new-password" required/>
+            <div id="emailHelp" class="form-text" style="font-size:0.7rem;">By Signing up, I agree to Terms & Conditions and Privacy Policy</div>
+						<button type="submit" class="btn" style="margin-left:0; margin-top:6px;background-color:#048f83;color: white;">Sign Up</button>
+            <p class="signup">
+              Already have an account ?
+              <a href="#" onclick="toggleForm();">Log In.</a>
+            </p>
+          </form>
+        </div>
+        <div class="imgBx"><img src="./images/loginLogo.png" class="login_image" alt="" /></div>
+      </div>
+    </div>
+  </section>
+</body>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+<script src="./cIndex.js"></script>
+
+
+</html>
