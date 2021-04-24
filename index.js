@@ -114,7 +114,7 @@ function custCheckAuthenticated(req, res, next) {
 function custCheckNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     if(req.user.role == 1){
-      res.redirect('/login');
+      res.redirect('/success-login');
     }
     else{
       next();
@@ -166,7 +166,7 @@ function checkFileType(file, cb) {
 
 app.get("/", function (req, res) {
 
-  res.render('customerHome',{pincode:req.cookies.pincode});
+  res.render('customerHome',{pincode:req.cookies.pincode, loggedIn:false});
 
 });
 
@@ -178,12 +178,23 @@ app.post("/",function(req,res){
        signed: false // Indicates if the cookie should be signed
    }
    res.cookie('pincode', pincode, options);// options is optional
-   res.redirect("/");
+   if(req.user){
+    res.render('customerHome',{loggedIn:true, pincode:pincode});  
+
+   }
+   else{
+     res.redirect("/");
+   }
 });
 
 app.get("/changepincode",function(req,res){
   res.clearCookie("pincode");
-  res.redirect("/");
+  if(req.user){
+    res.render('customerHome',{loggedIn:true, pincode:undefined});  
+  }
+    else{
+      res.redirect("/");
+    }
 });
 
 // Customer Login
@@ -212,9 +223,22 @@ app.post('/custlogin',custCheckNotAuthenticated,passport.authenticate('customerL
 }));
 
 app.get('/success-login',custCheckAuthenticated,function(req,res){
-  res.render('success_bregister');
+  var pincode=req.user.cPincode;
+  console.log("Pincode:"+pincode);
+  let options = {
+       maxAge: 1000 * 60 * 1, // would expire after 30 minutes
+       httpOnly: true, // The cookie only accessible by the web server
+       signed: false // Indicates if the cookie should be signed
+   }
+   res.cookie('pincode', pincode, options);// options is optional
+  res.render('customerHome',{loggedIn:true, pincode:pincode, user:req.user});
 })
 
+//Logout Users
+app.delete('/logout-customer', (req, res) => {
+  req.logOut();
+  res.redirect('/');
+})
 
 
 

@@ -776,3 +776,27 @@ label {
     padding: 0;
   }
 }
+
+.user-dropdown:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.user-dropdown-menu .dropdown-menu .dropdown-item{
+  font-size:1.1rem;
+  margin-bottom: 3px;
+  margin-top:3px;
+}
+.user-dropdown-menu .dropdown-menu .dropdown-item i{
+  margin-right: 10px;
+}
+
+.user-dropdown-menu .dropdown-menu{
+  margin-left: 20px;
+  margin-top: 0px;
+}
+
+.user-dropdown-menu .user-dropdown{
+  margin-bottom: 20px;
+}
+
