@@ -121,7 +121,7 @@ function initialize(passport) {
         done(err, rows[0]);
       });
     } 
-    if(user.role == 1){
+    else{
       connection.query("select * from cust_details where cId = " + user.cId, function (err, rows) {
         done(err, rows[0]);
       });

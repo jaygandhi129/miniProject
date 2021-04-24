@@ -66,20 +66,22 @@ connection.connect(function (error) {
 
 // passport configure
 
-var {initialize} = require('./modules/passport-config');
+var {
+  initialize
+} = require('./modules/passport-config');
 initialize(passport);
 
 
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    if(req.user.role === 0){
+    if (req.user.role === 0) {
       console.log(req.user.role);
-    return next()}
-    else {
-    res.redirect('/business/login');
-  }
-    
+      return next()
+    } else {
+      res.redirect('/business/login');
+    }
+
   } else {
     res.redirect('/business/login');
   }
@@ -87,9 +89,9 @@ function checkAuthenticated(req, res, next) {
 
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    if(req.user.role === 0){
-    res.redirect('/dashboard');}
-    else{
+    if (req.user.role === 0) {
+      res.redirect('/dashboard');
+    } else {
       next();
     }
   } else {
@@ -100,23 +102,21 @@ function checkNotAuthenticated(req, res, next) {
 function custCheckAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     console.log(req.user.role);
-    if (req.user.role == 1){
-    return next()
-  }
-    else{
+    if (req.user.role == 1) {
+      return next()
+    } else {
       res.redirect('/login');
     }
-}else {
+  } else {
     res.redirect('/login');
   }
 }
 
 function custCheckNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    if(req.user.role == 1){
+    if (req.user.role == 1) {
       res.redirect('/success-login');
-    }
-    else{
+    } else {
       next();
     }
   } else {
@@ -165,73 +165,115 @@ function checkFileType(file, cb) {
 
 
 app.get("/", function (req, res) {
-
-  res.render('customerHome',{pincode:req.cookies.pincode, loggedIn:false});
-
-});
-
-app.post("/",function(req,res){
-  var pincode=req.body.pincode;
-  let options = {
-       maxAge: 1000 * 60 * 15, // would expire after 30 minutes
-       httpOnly: true, // The cookie only accessible by the web server
-       signed: false // Indicates if the cookie should be signed
-   }
-   res.cookie('pincode', pincode, options);// options is optional
-   if(req.user){
-    res.render('customerHome',{loggedIn:true, pincode:pincode});  
-
-   }
-   else{
-     res.redirect("/");
-   }
-});
-
-app.get("/changepincode",function(req,res){
-  res.clearCookie("pincode");
-  if(req.user){
-    res.render('customerHome',{loggedIn:true, pincode:undefined});  
+  if (req.user) {
+    if (req.user.role === 1) {
+      let options = {
+        maxAge: -1, // would expire after 30 minutes
+        httpOnly: true, // The cookie only accessible by the web server
+        signed: false // Indicates if the cookie should be signed
+      }
+      res.cookie('pincode', req.user.cPincode, options);
+      res.render('customerHome', {
+        loggedIn: true,
+        pincode: req.cookies.pincode,
+        user: req.user
+      });
+    } else {
+      res.render('customerHome', {
+        pincode: req.cookies.pincode,
+        loggedIn: false
+      });
+    }
+  } else {
+    res.render('customerHome', {
+      pincode: req.cookies.pincode,
+      loggedIn: false
+    });
   }
-    else{
+
+});
+
+app.post("/", function (req, res) {
+  var pincode = req.body.pincode;
+  let options = {
+    maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+    httpOnly: true, // The cookie only accessible by the web server
+    signed: false // Indicates if the cookie should be signed
+  }
+  res.cookie('pincode', pincode, options); // options is optional
+  if (req.user) {
+    if (req.user.role == 1) {
+      res.render('customerHome', {
+        loggedIn: true,
+        pincode: pincode,
+        user: req.user
+      });
+
+    } else {
       res.redirect("/");
     }
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.get("/changepincode", function (req, res) {
+  res.clearCookie("pincode");
+  if (req.user){
+
+    if (req.user.role == 1) {
+      res.render('customerHome', {
+        loggedIn: true,
+        pincode: undefined,
+        user: req.user
+      });
+    } else {
+      res.redirect("/");
+    }
+  }
+  else {
+    res.redirect("/");
+  }
 });
 
 // Customer Login
-app.get("/login",custCheckNotAuthenticated,function(req,res){
+app.get("/login", custCheckNotAuthenticated, function (req, res) {
   res.render("cLoginSignup");
 });
 
-app.post("/custRegister",custCheckNotAuthenticated,function(req,res){
+app.post("/custRegister", custCheckNotAuthenticated, function (req, res) {
   data = req.body;
   query = "INSERT INTO cust_details (cName, cMobile, cEmail, cPincode, cPassword) values(?, ?, ?, ?, ?)";
-  connection.query(query,[data.cName, data.cMobile, data.cEmail, data.cPincode, md5(data.cPassword)], function (err){
-    if(err){
+  connection.query(query, [data.cName, data.cMobile, data.cEmail, data.cPincode, md5(data.cPassword)], function (err) {
+    if (err) {
       console.log(err);
-    }
-    else{
+    } else {
       console.log("Registered");
       res.redirect('/');
     }
   })
 })
 
-app.post('/custlogin',custCheckNotAuthenticated,passport.authenticate('customerLocal', {
+app.post('/custlogin', custCheckNotAuthenticated, passport.authenticate('customerLocal', {
   successRedirect: '/success-login',
   failureRedirect: '/login',
   failureFlash: true
 }));
 
-app.get('/success-login',custCheckAuthenticated,function(req,res){
-  var pincode=req.user.cPincode;
-  console.log("Pincode:"+pincode);
+app.get('/success-login', custCheckAuthenticated, function (req, res) {
+  var pincode = req.user.cPincode;
+  console.log("Pincode:" + pincode);
   let options = {
-       maxAge: 1000 * 60 * 1, // would expire after 30 minutes
-       httpOnly: true, // The cookie only accessible by the web server
-       signed: false // Indicates if the cookie should be signed
-   }
-   res.cookie('pincode', pincode, options);// options is optional
-  res.render('customerHome',{loggedIn:true, pincode:pincode, user:req.user});
+    maxAge: -1, // would expire after 30 minutes
+    httpOnly: true, // The cookie only accessible by the web server
+    signed: false // Indicates if the cookie should be signed
+  }
+  res.cookie('pincode', pincode, options); // options is optional
+  res.render('customerHome', {
+    loggedIn: true,
+    pincode: pincode,
+    user: req.user
+  });
 })
 
 //Logout Users
@@ -514,11 +556,10 @@ app.delete('/logout', (req, res) => {
 
 //Seller Dashboard Starts////////////////
 app.get('/dashboard', checkAuthenticated, function (req, res) {
-  connection.query("select bPhotoId from business_details where seller = ?",req.user.sId,function (err, rows){
-    if(err){
+  connection.query("select bPhotoId from business_details where seller = ?", req.user.sId, function (err, rows) {
+    if (err) {
       console.log(err);
-    }
-    else{
+    } else {
       console.log(rows[0].bPhotoId);
       res.render('dashboard', {
         name: req.user.sName,
@@ -536,18 +577,17 @@ app.get('/addproduct', checkAuthenticated, function (req, res) {
       console.log(err);
     } else {
       var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
-      connection.query(query2,req.user.sId, function (err, rows1) {
+      connection.query(query2, req.user.sId, function (err, rows1) {
         if (err) {
           console.log(err);
-        }
-        else{
+        } else {
           res.render('addProducts', {
             rows,
             edit: false,
-            name:rows1[0].sName,
-            source:rows1[0].bPhotoId
-        });
-      }
+            name: rows1[0].sName,
+            source: rows1[0].bPhotoId
+          });
+        }
       });
     }
   });
@@ -653,39 +693,40 @@ app.post('/addproduct', upload.fields([{
 //profile.ejs starts
 app.get('/sellerprofile', checkAuthenticated, function (req, res) {
 
-  var query="SELECT s.sId, s.sName,s.sPhoneNo,s.sDOB,b.bName,b.bCategory,b.bMobile,b.bGST,b.bEmail,b.bWebsite,b.bAddress,b.bCity,b.bState,b.bZip,b.bPhotoId from seller_details s inner join business_details b on b.seller=s.sId where s.sId =?";
-  connection.query(query,req.user.sId,function(err,rows){
+  var query = "SELECT s.sId, s.sName,s.sPhoneNo,s.sDOB,b.bName,b.bCategory,b.bMobile,b.bGST,b.bEmail,b.bWebsite,b.bAddress,b.bCity,b.bState,b.bZip,b.bPhotoId from seller_details s inner join business_details b on b.seller=s.sId where s.sId =?";
+  connection.query(query, req.user.sId, function (err, rows) {
     if (err) {
       console.log(err);
-    }
-    else {
-      res.render('profile',{rows,name:rows[0].sName,source:rows[0].bPhotoId});
+    } else {
+      res.render('profile', {
+        rows,
+        name: rows[0].sName,
+        source: rows[0].bPhotoId
+      });
     }
   });
 
 });
 
-app.post("/updateprofileseller", checkAuthenticated, function(req,res){
-  var data=req.body;
-  var query="UPDATE seller_details SET sName=?,sDOB=? where sId=?";
-  connection.query(query,[data.sName,data.sDOB,req.user.sId],function(err,rows){
+app.post("/updateprofileseller", checkAuthenticated, function (req, res) {
+  var data = req.body;
+  var query = "UPDATE seller_details SET sName=?,sDOB=? where sId=?";
+  connection.query(query, [data.sName, data.sDOB, req.user.sId], function (err, rows) {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       res.redirect('/sellerprofile');
     }
   });
 })
 
-app.post("/updateprofilebusiness", checkAuthenticated, function(req,res){
-  var data=req.body;
-  var query="UPDATE business_details SET bName=?,bCategory=?,bMobile=?,bEmail=?,bWebsite=?,bAddress=?,bCity=?,bState=?,bZip=? where seller=?";
-  connection.query(query,[data.bName,data.bCategory,data.bMobile,data.bEmail,data.bWebsite,data.bAddress,data.bCity,data.bState,data.bZip,req.user.sId],function(err,rows){
+app.post("/updateprofilebusiness", checkAuthenticated, function (req, res) {
+  var data = req.body;
+  var query = "UPDATE business_details SET bName=?,bCategory=?,bMobile=?,bEmail=?,bWebsite=?,bAddress=?,bCity=?,bState=?,bZip=? where seller=?";
+  connection.query(query, [data.bName, data.bCategory, data.bMobile, data.bEmail, data.bWebsite, data.bAddress, data.bCity, data.bState, data.bZip, req.user.sId], function (err, rows) {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       res.redirect('/sellerprofile');
     }
   });
@@ -701,18 +742,17 @@ app.get('/myproducts', checkAuthenticated, function (req, res) {
       console.log(err);
     } else {
       var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
-      connection.query(query2,req.user.sId, function (err, rows1) {
+      connection.query(query2, req.user.sId, function (err, rows1) {
         if (err) {
           console.log(err);
-        }
-        else{
+        } else {
           res.render('myproducts', {
             rows,
             edit: false,
-            name:rows1[0].sName,
-            source:rows1[0].bPhotoId
-        })
-      }
+            name: rows1[0].sName,
+            source: rows1[0].bPhotoId
+          })
+        }
 
       });
     }
