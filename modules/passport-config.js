@@ -120,7 +120,8 @@ function initialize(passport) {
       connection.query("select * from seller_details where sId = " + user.sId, function (err, rows) {
         done(err, rows[0]);
       });
-    } else {
+    } 
+    if(user.role == 1){
       connection.query("select * from cust_details where cId = " + user.cId, function (err, rows) {
         done(err, rows[0]);
       });
