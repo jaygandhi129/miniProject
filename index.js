@@ -11,7 +11,9 @@ const multer = require("multer");
 const func = require('./func');
 const flash = require('express-flash')
 const session = require('express-session')
-const passport = require('passport')
+const Passport = require('passport').Passport;
+const passport = new Passport();
+// const cpassport = new Passport();
 const method_override = require('method-override');
 var admin = require('firebase-admin');
 const {
@@ -64,13 +66,20 @@ connection.connect(function (error) {
 
 // passport configure
 
-const initializePassport = require('./passport-config');
-initializePassport(passport);
+var {initialize} = require('./modules/passport-config');
+initialize(passport);
+
 
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return next()
+    if(req.user.role === 0){
+      console.log(req.user.role);
+    return next()}
+    else {
+    res.redirect('/business/login');
+  }
+    
   } else {
     res.redirect('/business/login');
   }
@@ -78,7 +87,38 @@ function checkAuthenticated(req, res, next) {
 
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    res.redirect('/dashboard');
+    if(req.user.role === 0){
+    res.redirect('/dashboard');}
+    else{
+      next();
+    }
+  } else {
+    next()
+  }
+}
+
+function custCheckAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log(req.user.role);
+    if (req.user.role == 1){
+    return next()
+  }
+    else{
+      res.redirect('/login');
+    }
+}else {
+    res.redirect('/login');
+  }
+}
+
+function custCheckNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    if(req.user.role == 1){
+      res.redirect('/login');
+    }
+    else{
+      next();
+    }
   } else {
     next()
   }
@@ -147,12 +187,33 @@ app.get("/changepincode",function(req,res){
 });
 
 // Customer Login
-app.get("/login",function(req,res){
+app.get("/login",custCheckNotAuthenticated,function(req,res){
   res.render("cLoginSignup");
 });
 
+app.post("/custRegister",custCheckNotAuthenticated,function(req,res){
+  data = req.body;
+  query = "INSERT INTO cust_details (cName, cMobile, cEmail, cPincode, cPassword) values(?, ?, ?, ?, ?)";
+  connection.query(query,[data.cName, data.cMobile, data.cEmail, data.cPincode, md5(data.cPassword)], function (err){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Registered");
+      res.redirect('/');
+    }
+  })
+})
 
+app.post('/custlogin',custCheckNotAuthenticated,passport.authenticate('customerLocal', {
+  successRedirect: '/success-login',
+  failureRedirect: '/login',
+  failureFlash: true
+}));
 
+app.get('/success-login',custCheckAuthenticated,function(req,res){
+  res.render('success_bregister');
+})
 
 
 
@@ -387,7 +448,7 @@ app.post("/business/register/nextstep", upload.fields([{
                       console.log(err);
                     } else {
                       console.log("Successfully inserted business data.");
-                      func.sendmail(data.bEmail);
+                      //func.sendmail(data.bEmail);
                       res.redirect("/business/register/success");
                     }
                   })
@@ -415,7 +476,7 @@ app.get("/business/login", checkNotAuthenticated, function (req, res) {
 });
 
 
-app.post("/business/login", checkNotAuthenticated, passport.authenticate('local', {
+app.post("/business/login", checkNotAuthenticated, passport.authenticate('sellerLocal', {
   successRedirect: '/dashboard',
   failureRedirect: '/business/login',
   failureFlash: true
