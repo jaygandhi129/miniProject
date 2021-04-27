@@ -43,6 +43,10 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+//Mongoose Connection
+
+
+
 //Establishing Connection to database
 var connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -101,7 +105,6 @@ function checkNotAuthenticated(req, res, next) {
 
 function custCheckAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    console.log(req.user.role);
     if (req.user.role == 1) {
       return next()
     } else {
@@ -570,6 +573,26 @@ app.get('/dashboard', checkAuthenticated, function (req, res) {
 
 });
 
+app.get('/getCategory', function (req,res){
+
+    var sql='SELECT  * FROM product_categories';
+    connection.query(sql,function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
+
+app.get('/getSubCategory/:id', function (req,res){
+
+    var catId = parseInt(req.params.id);
+    var sql='SELECT * from product_subcategories where catId = ?';
+    connection.query(sql,[catId],function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
 app.get('/addproduct', checkAuthenticated, function (req, res) {
   var query = "SELECT distinct pCategory from products"
   connection.query(query, function (err, rows) {
@@ -601,7 +624,6 @@ app.post('/addproduct', upload.fields([{
   var sId = req.user.sId;
   var query = "SELECT * FROM products WHERE pName = ?";
   connection.query(query, [pDetails.pName], function (err, rows) {
-
     if (err) {
       console.log(err);
     } else if (rows.length) {
@@ -615,9 +637,7 @@ app.post('/addproduct', upload.fields([{
       })
     } else {
       var category = pDetails.pCategory;
-      if (pDetails.pCategory == "Other") {
-        category = pDetails.oCategory;
-      }
+
       connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), category, pDetails.pDescription], function (err) {
         if (err) {
           console.log(err);
