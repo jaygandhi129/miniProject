@@ -2,112 +2,111 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Add Products</title>
-  <link rel="stylesheet" href="css/sellerDashboard.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Add Products</title>
+	<link rel="stylesheet" href="css/sellerDashboard.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
-    <%- include("partials/sellerHeader") -%>
-        <div class="container-fluid">
-          <div class="d-sm-flex justify-content-between align-items-center mb-4">
-            <h3 class="text-dark mb-0">Add Product</h3>
-          </div>
+	<%- include("partials/sellerHeader") -%>
+	<div class="container-fluid">
+		<div class="d-sm-flex justify-content-between align-items-center mb-4">
+			<h3 class="text-dark mb-0">Add Product</h3>
+		</div>
 
 
 
 
 
 
-          <!-- form started -->
+		<!-- form started -->
 
-          <form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/addproduct" enctype="multipart/form-data">
-            <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+		<form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/addproduct" enctype="multipart/form-data">
+			<div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
 
-              <div id="form-content" class="multisteps-form__content">
-                <div class="row g-3">
-                  <div class="col-md-6 first-page-valid">
-                    <label for="inputEmail4" class="form-label">Product Name</label>
-                    <input type="text" name="pName" class="form-control" required>
-                  </div>
+				<div id="form-content" class="multisteps-form__content">
+					<div class="row g-3">
 
-                  <div class="col-md-6 first-page-valid">
-                      <label for="inputState" class="form-label">Category</label>
-                      <select id="inputState" name="pCategory" class="form-select" onchange="showfield(this.options[this.selectedIndex].value)" required>
-                        <option selected></option>
-                        <option hidden>Choose...</option>
+						<div class="col-md-6 first-page-valid">
+							<label for="inputState" class="form-label">Category</label>
+							<select id="inputState" name="pCategory" class="form-select" required>
+								<option selected></option>
+								<option hidden>Choose...</option>
+							</select>
+						</div>
 
-                          <% rows.forEach(function(row){ %>
+						<div class="col-md-6 first-page-valid">
+							<label for="inputState2" class="form-label">Sub Category</label>
+							<select id="inputState2" name="pSubCategory" class="form-select">
+								<option selected></option>
+								<option hidden>Choose...</option>
+							</select>
+						</div>
 
-                            <option><%= row.pCategory%></option>
-                          <% }); %>
-                          <option value = "Other">Other</option>
-                      </select>
-                      <div id="div1"></div>
-                  </div>
+						<div class="col-md-12 first-page-valid">
+							<label for="inputEmail4" class="form-label">Product Name</label>
+							<input type="text" name="pName" class="form-control" required>
+						</div>
 
+						<div class="col-md-12 first-page-valid">
+							<label for="inputEmail4" class="form-label">Description</label>
+							<input type="text" name="pDescription" class="form-control" required>
+						</div>
 
+						<div class="col-md-6 first-page-valid">
+							<label for="inputEmail4" class="form-label">MRP(₹)</label>
+							<input type="text" name="pMRP" class="form-control" required>
+						</div>
 
+						<div class="col-md-6 first-page-valid">
+							<label for="inputEmail4" class="form-label">Your Price(₹)</label>
+							<input type="text" name="pPrice" class="form-control" required>
+						</div>
 
-                  <div class="col-md-12 first-page-valid">
-                    <label for="inputEmail4" class="form-label">Description</label>
-                    <input type="text" name="pDescription" class="form-control" required>
-                  </div>
-
-                  <div class="col-md-6 first-page-valid">
-                    <label for="inputEmail4" class="form-label">MRP(₹)</label>
-                    <input type="text" name="pMRP" class="form-control" required>
-                  </div>
-
-                  <div class="col-md-6 first-page-valid">
-                    <label for="inputEmail4" class="form-label">Your Price(₹)</label>
-                    <input type="text" name="pPrice" class="form-control" required>
-                  </div>
-
-                  <div class="col-md-6 first-page-valid">
-                    <label for="inputEmail4" class="form-label">Quantity Avaliable</label>
-                    <input type="text" name="pQuantity" class="form-control" required>
-                  </div>
-
-
-
-                  <div class="col-md-6">
-                      <label for="formFile" class="form-label">Product Image</label>
-                      <input class="form-control" name="product_photo" type="file" id="formFile" required>
-                  </div>
-
-                  <div class="col-md-6 first-page-valid">
-                    <label for="inputEmail4" class="form-label">Can you provide delivery of this products?</label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" name="pDelivery" type="radio" value="Y" required>
-                      <label class="form-check-label" for="inlineRadio1">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" name="pDelivery" type="radio" value="N" required>
-                      <label class="form-check-label" for="inlineRadio2">No</label>
-                    </div>
-                  </div>
+						<div class="col-md-6 first-page-valid">
+							<label for="inputEmail4" class="form-label">Quantity Avaliable</label>
+							<input type="text" name="pQuantity" class="form-control" required>
+						</div>
 
 
 
+						<div class="col-md-6">
+							<label for="formFile" class="form-label">Product Image</label>
+							<input class="form-control" name="product_photo" type="file" id="formFile" required>
+						</div>
 
-                  <div class="button-row d-flex mt-4"><button class="btn btn btn-primary ml-auto js-btn-next" type="submit" title="">Submit</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
+						<div class="col-md-6 first-page-valid">
+							<label for="inputEmail4" class="form-label">Can you provide delivery of this products?</label>
+							<br>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="pDelivery" type="radio" value="Y" required>
+								<label class="form-check-label" for="inlineRadio1">Yes</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="pDelivery" type="radio" value="N" required>
+								<label class="form-check-label" for="inlineRadio2">No</label>
+							</div>
+						</div>
 
 
 
-        <!-- form ended -->
 
+						<div class="button-row d-flex mt-4"><button class="btn btn btn-primary ml-auto js-btn-next" type="submit" title="">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+
+
+
+	<!-- form ended -->
 
 
 
@@ -117,22 +116,63 @@
 
 
 
-        <footer class="bg-white sticky-footer">
-          <div class="container my-auto">
-            <div class="text-center my-auto copyright"><span>Copyright © CornerKart 2021</span></div>
-          </div>
-        </footer>
-      </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
 
-      <script type="text/javascript">
-      function showfield(name){
-        if(name=='Other')document.getElementById('div1').innerHTML=' <input type="text" class="form-control" placeholder="Enter Category" name="oCategory" style="margin-top:2%;"  required/>';
-        else document.getElementById('div1').innerHTML='';
+	<footer class="bg-white sticky-footer">
+		<div class="container my-auto">
+			<div class="text-center my-auto copyright"><span>Copyright © CornerKart 2021</span></div>
+		</div>
+	</footer>
+	</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+	</div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+	<script src="theme.js"></script>
+  <script type="text/javascript">
+
+  $(document).ready(function(){
+  $.ajax({
+      url : "/getCategory",
+      type : "GET",
+      success : function(data){
+
+          var len = data.length;
+
+          console.log(data);
+          // $("#inputState").empty();
+          for(var i =0; i<len;i++){
+          var value2 = data[i]['catId'];
+          var value1 = data[i]['catName'];
+              $("#inputState").append("<option value='"+value2+"' >"+value1+"</option>");
+          }
       }
-      </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
-    <script src="theme.js"></script>
+  });
+});
+
+  $("#inputState").change(function(){
+    var catId = $("#inputState").val()
+  $.ajax({
+      url : "/getSubCategory/"+catId,
+      type : "GET",
+      success : function(data){
+        console.log("asas "+catId);
+        console.log("asasd "+data);
+
+          var len = data.length;
+
+          // $("#inputState2").empty();
+
+          for(var i =0; i<len;i++){
+          var value2 = data[i]['subCatId'];
+          var value1 = data[i]['subCatName'];
+              $("#inputState2").append("<option value='"+value2+"' >"+value1+"</option>");
+
+          }
+      }
+  });
+});
+
+  </script>
 </body>
 
 </html>
