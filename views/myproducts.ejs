@@ -108,8 +108,10 @@
                   <tr>
                     <th scope="col">Sr No.</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Brand</th>
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
+                    <th scope="col">Sub Category</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">My Price</th>
                     <th scope="col">MRP</th>
@@ -125,11 +127,12 @@
                   <tr>
                     <th scope="row">1</th>
                     <td class="w-25">
-
                       <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
                     </td>
+                    <td ><%=  row.pBrand %></td>
                     <td><%= row.pName %></td>
-                    <td><%=  row.pCategory %></td>
+                    <td ><%=  row.catName %></td>
+                    <td ><%=  row.subCatName %></td>
                     <td><%=  row.stockAvailable %></td>
                     <td><%=  row.sellerPrice %></td>
                     <td><%=  row.pMrp %></td>
@@ -166,8 +169,12 @@
                   <tr>
                     <th scope="col">Sr No.</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Brand</th>
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
+                    <th scope="col">Sub Category</th>
+
+
                     <th scope="col">Quantity</th>
                     <th scope="col">My Price</th>
                     <th scope="col">MRP</th>
@@ -190,8 +197,10 @@
                     </td>
                     <form class="" action="/saveProduct" method="post">
 
+                      <td ><%=  row.pBrand %></td>
                       <td><%= row.pName %></td>
-                      <td ><%=  row.pCategory %></td>
+                      <td ><%=  row.catName %></td>
+                      <td ><%=  row.subCatName %></td>
                       <td><input class="form-control" type="text" name="stockAvailable" value=<%=  row.stockAvailable %>></td>
                       <td><input class="form-control" type="text" name="sellerPrice" value=<%=  row.sellerPrice %>></td>
                       <td><%=  row.pMrp %></td>
