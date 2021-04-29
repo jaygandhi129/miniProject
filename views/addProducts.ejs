@@ -36,20 +36,22 @@
 						<div class="col-md-6 first-page-valid">
 							<label for="inputState" class="form-label">Category</label>
 							<select id="inputState" name="pCategory" class="form-select" required>
-								<option selected></option>
-								<option hidden>Choose...</option>
+								<!-- <option selected>Choose...</option> -->
 							</select>
 						</div>
 
 						<div class="col-md-6 first-page-valid">
 							<label for="inputState2" class="form-label">Sub Category</label>
 							<select id="inputState2" name="pSubCategory" class="form-select">
-								<option selected></option>
-								<option hidden>Choose...</option>
 							</select>
 						</div>
 
-						<div class="col-md-12 first-page-valid">
+						<div class="col-md-6 first-page-valid">
+							<label for="inputEmail4" class="form-label">Brand</label>
+							<input type="text" name="pBrand" class="form-control" required>
+						</div>
+
+						<div class="col-md-6 first-page-valid">
 							<label for="inputEmail4" class="form-label">Product Name</label>
 							<input type="text" name="pName" class="form-control" required>
 						</div>
@@ -139,7 +141,7 @@
           var len = data.length;
 
           console.log(data);
-          // $("#inputState").empty();
+					// $("#inputState").empty();
           for(var i =0; i<len;i++){
           var value2 = data[i]['catId'];
           var value1 = data[i]['catName'];
@@ -160,8 +162,8 @@
 
           var len = data.length;
 
-          // $("#inputState2").empty();
-
+					$("#inputState2").empty();
+					$("#inputState2").append("<option selected value="+-1+"></option>");
           for(var i =0; i<len;i++){
           var value2 = data[i]['subCatId'];
           var value1 = data[i]['subCatName'];

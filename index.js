@@ -594,26 +594,18 @@ app.get('/getSubCategory/:id', function (req,res){
 });
 
 app.get('/addproduct', checkAuthenticated, function (req, res) {
-  var query = "SELECT distinct pCategory from products"
-  connection.query(query, function (err, rows) {
-    if (err) {
-      console.log(err);
-    } else {
       var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
       connection.query(query2, req.user.sId, function (err, rows1) {
         if (err) {
           console.log(err);
         } else {
           res.render('addProducts', {
-            rows,
             edit: false,
             name: rows1[0].sName,
             source: rows1[0].bPhotoId
           });
         }
       });
-    }
-  });
 });
 
 app.post('/addproduct', upload.fields([{
@@ -622,12 +614,12 @@ app.post('/addproduct', upload.fields([{
 }]), checkAuthenticated, function (req, res) {
   var pDetails = req.body;
   var sId = req.user.sId;
-  var query = "SELECT * FROM products WHERE pName = ?";
-  connection.query(query, [pDetails.pName], function (err, rows) {
+  var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
+  connection.query(query, [pDetails.pName,pDetails.pBrand], function (err, rows) {
     if (err) {
       console.log(err);
     } else if (rows.length) {
-      connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery], function (err) {
+      connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription) VALUES(?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription], function (err) {
         if (err) {
           console.log(err);
         } else {
@@ -636,14 +628,12 @@ app.post('/addproduct', upload.fields([{
         }
       })
     } else {
-      var category = pDetails.pCategory;
 
-      connection.query("INSERT INTO products (pName,pMrp,pCategory,pDescription) VALUES(?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), category, pDetails.pDescription], function (err) {
+      connection.query("INSERT INTO products (pName,pMrp,pCategory,pSubCategory,pBrand) VALUES(?,?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), parseInt(pDetails.pSubCategory),pDetails.pBrand], function (err) {
         if (err) {
           console.log(err);
         } else {
           extension = path.extname(req.files.product_photo[0].originalname);
-          //console.log(req.files.product_photo[0].originalname);
           var query2 = "SELECT pId FROM products WHERE pName = ?"
           connection.query(query2, pDetails.pName, function (err, rows2) {
             if (err) {
@@ -684,12 +674,12 @@ app.post('/addproduct', upload.fields([{
               });
             }
           });
-          var query = "SELECT * FROM products WHERE pName = ?";
-          connection.query(query, [pDetails.pName], function (err, rows) {
+          var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
+          connection.query(query, [pDetails.pName,pDetails.pBrand], function (err, rows) {
             if (err) {
               console.log(err);
             } else {
-              connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery) VALUES(?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery], function (err) {
+              connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription) VALUES(?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery,pDetails.pDescription], function (err) {
                 if (err) {
                   console.log(err);
                 } else {
@@ -755,7 +745,7 @@ app.post("/updateprofilebusiness", checkAuthenticated, function (req, res) {
 
 //myproducts.ejs starts
 app.get('/myproducts', checkAuthenticated, function (req, res) {
-  var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+  var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
   var photos = [];
   connection.query(query, req.user.sId, function (err, rows) {
     if (err) {
@@ -797,40 +787,59 @@ app.post('/myproducts', checkAuthenticated, function (req, res) {
 })
 
 app.post("/editProduct", checkAuthenticated, function (req, res) {
-  var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+  var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
   var photos = [];
   var editValue = req.body.editbtn;
   console.log("edit : " + editValue);
+
   connection.query(query, req.user.sId, function (err, rows) {
     if (err) {
       console.log(err);
     } else {
-      console.log("Server : " + rows[0]);
-      res.render('myproducts', {
-        rows,
-        edit: true,
-        editValue
+      var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+      connection.query(query2, req.user.sId, function (err, rows1) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render('myproducts', {
+            rows,
+            edit: true,
+            name: rows1[0].sName,
+            source: rows1[0].bPhotoId,
+            editValue
+          })
+        }
       });
     }
   });
 });
 app.post("/saveProduct", checkAuthenticated, function (req, res) {
+
   var data = req.body;
   var query = "UPDATE inventory i SET i.stockAvailable = ? , i.sellerPrice = ? , i.iDelivery = ? where iId = ?";
   connection.query(query, [parseInt(data.stockAvailable), parseFloat(data.sellerPrice), data.iDelivery, parseInt(data.savebtn)], function (err, rows) {
     if (err) {
       console.log(err);
     } else {
-      var query = "SELECT p.pId,p.pName,p.pMrp,p.pCategory,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId where i.sId = ?"
+      var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
       console.log("Products data updated successfully");
       connection.query(query, req.user.sId, function (err, rows) {
         if (err) {
           console.log(err);
         } else {
-          console.log("Server : " + rows[0]);
-          res.render('myproducts', {
-            rows,
-            edit: false
+          var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+          connection.query(query2, req.user.sId, function (err, rows1) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.render('myproducts', {
+                rows,
+                edit: false,
+                name: rows1[0].sName,
+                source: rows1[0].bPhotoId,
+
+              })
+            }
           });
         }
       });
