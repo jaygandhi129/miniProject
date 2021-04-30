@@ -754,6 +754,13 @@ label {
 }
 
 @media(max-width: 765px){
+  .dropdown-item-cat{
+    font-size: 1rem;
+  }
+  .dropdown-menu-cat{
+    width: 80% !important;
+
+  }
   .search-bar{
     height: 35px;
     text-align: left;
@@ -799,4 +806,3 @@ label {
 .user-dropdown-menu .user-dropdown{
   margin-bottom: 20px;
 }
-

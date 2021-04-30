@@ -98,7 +98,24 @@
               <a class="navbar-brand expand" href="/"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="./images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
                     <ul class="navbar-nav me-auto catagory-div">
-                        <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -17px;" href="#">Categories</a></li>
+                        <li class="nav-item">
+                          <div class="dropdown">
+                  <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
+                    Categories
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-cat" style="width: 300%;" id="category_dropdown" aria-labelledby="dropdownMenuButton2">
+                      <div class="row">
+                        <div class="col-md-6" id="catDiv1">
+
+                        </div>
+                        <div class="col-md-6" id="catDiv2">
+
+                        </div>
+                      </div>
+                  </ul>
+                  </div>
+
+                        </li>
                         <li class="nav-item"></li>
                     </ul>
                     <ul class="navbar-nav me-auto desktop-hidden">
@@ -539,6 +556,35 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
     <script src="./cIndex.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+    $.ajax({
+        url : "/getCategory",
+        type : "GET",
+        success : function(data){
+
+            var len = data.length;
+
+            console.log(data);
+  					// $("#inputState").empty();
+            for(var i =0; i<len;i++){
+            var value2 = data[i]['catId'];
+            var value1 = data[i]['catName'];
+            var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productList/"+value2+"'>"+value1+"</a></li>";
+            if(i<11){
+              $("#catDiv1").append(str);
+            }else{
+                $("#catDiv2").append(str);
+            }
+            }
+        }
+    });
+  });
+
+        </script>
+
+
 </body>
 
 </html>
