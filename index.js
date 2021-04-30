@@ -575,7 +575,7 @@ app.get('/dashboard', checkAuthenticated, function (req, res) {
 
 app.get('/getCategory', function (req,res){
 
-    var sql='SELECT  * FROM product_categories';
+    var sql='SELECT  * FROM product_categories order by catName';
     connection.query(sql,function(err, result) {
         if (err) throw err;
         res.json(result);
@@ -586,7 +586,7 @@ app.get('/getCategory', function (req,res){
 app.get('/getSubCategory/:id', function (req,res){
 
     var catId = parseInt(req.params.id);
-    var sql='SELECT * from product_subcategories where catId = ?';
+    var sql='SELECT * from product_subcategories where catId = ? order by subCatName';
     connection.query(sql,[catId],function(err, result) {
         if (err) throw err;
         res.json(result);
@@ -628,8 +628,16 @@ app.post('/addproduct', upload.fields([{
         }
       })
     } else {
+      var subCat = parseInt(pDetails.pSubCategory);
+      console.log("Subcat : "+subCat);
+      var q = "INSERT INTO products (pName,pMrp,pCategory,pSubCategory,pBrand) VALUES(?,?,?,?,?)";
+      if (subCat === -1){
+        var values =  [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory),3000259, pDetails.pBrand];
+      }else{
+        var values =  [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), parseInt(pDetails.pSubCategory),pDetails.pBrand]
 
-      connection.query("INSERT INTO products (pName,pMrp,pCategory,pSubCategory,pBrand) VALUES(?,?,?,?,?)", [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), parseInt(pDetails.pSubCategory),pDetails.pBrand], function (err) {
+      }
+      connection.query(q, values, function (err) {
         if (err) {
           console.log(err);
         } else {
