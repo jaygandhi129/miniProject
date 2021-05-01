@@ -71,7 +71,7 @@
     </button>
 
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="/changePincode">Change Pincode</a></li>
+        <li><a class="dropdown-item" href="/changePincode/customerHome">Change Pincode</a></li>
     </ul>
     </div>
     <%if(loggedIn == false){%>
@@ -567,7 +567,9 @@
             var len = data.length;
 
             console.log(data);
-  					// $("#inputState").empty();
+  					$("#catDiv1").empty();
+            $("#catDiv2").empty();
+
             for(var i =0; i<len;i++){
             var value2 = data[i]['catId'];
             var value1 = data[i]['catName'];

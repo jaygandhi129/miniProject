@@ -239,6 +239,26 @@ app.get("/changepincode", function (req, res) {
   }
 });
 
+
+app.get("/changePincodeCat/:catId", function (req, res) {
+
+  res.clearCookie("pincode");
+  var catid = req.params.catId;
+  console.log("Params : "+catid);
+  if (req.user){
+
+    if (req.user.role == 1) {
+      res.redirect("/productList/"+catid);
+    } else {
+      res.redirect("/productList/"+catid);
+    }
+  }
+  else {
+    res.redirect("/productList/"+catid);
+  }
+});
+
+
 // Customer Login
 app.get("/login", custCheckNotAuthenticated, function (req, res) {
   res.render("cLoginSignup");
@@ -285,16 +305,68 @@ app.delete('/logout-customer', (req, res) => {
   res.redirect('/');
 });
 
-app.get('/productList/:catId',function(req, res){
+app.get('/getCategory', function (req,res){
 
-  var catId = parseInt(req.params.catId);
+    var sql='SELECT  * FROM product_categories order by catName';
+    connection.query(sql,function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
 
-console.log("CatId : "+catId);
-      res.render('productPage',{loggedIn: false,
-      pincode: req.cookies.pincode,
-      catId
-      });
 
+app.get('/getSubCategory/:id', function (req,res){
+
+    var catId = parseInt(req.params.id);
+    var sql='SELECT * from product_subcategories where catId = ? order by subCatName';
+    connection.query(sql,[catId],function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
+app.get('/productList/:cId',function(req, res){
+
+  query = 'SELECT * from product_categories where catId = ?'
+  connection.query(query,[req.params.cId],function(err,rows){
+    if (err){
+      console.log(err);
+    }else{
+      if (req.user) {
+        pincode = req.user.cPincode;
+        console.log("user pincode : "+pincode);
+        let options = {
+          maxAge: -1, // would expire after 30 minutes
+          httpOnly: true, // The cookie only accessible by the web server
+          signed: false // Indicates if the cookie should be signed
+        }
+        res.cookie('pincode', pincode, options); // options is optional
+        console.log("user cookies pincode : "+req.cookies.pincode);
+
+        if (req.user.role === 1) {
+          res.render('productPage', {
+            rows,
+            loggedIn: true,
+            pincode: req.cookies.pincode,
+            user: req.user
+          });
+        } else {
+          res.render('productPage', {
+            rows,
+            pincode: req.cookies.pincode,
+            loggedIn: false
+          });
+        }
+      } else {
+        res.render('productPage', {
+          rows,
+          pincode: req.cookies.pincode,
+          loggedIn: false
+        });
+      }
+
+    }
+  });
 });
 
 
@@ -583,26 +655,6 @@ app.get('/dashboard', checkAuthenticated, function (req, res) {
     }
   })
 
-});
-
-app.get('/getCategory', function (req,res){
-
-    var sql='SELECT  * FROM product_categories order by catName';
-    connection.query(sql,function(err, result) {
-        if (err) throw err;
-        res.json(result);
-    });
-});
-
-
-app.get('/getSubCategory/:id', function (req,res){
-
-    var catId = parseInt(req.params.id);
-    var sql='SELECT * from product_subcategories where catId = ? order by subCatName';
-    connection.query(sql,[catId],function(err, result) {
-        if (err) throw err;
-        res.json(result);
-    });
 });
 
 app.get('/addproduct', checkAuthenticated, function (req, res) {
