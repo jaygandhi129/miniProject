@@ -283,7 +283,19 @@ app.get('/success-login', custCheckAuthenticated, function (req, res) {
 app.delete('/logout-customer', (req, res) => {
   req.logOut();
   res.redirect('/');
-})
+});
+
+app.get('/productList/:catId',function(req, res){
+
+  var catId = parseInt(req.params.catId);
+
+console.log("CatId : "+catId);
+      res.render('productPage',{loggedIn: false,
+      pincode: req.cookies.pincode,
+      catId
+      });
+
+});
 
 
 
