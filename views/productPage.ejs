@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Categories</title>
+	<link rel="stylesheet" href="../css/cstyles.css">
+	<link rel="stylesheet" href="../css/productPage.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+
+<body>
+	<%=catId%>
+	<div class="text-nowrap">
+			<nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+				<div class="dropdown ">
+						<button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
+	</button>
+
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+			<li><a class="dropdown-item" href="/changePincode">Change Pincode</a></li>
+	</ul>
+	</div>
+	<%if(loggedIn == false){%>
+	<a class="btn btn-light action-button desktop-hidden" role="button"
+			style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+	<%}else{%>
+	<div class="dropdown desktop-hidden user-dropdown-menu">
+			<button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<%=user.cName%>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+					<li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>  Profile</a></li>
+					<li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i>  My Orders</a></li>
+					<li>
+							<form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
+											class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i>  Logout</button></form>
+					</li>
+			</ul>
+	</div>
+	<%}%>
+
+					<div class="container" style="margin-left:0">
+						<a class="navbar-brand expand" href="/"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="./images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+							<div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
+									<ul class="navbar-nav me-auto catagory-div">
+											<li class="nav-item">
+												<%# <div class="dropdown">
+								<button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
+									Categories
+								</button>
+								<ul class="dropdown-menu dropdown-menu-cat" style="width: 300%;" id="category_dropdown" aria-labelledby="dropdownMenuButton2">
+										<div class="row">
+											<div class="col-md-6" id="catDiv1">
+
+											</div>
+											<div class="col-md-6" id="catDiv2">
+
+											</div>
+										</div>
+								</ul>
+								</div> %>
+
+											</li>
+											<li class="nav-item"></li>
+									</ul>
+									<ul class="navbar-nav me-auto desktop-hidden">
+											<li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+									</ul>
+									<div class="row padMar">
+											<div class="col text-start padMar">
+													<div class="input-group search-bar-with-btn" style="width: 340.462px;height: 25px;margin-bottom: 18px;"><input class="form-control autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
+											</div>
+									</div>
+									<form class="d-sm-block me-auto" target="_self">
+											<div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
+									</form>
+									<ul class="navbar-nav me-auto mob-hidden">
+											<li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+									</ul>
+									<%if(loggedIn == false){%>
+	<span class="navbar-text actions">
+			<a class="btn btn-outline-warning action-button mob-hidden" role="button"
+					style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+	</span>
+	<%}else{%>
+	<div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+			<button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<%=user.cName%>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+					<li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+					<li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i>  My Orders</a></li>
+					<li>
+							<form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
+											class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i>  Logout</button></form>
+					</li>
+			</ul>
+	</div>
+	<%}%>
+							</div>
+					</div>
+			</nav>
+	</div>
+	<div class="container">
+		<h1>Clothing Cards made with pure bootstrap and jquery</h1>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="dress-card">
+					<div class="dress-card-head">
+						<img class="dress-card-img-top" src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7578935/2018/10/23/d7b740bc-e00e-4bec-97aa-65016f8ff2e71540289479612-Harpa-Women-Dresses-2331540289479465-1.jpg" alt="">
+						<div class="surprise-bubble"><span class="dress-card-heart">
+								<i class="fas fa-heart"></i>
+							</span><a href="#"> <span>More</span></a></div>
+					</div>
+					<div class="dress-card-body">
+						<h4 class="dress-card-title">Harpa</h4>
+						<p class="dress-card-para">Womans printed clothing</p>
+						<p class="dress-card-para"><span class="dress-card-price">Rs.839 &ensp;</span><span class="dress-card-crossed">Rs.2099</span><span class="dress-card-off">&ensp;(60% OFF)</span></p>
+						<div class="row">
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner bag-button">Add to Bag</div>
+								</a></div>
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner wish-button">Whishlist</div>
+								</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="dress-card">
+					<div class="dress-card-head">
+						<img class="dress-card-img-top" src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/6625378/2018/6/5/fcec8d8e-4253-4fa4-ae6e-c6805b3b8fd31528183265021-na-2331528183264786-1.jpg" alt="">
+						<div class="surprise-bubble"><span class="dress-card-heart">
+								<i class="fas fa-heart"></i>
+							</span><a href="#"> <span>More</span></a></div>
+					</div>
+					<div class="dress-card-body">
+						<h4 class="dress-card-title">Harpa</h4>
+						<p class="dress-card-para">Womans printed clothing</p>
+						<p class="dress-card-para"><span class="dress-card-price">Rs.839 &ensp;</span><span class="dress-card-crossed">Rs.2099</span><span class="dress-card-off">&ensp;(60% OFF)</span></p>
+						<div class="row">
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner bag-button">Add to Bag</div>
+								</a></div>
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner wish-button">Whishlist</div>
+								</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="dress-card">
+					<div class="dress-card-head">
+						<img class="dress-card-img-top" src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7578929/2018/10/23/86988cdc-cbe3-4b13-93f9-b37ad571b4761540274855321-Harpa-Women-Dresses-9171540274855158-1.jpg" alt="">
+						<div class="surprise-bubble"><span class="dress-card-heart">
+								<i class="fas fa-heart"></i>
+							</span><a href="#"> <span>More</span></a></div>
+					</div>
+					<div class="dress-card-body">
+						<h4 class="dress-card-title">Harpa</h4>
+						<p class="dress-card-para">Womans printed clothing</p>
+						<p class="dress-card-para"><span class="dress-card-price">Rs.839 &ensp;</span><span class="dress-card-crossed">Rs.2099</span><span class="dress-card-off">&ensp;(60% OFF)</span></p>
+						<div class="row">
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner bag-button">Add to Bag</div>
+								</a></div>
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner wish-button">Whishlist</div>
+								</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="dress-card">
+					<div class="dress-card-head">
+						<img class="dress-card-img-top" src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7578940/2018/10/23/fe701151-69e6-4e20-9e2a-ace63081a8e11540282217137-Harpa-Women-Dresses-191540282216937-5.jpg" alt="">
+						<div class="surprise-bubble"><span class="dress-card-heart">
+								<i class="fas fa-heart"></i>
+							</span><a href="#"> <span>More</span></a></div>
+					</div>
+					<div class="dress-card-body">
+						<h4 class="dress-card-title">Harpa</h4>
+						<p class="dress-card-para">Womans printed clothing</p>
+						<p class="dress-card-para"><span class="dress-card-price">Rs.839 &ensp;</span><span class="dress-card-crossed">Rs.2099</span><span class="dress-card-off">&ensp;(60% OFF)</span></p>
+						<div class="row">
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner bag-button">Add to Bag</div>
+								</a></div>
+							<div class="col-md-6 card-button"><a href="">
+									<div class="card-button-inner wish-button">Whishlist</div>
+								</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="./cIndex.js"></script>
+	<%# <script type="text/javascript">
+
+	$(document).ready(function(){
+	$.ajax({
+			url : "/getSubCategory/"+,
+			type : "GET",
+			success : function(data){
+
+					var len = data.length;
+
+					console.log(data);
+					// $("#inputState").empty();
+					for(var i =0; i<len;i++){
+					var value2 = data[i]['subCatId'];
+					var value1 = data[i]['subCatName'];
+					var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productList/"+value2+"'>"+value1+"</a></li>";
+					if(i<11){
+						$("#catDiv1").append(str);
+					}else{
+							$("#catDiv2").append(str);
+					}
+					}
+			}
+	});
+	});
+
+			</script> %>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</body>
+
+</html>
