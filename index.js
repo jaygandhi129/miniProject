@@ -268,7 +268,8 @@ app.post("/productList/:catId", function (req, res) {
     httpOnly: true, // The cookie only accessible by the web server
     signed: false // Indicates if the cookie should be signed
   }
-  res.cookie('pincode', pincode, options); // options is optional
+  res.cookie('pincode', pincode, options);
+console.log(); // options is optional
   if (req.user) {
     if (req.user.role == 1) {
      res.redirect("/productList/"+catId)
@@ -356,39 +357,61 @@ app.get('/productList/:cId',function(req, res){
     if (err){
       console.log(err);
     }else{
-      if (req.user) {
-        pincode = req.user.cPincode;
-        console.log("user pincode : "+pincode);
-        let options = {
-          maxAge: 15*60*60, // would expire after 30 minutes
-          httpOnly: true, // The cookie only accessible by the web server
-          signed: false // Indicates if the cookie should be signed
-        }
-        res.clearCookie('pincode')
-        res.cookie('pincode', pincode, options); // options is optional
-        console.log("user cookies pincode : "+req.cookies.pincode);
-
-        if (req.user.role === 1) {
+      console.log("log id "+req.params.cId);
+      console.log("zip"+req.cookies.pincode);
+      query2="select p.pName,p.pMrp,p.pPhotoId,p.pBrand from products p inner join inventory i on p.pId =i.pId inner join seller_details s on i.sId = s.sId where p.pCategory=? and s.sZip=?;"
+      connection.query(query2,[parseInt(req.params.cId),parseInt(req.cookies.pincode)],function(err,rows1){
+        if (err){
+          console.log(err);
           res.render('productPage', {
             rows,
+            rows1,
             loggedIn: true,
             pincode: req.cookies.pincode,
             user: req.user
           });
-        } else {
-          res.render('productPage', {
-            rows,
-            pincode: req.cookies.pincode,
-            loggedIn: false
-          });
         }
-      } else {
-        res.render('productPage', {
-          rows,
-          pincode: req.cookies.pincode,
-          loggedIn: false
-        });
-      }
+        else{
+          console.log(rows1);
+          if (req.user) {
+            pincode = req.user.cPincode;
+            console.log("user pincode : "+pincode);
+            let options = {
+              maxAge: 15*60*60, // would expire after 30 minutes
+              httpOnly: true, // The cookie only accessible by the web server
+              signed: false // Indicates if the cookie should be signed
+            }
+            res.clearCookie('pincode')
+            res.cookie('pincode', pincode, options); // options is optional
+            console.log("user cookies pincode : "+req.cookies.pincode);
+
+            if (req.user.role === 1) {
+              res.render('productPage', {
+                rows,
+                rows1,
+                loggedIn: true,
+                pincode: req.cookies.pincode,
+                user: req.user
+              });
+            } else {
+              res.render('productPage', {
+                rows,
+                rows1,
+                pincode: req.cookies.pincode,
+                loggedIn: false
+              });
+            }
+          } else {
+            res.render('productPage', {
+              rows,
+              rows1,
+              pincode: req.cookies.pincode,
+              loggedIn: false
+            });
+          }
+        }
+      });
+
 
     }
   });
