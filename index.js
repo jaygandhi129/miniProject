@@ -108,10 +108,10 @@ function custCheckAuthenticated(req, res, next) {
     if (req.user.role == 1) {
       return next()
     } else {
-      res.redirect('/login');
+      res.redirect('/');
     }
   } else {
-    res.redirect('/login');
+    res.redirect('/');
   }
 }
 
@@ -167,15 +167,17 @@ function checkFileType(file, cb) {
 
 
 
-app.get("/", function (req, res) {
+app.get("/", custCheckNotAuthenticated,function (req, res) {
   if (req.user) {
     if (req.user.role === 1) {
       let options = {
-        maxAge: -1, // would expire after 30 minutes
+        maxAge: 1000*60*30, // would expire after 30 minutes
         httpOnly: true, // The cookie only accessible by the web server
-        signed: false // Indicates if the cookie should be signed
+        signed: false, // Indicates if the cookie should be signed
+        path:'/'
       }
       res.cookie('pincode', req.user.cPincode, options);
+      res.send(req.cookie);
       res.render('customerHome', {
         loggedIn: true,
         pincode: req.cookies.pincode,
@@ -258,6 +260,27 @@ app.get("/changePincodeCat/:catId", function (req, res) {
   }
 });
 
+app.post("/productList/:catId", function (req, res) {
+  var catId = req.params.catId;
+  var pincode = req.body.pincode;
+  let options = {
+    maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+    httpOnly: true, // The cookie only accessible by the web server
+    signed: false // Indicates if the cookie should be signed
+  }
+  res.cookie('pincode', pincode, options); // options is optional
+  if (req.user) {
+    if (req.user.role == 1) {
+     res.redirect("/productList/"+catId)
+
+    } else {
+      res.redirect("/productList/"+catId);
+    }
+  } else {
+    res.redirect("/productList/"+catId);
+  }
+});
+
 
 // Customer Login
 app.get("/login", custCheckNotAuthenticated, function (req, res) {
@@ -327,6 +350,7 @@ app.get('/getSubCategory/:id', function (req,res){
 
 app.get('/productList/:cId',function(req, res){
 
+  console.log(cookieParser.JSONCookies(req.cookies));
   query = 'SELECT * from product_categories where catId = ?'
   connection.query(query,[req.params.cId],function(err,rows){
     if (err){
@@ -336,10 +360,11 @@ app.get('/productList/:cId',function(req, res){
         pincode = req.user.cPincode;
         console.log("user pincode : "+pincode);
         let options = {
-          maxAge: -1, // would expire after 30 minutes
+          maxAge: 15*60*60, // would expire after 30 minutes
           httpOnly: true, // The cookie only accessible by the web server
           signed: false // Indicates if the cookie should be signed
         }
+        res.clearCookie('pincode')
         res.cookie('pincode', pincode, options); // options is optional
         console.log("user cookies pincode : "+req.cookies.pincode);
 

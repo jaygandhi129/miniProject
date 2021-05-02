@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="modal-body" style="margin-top:3%;">
-                    <form class="" action="/" method="post">
+                    <form class="" action="/productList/<%=rows[0].catId%>" method="post">
 
 
                         <div class="row g-2">
@@ -99,7 +99,7 @@
     <%}%>
 
             <div class="container" style="margin-left:0">
-              <a class="navbar-brand expand" href="/"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+              <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
                     <ul class="navbar-nav me-auto catagory-div">
                         <li class="nav-item">
@@ -167,7 +167,7 @@
 
 
 		<div class="container">
-			<h1>Clothing Cards made with pure bootstrap and jquery</h1>
+			<h1 style="margin-top:3%"><%=rows[0].catName%></h1>
 			<br>
 			<br>
 			<div class="row">
