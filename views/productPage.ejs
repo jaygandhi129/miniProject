@@ -4,7 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><%=rows[0].catName%></title>
+    <% if(rows[0].catName){%>
+      <title><%=rows[0].catName%></title>
+    <% }else{ %>
+      <title><%=rows[0].subCatName%></title>
+    <% } %>
+
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
@@ -167,11 +172,17 @@
 
 
 		<div class="container">
-			<h1 style="margin-top:3%; font-size:2rem;"><%=rows[0].catName%></h1>
-			<br>
-			<br>
-			<div class="row">
-        <% if(rows1.length && rows1!==undefined){ %>
+      <% if(rows[0].catName){%>
+        <h1 style="margin-top:3%; font-size:2rem;"><%=rows[0].catName%></h1>
+
+      <% }else{ %>
+        <h1 style="margin-top:3%; font-size:2rem;"><%=rows[0].subCatName%></h1>
+      <% } %>
+
+        <% if(rows1!==undefined && rows1.length!==0){ %>
+          <p style="margin-top:0%; color:#048f83;">*Prices shown below are lowest from your locality. Please confirm actual price before ordering.</p>
+          <br />
+          <div class="row">
         <% rows1.forEach(function(row){ %>
 				<div class="col-md-3">
 					<div class="dress-card">
@@ -181,9 +192,12 @@
 						<div class="dress-card-body">
 							<h4 class="dress-card-title"><%=row.pBrand%></h4>
 							<p class="dress-card-para" style="font-size:1.3rem;"><%=row.pName%></p>
-							<p class="dress-card-para"><span class="dress-card-price" style="font-size:1.2rem;">₹<%=row.pMrp%> &nbsp;</span><span class="dress-card-crossed">₹<%=row.pMrp%></span><span class="dress-card-off">&ensp;(You saved )</span></p>
-							<div class="row">
-								<div class="col-md-12 card-button"><a href="">
+							<p class="dress-card-para"><span class="dress-card-price" style="font-size:1.2rem;">₹<%=row.price%> &nbsp;</span><span class="dress-card-crossed" style="font-size:0.9rem;">₹<%=row.pMrp%>
+              <p>
+                </span><span class="dress-card-off">(You saved  ₹ <%= row.pMrp - row.price %> )</span></p>
+             </p>
+              <div class="row">
+								<div class="col-md-12 card-button"><a href="" >
 										<div class="card-button-inner wish-button">Buy Now</div>
 									</a></div>
 							</div>
@@ -191,11 +205,16 @@
 					</div>
 				</div>
         <% });%>
-        <% } else{ %>
-          <h5 style="color:red;">No <%=rows[0].catName%> found in your locality😐</h5>
+        <% } else if(rows1==undefined || rows1.length==0){ %>
+          <% if(rows[0].catName){%>
+            <h5 style="color:red;">No <%=rows[0].catName%> found in your locality😐</h5>
+          <% }else{ %>
+            <h5 style="color:red;">No <%=rows[0].subCatName%> found in your locality😐</h5>
+          <% } %>
           <h4>Try a different Product😊</h4>
+          </div>
         <%  } %>
-			</div>
+
 		</div>
 		 <script type="text/javascript">
 
@@ -214,7 +233,7 @@
 						for(var i =0; i<len;i++){
 						var value2 = data[i]['subCatId'];
 						var value1 = data[i]['subCatName'];
-						var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productList/"+value2+"'>"+value1+"</a></li>";
+						var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productListBySub/"+value2+"'>"+value1+"</a></li>";
 						if(i<len/2){
 							$("#catDiv1").append(str);
 						}else{

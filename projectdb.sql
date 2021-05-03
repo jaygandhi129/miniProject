@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -51,7 +51,7 @@ CREATE TABLE `business_details` (
 
 LOCK TABLES `business_details` WRITE;
 /*!40000 ALTER TABLE `business_details` DISABLE KEYS */;
-INSERT INTO `business_details` VALUES (18,1029,'mybusiness','...',7756901721,'AB1234567808767','dhoblesaurabh35@gmail.com','','PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR','NAGPUR','Maharashtra',440015,NULL),(26,1044,'Gada Electronics','Electronics and Accessories',6363636363,'542198546523251','sdfsd@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',413101,'Seller%2F1044%2F26-photo.jpg'),(29,1048,'Tejas Shop','Electronics and Accessories',5216325298,'521325269875465','tejas@gmail.com','','SUJAYNAGAR 8 , BYPASS ROAD,','Akluj','Maharashtra',413101,'Seller%2F1048%2F29-photo.PNG');
+INSERT INTO `business_details` VALUES (18,1029,'mybusiness','...',7756901721,'AB1234567808767','dhoblesaurabh35@gmail.com','','PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR','NAGPUR','Maharashtra',440015,NULL),(26,1044,'Gada Electronics','Electronics and Accessories',6363636363,'542198546523251','sdfsd@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',440015,'Seller%2F1044%2F26-photo.jpg'),(29,1048,'Tejas Shop','Electronics and Accessories',5216325298,'521325269875465','tejas@gmail.com','','SUJAYNAGAR 8 , BYPASS ROAD,','Akluj','Maharashtra',413101,'Seller%2F1048%2F29-photo.PNG');
 /*!40000 ALTER TABLE `business_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +109,7 @@ CREATE TABLE `inventory` (
   CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
   CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N'))),
   CONSTRAINT `inventory_chk_1` CHECK ((`stockAvailable` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=100031 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100033 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +118,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (100027,15000,100,1029,50026,'N',NULL,'6GB 128GB'),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm'),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi');
+INSERT INTO `inventory` VALUES (100027,15000,100,1029,50026,'N',NULL,'6GB 128GB'),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm'),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi'),(100031,13000,15,1029,50031,'Y',NULL,'Good Camera'),(100032,12500,33,1044,50026,'N',NULL,'lowest price');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +193,7 @@ CREATE TABLE `products` (
   KEY `pSubCategory` (`pSubCategory`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`pCategory`) REFERENCES `product_categories` (`catId`),
   CONSTRAINT `products_ibfk_2` FOREIGN KEY (`pSubCategory`) REFERENCES `product_subcategories` (`subCatId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50031 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50032 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +202,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (50026,'Galaxy M20',14999,2000007,'Product%2F50026-photo.png',3000088,'Samsung'),(50027,'Purse',1999.99,2000002,'Product%2F50027-photo.png',3000015,'Levi\'s'),(50029,'Baby powder',201,2000017,'Product%2F50029-photo.png',3000259,'Johnson & Johnson'),(50030,'Helmet',201,2000015,'Product%2F50030-photo.png',3000196,'Vega');
+INSERT INTO `products` VALUES (50026,'Galaxy M20',14999,2000007,'Product%2F50026-photo.png',3000088,'Samsung'),(50027,'Purse',1999.99,2000002,'Product%2F50027-photo.png',3000015,'Levi\'s'),(50029,'Baby powder',201,2000017,'Product%2F50029-photo.png',3000259,'Johnson & Johnson'),(50030,'Helmet',201,2000015,'Product%2F50030-photo.png',3000196,'Vega'),(50031,'Note 5 pro',15000,2000007,'Product%2F50031-photo.jpg',3000088,'Redmi');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,7 +241,7 @@ CREATE TABLE `seller_details` (
 
 LOCK TABLES `seller_details` WRITE;
 /*!40000 ALTER TABLE `seller_details` DISABLE KEYS */;
-INSERT INTO `seller_details` VALUES (1029,'Saurabh Dhoble',7756901721,'2021-04-13','M','23, Manish Nagar, Nagpur','NAGPUR','Maharashtra',440015,9911881277336659,'9011882275','10b8e822d03fb4fd946188e852a4c3e2',0),(1044,'Jethalal Gada',2312121212,'2021-04-15','M','Hhjahj','Akluj','Maharashtra',413101,7578555555555555,'2222222222','dc02c947d1b6c77047f17e5f01ea39ed',0),(1048,'Tejas Gandhi',8087630373,'2021-04-23','M','sdfsasd','Solapur','Maharashtra',215421,5212212132565212,'1245236985','15e8e7c72ea16ca290930fd7c4db760b',0);
+INSERT INTO `seller_details` VALUES (1029,'Saurabh Dhoble',7756901721,'2021-04-13','M','23, Manish Nagar, Nagpur','NAGPUR','Maharashtra',413101,9911881277336659,'9011882275','10b8e822d03fb4fd946188e852a4c3e2',0),(1044,'Jethalal Gada',2312121212,'2021-04-15','M','Hhjahj','Akluj','Maharashtra',413101,7578555555555555,'2222222222','dc02c947d1b6c77047f17e5f01ea39ed',0),(1048,'Tejas Gandhi',8087630373,'2021-04-23','M','sdfsasd','Solapur','Maharashtra',215421,5212212132565212,'1245236985','15e8e7c72ea16ca290930fd7c4db760b',0);
 /*!40000 ALTER TABLE `seller_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -254,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-30 10:51:14
+-- Dump completed on 2021-05-03 16:23:09
