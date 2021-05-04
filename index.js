@@ -359,7 +359,7 @@ app.get('/productList/:cId',function(req, res){
     }else{
       console.log("log id "+req.params.cId);
       console.log("zip"+req.cookies.pincode);
-      query2="select p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller where p.pCategory=? and b.bZip=? group by p.pId;"
+      query2="select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller where p.pCategory=? and b.bZip=? group by p.pId;"
       connection.query(query2,[parseInt(req.params.cId),parseInt(req.cookies.pincode)],function(err,rows1){
         if (err){
           console.log(err);
@@ -430,7 +430,7 @@ app.get('/productListBySub/:subCatId',function(req, res){
     }else{
       console.log("log id "+req.params.subCatId);
       console.log("zip"+req.cookies.pincode);
-      query2="select p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller where p.pSubCategory=? and s.bZip=? group by p.pId;"
+      query2="select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller where p.pSubCategory=? and s.bZip=? group by p.pId;"
       connection.query(query2,[parseInt(req.params.subCatId),parseInt(req.cookies.pincode)],function(err,rows1){
         if (err){
           console.log(err);
@@ -488,6 +488,47 @@ app.get('/productListBySub/:subCatId',function(req, res){
     }
   });
 });
+
+// productDetails.ejs Starts
+app.get('/productDetails/:pId',function(req, res){
+     var pId=req.params.pId;
+     console.log(pId);
+      if (req.user) {
+        pincode = req.user.cPincode;
+        console.log("user pincode : "+pincode);
+        let options = {
+          maxAge: 15*60*60, // would expire after 30 minutes
+          httpOnly: true, // The cookie only accessible by the web server
+          signed: false // Indicates if the cookie should be signed
+        }
+        res.clearCookie('pincode')
+        res.cookie('pincode', pincode, options); // options is optional
+        console.log("user cookies pincode : "+req.cookies.pincode);
+
+        if (req.user.role === 1) {
+          res.render('productDetails', {
+            loggedIn: true,
+            pId,
+            pincode: req.cookies.pincode,
+            user: req.user
+          });
+        } else {
+          res.render('productDetails', {
+            pId,
+            pincode: req.cookies.pincode,
+            loggedIn: false
+          });
+        }
+      } else {
+        res.render('productDetails', {
+          pId,
+          pincode: req.cookies.pincode,
+          loggedIn: false
+        });
+      }
+
+});
+
 
 
 
