@@ -165,13 +165,15 @@
 .product-count .qtyplus {
 	width: 34px;
     height: 34px;
-    background: #212529;
+    background: white;
+		border: solid 1px black;
+		color: black;
     text-align: center;
     font-size: 19px;
     line-height: 36px;
-    color: #fff;
     cursor: pointer;
 }
+
 .product-count .qtyminus {
 	border-radius: 3px 0 0 3px;
 }
@@ -182,21 +184,43 @@
 	width: 60px;
 	text-align: center;
 }
-.round-black-btn {
+.round-black-btn-1 {
+	font-size: 1.2rem;
 	border-radius: 4px;
-    background: #212529;
-    color: #fff;
-    padding: 7px 45px;
+    background: white;
+    color: black;
+    padding: 8px 80px;
     display: inline-block;
     margin-top: 20px;
-    border: solid 2px #212529;
+    border: solid 2px #ffbf00;
     transition: all 0.5s ease-in-out 0s;
 }
-.round-black-btn:hover,
-.round-black-btn:focus {
-	background: transparent;
-	color: #212529;
+.round-black-btn-2 {
+	font-size: 1.4rem;
+	font-weight: 500;
+	margin-left: 5px;
+	border-radius: 3px;
+    background: #ffbf00;
+    color: black;
+    padding: 11px 110px;
+    display: inline-block;
+    margin-top: 20px;
+    border: solid 2px #ffbf00;
+    transition: all 0.5s ease-in-out 0s;
+}
+.round-black-btn-1:hover,
+.round-black-btn-1:focus {
+	  background:  #ffbf00;
+	color:black;
 	text-decoration: none;
+}
+.round-black-btn-2:hover,
+.round-black-btn-2:focus {
+opacity: 0.7;
+	 background:  #ffbf00;
+	color:black;
+	text-decoration: none;
+	 border: solid 2px #ffbf00;
 }
 
 .product-info-tabs {
@@ -257,7 +281,7 @@
 .review-form textarea.form-control {
 	resize: none;
 }
-.review-form .round-black-btn {
+.review-form .round-black-btn-1 {
 	text-transform: uppercase;
 	cursor: pointer;
 }
