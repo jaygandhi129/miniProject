@@ -534,8 +534,16 @@ app.get('/productDetails/:pId', function(req, res) {
 });
 
 
-
-
+app.get("/getSellers/:pId",function(req,res){
+	var pin = req.cookies.pincode;
+	console.log("pin"+pin);
+	console.log("ss : "+req.params.pId);
+	var query = "SELECT b.bName, i.sellerPrice, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ?";
+	connection.query(query,[req.params.pId,pin],function(err,result){
+		if (err) throw err;
+		res.json(result);
+	});
+});
 
 
 
