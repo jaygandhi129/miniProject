@@ -85,11 +85,33 @@
     clear: both;
 }
 .product-price-discount span.line-through {
+
 	text-decoration: line-through;
     margin-left: 10px;
     font-size: 14px;
     vertical-align: middle;
     color: #a5a5a5;
+}
+.delivery{
+	font-family: 'Poppins', sans-serif !important;
+
+}
+.buybuttons{
+  text-align: center;
+  margin-top: 6%;
+}
+.Quantity{
+  font-size:1.2rem;
+  color:#38414f;
+  font-weight:400;
+  margin-bottom:16px;
+	margin-top:3%;
+
+}
+.product-image{
+	object-fit:contain;
+	max-height: 400px;
+	max-width: 400px;
 }
 .display-flex {
 	display: flex;
@@ -159,7 +181,9 @@
 	box-shadow: none;
 }
 .product-count {
-	margin-top: 15px;
+	display:inline;
+
+
 }
 .product-count .qtyminus,
 .product-count .qtyplus {
@@ -185,24 +209,24 @@
 	text-align: center;
 }
 .round-black-btn-1 {
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	border-radius: 4px;
     background: white;
     color: black;
-    padding: 8px 80px;
+    padding: 12px 100px;
     display: inline-block;
     margin-top: 20px;
     border: solid 2px #ffbf00;
     transition: all 0.5s ease-in-out 0s;
 }
 .round-black-btn-2 {
-	font-size: 1.4rem;
-	font-weight: 500;
+	font-size: 1.15rem;
 	margin-left: 5px;
-	border-radius: 3px;
+	border-radius: 4px;
     background: #ffbf00;
     color: black;
-    padding: 11px 110px;
+		margin-left:0 !important;
+    padding: 8px 80px;
     display: inline-block;
     margin-top: 20px;
     border: solid 2px #ffbf00;
