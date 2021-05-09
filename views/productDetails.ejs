@@ -1,87 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <title></title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="../css/productDetails.css">
+      <link rel="stylesheet" href="../css/cstyles.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <!-- Pincode Modal Starts -->
+      <%if(pincode===undefined){%>
+      <script>
+         function showModal() {
+         	$('#staticBackdrop').modal('show');
+         }
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/productDetails.css">
-  <link rel="stylesheet" href="../css/cstyles.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-</head>
-
-<body>
-  <!-- Pincode Modal Starts -->
-  <%if(pincode===undefined){%>
-  <script>
-    function showModal() {
-      $('#staticBackdrop').modal('show');
-    }
-
-    $(window).on('load', function() {
-      $('#staticBackdrop').modal('show');
-    });
-  </script>
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" style="margin-top:5%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
-        </div>
-        <div class="modal-body" style="margin-top:3%;">
-          <form class="" action="/productList" method="post">
-            <div class="row g-2">
-              <div class="col col-auto">
-                <input type="text" class="form-control form-control-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
-              </div>
-              <div class="col col-auto">
-                <button type="submit" class="btn btn-warning btn-md">Submit</button>
-              </div>
+         $(window).on('load', function() {
+         	$('#staticBackdrop').modal('show');
+         });
+      </script>
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         <div class="modal-dialog" style="margin-top:5%;">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
+               </div>
+               <div class="modal-body" style="margin-top:3%;">
+                  <form class="" action="/productList" method="post">
+                     <div class="row g-2">
+                        <div class="col col-auto">
+                           <input type="text" class="form-control form-control-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
+                        </div>
+                        <div class="col col-auto">
+                           <button type="submit" class="btn btn-warning btn-md">Submit</button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are
+                           available in this
+                           Pincode
+                        </p>
+                     </div>
+                  </form>
+               </div>
             </div>
-            <div class="row">
-              <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are
-                available in this
-                Pincode
-              </p>
-            </div>
-          </form>
-        </div>
+         </div>
       </div>
-    </div>
-  </div>
-  <%}%>
+      <%}%>
       <!-- Pincode Modal Ends -->
       <div class="text-nowrap">
          <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
             <div class="dropdown ">
                <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="/changePincodeCat">Change Pincode</a></li>
-  </ul>
-  </div>
-  <%if(loggedIn == false){%>
-  <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-  <%}else{%>
-  <div class="dropdown desktop-hidden user-dropdown-menu">
-    <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      <%=user.cName%>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-      <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-      <li>
-        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-      </li>
-    </ul>
-  </div>
-  <%}%>
+               </button>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="/changePincodeCat">Change Pincode</a></li>
+               </ul>
+            </div>
+            <%if(loggedIn == false){%>
+            <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+            <%}else{%>
+            <div class="dropdown desktop-hidden user-dropdown-menu">
+               <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+               <%=user.cName%>
+               </button>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                  <li>
+                     <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                  </li>
+               </ul>
+            </div>
+            <%}%>
             <div class="container" style="margin-left:0">
                <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
@@ -118,23 +116,23 @@
                      <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
                   </ul>
                   <%if(loggedIn == false){%>
-  <span class="navbar-text actions">
-    <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-  </span>
-  <%}else{%>
-  <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
-    <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      <%=user.cName%>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-      <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-      <li>
-        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-      </li>
-    </ul>
-  </div>
-  <%}%>
+                  <span class="navbar-text actions">
+                  <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+                  </span>
+                  <%}else{%>
+                  <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+                     <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                     <%=user.cName%>
+                     </button>
+                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                        <li>
+                           <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                        </li>
+                     </ul>
+                  </div>
+                  <%}%>
                </div>
             </div>
          </nav>
@@ -145,129 +143,137 @@
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
       <div class="pd-wrap">
-      <div class="container">
-      <div class="heading-section" style="text-align:left;">
-         <a href="/productList/<%= rows[0].catId%>"><%=rows[0].catName%> > </a><a href="/productListBySub/<%=rows[0].subCatId%>"><%=rows[0].subCatName%></a>
-  <h2><%=rows[0].pBrand%> <%=rows[0].pName%></h2>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div id="slider" class="owl-carousel product-slider">
-        <div class="img-magnifier-container item ">
-          <img id="myimage" class="product-image" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" />
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="row" id="selldiv">
-
-
-
-
-
-
-
-
-      </div>
-    </div>
-  </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="product-dtl">
-          <div class="product-info">
-            <div class="product-price-discount"><span style="font-size: 2.1rem;">₹ 15000</span><span class="line-through">₹ <%=rows[0].pMrp%></span><span class="dress-card-off" style="font-size:1.1rem;color:#5f6670;"> &nbsp; &nbsp;You
-                save ₹
-                <%= rows[0].pMrp - 15000 %> </span>
+         <div class="container">
+            <div class="heading-section" style="text-align:left;">
+               <a href="/productList/<%= rows[0].catId%>"><%=rows[0].catName%> > </a><a href="/productListBySub/<%=rows[0].subCatId%>"><%=rows[0].subCatName%></a>
+               <h2><%=rows[0].pBrand%> <%=rows[0].pName%></h2>
             </div>
-            <% if("Y" == "Y"){ %>
-            <div class="delivery"><span style="font-size: 1.2rem;color:#048f83;display:inline;"><i class="fas fa-check-circle"></i>Delivery Available</span>
-            </div>
-            <%}else{%>
-            <div class="delivery"><span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i> Delivery Unavailable</span>
-              <%}%>
-											</div>
-                     <div class="product-count">
-                        <label for="size" class="Quantity">Quantity</label>
-                        <form action="#" class="display-flex">
-                           <div class="qtyminus">-</div>
-                           <input type="text" name="quantity" value="1" class="qty">
-                           <div class="qtyplus">+</div>
-                        </form>
+            <div class="row">
+               <div class="col-md-6">
+                  <div id="slider" class="owl-carousel product-slider">
+                     <div class="img-magnifier-container item ">
+                        <img id="myimage" class="product-image" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" />
                      </div>
                   </div>
                </div>
-               <div class="col-md-6"style="float:right;">
-                  <div class="buybuttons">
-										 <a href="#" class="round-black-btn-1"><i class="fas fa-wallet"></i>&nbsp; Buy Now</a>
-											<br>
-											<a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
+               <div class="col-md-6">
+                <span style="font-size:1.2rem;color:#048f83;">Available Sellers for this product. </span><span style="font-size:0.8rem;color:black;float:right;">Click to select</span>
+
+                  <div class="row" id="selldiv" style="margin-top:2%;">
                   </div>
                </div>
             </div>
          </div>
+         <div class="container">
+            <div class="row" style="margin-top:3%;">
+               <div class="col-md-6">
+                  <div class="product-dtl">
+                     <div class="product-info">
+                        <div class="product-price-discount"><span id="sellerPrice" style="font-size: 2.1rem;"></span><span class="line-through">₹ <%=rows[0].pMrp%></span><span class="dress-card-off" style="font-size:1.1rem;color:#5f6670;" id="youSaved"> &nbsp; &nbsp;</span>
+                        </div>
+
+                        <div class="delivery" id="deliveryDiv" style="margin-top:3%;margin-bottom:3%">
+                        </div>
+                      </div>
+
+                        <div class="product-count">
+                           <label for="size" class="Quantity">Quantity</label>
+                           <form action="#" class="display-flex">
+                              <div class="qtyminus">-</div>
+                              <input type="text" name="quantity" value="1" class="qty">
+                              <div class="qtyplus">+</div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6"style="float:right;">
+                     <div class="container">
+                       <h3 style="color:#048f83;"><u>Store Details</u></h3>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <h4 id="bName" style="font-size: 1.3rem;"></h4>
+                           </div>
+                           <div class="col-md-6">
+                              <p id="bAddress"></p>
+                           </div>
+                           <div class="col-md-6">
+                              <p id="bMobile"></p>
+                           </div>
+                           <div class="col-md-6">
+                             <p id="bWebsite"></p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="buybuttons">
+                        <a href="#" class="round-black-btn-1"><i class="fas fa-wallet"></i>&nbsp; Buy Now</a>
+                        <br>
+                        <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="container">
+            <div class="product-info-tabs">
+               <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                  </li>
+                  <!-- <li class="nav-item">
+                     <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews (0)</a>
+                     </li> -->
+               </ul>
+               <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
+                     error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                  </div>
+                  <!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                     <div class="review-heading">REVIEWS</div>
+                     <p class="mb-20">There are no reviews yet.</p>
+                     <form class="review-form">
+                     	<div class="form-group">
+                     		<label>Your rating</label>
+                     		<div class="reviews-counter">
+                     			<div class="rate">
+                     				<input type="radio" id="star5" name="rate" value="5" />
+                     				<label for="star5" title="text">5 stars</label>
+                     				<input type="radio" id="star4" name="rate" value="4" />
+                     				<label for="star4" title="text">4 stars</label>
+                     				<input type="radio" id="star3" name="rate" value="3" />
+                     				<label for="star3" title="text">3 stars</label>
+                     				<input type="radio" id="star2" name="rate" value="2" />
+                     				<label for="star2" title="text">2 stars</label>
+                     				<input type="radio" id="star1" name="rate" value="1" />
+                     				<label for="star1" title="text">1 star</label>
+                     			</div>
+                     		</div>
+                     	</div>
+                     	<div class="form-group">
+                     		<label>Your message</label>
+                     		<textarea class="form-control" rows="10"></textarea>
+                     	</div>
+                     	<div class="row">
+                     		<div class="col-md-6">
+                     			<div class="form-group">
+                     				<input type="text" name="" class="form-control" placeholder="Name*">
+                     			</div>
+                     		</div>
+                     		<div class="col-md-6">
+                     			<div class="form-group">
+                     				<input type="text" name="" class="form-control" placeholder="Email Id*">
+                     			</div>
+                     		</div>
+                     	</div>
+                     	<button class="round-black-btn">Submit Review</button>
+                     </form>
+                     </div> -->
+               </div>
+            </div>
+         </div>
       </div>
-			<div class="container">
-      <div class="product-info-tabs">
-         <ul class="nav nav-tabs" id="myTab" role="tablist">
-         	<li class="nav-item">
-         		<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-         	</li>
-         	<!-- <li class="nav-item">
-         		<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews (0)</a>
-         	</li> -->
-         </ul>
-         <div class="tab-content" id="myTabContent">
-         	<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-         		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-         		irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
-         		error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-         	</div>
-         	<!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-         		<div class="review-heading">REVIEWS</div>
-         		<p class="mb-20">There are no reviews yet.</p>
-         		<form class="review-form">
-         			<div class="form-group">
-         				<label>Your rating</label>
-         				<div class="reviews-counter">
-         					<div class="rate">
-         						<input type="radio" id="star5" name="rate" value="5" />
-         						<label for="star5" title="text">5 stars</label>
-         						<input type="radio" id="star4" name="rate" value="4" />
-         						<label for="star4" title="text">4 stars</label>
-         						<input type="radio" id="star3" name="rate" value="3" />
-         						<label for="star3" title="text">3 stars</label>
-         						<input type="radio" id="star2" name="rate" value="2" />
-         						<label for="star2" title="text">2 stars</label>
-         						<input type="radio" id="star1" name="rate" value="1" />
-         						<label for="star1" title="text">1 star</label>
-         					</div>
-         				</div>
-         			</div>
-         			<div class="form-group">
-         				<label>Your message</label>
-         				<textarea class="form-control" rows="10"></textarea>
-         			</div>
-         			<div class="row">
-         				<div class="col-md-6">
-         					<div class="form-group">
-         						<input type="text" name="" class="form-control" placeholder="Name*">
-         					</div>
-         				</div>
-         				<div class="col-md-6">
-         					<div class="form-group">
-         						<input type="text" name="" class="form-control" placeholder="Email Id*">
-         					</div>
-         				</div>
-         			</div>
-         			<button class="round-black-btn">Submit Review</button>
-         		</form>
-         	</div> -->
-         </div>
-         </div>
-			 </div>
-     </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -361,28 +367,39 @@
 
           $.ajax({
 
-      				url : "/getSellers/"+<%=rows[0].pId%>,
-              type : "GET",
-              success : function(data){
-                console.log("Ssaapp"+ <%=rows[0].pId%>);
-              var len = data.length;
-              console.log(data);
-              console.log(data[0].bName);
-              $("#selldiv1").empty();
-              $("#selldiv2").empty();
+         	url : "/getSellers/"+<%=rows[0].pId%>,
+         type : "GET",
+         success : function(data){
+         console.log("Ssaapp"+ <%=rows[0].pId%>);
+         var len = data.length;
+         console.log(data);
+         console.log(data[0].bName);
+         $("#selldiv1").empty();
+         $("#selldiv2").empty();
 
-              len=data.length;
-              for(var i =0; i<len;i++){
-              var str1 ="<div class='card'><div class='card-body'><div class='row'><div class='col-auto col-9'><h5>"+data[i].bName+"</h5></div><div class='col-auto col-3'><h5>"+data[i].sellerPrice+"</h5></div></div></div></div>";
+         len=data.length;
+         for(var i =0; i<len;i++){
+           var str1="<div class='card' style='margin-top:1%;'><div class='card-body'><div class='row'><div class='col-auto col-9'><h5>" +data[i].bName+"</h5></div><div class='col-auto col-3'><h5>₹ "+data[i].sellerPrice+"</h5></div></div></div></div>";
+         $("#selldiv").append(str1);
+         }
+         console.log(data[0].sellerPrice);
+         $("#sellerPrice").html("₹ "+data[0].sellerPrice);
+         $("#youSaved").html("&nbsp; &nbsp; You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
+         $("#description").html(data[0].iDescription);
+         if(data[0].iDelivery=='Y'){
+         $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
+       }else{
+         $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>')
+       }
+       $("#bName").html(data[0].bName);
+       $("#bAddress").html(data[0].bAddress+', '+data[0].bCity+', '+data[0].bState);
+       $("#bMobile").html("Contact No. : "+data[0].bMobile);
+       $("#bWebsite").html('<a href=data[0].bWebsite>'+data[0].bWebsite+'</a>');
+         }
+         });
+         });
+      </script>
 
-              $("#selldiv").append(str1);
-            }
-
-
-                       }
-                      });
-                    });
-                  </script>
-</body>
+   </body>
 
 </html>

@@ -538,7 +538,7 @@ app.get("/getSellers/:pId",function(req,res){
 	var pin = req.cookies.pincode;
 	console.log("pin"+pin);
 	console.log("ss : "+req.params.pId);
-	var query = "SELECT b.bName, i.sellerPrice, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ?";
+	var query = "SELECT b.bName,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile, i.sellerPrice, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ? order by i.sellerPrice";
 	connection.query(query,[req.params.pId,pin],function(err,result){
 		if (err) throw err;
 		res.json(result);
