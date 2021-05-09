@@ -145,8 +145,8 @@
       <div class="pd-wrap">
          <div class="container">
             <div class="heading-section" style="text-align:left;">
-               <a href="/productList/<%= rows[0].catId%>"><%=rows[0].catName%> > </a><a href="/productListBySub/<%=rows[0].subCatId%>"><%=rows[0].subCatName%></a>
-               <h2><%=rows[0].pBrand%> <%=rows[0].pName%></h2>
+               <a href="/productList/<%= rows[0].catId%>" class="catNavigation"><%=rows[0].catName%> > </a><a href="/productListBySub/<%=rows[0].subCatId%>" class="catNavigation"><%=rows[0].subCatName%></a>
+               <h2 class="brandName"><%=rows[0].pBrand%> <%=rows[0].pName%></h2>
             </div>
             <div class="row">
                <div class="col-md-6">
@@ -157,8 +157,11 @@
                   </div>
                </div>
                <div class="col-md-6">
-                <span style="font-size:1.2rem;color:#048f83;">Available Sellers for this product. </span><span style="font-size:0.8rem;color:black;float:right;">Click to select</span>
+                 <div class="proAvailable">
 
+
+                <span style="font-size:1.2rem;color:#048f83;" class="proAvailable" >Available Sellers for this product. </span><span style="font-size:0.8rem;color:black;float:right;" class="click">Click to select</span>
+                 </div>
                   <div class="row" id="selldiv" style="margin-top:2%;">
                   </div>
                </div>
@@ -169,9 +172,9 @@
                <div class="col-md-6">
                   <div class="product-dtl">
                      <div class="product-info">
-                        <div class="product-price-discount"><span id="sellerPrice" style="font-size: 2.1rem;"></span><span class="line-through">₹ <%=rows[0].pMrp%></span><span class="dress-card-off" style="font-size:1.1rem;color:#5f6670;" id="youSaved"> &nbsp; &nbsp;</span>
+                        <div class="product-price-discount"><span id="sellerPrice" class="sellerPricefocus" style="font-size: 2.1rem;"></span><span class="line-through">₹ <%=rows[0].pMrp%></span><span class="dress-card-off youSaved mobHide" style="font-size:1.1rem;color:#5f6670;" id="youSaved"> &nbsp; &nbsp;</span>
                         </div>
-
+                            <span class="dress-card-off mobShow youSaved" style="font-size:1.1rem;color:#5f6670;" id="youSaved2"></span>
                         <div class="delivery" id="deliveryDiv" style="margin-top:3%;margin-bottom:3%">
                         </div>
                       </div>
@@ -187,8 +190,8 @@
                      </div>
                   </div>
                   <div class="col-md-6"style="float:right;">
-                     <div class="container">
-                       <h3 style="color:#048f83;"><u>Store Details</u></h3>
+                     <div class="container storeDet">
+                       <h3 class="storeDetcs" style="color:#048f83;"><u>Store Details</u></h3>
 
                         <div class="row">
                            <div class="col-md-6">
@@ -282,7 +285,7 @@
          $(document).ready(function() {
          	var slider = $("#slider");
          	var thumb = $("#thumb");
-         	var slidesPerPage = 4; //globaly define number of elements per page
+         	var slidesPerPage = 1; //globaly define number of elements per page
          	var syncedSecondary = true;
          	slider.owlCarousel({
          		items: 1,
@@ -290,7 +293,7 @@
          		nav: false,
          		autoplay: false,
          		dots: false,
-         		loop: true,
+         		loop: false,
          		responsiveRefreshRate: 200
          	}).on('changed.owl.carousel', syncPosition);
          	thumb
@@ -301,7 +304,7 @@
          			items: slidesPerPage,
          			dots: false,
          			nav: true,
-         			item: 4,
+         			item: 1,
          			smartSpeed: 200,
          			slideSpeed: 500,
          			slideBy: slidesPerPage,
@@ -379,12 +382,13 @@
 
          len=data.length;
          for(var i =0; i<len;i++){
-           var str1="<div class='card' style='margin-top:1%;'><div class='card-body'><div class='row'><div class='col-auto col-9'><h5>" +data[i].bName+"</h5></div><div class='col-auto col-3'><h5>₹ "+data[i].sellerPrice+"</h5></div></div></div></div>";
+           var str1="<div class='card sellerSide' style='margin-top:1%;'><div class='card-body'><div class='row'><div class='col-auto col-8'><h5 class='sellingPrice'>" +data[i].bName+"</h5></div><div class='col-auto col-4'><h5 class='sellingPrice'>₹ "+data[i].sellerPrice+"</h5></div></div></div></div>";
          $("#selldiv").append(str1);
          }
          console.log(data[0].sellerPrice);
          $("#sellerPrice").html("₹ "+data[0].sellerPrice);
          $("#youSaved").html("&nbsp; &nbsp; You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
+         $("#youSaved2").html("You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
          $("#description").html(data[0].iDescription);
          if(data[0].iDelivery=='Y'){
          $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
