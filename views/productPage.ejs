@@ -209,13 +209,13 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $.ajax({
-        url: "/getSubCategory/" + < %= rows[0].catId % > ,
+        url: "/getSubCategory/" + <%= rows[0].catId %>,
         type: "GET",
         success: function(data) {
 
           var len = data.length;
 
-          console.log(data);
+
           $("#catDiv1").empty();
           $("#catDiv2").empty();
 
