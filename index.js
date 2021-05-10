@@ -245,7 +245,7 @@ app.get("/changePincodeCat/:catId", function(req, res) {
 
 	res.clearCookie("pincode");
 	var catid = req.params.catId;
-	console.log("Params : " + catid);
+
 	if (req.user) {
 
 		if (req.user.role == 1) {
@@ -267,7 +267,7 @@ app.post("/productList/:catId", function(req, res) {
 		signed: false // Indicates if the cookie should be signed
 	}
 	res.cookie('pincode', pincode, options);
-	console.log(); // options is optional
+
 	if (req.user) {
 		if (req.user.role == 1) {
 			res.redirect("/productList/" + catId)
@@ -307,7 +307,7 @@ app.post('/custlogin', custCheckNotAuthenticated, passport.authenticate('custome
 
 app.get('/success-login', custCheckAuthenticated, function(req, res) {
 	var pincode = req.user.cPincode;
-	console.log("Pincode:" + pincode);
+
 	let options = {
 		maxAge: -1, // would expire after 30 minutes
 		httpOnly: true, // The cookie only accessible by the web server
@@ -340,9 +340,11 @@ app.get('/getCategory', function(req, res) {
 app.get('/getSubCategory/:id', function(req, res) {
 
 	var catId = parseInt(req.params.id);
+	console.log(catId);
 	var sql = 'SELECT * from product_subcategories where catId = ? order by subCatName';
 	connection.query(sql, [catId], function(err, result) {
 		if (err) throw err;
+
 		res.json(result);
 	});
 });
@@ -355,8 +357,8 @@ app.get('/productList/:cId', function(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log("log id " + req.params.cId);
-			console.log("zip" + req.cookies.pincode);
+
+
 			query2 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller where p.pCategory=? and b.bZip=? group by p.pId;"
 			connection.query(query2, [parseInt(req.params.cId), parseInt(req.cookies.pincode)], function(err, rows1) {
 				if (err) {
@@ -370,10 +372,10 @@ app.get('/productList/:cId', function(req, res) {
 						user: req.user
 					});
 				} else {
-					console.log(rows1);
+
 					if (req.user) {
 						pincode = req.user.cPincode;
-						console.log("user pincode : " + pincode);
+
 						let options = {
 							maxAge: 15 * 60 * 60, // would expire after 30 minutes
 							httpOnly: true, // The cookie only accessible by the web server
@@ -381,7 +383,7 @@ app.get('/productList/:cId', function(req, res) {
 						}
 						res.clearCookie('pincode')
 						res.cookie('pincode', pincode, options); // options is optional
-						console.log("user cookies pincode : " + req.cookies.pincode);
+
 
 						if (req.user.role === 1) {
 							res.render('productPage', {
@@ -536,10 +538,16 @@ app.get('/productDetails/:pId', function(req, res) {
 
 app.get("/getSellers/:pId",function(req,res){
 	var pin = req.cookies.pincode;
-	console.log("pin"+pin);
-	console.log("ss : "+req.params.pId);
-	var query = "SELECT b.bName,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile, i.sellerPrice, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ? order by i.sellerPrice";
+
+	var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ? order by i.sellerPrice";
 	connection.query(query,[req.params.pId,pin],function(err,result){
+		if (err) throw err;
+		res.json(result);
+	});
+});
+app.get("/getSellersOnClick/:pId/:iId",function(req,res){
+	var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and i.iId = ? order by i.sellerPrice";
+	connection.query(query,[req.params.pId,req.params.iId],function(err,result){
 		if (err) throw err;
 		res.json(result);
 	});

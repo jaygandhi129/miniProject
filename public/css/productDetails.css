@@ -117,7 +117,14 @@
   text-align: center;
   margin-top: 6%;
 }
-
+.sellerButton{
+  background: none;
+  border:none;
+  padding:0px;
+  margin:0px;
+  margin-top:1%;
+  border-radius: 0.25rem;
+}
 .Quantity {
   font-size: 1.2rem;
   color: #38414f;
@@ -385,7 +392,7 @@
     display: none;
   }
 
-  .sellerSide {
+  .sellerButton {
     margin-left: 3% !important;
     width: 93% !important;
   }
