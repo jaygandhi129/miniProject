@@ -85,7 +85,7 @@
                <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
                   <ul class="navbar-nav me-auto catagory-div">
-                     <li class="nav-item">
+                     <!-- <li class="nav-item">
                         <div class="dropdown">
                            <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
                            Sub-Categories
@@ -99,7 +99,7 @@
                               </div>
                            </ul>
                         </div>
-                     </li>
+                     </li> -->
                      <li class="nav-item"></li>
                   </ul>
                   <ul class="navbar-nav me-auto desktop-hidden">
@@ -383,7 +383,12 @@
          len=data.length;
 
          for(var i =0; i<len;i++){
+            if(i == 0){
+               var str1="<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value="+data[i].iId+"><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" +data[i].bName+"</h5></div><div class='col-auto col-4 column'><h5 id="+data[i].iId+" class='sellingPrice'>₹ "+data[i].sellerPrice+"</h5></div></div></div></div></button>";
+            }
+            else{
            var str1="<button id='Individualseller' class='sellerButton' value="+data[i].iId+"><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" +data[i].bName+"</h5></div><div class='col-auto col-4 column'><h5 id="+data[i].iId+" class='sellingPrice'>₹ "+data[i].sellerPrice+"</h5></div></div></div></div></button>";
+            }
          $("#selldiv").append(str1);
         
          }
@@ -407,7 +412,7 @@
          $(document).on("click", '.sellerButton', function(event) {
            var id = $(this).val();
            $(".sellerButton").removeAttr("style");
-           $(this).attr('style', 'color:#048f83;border:solid 1px #048f83');
+           $(this).attr('style', 'color:#048f83;box-shadow: 0px 0px 3px #048f83;');
 
            $.ajax({
 

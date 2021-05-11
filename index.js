@@ -170,14 +170,6 @@ function checkFileType(file, cb) {
 app.get("/", custCheckNotAuthenticated, function(req, res) {
 	if (req.user) {
 		if (req.user.role === 1) {
-			let options = {
-				maxAge: 1000 * 60 * 30, // would expire after 30 minutes
-				httpOnly: true, // The cookie only accessible by the web server
-				signed: false, // Indicates if the cookie should be signed
-				path: '/'
-			}
-			res.cookie('pincode', req.user.cPincode, options);
-			res.send(req.cookie);
 			res.render('customerHome', {
 				loggedIn: true,
 				pincode: req.cookies.pincode,
@@ -260,14 +252,6 @@ app.get("/changePincodeCat/:catId", function(req, res) {
 
 app.post("/productList/:catId", function(req, res) {
 	var catId = req.params.catId;
-	var pincode = req.body.pincode;
-	let options = {
-		maxAge: 1000 * 60 * 30, // would expire after 30 minutes
-		httpOnly: true, // The cookie only accessible by the web server
-		signed: false // Indicates if the cookie should be signed
-	}
-	res.cookie('pincode', pincode, options);
-
 	if (req.user) {
 		if (req.user.role == 1) {
 			res.redirect("/productList/" + catId)
@@ -306,14 +290,9 @@ app.post('/custlogin', custCheckNotAuthenticated, passport.authenticate('custome
 }));
 
 app.get('/success-login', custCheckAuthenticated, function(req, res) {
-	var pincode = req.user.cPincode;
+	var pincode = req.cookies.pincode;
 
-	let options = {
-		maxAge: -1, // would expire after 30 minutes
-		httpOnly: true, // The cookie only accessible by the web server
-		signed: false // Indicates if the cookie should be signed
-	}
-	res.cookie('pincode', pincode, options); // options is optional
+	
 	res.render('customerHome', {
 		loggedIn: true,
 		pincode: pincode,
@@ -374,17 +353,7 @@ app.get('/productList/:cId', function(req, res) {
 				} else {
 
 					if (req.user) {
-						pincode = req.user.cPincode;
-
-						let options = {
-							maxAge: 15 * 60 * 60, // would expire after 30 minutes
-							httpOnly: true, // The cookie only accessible by the web server
-							signed: false // Indicates if the cookie should be signed
-						}
-						res.clearCookie('pincode')
-						res.cookie('pincode', pincode, options); // options is optional
-
-
+						pincode = req.cookies.pincode;
 						if (req.user.role === 1) {
 							res.render('productPage', {
 								rows,
@@ -444,15 +413,7 @@ app.get('/productListBySub/:subCatId', function(req, res) {
 				} else {
 					console.log(rows1);
 					if (req.user) {
-						pincode = req.user.cPincode;
-						console.log("user pincode : " + pincode);
-						let options = {
-							maxAge: 15 * 60 * 60, // would expire after 30 minutes
-							httpOnly: true, // The cookie only accessible by the web server
-							signed: false // Indicates if the cookie should be signed
-						}
-						res.clearCookie('pincode')
-						res.cookie('pincode', pincode, options); // options is optional
+						pincode = req.cookies.pincode;
 						console.log("user cookies pincode : " + req.cookies.pincode);
 
 						if (req.user.role === 1) {
@@ -497,17 +458,7 @@ app.get('/productDetails/:pId', function(req, res) {
 		} else {
 			console.log(pId);
 			if (req.user) {
-				pincode = req.user.cPincode;
-				console.log("user pincode : " + pincode);
-				let options = {
-					maxAge: 15 * 60 * 60, // would expire after 30 minutes
-					httpOnly: true, // The cookie only accessible by the web server
-					signed: false // Indicates if the cookie should be signed
-				}
-				res.clearCookie('pincode')
-				res.cookie('pincode', pincode, options); // options is optional
-				console.log("user cookies pincode : " + req.cookies.pincode);
-
+				pincode = req.cookies.pincode;
 				if (req.user.role === 1) {
 					res.render('productDetails', {
             rows,
