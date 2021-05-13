@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -100,9 +100,8 @@ CREATE TABLE `inventory` (
   `sId` int DEFAULT NULL,
   `pId` int DEFAULT NULL,
   `iDelivery` char(1) NOT NULL,
-  `iSize` varchar(20) DEFAULT NULL,
+  `iSize` varchar(50) DEFAULT NULL,
   `iDescription` varchar(300) NOT NULL,
-  `iDeliveryCharge` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`iId`),
   UNIQUE KEY `sId` (`sId`,`pId`),
   KEY `pId` (`pId`),
@@ -110,7 +109,7 @@ CREATE TABLE `inventory` (
   CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
   CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N'))),
   CONSTRAINT `inventory_chk_1` CHECK ((`stockAvailable` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=100034 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100038 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +118,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (100027,15000,100,1029,50026,'N',NULL,'6GB 128GB',0),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm',50),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi',60),(100031,13000,15,1029,50031,'Y',NULL,'Good Camera',70),(100032,12500,33,1044,50026,'N',NULL,'lowest price',0),(100033,630,11,1029,50032,'N',NULL,'Royal Black\r\nlinen\r\n',0);
+INSERT INTO `inventory` VALUES (100027,14500,100,1029,50026,'Y',NULL,'6GB 128GB'),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm'),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi'),(100031,13000,15,1029,50031,'Y',NULL,'Good Camera'),(100032,12000,33,1044,50026,'N',NULL,'lowest price'),(100033,999,25,1029,50032,'N',NULL,'Black\r\nCotton'),(100034,2200,10,1029,50033,'Y',NULL,'Navy BLue'),(100035,1100,3,1029,50035,'N','30,32,34,36,38,40,50','White'),(100036,1400,10,1029,50036,'N','7C,8C,9C,10C,12C,13C,14,13','White'),(100037,250,122,1029,50037,'N',NULL,'Class 10');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +193,7 @@ CREATE TABLE `products` (
   KEY `pSubCategory` (`pSubCategory`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`pCategory`) REFERENCES `product_categories` (`catId`),
   CONSTRAINT `products_ibfk_2` FOREIGN KEY (`pSubCategory`) REFERENCES `product_subcategories` (`subCatId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50033 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50038 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +202,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (50026,'Galaxy M20',14999,2000007,'Product%2F50026-photo.png',3000088,'Samsung'),(50027,'Purse',1999.99,2000002,'Product%2F50027-photo.png',3000015,'Levi\'s'),(50029,'Baby powder',201,2000017,'Product%2F50029-photo.png',3000259,'Johnson & Johnson'),(50030,'Helmet',201,2000015,'Product%2F50030-photo.png',3000196,'Vega'),(50031,'Note 5 pro',15000,2000007,'Product%2F50031-photo.jpg',3000088,'Redmi'),(50032,'Shirt',650,2000001,'Product%2F50032-photo.png',3000002,'Raymond');
+INSERT INTO `products` VALUES (50026,'Galaxy M20',14999,2000007,'Product%2F50026-photo.png',3000088,'Samsung'),(50027,'Purse',1999.99,2000002,'Product%2F50027-photo.png',3000015,'Levi\'s'),(50029,'Baby powder',201,2000017,'Product%2F50029-photo.png',3000259,'Johnson & Johnson'),(50030,'Helmet',201,2000015,'Product%2F50030-photo.png',3000196,'Vega'),(50031,'Note 5 pro',15000,2000007,'Product%2F50031-photo.jpg',3000088,'Redmi'),(50032,'T shirt',1200,2000001,'Product%2F50032-photo.png',3000001,'Levi\'s'),(50033,'Shirt',2500,2000001,'Product%2F50033-photo.png',3000005,'Killer'),(50034,'T shirt',1200,2000001,NULL,3000001,'Killer'),(50035,'T shirt',1200,2000001,NULL,3000002,'Cotton King'),(50036,'Air',1499,2000003,'Product%2F50036-photo.png',3000022,'Nike'),(50037,'Physics',300,2000018,'Product%2F50037-photo.png',3000215,'NCERT');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-11 16:37:30
+-- Dump completed on 2021-05-12 18:43:47

@@ -55,7 +55,9 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
-
+.mul-select{
+  width: 100%;
+}
 hr {
   margin: 1rem 0;
   color: inherit;
