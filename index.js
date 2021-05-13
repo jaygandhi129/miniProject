@@ -292,7 +292,7 @@ app.post('/custlogin', custCheckNotAuthenticated, passport.authenticate('custome
 app.get('/success-login', custCheckAuthenticated, function(req, res) {
 	var pincode = req.cookies.pincode;
 
-	
+
 	res.render('customerHome', {
 		loggedIn: true,
 		pincode: pincode,
@@ -705,14 +705,22 @@ app.post('/addproduct', upload.fields([{
 	maxCount: 1
 }]), checkAuthenticated, function(req, res) {
 	var pDetails = req.body;
+	var size = null;
+	if(pDetails.clothesSize!=undefined){
+		size=(pDetails.clothesSize).join();
+	}else if(pDetails.shoesSize!=undefined){
+		size=(pDetails.shoesSize).join();
+	}
 	var sId = req.user.sId;
 	var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
 	connection.query(query, [pDetails.pName, pDetails.pBrand], function(err, rows) {
 		if (err) {
 			console.log(err);
 		} else if (rows.length) {
-			connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription) VALUES(?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription], function(err) {
+
+			connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize) VALUES(?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription,size], function(err) {
 				if (err) {
+
 					console.log(err);
 				} else {
 					console.log("Data Inserted Successfully");
@@ -721,7 +729,7 @@ app.post('/addproduct', upload.fields([{
 			})
 		} else {
 			var subCat = parseInt(pDetails.pSubCategory);
-			console.log("Subcat : " + subCat);
+
 			var q = "INSERT INTO products (pName,pMrp,pCategory,pSubCategory,pBrand) VALUES(?,?,?,?,?)";
 			if (subCat === -1) {
 				var values = [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), 3000259, pDetails.pBrand];
@@ -779,7 +787,7 @@ app.post('/addproduct', upload.fields([{
 						if (err) {
 							console.log(err);
 						} else {
-							connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription) VALUES(?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription], function(err) {
+							connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize) VALUES(?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription,size], function(err) {
 								if (err) {
 									console.log(err);
 								} else {
