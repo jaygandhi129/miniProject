@@ -706,21 +706,29 @@ app.post('/addproduct', upload.fields([{
 }]), checkAuthenticated, function(req, res) {
 	var pDetails = req.body;
 	var size = null;
+	var deliveryCharges =parseInt(pDetails.pDeliveryCharges);
 	if(pDetails.clothesSize!=undefined){
 		size=(pDetails.clothesSize).join();
 	}else if(pDetails.shoesSize!=undefined){
 		size=(pDetails.shoesSize).join();
 	}
+	// console.log("DC 1 : "+ deliveryCharges);
+	// console.log("DC 2 : "+ pDetails.pDeliveryCharges);
+	// if(pDetails.pDeliveryCharges==undefined){
+	// 	deliveryCharges = 0;
+	// 	console.log("DC 3 : "+ deliveryCharges);
+	// }else{
+	// 	deliveryCharges = parseInt(pDetails.pDeliveryCharges);
+	// }
+
 	var sId = req.user.sId;
 	var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
 	connection.query(query, [pDetails.pName, pDetails.pBrand], function(err, rows) {
 		if (err) {
 			console.log(err);
 		} else if (rows.length) {
-
-			connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize) VALUES(?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription,size], function(err) {
+			connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges) VALUES(?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription,size,deliveryCharges], function(err) {
 				if (err) {
-
 					console.log(err);
 				} else {
 					console.log("Data Inserted Successfully");
@@ -787,7 +795,7 @@ app.post('/addproduct', upload.fields([{
 						if (err) {
 							console.log(err);
 						} else {
-							connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize) VALUES(?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription,size], function(err) {
+							connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges) VALUES(?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription,size,deliveryCharges], function(err) {
 								if (err) {
 									console.log(err);
 								} else {
@@ -853,7 +861,7 @@ app.post("/updateprofilebusiness", checkAuthenticated, function(req, res) {
 
 //myproducts.ejs starts
 app.get('/myproducts', checkAuthenticated, function(req, res) {
-	var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
+	var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iDeliveryCharges,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
 	var photos = [];
 	connection.query(query, req.user.sId, function(err, rows) {
 		if (err) {
@@ -895,7 +903,7 @@ app.post('/myproducts', checkAuthenticated, function(req, res) {
 })
 
 app.post("/editProduct", checkAuthenticated, function(req, res) {
-	var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
+	var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.iDeliveryCharges,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
 	var photos = [];
 	var editValue = req.body.editbtn;
 	console.log("edit : " + editValue);
@@ -924,12 +932,13 @@ app.post("/editProduct", checkAuthenticated, function(req, res) {
 app.post("/saveProduct", checkAuthenticated, function(req, res) {
 
 	var data = req.body;
-	var query = "UPDATE inventory i SET i.stockAvailable = ? , i.sellerPrice = ? , i.iDelivery = ? where iId = ?";
-	connection.query(query, [parseInt(data.stockAvailable), parseFloat(data.sellerPrice), data.iDelivery, parseInt(data.savebtn)], function(err, rows) {
+	var query = "UPDATE inventory i SET i.stockAvailable = ? , i.sellerPrice = ? , i.iDelivery = ?, i.iDeliveryCharges = ? where iId = ?";
+	console.log(parseInt(data.pDeliveryCharges));
+	connection.query(query, [parseInt(data.stockAvailable), parseFloat(data.sellerPrice), data.iDelivery,parseInt(data.pDeliveryCharges), parseInt(data.savebtn)], function(err, rows) {
 		if (err) {
 			console.log(err);
 		} else {
-			var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
+			var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iDeliveryCharges,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
 			console.log("Products data updated successfully");
 			connection.query(query, req.user.sId, function(err, rows) {
 				if (err) {

@@ -127,13 +127,21 @@
 							<label for="inputEmail4" class="form-label">Can you provide delivery of this products?</label>
 							<br>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" name="pDelivery" type="radio" value="Y" required>
+								<input class="form-check-input onChangeDeliverY" name="pDelivery" type="radio" value="Y" required>
 								<label class="form-check-label" for="inlineRadio1">Yes</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" name="pDelivery" type="radio" value="N" required>
+								<input class="form-check-input onChangeDeliverN" name="pDelivery" type="radio" value="N" required>
 								<label class="form-check-label" for="inlineRadio2">No</label>
 							</div>
+						</div>
+						<div class="col-md-6 first-page-valid">
+							<div class="DeliveryCharges">
+							<label for="pDeliveryCharges" class="form-label">Delivery Charges(₹)</label>
+							<input type="text" id="pDeliveryCharges" name="pDeliveryCharges" value=0 class="form-control">
+							<p style="margin-top:0%; color:grey;font-size:1rem;">*If multiple products are ordered (from your store) then maximum of delivery charge from ordered products will be considered.</p>
+
+						</div>
 						</div>
 						<div class="button-row d-flex mt-4"><button class="btn btn btn-primary ml-auto js-btn-next" type="submit" title="">Submit</button>
 						</div>
@@ -213,6 +221,7 @@
 		$(document).ready(function(){
 			$(".clothesSize").attr("style","display:none;");
 			$(".shoesSize").attr("style","display:none;");
+			$(".DeliveryCharges").attr("style","display:none;");
 			$(".onChangeCategory").on("change", function(){
 				var cat = $(this).val();
 				if (cat==2000001){
@@ -228,6 +237,21 @@
 					$(".shoesSize").attr("style","display:none;");
 				}
 			});
+			$(".onChangeDeliverY").on("change", function(){
+				var delY = $(this).val();
+				if(delY =="Y"){
+					$(".DeliveryCharges").attr("style","display:block;");
+				}else{
+					$(".DeliveryCharges").attr("style","display:none;");
+				}
+			});
+			$(".onChangeDeliverN").on("change", function(){
+				var delN = $(this).val();
+				if(delN =="N"){
+					$(".DeliveryCharges").attr("style","display:none;");
+				}
+			});
+
 		});
 		</script>
 </body>

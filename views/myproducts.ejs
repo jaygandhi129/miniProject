@@ -116,16 +116,17 @@
                     <th scope="col">My Price</th>
                     <th scope="col">MRP</th>
                     <th scope="col">Delivery Avaliable</th>
+                    <th scope="col">Delivery Charges</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-
+                  <%var i=1%>
                   <% rows.forEach(function(row){ %>
 
                   <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><%=i%></th>
                     <td class="w-25">
                       <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
                     </td>
@@ -137,6 +138,7 @@
                     <td><%=  row.sellerPrice %></td>
                     <td><%=  row.pMrp %></td>
                     <td><%=  row.iDelivery %></td>
+                    <td><%=  row.iDeliveryCharges %></td>
                     <td>
 
                       <form action="/editProduct" method="post">
@@ -149,7 +151,7 @@
                     </td>
                   </tr>
 
-                  <%  }); %>
+                  <% i=i+1 }); %>
 
 
 
@@ -173,24 +175,23 @@
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
                     <th scope="col">Sub Category</th>
-
-
                     <th scope="col">Quantity</th>
                     <th scope="col">My Price</th>
                     <th scope="col">MRP</th>
                     <th scope="col">Delivery Avaliable</th>
+                    <th scope="col">Delivery Charges</th>
                     <th scope="col">Save</th>
                   </tr>
                 </thead>
                 <tbody>
 
-
+                  <%var i=1%>
                   <% rows.forEach(function(row){ %>
 
 
                     <%if( editValue == row.iId){%>
                   <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><%=i%></th>
                     <td class="w-25">
 
                       <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
@@ -214,14 +215,16 @@
                           <%}%>
                         </select>
                       </td>
+                      <td><input class="form-control" type="text" name="pDeliveryCharges" value=<%=row.iDeliveryCharges%> ></td>
+
 
 
                       <td><button class="btn btn-primary edit-btn" id="edit-btn" type="submit" name="savebtn" style="width:90%;" value=<%= row.iId %>>Save</button></td>
                     </form>
 
                   </tr>
-                    <%  } %>
-                  <%  }); %>
+                    <%  }console.log(i) %>
+                  <% i=i+1 }); %>
 
 
 
