@@ -252,6 +252,14 @@ app.get("/changePincodeCat/:catId", function(req, res) {
 
 app.post("/productList/:catId", function(req, res) {
 	var catId = req.params.catId;
+	var pincode = req.body.pincode;
+	let options = {
+		maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+		httpOnly: true, // The cookie only accessible by the web server
+		signed: false // Indicates if the cookie should be signed
+	}
+	res.cookie('pincode', pincode, options);
+
 	if (req.user) {
 		if (req.user.role == 1) {
 			res.redirect("/productList/" + catId)
@@ -262,6 +270,7 @@ app.post("/productList/:catId", function(req, res) {
 	} else {
 		res.redirect("/productList/" + catId);
 	}
+
 });
 
 
@@ -346,9 +355,9 @@ app.get('/productList/:cId', function(req, res) {
 					res.render('productPage', {
 						rows,
 						rows1: undefined,
-						loggedIn: true,
+						loggedIn: false,
 						pincode: req.cookies.pincode,
-						user: req.user
+
 					});
 				} else {
 
@@ -483,6 +492,29 @@ app.get('/productDetails/:pId', function(req, res) {
 
 		}
 	});
+
+});
+
+app.post("/productDetails/:pId", function(req, res) {
+	var pId = req.params.pId;
+	var pincode = req.body.pincode;
+	let options = {
+		maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+		httpOnly: true, // The cookie only accessible by the web server
+		signed: false // Indicates if the cookie should be signed
+	}
+	res.cookie('pincode', pincode, options);
+
+	if (req.user) {
+		if (req.user.role == 1) {
+			res.redirect("/productDetails/" + pId)
+
+		} else {
+			res.redirect("/productDetails/" + pId);
+		}
+	} else {
+		res.redirect("/productDetails/" + pId);
+	}
 
 });
 
