@@ -33,7 +33,7 @@
                   <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
                </div>
                <div class="modal-body" style="margin-top:3%;">
-                  <form class="" action="/productList" method="post">
+                  <form class="" action="/productDetails/<%=rows[0].pId%>" method="post">
                      <div class="row g-2">
                         <div class="col col-auto">
                            <input type="text" class="form-control form-control-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
@@ -58,12 +58,12 @@
       <div class="text-nowrap">
          <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
             <div class="dropdown ">
-               <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+               <!-- <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
-               </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+               </button> -->
+               <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="/changePincodeCat">Change Pincode</a></li>
-               </ul>
+               </ul> -->
             </div>
             <%if(loggedIn == false){%>
             <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
@@ -173,25 +173,25 @@
                <div class="col-md-6">
                   <div class="product-dtl">
                      <div class="product-info">
-                        <div class="product-price-discount"><span id="sellerPrice" class="sellerPricefocus" style="font-size: 2.1rem;"></span><span class="line-through">₹ <%=rows[0].pMrp%></span><span class="dress-card-off youSaved mobHide" style="font-size:1.1rem;color:#5f6670;" id="youSaved"> &nbsp; &nbsp;</span>
+                        <div class="product-price-discount"><span id="sellerPrice" class="sellerPricefocus" style="font-size: 2.1rem;"></span><span class="line-through MRP">₹ <%=rows[0].pMrp%></span><span class="dress-card-off youSaved mobHide" style="font-size:1.1rem;color:#5f6670;" id="youSaved"> &nbsp; &nbsp;</span>
                         </div>
                             <span class="dress-card-off mobShow youSaved" style="font-size:1.1rem;color:#5f6670;" id="youSaved2"></span>
                         <div class="delivery" id="deliveryDiv" style="margin-top:3%;margin-bottom:3%">
                         </div>
                       </div>
 
-                        <div class="product-count">
+                        <div class="product-count disButton">
                            <label for="size" class="Quantity">Quantity</label>
                            <form action="#" class="display-flex">
-                              <div class="qtyminus">-</div>
+                              <div class="qtyminus disButton">-</div>
                               <input type="text" name="quantity" value="1" class="qty">
-                              <div class="qtyplus">+</div>
+                              <div class="qtyplus disButton">+</div>
                            </form>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-6"style="float:right;">
-                     <div class="container storeDet">
+                     <div class="container storeDet disButton">
                        <h3 class="storeDetcs" style="color:#048f83;"><u>Store Details</u></h3>
 
                         <div class="row">
@@ -209,8 +209,8 @@
                            </div>
                         </div>
                      </div>
-                     <div class="buybuttons">
-                        <a href="#" class="round-black-btn-1"><i class="fas fa-wallet"></i>&nbsp; Buy Now</a>
+                     <div class="buybuttons disButton">
+                        <button class="round-black-btn-1"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
                         <br>
                         <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
                      </div>
@@ -219,7 +219,7 @@
             </div>
          </div>
          <div class="container">
-            <div class="product-info-tabs">
+            <div class="product-info-tabs disButton">
                <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item">
                      <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
@@ -230,9 +230,7 @@
                </ul>
                <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
-                     error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+
                   </div>
                   <!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                      <div class="review-heading">REVIEWS</div>
@@ -377,10 +375,16 @@
 
          var len = data.length;
 
-         $("#selldiv1").empty();
-         $("#selldiv2").empty();
 
-         len=data.length;
+         $("#selldiv").empty();
+
+         if (len==0){
+           $("#selldiv").append("<h2>No Sellers found</h2>");
+           $(".MRP").removeClass("line-through");
+           $(".disButton").attr("style","display:none;");
+
+         }
+         else{
 
          for(var i =0; i<len;i++){
             if(i == 0){
@@ -390,8 +394,9 @@
            var str1="<button id='Individualseller' class='sellerButton' value="+data[i].iId+"><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" +data[i].bName+"</h5></div><div class='col-auto col-4 column'><h5 id="+data[i].iId+" class='sellingPrice'>₹ "+data[i].sellerPrice+"</h5></div></div></div></div></button>";
             }
          $("#selldiv").append(str1);
-        
+
          }
+
 
          $("#sellerPrice").html("₹ "+data[0].sellerPrice);
          $("#youSaved").html("&nbsp; &nbsp; You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
@@ -407,6 +412,8 @@
        $("#bMobile").html("Contact No. : "+data[0].bMobile);
        $("#bWebsite").html('<a href=data[0].bWebsite>'+data[0].bWebsite+'</a>');
          }
+
+       }
          });
 
          $(document).on("click", '.sellerButton', function(event) {
