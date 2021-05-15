@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <title>Orders Page</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="../css/orders.css">
+      <link rel="stylesheet" href="../css/cstyles.css">
+      <script src="./theme.js" type="text/javascript"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+   </head>
+   <body>
+      <!-- Pincode Modal Ends -->
+      <div class="text-nowrap">
+         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+            <div class="dropdown ">
+
+            </div>
+            <%if(loggedIn == false){%>
+            <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+            <%}else{%>
+            <div class="dropdown desktop-hidden user-dropdown-menu">
+               <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+               <%=user.cName%>
+               </button>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                  <li>
+                     <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                  </li>
+               </ul>
+            </div>
+            <%}%>
+            <div class="container" style="margin-left:0">
+               <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+               <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
+                  <ul class="navbar-nav me-auto catagory-div">
+
+                     <li class="nav-item"></li>
+                  </ul>
+                  <ul class="navbar-nav me-auto desktop-hidden">
+                     <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                  </ul>
+                  <div class="row padMar">
+                     <div class="col text-start padMar">
+                        <div class="input-group search-bar-with-btn" style="width: 340.462px;height: 25px;margin-bottom: 18px;"><input class="form-control autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
+                     </div>
+                  </div>
+                  <form class="d-sm-block me-auto" target="_self">
+                     <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
+                  </form>
+                  <ul class="navbar-nav me-auto mob-hidden">
+                     <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                  </ul>
+                  <%if(loggedIn == false){%>
+                  <span class="navbar-text actions">
+                  <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+                  </span>
+                  <%}else{%>
+                  <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+                     <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                     <%=user.cName%>
+                     </button>
+                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                        <li>
+                           <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                        </li>
+                     </ul>
+                  </div>
+                  <%}%>
+               </div>
+            </div>
+         </nav>
+      </div>
+
+<h1 style="margin-top:2%;text-align:center;">Order Checkout</h1>
+
+<!-- orders html starts -->
+<div class="container-fluid">
+<div class="row">
+<aside class="col-lg-9">
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-borderless table-shopping-cart">
+            <thead class="text-muted">
+                <tr class="small text-uppercase">
+                    <th scope="col">Product</th>
+                    <th scope="col" width="120">Quantity</th>
+                    <th scope="col" width="120">Price</th>
+                    <th scope="col" class="text-right d-none d-md-block" width="200"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <figure class="itemside align-items-center">
+                            <div class="aside"><img src="https://i.imgur.com/1eq5kmC.png" class="img-sm"></div>
+                            <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">Tshirt with round nect</a>
+                                <p class="text-muted small">SIZE: L <br> Brand: MAXTRA <br>Delivery Available:</p>
+                            </figcaption>
+                        </figure>
+                    </td>
+                    <td> <p>1</p> </td>
+                    <td>
+                        <div class="price-wrap"> <var class="price">$10.00</var> </div>
+                    </td>
+                    <td class="text-right d-none d-md-block"> <a href="" class="btn btn-light" data-abc="true"> Remove</a> </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</aside>
+<aside class="col-lg-3">
+  <!-- <div class="card mb-3">
+      <div class="card-body">
+          <form>
+              <div class="form-group"> <label>Have coupon?</label>
+                  <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+              </div>
+          </form>
+      </div>
+  </div> -->
+<div class="card">
+    <div class="card-body">
+        <dl class="dlist-align">
+            <dt>Total price:</dt>
+            <dd class="text-right ml-3">$69.97</dd>
+        </dl>
+        <dl class="dlist-align">
+            <dt>Discount:</dt>
+            <dd class="text-right text-danger ml-3">- $10.00</dd>
+        </dl>
+        <dl class="dlist-align">
+            <dt>Total:</dt>
+            <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
+        </dl>
+        <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a>
+</div>
+</aside>
+</div>
+
+
+<!-- form -->
+<div class="row">
+<aside class="col-lg-9">
+<div class="card">
+  <form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+</div>
+</aside>
+</div>
+
+
+</div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+<script src="theme.js"></script>
+
+   </body>
+
+</html>

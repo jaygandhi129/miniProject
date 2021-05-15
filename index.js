@@ -537,6 +537,14 @@ app.get("/getSellersOnClick/:pId/:iId",function(req,res){
 });
 
 
+// orderpage.js Starts
+app.get("/order",custCheckAuthenticated, function(req, res) {
+	res.render('orderPage',{
+    user:req.user,
+		loggedIn:true});
+});
+
+
 
 
 
