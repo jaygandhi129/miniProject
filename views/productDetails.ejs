@@ -36,7 +36,7 @@
                   <form class="" action="/productDetails/<%=rows[0].pId%>" method="post">
                      <div class="row g-2">
                         <div class="col col-auto">
-                           <input type="text" class="form-control form-control-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
+                           <input type="text" class="form-control form-custom form-custom form-control form-custom-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
                         </div>
                         <div class="col col-auto">
                            <button type="submit" class="btn btn-warning btn-md">Submit</button>
@@ -107,7 +107,7 @@
                   </ul>
                   <div class="row padMar">
                      <div class="col text-start padMar">
-                        <div class="input-group search-bar-with-btn" style="width: 340.462px;height: 25px;margin-bottom: 18px;"><input class="form-control autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
+                        <div class="input-group search-bar-with-btn" style="width: 340.462px;height: 25px;margin-bottom: 18px;"><input class="form-control form-custom  autocomplete search-bar" type="text" placeholder="Search Products" style="width: 234.587px;"><button class="btn btn-warning" type="button" style="height: 35px;"><i class="fa fa-search"></i></button></div>
                      </div>
                   </div>
                   <form class="d-sm-block me-auto" target="_self">
@@ -188,6 +188,20 @@
                               <div class="qtyplus disButton">+</div>
                            </form>
                         </div>
+
+
+                    <%if(rows[0].catName=="Clothing" || rows[0].catName=="Footware"){%>
+                        <div class="row">
+	        				<div class="col-md-6">
+	        					<label for="size">Size</label>
+								<select id="size" name="size" class="form-control">
+
+								</select>
+	        				</div>
+	        			</div>
+                <%}%>
+
+
                      </div>
                   </div>
                   <div class="col-md-6"style="float:right;">
@@ -210,7 +224,12 @@
                         </div>
                      </div>
                      <div class="buybuttons disButton">
-                        <a class="round-black-btn-1" type="button" href="/order"><i class="fas fa-wallet"></i>&nbsp; Buy Now</a>
+                       <form class="" method="post" action="/order">
+                        <button class="round-black-btn-1" type="submit"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
+                        <input id="invent" type="text" name="iId" value="" style="display:none;">
+                        <input id="quant" type="text" name="qty" value="" style="display:none;">
+                        <input id="siz" type="text" name="size" value="" style="display:none;">
+                        </form>
                         <br>
                         <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
                      </div>
@@ -255,17 +274,17 @@
                      	</div>
                      	<div class="form-group">
                      		<label>Your message</label>
-                     		<textarea class="form-control" rows="10"></textarea>
+                     		<textarea class="form-control form-custom" rows="10"></textarea>
                      	</div>
                      	<div class="row">
                      		<div class="col-md-6">
                      			<div class="form-group">
-                     				<input type="text" name="" class="form-control" placeholder="Name*">
+                     				<input type="text" name="" class="form-control form-custom" placeholder="Name*">
                      			</div>
                      		</div>
                      		<div class="col-md-6">
                      			<div class="form-group">
-                     				<input type="text" name="" class="form-control" placeholder="Email Id*">
+                     				<input type="text" name="" class="form-control form-custom" placeholder="Email Id*">
                      			</div>
                      		</div>
                      	</div>
@@ -358,12 +377,14 @@
          				now--;
          			}
          			$(".qty").val(now);
+              $("#quant").val(now);
          		}
          	})
          	$(".qtyplus").on("click", function() {
          		var now = $(".qty").val();
          		if ($.isNumeric(now)) {
          			$(".qty").val(parseInt(now) + 1);
+              $("#quant").val(parseInt(now) + 1);
          		}
          	});
 
@@ -426,8 +447,13 @@
           	url : "/getSellersOnClick/"+<%=rows[0].pId%>+"/"+id,
           type : "GET",
           success : function(data){
-
-
+          var size=data[0].size.split(",");
+          console.log(size);
+          for (var i = 0; i < size.length; i++) {
+            $("#size").append("<option>"+
+            size[i]
+            +"</option>")
+          }
           $("#sellerPrice").html("₹ "+data[0].sellerPrice);
           $("#youSaved").html("&nbsp; &nbsp; You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
           $("#youSaved2").html("You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));

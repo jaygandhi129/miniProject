@@ -7,7 +7,7 @@ body {
 }
 
 .container-fluid {
-    margin-top: 70px
+    margin-top: 70px;
 }
 
 .card-body {
@@ -44,7 +44,7 @@ a {
     text-decoration: none !important
 }
 
-.card {
+.checkout-colm {
     position: relative;
     display: -ms-flexbox;
     display: flex;

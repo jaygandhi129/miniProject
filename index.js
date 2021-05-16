@@ -522,14 +522,14 @@ app.post("/productDetails/:pId", function(req, res) {
 app.get("/getSellers/:pId",function(req,res){
 	var pin = req.cookies.pincode;
 
-	var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ? order by i.sellerPrice";
+	var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile,i.iSize, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ? order by i.sellerPrice";
 	connection.query(query,[req.params.pId,pin],function(err,result){
 		if (err) throw err;
 		res.json(result);
 	});
 });
 app.get("/getSellersOnClick/:pId/:iId",function(req,res){
-	var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and i.iId = ? order by i.sellerPrice";
+	var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile,i.iSize, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and i.iId = ? order by i.sellerPrice";
 	connection.query(query,[req.params.pId,req.params.iId],function(err,result){
 		if (err) throw err;
 		res.json(result);
@@ -538,10 +538,14 @@ app.get("/getSellersOnClick/:pId/:iId",function(req,res){
 
 
 // orderpage.js Starts
-app.get("/order",custCheckAuthenticated, function(req, res) {
+app.post("/order",custCheckAuthenticated, function(req, res) {
 	res.render('orderPage',{
     user:req.user,
 		loggedIn:true});
+});
+
+app.post("/placeOrder",custCheckAuthenticated,function(req,res){
+	console.log(req.body);
 });
 
 
