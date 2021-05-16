@@ -539,6 +539,7 @@ app.get("/getSellersOnClick/:pId/:iId",function(req,res){
 
 // orderpage.js Starts
 app.post("/order",custCheckAuthenticated, function(req, res) {
+	console.log(req.body);
 	res.render('orderPage',{
     user:req.user,
 		loggedIn:true});
