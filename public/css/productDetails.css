@@ -127,12 +127,22 @@
 
 }
 .Quantity {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #38414f;
   font-weight: 400;
   margin-bottom: 16px;
   margin-top: 3%;
 }
+
+.Size{
+  font-size: 1.4rem;
+  color: #38414f;
+  font-weight: 400;
+  margin-bottom: 16px;
+  margin-top: 8%;
+}
+
+
 
 .product-image {
   object-fit: contain;
@@ -427,6 +437,9 @@
 		display: block;
 	}
 
-
+  .size-input{
+    height:40% !important;
+    width: 40% !important;
+  }
 
 }
