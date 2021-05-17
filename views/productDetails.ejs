@@ -192,9 +192,9 @@
 
                     <%if(rows[0].catName=="Clothing" || rows[0].catName=="Footware"){%>
                         <div class="row">
-	        				<div class="col-md-6 disButton">
+	        				<div class="col-md-6">
 	        					<label for="size">Size</label>
-								<select id="si" name="size" class="form-control">
+								<select id="size" name="size" class="form-control">
 
 								</select>
 	        				</div>
@@ -227,7 +227,7 @@
                        <form class="" method="post" action="/order">
                         <button class="round-black-btn-1" type="submit"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
                         <input id="invent" type="text" name="iId" value="" style="display:none;">
-                        <input id="quant" type="text" name="qty" value="1" style="display:none;">
+                        <input id="quant" type="text" name="qty" value="" style="display:none;">
                         <input id="siz" type="text" name="size" value="" style="display:none;">
                         </form>
                         <br>
@@ -407,9 +407,6 @@
          }
          else{
 
-           $("#invent").val(data[0].iId);
-           var size = data[0].iSize.split(",");
-           $("#si").val(size[0]);
          for(var i =0; i<len;i++){
             if(i == 0){
                var str1="<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value="+data[i].iId+"><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" +data[i].bName+"</h5></div><div class='col-auto col-4 column'><h5 id="+data[i].iId+" class='sellingPrice'>₹ "+data[i].sellerPrice+"</h5></div></div></div></div></button>";
@@ -420,10 +417,8 @@
          $("#selldiv").append(str1);
 
          }
-         $("#si").empty();
-         for (var i = 0; i < size.length; i++) {
-           $("#si").append("<option value="+size[i]+">"+size[i]+"</option>")
-         }
+
+
          $("#sellerPrice").html("₹ "+data[0].sellerPrice);
          $("#youSaved").html("&nbsp; &nbsp; You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
          $("#youSaved2").html("You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
@@ -452,13 +447,12 @@
           	url : "/getSellersOnClick/"+<%=rows[0].pId%>+"/"+id,
           type : "GET",
           success : function(data){
-            $("#invent").val(data[0].iId);
-          var size=data[0].iSize.split(",");
-
-          $("#si").empty()
-          $("#si").val(size[0])
+          var size=data[0].size.split(",");
+          console.log(size);
           for (var i = 0; i < size.length; i++) {
-            $("#si").append("<option value="+size[i]+">"+size[i]+"</option>")
+            $("#size").append("<option>"+
+            size[i]
+            +"</option>")
           }
           $("#sellerPrice").html("₹ "+data[0].sellerPrice);
           $("#youSaved").html("&nbsp; &nbsp; You save ₹ "+(<%=rows[0].pMrp%>-data[0].sellerPrice));
@@ -476,17 +470,11 @@
         $("#"+data[0].iId).text("₹ "+data[0].sellerPrice);
           }
           });
-        });
-        $("#si").on("change", function(){
-          var cat = $(this).val();
-          $("#siz").val(cat);
-        });
 
 
 
 
-
-
+         });
          });
       </script>
       <script type="text/javascript">
