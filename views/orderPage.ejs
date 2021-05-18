@@ -88,7 +88,7 @@
 
 <!-- orders html starts -->
 <div class="container-fluid">
-<div class="row">
+<div class="row" style="">
 <aside class="col-lg-9">
 <div class="card checkout-colm">
     <div class="table-responsive">
@@ -106,20 +106,30 @@
                 <tr>
                     <td>
                         <figure class="itemside align-items-center">
-                            <div class="aside"><img src="https://i.imgur.com/1eq5kmC.png" class="img-sm"></div>
-                            <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">Tshirt with round nect</a>
-                                <p class="text-muted small">SIZE: L <br> Brand: MAXTRA <br>Delivery Available:</p>
+                            <div class="aside"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" ></div>
+                            <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
+                              <p class="text-muted small details"><br> Brand: <%=rows[0].pBrand%> <br>
+                              <% if (data.size.length>0){ %>
+                                 Size: <%=data.size%><br>
+                                 <%}%>
+                                  <% if (rows[0].iDelivery=="Y"){ %>
+                              Delivery Available: Yes
+                              <%}else{%>
+                                Delivery Available: No
+                                <%}%></p>
+
+
+
                             </figcaption>
                         </figure>
                     </td>
-                    <td><div class="price-wrap"> <var class="price">1</var> </div></td>
+                    <td><div class="price-wrap"> <var class="price"><%=data.qty%></var> </div></td>
                     <td>
-                        <div class="price-wrap"> <var class="price">$10.00</var> </div>
+                        <div class="price-wrap"> <var class="price">₹ <%=rows[0].sellerPrice%></var> </div>
                     </td>
                     <td>
-                        <div class="price-wrap"> <var class="price">$20.00</var> </div>
+                        <div class="price-wrap"> <var class="price"> ₹ <%=rows[0].sellerPrice * data.qty%></var> </div>
                     </td>
-                    <td class="text-right d-none d-md-block"> <a href="" class="btn btn-light" data-abc="true"> Remove</a> </td>
                 </tr>
 
             </tbody>
@@ -127,7 +137,6 @@
     </div>
 </div>
 </aside>
-
 <aside class="col-lg-3">
   <form class="row g-3" method="post" action="/placeOrder">
   <!-- <div class="card mb-3">
@@ -165,7 +174,7 @@
 
 <div class="row" style="margin-left:0;margin-right:0;">
 <aside class="col-lg-9">
-  <div class="card container">
+  <div class="card container" style="margin-bottom:3%;">
   <h2 style="margin-left:2%;margin-top:1%;">Delivery Details</h2>
 
     <div class="row g-3"  style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
@@ -187,7 +196,6 @@
   </div>
 </aside>
 </div>
-
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>

@@ -540,13 +540,24 @@ app.get("/getSellersOnClick/:pId/:iId",function(req,res){
 // orderpage.js Starts
 app.post("/order",custCheckAuthenticated, function(req, res) {
 	console.log(req.body);
-	res.render('orderPage',{
-    user:req.user,
-		loggedIn:true});
+	data=req.body;
+	query1="Select i.sellerPrice,i.iDelivery,i.iDeliveryCharges, p.pName, p.pMrp,p.pPhotoId,p.pBrand from inventory i inner join products p on i.pId=p.pId where i.iId=?";
+	connection.query(query1,[parseInt(data.iId)],function(err,rows){
+		if(err){
+			console.log(err);
+		}
+		else{
+			res.render('orderPage',{
+				user:req.user,
+				data:req.body,
+				rows,
+				loggedIn:true });
+		}
+	});
 });
 
 app.post("/placeOrder",custCheckAuthenticated,function(req,res){
-	console.log(req.body);
+	console.log("home"+req.body);
 });
 
 
