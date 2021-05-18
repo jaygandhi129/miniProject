@@ -7,7 +7,7 @@ body {
 }
 
 .container-fluid {
-    margin-top: 70px;
+    margin-top: 40px;
 }
 
 .card-body {
@@ -37,7 +37,8 @@ body {
 }
 
 .text-muted {
-    color: #969696 !important
+    color: #1d343b !important;  
+    font-size :1rem;
 }
 
 a {
