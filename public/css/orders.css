@@ -7,7 +7,7 @@ body {
 }
 
 .container-fluid {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .card-body {
@@ -17,8 +17,9 @@ body {
 }
 
 .img-sm {
-    width: 80px;
-    height: 80px
+    width: 100px;
+    height: 120px;
+    object-fit: contain;
 }
 
 .itemside .info {
@@ -28,8 +29,11 @@ body {
 
 .table-shopping-cart .price-wrap {
     line-height: 1.2
-}
 
+}
+.price-wrap{
+    width: 200px !important;
+}
 .table-shopping-cart .price {
     font-weight: bold;
     margin-right: 5px;
@@ -37,10 +41,13 @@ body {
 }
 
 .text-muted {
-    color: #1d343b !important;  
+    color: #1d343b !important;
     font-size :1rem;
-}
 
+}
+.table-headings{
+    padding-top:4% !important;
+}
 a {
     text-decoration: none !important
 }
@@ -116,4 +123,27 @@ a {
 
 .btn-apply {
     font-size: 11px
+}
+.mobShow{
+	display: none;
+}
+.checkDelivery{
+  font-size: 1.1rem !important;
+  margin-left: 9px;
+  color: #1d343b;
+}
+.DeliverySectionInside{
+  margin-top:3% !important;
+}
+@media(max-width:420px){
+  .mobHide{
+    display: none;
+  }
+
+  .mobShow{
+    display: block;
+  }
+  .price-wrap{
+      width: 100px !important;
+  }
 }

@@ -84,31 +84,31 @@
          </nav>
       </div>
 
-<h1 style="margin-top:2%;text-align:center;">Order Checkout</h1>
+<h1 style="margin-top:1%;text-align:center;">Order Checkout</h1>
 
 <!-- orders html starts -->
 <div class="container-fluid">
 <div class="row" style="">
 <aside class="col-lg-9">
 <div class="card checkout-colm">
-    <div class="table-responsive">
+    <div class="table-responsive" style="margin-top:1%;">
         <table class="table table-borderless table-shopping-cart">
             <thead class="text-muted">
-                <tr class="small text-uppercase">
-                    <th scope="col">Product</th>
-                    <th scope="col" width="120">Quantity</th>
-                    <th scope="col" width="120">Rate</th>
-                    <th scope="col" width="120">Amount</th>
+                <tr class="small text-uppercase table-headings" style="text-align:center;">
+                    <th scope="col" width:"200" style="text-align:left;">Product</th>
+                    <th scope="col" width="200">Quantity</th>
+                    <th scope="col" width="200">Rate</th>
+                    <th scope="col" width="200">Amount</th>
                     <th scope="col" class="text-right d-none d-md-block" width="200"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr width="200" style="text-align:center;">
                     <td>
                         <figure class="itemside align-items-center">
-                            <div class="aside"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" ></div>
-                            <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
-                              <p class="text-muted small details"><br> Brand: <%=rows[0].pBrand%> <br>
+                            <div class="aside mobHide" style="text-align:left;"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" ></div>
+                            <figcaption class="info mobHide" style="text-align:left;"> <a href="#" class="title text-dark" data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
+                              <p class="text-muted small details" style="text-align:left;"><br> Brand: <%=rows[0].pBrand%> <br>
                               <% if (data.size.length>0){ %>
                                  Size: <%=data.size%><br>
                                  <%}%>
@@ -117,10 +117,30 @@
                               <%}else{%>
                                 Delivery Available: No
                                 <%}%></p>
-
-
-
                             </figcaption>
+                            <table>
+                            <tr>
+                              <td>
+                              <div class="aside mobShow" style="text-align:left;"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" ></div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                              <figcaption class="info mobShow" style="width:250px;text-align:left;"> <a href="#" class="title text-dark" data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
+                            <p class="text-muted small details"><br> Brand: <%=rows[0].pBrand%> <br>
+                            <% if (data.size.length>0){ %>
+                               Size: <%=data.size%><br>
+                               <%}%>
+                                <% if (rows[0].iDelivery=="Y"){ %>
+                            Delivery Available: Yes
+                            <%}else{%>
+                              Delivery Available: No
+                              <%}%></p>
+                          </figcaption>
+                          </td>
+                        </tr>
+                      </table>
+
                         </figure>
                     </td>
                     <td><div class="price-wrap"> <var class="price"><%=data.qty%></var> </div></td>
@@ -150,17 +170,17 @@
   </div> -->
 <div class="card">
     <div class="card-body">
-        <dl class="dlist-align">
-            <dt>Total price:</dt>
-            <dd class="text-right ml-3">$69.97</dd>
+        <dl class="dlist-align" style="font-size:1.1rem;">
+            <dt>Amount:</dt>
+            <dd id="amount" class="text-right ml-3" >&nbsp; ₹<%=rows[0].sellerPrice * data.qty%></dd>
         </dl>
-        <dl class="dlist-align">
-            <dt>Discount:</dt>
-            <dd class="text-right text-danger ml-3">- $10.00</dd>
+        <dl class="dlist-align deliveryCharges">
+            <dt>Delivery charges:</dt>
+            <dd id="deliveryCharges" class="text-right ml-3" value="0">&nbsp; + 0</dd>
         </dl>
         <dl class="dlist-align">
             <dt>Total:</dt>
-            <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
+            <dd id="totalAmount" class="text-right text-dark b ml-3">&nbsp; ₹<%=rows[0].sellerPrice * data.qty%><strong></strong></dd>
         </dl>
         <hr> <button class="btn btn-out btn-primary btn-square btn-main" data-abc="true" type="submit"> Make Purchase </button>
 </div>
@@ -168,16 +188,35 @@
 </div>
 </div>
 </div>
-
-
-
-
-<div class="row" style="margin-left:0;margin-right:0;">
+<%if(rows[0].iDelivery=="Y"){%>
+<div class="row" style="margin-left:0;margin-right:0;margin-top:2%;">
 <aside class="col-lg-9">
-  <div class="card container" style="margin-bottom:3%;">
-  <h2 style="margin-left:2%;margin-top:1%;">Delivery Details</h2>
+  <div class="card container" style="margin-bottom:0%;">
+    <h4 style="margin-top:2%;">Delivery is available for this product. Do you want to get it delivered ?</h4>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="Y">
+        <label class="form-check-label checkDelivery" for="Y">
+          Yes
+        </label>
+    </div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="N" checked>
+  <label class="form-check-label checkDelivery" for="N">
+    No
+  </label>
+</div>
+  </div>
 
-    <div class="row g-3"  style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
+</aside>
+</div>
+
+<!---Delivery Details------->
+
+<div class="row" id="DeliveryDetails" style="margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none">
+<aside class="col-lg-9">
+  <div class="card container" style="margin-bottom:0%;">
+  <h4 style="margin-left:0;margin-top:1%;">Delivery Address</h4>
+    <div class="row g-3"  style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:0%;">
   <div class="col-4">
     <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="firstName">
   </div>
@@ -188,7 +227,7 @@
     <input type="text" class="form-control" placeholder="Mobile No" aria-label="Mobile Number" name="mobileNo">
   </div>
   <div class="col-12">
-    <label for="inputAddress" class="form-label">Address</label>
+    <label for="inputAddress" class="form-label checkDelivery">Address</label>
     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="addressOrder">
   </div>
 </div>
@@ -196,11 +235,28 @@
   </div>
 </aside>
 </div>
+<%}%>
+
+
+
+<div class="row" id="sellerAddress" style="margin-left:0;margin-right:0;margin-top:2%;">
+<aside class="col-lg-9">
+  <div class="card container" style="margin-bottom:3%;">
+    <h4 style="margin-top:1%;margin-bottom:1%;color:#048f83"><i class="fas fa-store"></i>&nbsp; Store Location</h4>
+    <p style="font-weight:600;font-size:1.2rem;margin-bottom:8px;"><%=rows[0].bName%></p>
+    <p><%=rows[0].bAddress%><br><%=rows[0].bCity%>, <%=rows[0].bState%><br><%=rows[0].bMobile%></p>
+    <p style="margin-left:0;font-weight:bold;">*You will have to pickup your order from above address after seller accepts it.</p>
+  </form>
+  </div>
+</aside>
+</div>
+
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+    <script src="orders.js"></script>
     <script src="theme.js"></script>
-
    </body>
 
 </html>
