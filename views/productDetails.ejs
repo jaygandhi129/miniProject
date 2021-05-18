@@ -206,7 +206,7 @@
                   </div>
                   <div class="col-md-6"style="float:right;">
                      <div class="container storeDet disButton">
-                       <h3 class="storeDetcs" style="color:#048f83;"><u>Store Details</u></h3>
+                       <h3 class="storeDetcs" style="color:#048f83;"><i class="fas fa-store"></i>&nbsp; Store Details</h3>
 
                         <div class="row">
                            <div class="col-md-6">
@@ -404,17 +404,33 @@ $(document).ready(function () {
 				$(".disButton").attr("style", "display:none;");
 
 			} else {
+        var ys=parseInt(<%=rows[0].pMrp%>);
+        var ys2=parseInt(data[0].sellerPrice);
+        var res = ys-ys2;
+        $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
+        $("#youSaved2").html("You save ₹ " +  res);
+        if (data[0].iDelivery == 'Y') {
+          $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
+        } else {
+          $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>')
+        }
             $('#invent').val(data[0].iId);
             $("#sellerPrice").html("₹ " + data[0].sellerPrice);
             var size;
-				for (var i = 0; i < len; i++) {
+
+				$("#description").html(data[0].iDescription);
+
+				$("#bName").html(data[0].bName);
+				$("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
+				$("#bMobile").html("Contact No. : " + data[0].bMobile);
+				$("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
+        for (var i = 0; i < len; i++) {
 					if (i == 0) {
 						var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
 					} else {
 						var str1 = "<button id='Individualseller' class='sellerButton' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
 					}
 					$("#selldiv").append(str1);
-					
 				}
             size = data[0].iSize.split(',');
             $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
@@ -422,22 +438,8 @@ $(document).ready(function () {
 				for (var i = 1; i < size.length; i++) {
 					$('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
 				}
-
-
-				$("#youSaved").html("&nbsp; &nbsp; You save ₹ " + <%=rows[0].pMrp%> -data[0].sellerPrice);
-				$("#youSaved2").html("You save ₹ " +  <%=rows[0].pMrp%> -data[0].sellerPrice);
-				$("#description").html(data[0].iDescription);
-				if (data[0].iDelivery == 'Y') {
-					$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
-				} else {
-					$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>')
-				}
-				$("#bName").html(data[0].bName);
-				$("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
-				$("#bMobile").html("Contact No. : " + data[0].bMobile);
-				$("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
 			}
-		
+
 		}
 	});
    $('#si').on('change',function() {
@@ -455,37 +457,40 @@ $(document).on("click", '.sellerButton', function (event) {
 		type: "GET",
 		success: function (data) {
          $('#invent').val(data[0].iId);
+         if (data[0].iDelivery == 'Y') {
+   				$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
+   			} else {
+   				$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>');
+   			}
 			$("#sellerPrice").html("₹ " + data[0].sellerPrice);
-			$("#youSaved").html("&nbsp; &nbsp; You save ₹ " + <%=rows[0].pMrp%> -data[0].sellerPrice);
-			$("#youSaved2").html("You save ₹ " +  <%=rows[0].pMrp%> -data[0].sellerPrice);
+      var ys=parseInt(<%=rows[0].pMrp%>);
+      var ys2=parseInt(data[0].sellerPrice);
+      var res = ys-ys2;
+      $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
+      $("#youSaved2").html("You save ₹ " + res);
 			$("#description").html(data[0].iDescription);
-			if (data[0].iDelivery == 'Y') {
-				$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
-			} else {
-				$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>');
-			}
 			$("#bName").html(data[0].bName);
 			$("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
 			$("#bMobile").html("Contact No. : " + data[0].bMobile);
 			$("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
 			$("#" + data[0].iId).text("₹ " + data[0].sellerPrice);
 			size = data[0].iSize.split(',');
-         
+
             $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
             $('#siz').val(size[0]);
 				for (var i = 1; i < size.length; i++) {
 					$('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
 				}
-            
-         
+
+
 		}
-      
+
 	});
    $('#si').on('change',function() {
                $('#siz').val($(this).val());
             });
 });
-         
+
       </script>
       <script type="text/javascript">
 
