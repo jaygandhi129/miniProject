@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -119,7 +119,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (100027,14500,100,1029,50026,'Y',NULL,'6GB 128GB',0),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm',0),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi',0),(100031,13000,15,1029,50031,'Y',NULL,'Good Camera',0),(100032,12000,33,1044,50026,'N',NULL,'lowest price',0),(100035,1100,3,1029,50035,'N','30,32,34,36,38,40,50','White',0),(100036,1400,10,1029,50036,'N','7C,8C,9C,10C,12C,13C,14,13','White',0),(100037,250,122,1029,50037,'N',NULL,'Class 10',0),(100038,1300,24,1044,50036,'Y','10,11,12','Boot',60),(100039,151,12,1044,50038,'N','26,28','asasas',0),(100041,190,12,1029,50038,'N','18,20,22','dsdsds',0);
+INSERT INTO `inventory` VALUES (100027,14500,100,1029,50026,'Y',NULL,'6GB 128GB',70),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm',0),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi',0),(100031,13000,15,1029,50031,'Y',NULL,'Good Camera',60),(100032,12000,33,1044,50026,'N',NULL,'lowest price',0),(100035,1100,3,1029,50035,'N','30,32,34,36,38,40,50','White',0),(100036,1400,10,1029,50036,'N','7C,8C,9C,10C,12C,13C,14,13','White',0),(100037,250,122,1029,50037,'N',NULL,'Class 10',0),(100038,1300,24,1044,50036,'Y','10,11,12','Boot',60),(100039,151,12,1044,50038,'N','26,28','asasas',0),(100041,190,12,1029,50038,'N','18,20,22','dsdsds',0);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,4 +329,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-16 17:08:06
+-- Dump completed on 2021-05-19 23:18:29

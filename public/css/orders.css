@@ -139,6 +139,14 @@ a {
   .mobHide{
     display: none;
   }
+  .mobilecard{
+    width: 96%;
+    margin-top: 6%;
+    margin-left: 2%;
+  }
+  .fn{
+    height: 80%;
+  }
 
   .mobShow{
     display: block;

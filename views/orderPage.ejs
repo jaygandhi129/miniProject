@@ -168,19 +168,24 @@
           </form>
       </div>
   </div> -->
-<div class="card">
+<div class="card mobilecard">
     <div class="card-body">
         <dl class="dlist-align" style="font-size:1.1rem;">
             <dt>Amount:</dt>
-            <dd id="amount" class="text-right ml-3" >&nbsp; ₹<%=rows[0].sellerPrice * data.qty%></dd>
+            <dd id="amount" class="text-right ml-3" value="">&nbsp; ₹<%=rows[0].sellerPrice * data.qty%></dd>
+            <input type="text" id="inputamount" value="<%=rows[0].sellerPrice * data.qty%>" style="display:none;">
         </dl>
         <dl class="dlist-align deliveryCharges">
             <dt>Delivery charges:</dt>
-            <dd id="deliveryCharges" class="text-right ml-3" value="0">&nbsp; + 0</dd>
+            <dd id="deliveryCharges" class="text-right ml-3" value="">&nbsp; +0 </dd>
+            <input type="text" id="inputdelivery" value="<%=rows[0].iDeliveryCharges%>" style="display:none;">
+
         </dl>
         <dl class="dlist-align">
             <dt>Total:</dt>
             <dd id="totalAmount" class="text-right text-dark b ml-3">&nbsp; ₹<%=rows[0].sellerPrice * data.qty%><strong></strong></dd>
+            <input type="text" id="inputtotal" value="<%=rows[0].sellerPrice * data.qty%>" style="display:none;">
+
         </dl>
         <hr> <button class="btn btn-out btn-primary btn-square btn-main" data-abc="true" type="submit"> Make Purchase </button>
 </div>
@@ -214,17 +219,17 @@
 
 <div class="row" id="DeliveryDetails" style="margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none">
 <aside class="col-lg-9">
-  <div class="card container" style="margin-bottom:0%;">
+  <div class="card container" style="margin-bottom:3%;">
   <h4 style="margin-left:0;margin-top:1%;">Delivery Address</h4>
-    <div class="row g-3"  style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:0%;">
-  <div class="col-4">
-    <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="firstName">
+    <div class="row g-3"  style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
+  <div class="col-md-4">
+    <input type="text" class="form-control fn" placeholder="First name" aria-label="First name" name="firstName">
   </div>
-  <div class="col-4">
-    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lastName">
+  <div class="col-md-4">
+    <input type="text" class="form-control fn" placeholder="Last name" aria-label="Last name" name="lastName">
   </div>
-  <div class="col-4">
-    <input type="text" class="form-control" placeholder="Mobile No" aria-label="Mobile Number" name="mobileNo">
+  <div class="col-md-4">
+    <input type="text" class="form-control fn" placeholder="Mobile No" aria-label="Mobile Number" name="mobileNo">
   </div>
   <div class="col-12">
     <label for="inputAddress" class="form-label checkDelivery">Address</label>
@@ -255,8 +260,38 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
-    <script src="orders.js"></script>
+    <!-- <script src="orders.js"></script> -->
     <script src="theme.js"></script>
+    <script>
+    $(document).ready(function(){
+      var deliveryCharge = 0
+      console.log("del"+deliveryCharge);
+    	$("#Y").on("click", function (event) {
+    		$("#DeliveryDetails").attr("style","display:block;margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;");
+    		$("#sellerAddress").attr("style","display:none;margin-left:0;margin-right:0;margin-top:2%;");
+        deliveryCharge = <%=rows[0].iDeliveryCharges%>;
+    		$("#inputtotal").val(parseInt($("#inputamount").val())+deliveryCharge);
+    		console.log($("#inputtotal").val());
+        $("#deliveryCharges").html("+"+deliveryCharge);
+        $("#totalAmount").html("₹"+$("#inputtotal").val());
+
+    		console.log("del"+deliveryCharge);
+    	});
+    	$("#N").on("click", function (event) {
+        deliveryCharge = 0
+    		$("#DeliveryDetails").attr("style","margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none");
+    		$("#sellerAddress").attr("style","display:block;margin-left:0;margin-right:0;margin-top:2%;");
+    		$("#inputtotal").val(parseInt($("#inputamount").val())+deliveryCharge);
+    		console.log($("#inputtotal").val());
+        $("#deliveryCharges").html("+"+deliveryCharge);
+        $("#totalAmount").html("₹"+$("#inputtotal").val());
+        console.log("del"+deliveryCharge);
+
+
+    	});
+    });
+
+    </script>
    </body>
 
 </html>
