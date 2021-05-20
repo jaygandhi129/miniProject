@@ -48,7 +48,7 @@
                             <div class="invalid-feedback">Owner Name must contain alphabets only.</div>
                             <input class="form-control" type="text" name="b_mobile"
                                 style="margin-top: 15px;background: rgb(255,255,255);color: rgb(0,41,102);font-family: 'Work Sans', sans-serif;font-size: 18px;text-align: left;border-color: rgb(0,41,102);border-bottom-style: solid;border-bottom-color: rgb(0,41,102);"
-                                placeholder="Mobile Number" pattern="[0-9]{10}*">
+                                placeholder="Mobile Number" pattern="[0-9]{10}">
                             <div class="invalid-feedback">Mobile Number must contain digits only of length 10.</div>
                         </div>
                         <div class="form-check"><input class="form-check-input checked" required type="checkbox"
@@ -150,11 +150,6 @@
 
 
 
-
-
-
-
-
                                     </div>
                                     <div class="col-md-2 first-page-valid">
                                         <label for="inputZip" class="form-label">Zip</label>
@@ -171,7 +166,7 @@
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4" class="form-label">Pan No</label>
-                                        <input type="text" name="sPAN" class="form-control" required pattern="[A-Z0-9]{10}">
+                                        <input type="text" name="sPAN" class="form-control" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}">
                                         <div class="invalid-feedback">PAN No must contain 10 alphanumeric.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
@@ -245,15 +240,15 @@
                                         </div>
                                         <div class="col-md-6 first-page-valid">
                                             <label for="inputPassword4" class="form-label">GSTIN Number</label>
-                                            <input type="text" name="bGST" class="form-control" required pattern="[A-Z0-9]{15}">
+                                            <input type="text" name="bGST" class="form-control" required pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$">
                                             <div class="invalid-feedback">GSTIN Number must contain 15 alphanumeric.
                                             </div>
                                         </div>
                                         <div class="col-12 first-page-valid">
                                             <label for="inputAddress" class="form-label">Email ID</label>
                                             <input type="email" name="bEmail" class="form-control" id="inputAddress"
-                                                placeholder="example@domain.com" required>
-                                            <div class="invalid-feedback">Email cannot be blank.</div>
+                                                placeholder="example@domain.com" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  required>
+                                            <div class="invalid-feedback">Enter valid Email</div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Shop Photo</label>
