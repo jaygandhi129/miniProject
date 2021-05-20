@@ -559,9 +559,8 @@ app.post("/order",custCheckAuthenticated, function(req, res) {
 
 app.post("/placeOrder",custCheckAuthenticated,function(req,res){
 	console.log("home"+req.body);
+
 });
-
-
 
 
 
