@@ -563,8 +563,9 @@ app.post("/order",custCheckAuthenticated, function(req, res) {
 });
 
 app.post("/placeOrder",custCheckAuthenticated,function(req,res){
+	var amount = req.body.amount;
 	var options = {
-		amount: 50000,  // amount in the smallest currency unit
+		amount: amount * 100,  // amount in the smallest currency unit
 		currency: "INR",
 		receipt: "CORNERKART"
 	  };

@@ -298,7 +298,7 @@
           $("#DeliveryDetails").attr("style",
             "display:block;margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;");
           $("#sellerAddress").attr("style", "display:none;margin-left:0;margin-right:0;margin-top:2%;");
-          deliveryCharge = < %= rows[0].iDeliveryCharges % > ;
+          deliveryCharge = <%=rows[0].iDeliveryCharges%>;
           $("#inputtotal").val(parseInt($("#inputamount").val()) + deliveryCharge);
           console.log($("#inputtotal").val());
           $("#deliveryCharges").html("+" + deliveryCharge);
@@ -317,24 +317,24 @@
           $("#totalAmount").html("₹" + $("#inputtotal").val());
           console.log("del" + deliveryCharge);
 
-
         });
       });
     </script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
-      axios.post('/placeOrder').then((info) => {
+      axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
         console.log(info);
         var options = {
           "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
-          "name": "Cornerkart",
+          "name": "<%=rows[0].bName%>",
           "description": "Order Purchase Transaction",
           "order_id": info.data.id,
           "callback_url": "/is-order-complete",
+          "image":"../images/logo2.png",
           "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9999999999"
+            "name": "<%=user.cName%>",
+            "email": "<%=user.cEmail%>",
+            "contact": "<%=user.cMobile%>"
           },
           "theme": {
             "color": "#3399cc"
