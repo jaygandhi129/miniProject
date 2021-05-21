@@ -294,6 +294,30 @@
       $(document).ready(function () {
         var deliveryCharge = 0
         console.log("del" + deliveryCharge);
+        axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
+          console.log(info);
+          var options = {
+            "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
+            "name": "<%=rows[0].bName%>",
+            "description": "Order Purchase Transaction",
+            "order_id": info.data.id,
+            "callback_url": "/is-order-complete",
+            "image":"../images/logo2.png",
+            "prefill": {
+              "name": "<%=user.cName%>",
+              "email": "<%=user.cEmail%>",
+              "contact": "<%=user.cMobile%>"
+            },
+            "theme": {
+              "color": "#3399cc"
+            }
+          };
+          var rzp1 = new Razorpay(options);
+          document.getElementById('place_order_btn').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+          }
+        });
         $("#Y").on("click", function (event) {
           $("#DeliveryDetails").attr("style",
             "display:block;margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;");
@@ -303,8 +327,31 @@
           console.log($("#inputtotal").val());
           $("#deliveryCharges").html("+" + deliveryCharge);
           $("#totalAmount").html("₹" + $("#inputtotal").val());
-
           console.log("del" + deliveryCharge);
+          axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
+            console.log(info);
+            var options = {
+              "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
+              "name": "<%=rows[0].bName%>",
+              "description": "Order Purchase Transaction",
+              "order_id": info.data.id,
+              "callback_url": "/is-order-complete",
+              "image":"../images/logo2.png",
+              "prefill": {
+                "name": "<%=user.cName%>",
+                "email": "<%=user.cEmail%>",
+                "contact": "<%=user.cMobile%>"
+              },
+              "theme": {
+                "color": "#3399cc"
+              }
+            };
+            var rzp1 = new Razorpay(options);
+            document.getElementById('place_order_btn').onclick = function (e) {
+              rzp1.open();
+              e.preventDefault();
+            }
+          });
         });
         $("#N").on("click", function (event) {
           deliveryCharge = 0
@@ -316,36 +363,36 @@
           $("#deliveryCharges").html("+" + deliveryCharge);
           $("#totalAmount").html("₹" + $("#inputtotal").val());
           console.log("del" + deliveryCharge);
-
+          axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
+            console.log(info);
+            var options = {
+              "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
+              "name": "<%=rows[0].bName%>",
+              "description": "Order Purchase Transaction",
+              "order_id": info.data.id,
+              "callback_url": "/is-order-complete",
+              "image":"../images/logo2.png",
+              "prefill": {
+                "name": "<%=user.cName%>",
+                "email": "<%=user.cEmail%>",
+                "contact": "<%=user.cMobile%>"
+              },
+              "theme": {
+                "color": "#3399cc"
+              }
+            };
+            var rzp1 = new Razorpay(options);
+            document.getElementById('place_order_btn').onclick = function (e) {
+              rzp1.open();
+              e.preventDefault();
+            }
+          });
         });
       });
     </script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
-      axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
-        console.log(info);
-        var options = {
-          "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
-          "name": "<%=rows[0].bName%>",
-          "description": "Order Purchase Transaction",
-          "order_id": info.data.id,
-          "callback_url": "/is-order-complete",
-          "image":"../images/logo2.png",
-          "prefill": {
-            "name": "<%=user.cName%>",
-            "email": "<%=user.cEmail%>",
-            "contact": "<%=user.cMobile%>"
-          },
-          "theme": {
-            "color": "#3399cc"
-          }
-        };
-        var rzp1 = new Razorpay(options);
-        document.getElementById('place_order_btn').onclick = function (e) {
-          rzp1.open();
-          e.preventDefault();
-        }
-      });
+
     </script>
 </body>
 
