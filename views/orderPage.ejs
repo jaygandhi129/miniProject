@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-      <title>Orders Page</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="../css/cstyles.css">
-      <link rel="stylesheet" href="../css/orders.css">
 
-      <script src="./theme.js" type="text/javascript"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Orders Page</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/cstyles.css">
+  <link rel="stylesheet" href="../css/orders.css">
 
-   </head>
-   <body>
-      <!-- Pincode Modal Ends -->
-      <div class="text-nowrap">
-         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
-            <div class="dropdown ">
+  <script src="./theme.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-            </div>
-            <%if(loggedIn == false){%>
-            <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-            <%}else{%>
-            <div class="dropdown desktop-hidden user-dropdown-menu">
-               <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-               <%=user.cName%>
-               </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                  <li>
-                     <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-                  </li>
-               </ul>
-            </div>
-            <%}%>
+
+</head>
+
+<body>
+  <!-- Pincode Modal Ends -->
+  <div class="text-nowrap">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+      <div class="dropdown ">
+
+      </div>
+      <%if(loggedIn == false){%>
+      <a class="btn btn-light action-button desktop-hidden" role="button"
+        style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+      <%}else{%>
+      <div class="dropdown desktop-hidden user-dropdown-menu">
+        <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black"
+          id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <%=user.cName%>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+          <li>
+            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item"
+                style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+          </li>
+        </ul>
+      </div>
+      <%}%>
             <div class="container" style="margin-left:0">
                <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
@@ -62,23 +71,26 @@
                      <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
                   </ul>
                   <%if(loggedIn == false){%>
-                  <span class="navbar-text actions">
-                  <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-                  </span>
-                  <%}else{%>
-                  <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
-                     <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                     <%=user.cName%>
-                     </button>
-                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                        <li>
-                           <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-                        </li>
-                     </ul>
-                  </div>
-                  <%}%>
+      <span class="navbar-text actions">
+        <a class="btn btn-outline-warning action-button mob-hidden" role="button"
+          style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+      </span>
+      <%}else{%>
+      <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+        <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <%=user.cName%>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+          <li>
+            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item"
+                style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+          </li>
+        </ul>
+      </div>
+      <%}%>
                </div>
             </div>
          </nav>
@@ -106,36 +118,41 @@
                 <tr width="200" style="text-align:center;">
                     <td>
                         <figure class="itemside align-items-center">
-                            <div class="aside mobHide" style="text-align:left;"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" ></div>
-                            <figcaption class="info mobHide" style="text-align:left;"> <a href="#" class="title text-dark" data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
-                              <p class="text-muted small details" style="text-align:left;"><br> Brand: <%=rows[0].pBrand%> <br>
-                              <% if (data.size.length>0){ %>
-                                 Size: <%=data.size%><br>
-                                 <%}%>
+                            <div class="aside mobHide" style="text-align:left;"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media"
+      >
+  </div>
+  <figcaption class="info mobHide" style="text-align:left;"> <a href="#" class="title text-dark"
+      data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
+    <p class="text-muted small details" style="text-align:left;"><br> Brand: <%=rows[0].pBrand%> <br>
+      <% if (data.size.length>0){ %>
+      Size: <%=data.size%><br>
+      <%}%>
                                   <% if (rows[0].iDelivery=="Y"){ %>
-                              Delivery Available: Yes
-                              <%}else{%>
-                                Delivery Available: No
-                                <%}%></p>
+      Delivery Available: Yes
+      <%}else{%>
+      Delivery Available: No
+      <%}%></p>
                             </figcaption>
                             <table>
                             <tr>
                               <td>
-                              <div class="aside mobShow" style="text-align:left;"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" ></div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                              <figcaption class="info mobShow" style="width:250px;text-align:left;"> <a href="#" class="title text-dark" data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
-                            <p class="text-muted small details"><br> Brand: <%=rows[0].pBrand%> <br>
-                            <% if (data.size.length>0){ %>
-                               Size: <%=data.size%><br>
-                               <%}%>
+                              <div class="aside mobShow" style="text-align:left;"><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media"
+      ></div>
+      </td>
+      </tr>
+      <tr>
+        <td>
+          <figcaption class="info mobShow" style="width:250px;text-align:left;"> <a href="#" class="title text-dark"
+              data-abc="true"><%=rows[0].pBrand%> <%=rows[0].pName%></a>
+            <p class="text-muted small details"><br> Brand: <%=rows[0].pBrand%> <br>
+              <% if (data.size.length>0){ %>
+              Size: <%=data.size%><br>
+              <%}%>
                                 <% if (rows[0].iDelivery=="Y"){ %>
-                            Delivery Available: Yes
-                            <%}else{%>
-                              Delivery Available: No
-                              <%}%></p>
+              Delivery Available: Yes
+              <%}else{%>
+              Delivery Available: No
+              <%}%></p>
                           </figcaption>
                           </td>
                         </tr>
@@ -143,23 +160,24 @@
 
                         </figure>
                     </td>
-                    <td><div class="price-wrap"> <var class="price"><%=data.qty%></var> </div></td>
-                    <td>
-                        <div class="price-wrap"> <var class="price">₹ <%=rows[0].sellerPrice%></var> </div>
-                    </td>
-                    <td>
-                        <div class="price-wrap"> <var class="price"> ₹ <%=rows[0].sellerPrice * data.qty%></var> </div>
-                    </td>
-                </tr>
+                    <td><div class="price-wrap"> <var class="price"><%=data.qty%></var> </div>
+        </td>
+        <td>
+          <div class="price-wrap"> <var class="price">₹ <%=rows[0].sellerPrice%></var> </div>
+        </td>
+        <td>
+          <div class="price-wrap"> <var class="price"> ₹ <%=rows[0].sellerPrice * data.qty%></var> </div>
+        </td>
+      </tr>
 
-            </tbody>
-        </table>
-    </div>
-</div>
-</aside>
-<aside class="col-lg-3">
-  <form class="row g-3" method="post" action="/placeOrder">
-  <!-- <div class="card mb-3">
+      </tbody>
+      </table>
+      </div>
+      </div>
+      </aside>
+      <aside class="col-lg-3">
+        <form class="row g-3">
+          <!-- <div class="card mb-3">
       <div class="card-body">
           <form>
               <div class="form-group"> <label>Have coupon?</label>
@@ -168,79 +186,86 @@
           </form>
       </div>
   </div> -->
-<div class="card mobilecard">
-    <div class="card-body">
-        <dl class="dlist-align" style="font-size:1.1rem;">
-            <dt>Amount:</dt>
-            <dd id="amount" class="text-right ml-3" value="">&nbsp; ₹<%=rows[0].sellerPrice * data.qty%></dd>
-            <input type="text" id="inputamount" value="<%=rows[0].sellerPrice * data.qty%>" style="display:none;">
-        </dl>
-        <dl class="dlist-align deliveryCharges">
-            <dt>Delivery charges:</dt>
-            <dd id="deliveryCharges" class="text-right ml-3" value="">&nbsp; +0 </dd>
-            <input type="text" id="inputdelivery" value="<%=rows[0].iDeliveryCharges%>" style="display:none;">
+          <div class="card mobilecard">
+            <div class="card-body">
+              <dl class="dlist-align" style="font-size:1.1rem;">
+                <dt>Amount:</dt>
+                <dd id="amount" class="text-right ml-3" value="">&nbsp; ₹<%=rows[0].sellerPrice * data.qty%></dd>
+                <input type="text" id="inputamount" value="<%=rows[0].sellerPrice * data.qty%>" style="display:none;">
+              </dl>
+              <dl class="dlist-align deliveryCharges">
+                <dt>Delivery charges:</dt>
+                <dd id="deliveryCharges" class="text-right ml-3" value="">&nbsp; +0 </dd>
+                <input type="text" id="inputdelivery" value="<%=rows[0].iDeliveryCharges%>" style="display:none;">
 
-        </dl>
-        <dl class="dlist-align">
-            <dt>Total:</dt>
-            <dd id="totalAmount" class="text-right text-dark b ml-3">&nbsp; ₹<%=rows[0].sellerPrice * data.qty%><strong></strong></dd>
-            <input type="text" id="inputtotal" value="<%=rows[0].sellerPrice * data.qty%>" style="display:none;">
+              </dl>
+              <dl class="dlist-align">
+                <dt>Total:</dt>
+                <dd id="totalAmount" class="text-right text-dark b ml-3">&nbsp;
+                  ₹<%=rows[0].sellerPrice * data.qty%><strong></strong></dd>
+                <input type="text" id="inputtotal" value="<%=rows[0].sellerPrice * data.qty%>" style="display:none;">
 
-        </dl>
-        <hr> <button class="btn btn-out btn-primary btn-square btn-main" data-abc="true" type="submit"> Make Purchase </button>
-</div>
-</aside>
-</div>
-</div>
-</div>
-<%if(rows[0].iDelivery=="Y"){%>
-<div class="row" style="margin-left:0;margin-right:0;margin-top:2%;">
-<aside class="col-lg-9">
-  <div class="card container" style="margin-bottom:0%;">
-    <h4 style="margin-top:2%;">Delivery is available for this product. Do you want to get it delivered ?</h4>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="flexRadioDefault" id="Y">
-        <label class="form-check-label checkDelivery" for="Y">
-          Yes
-        </label>
-    </div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="N" checked>
-  <label class="form-check-label checkDelivery" for="N">
-    No
-  </label>
-</div>
-  </div>
+              </dl>
+              <hr> <button class="btn btn-out btn-primary btn-square btn-main" id='place_order_btn'> Make Purchase
+              </button>
+            </div>
+      </aside>
+      </div>
+      </div>
+      </div>
+      <%if(rows[0].iDelivery=="Y"){%>
+      <div class="row" style="margin-left:0;margin-right:0;margin-top:2%;">
+        <aside class="col-lg-9">
+          <div class="card container" style="margin-bottom:0%;">
+            <h4 style="margin-top:2%;">Delivery is available for this product. Do you want to get it delivered ?</h4>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="Y">
+              <label class="form-check-label checkDelivery" for="Y">
+                Yes
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="N" checked>
+              <label class="form-check-label checkDelivery" for="N">
+                No
+              </label>
+            </div>
+          </div>
 
-</aside>
-</div>
+        </aside>
+      </div>
 
-<!---Delivery Details------->
+      <!---Delivery Details------->
 
-<div class="row" id="DeliveryDetails" style="margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none">
-<aside class="col-lg-9">
-  <div class="card container" style="margin-bottom:3%;">
-  <h4 style="margin-left:0;margin-top:1%;">Delivery Address</h4>
-    <div class="row g-3"  style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
-  <div class="col-md-4">
-    <input type="text" class="form-control fn" placeholder="First name" aria-label="First name" name="firstName">
-  </div>
-  <div class="col-md-4">
-    <input type="text" class="form-control fn" placeholder="Last name" aria-label="Last name" name="lastName">
-  </div>
-  <div class="col-md-4">
-    <input type="text" class="form-control fn" placeholder="Mobile No" aria-label="Mobile Number" name="mobileNo">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress" class="form-label checkDelivery">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="addressOrder">
-  </div>
-</div>
-  </form>
-  </div>
-</aside>
-</div>
-<%}%>
+      <div class="row" id="DeliveryDetails"
+        style="margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none">
+        <aside class="col-lg-9">
+          <div class="card container" style="margin-bottom:3%;">
+            <h4 style="margin-left:0;margin-top:1%;">Delivery Address</h4>
+            <div class="row g-3" style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
+              <div class="col-md-4">
+                <input type="text" class="form-control fn" placeholder="First name" aria-label="First name"
+                  name="firstName">
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control fn" placeholder="Last name" aria-label="Last name"
+                  name="lastName">
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control fn" placeholder="Mobile No" aria-label="Mobile Number"
+                  name="mobileNo">
+              </div>
+              <div class="col-12">
+                <label for="inputAddress" class="form-label checkDelivery">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
+                  name="addressOrder">
+              </div>
+            </div>
+            </form>
+          </div>
+        </aside>
+      </div>
+      <%}%>
 
 
 
@@ -248,50 +273,80 @@
 <aside class="col-lg-9">
   <div class="card container" style="margin-bottom:3%;">
     <h4 style="margin-top:1%;margin-bottom:1%;color:#048f83"><i class="fas fa-store"></i>&nbsp; Store Location</h4>
-    <p style="font-weight:600;font-size:1.2rem;margin-bottom:8px;"><%=rows[0].bName%></p>
+    <p style="font-weight:600;font-size:1.2rem;margin-bottom:8px;"><%=rows[0].bName%>
+    </p>
     <p><%=rows[0].bAddress%><br><%=rows[0].bCity%>, <%=rows[0].bState%><br><%=rows[0].bMobile%></p>
-    <p style="margin-left:0;font-weight:bold;">*You will have to pickup your order from above address after seller accepts it.</p>
-  </form>
-  </div>
-</aside>
-</div>
+    <p style="margin-left:0;font-weight:bold;">*You will have to pickup your order from above address after seller
+      accepts it.</p>
+    </form>
+    </div>
+    </aside>
+    </div>
 
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js">
+    </script>
     <!-- <script src="orders.js"></script> -->
     <script src="theme.js"></script>
     <script>
-    $(document).ready(function(){
-      var deliveryCharge = 0
-      console.log("del"+deliveryCharge);
-    	$("#Y").on("click", function (event) {
-    		$("#DeliveryDetails").attr("style","display:block;margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;");
-    		$("#sellerAddress").attr("style","display:none;margin-left:0;margin-right:0;margin-top:2%;");
-        deliveryCharge = <%=rows[0].iDeliveryCharges%>;
-    		$("#inputtotal").val(parseInt($("#inputamount").val())+deliveryCharge);
-    		console.log($("#inputtotal").val());
-        $("#deliveryCharges").html("+"+deliveryCharge);
-        $("#totalAmount").html("₹"+$("#inputtotal").val());
+      $(document).ready(function () {
+        var deliveryCharge = 0
+        console.log("del" + deliveryCharge);
+        $("#Y").on("click", function (event) {
+          $("#DeliveryDetails").attr("style",
+            "display:block;margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;");
+          $("#sellerAddress").attr("style", "display:none;margin-left:0;margin-right:0;margin-top:2%;");
+          deliveryCharge = < %= rows[0].iDeliveryCharges % > ;
+          $("#inputtotal").val(parseInt($("#inputamount").val()) + deliveryCharge);
+          console.log($("#inputtotal").val());
+          $("#deliveryCharges").html("+" + deliveryCharge);
+          $("#totalAmount").html("₹" + $("#inputtotal").val());
 
-    		console.log("del"+deliveryCharge);
-    	});
-    	$("#N").on("click", function (event) {
-        deliveryCharge = 0
-    		$("#DeliveryDetails").attr("style","margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none");
-    		$("#sellerAddress").attr("style","display:block;margin-left:0;margin-right:0;margin-top:2%;");
-    		$("#inputtotal").val(parseInt($("#inputamount").val())+deliveryCharge);
-    		console.log($("#inputtotal").val());
-        $("#deliveryCharges").html("+"+deliveryCharge);
-        $("#totalAmount").html("₹"+$("#inputtotal").val());
-        console.log("del"+deliveryCharge);
+          console.log("del" + deliveryCharge);
+        });
+        $("#N").on("click", function (event) {
+          deliveryCharge = 0
+          $("#DeliveryDetails").attr("style",
+            "margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none");
+          $("#sellerAddress").attr("style", "display:block;margin-left:0;margin-right:0;margin-top:2%;");
+          $("#inputtotal").val(parseInt($("#inputamount").val()) + deliveryCharge);
+          console.log($("#inputtotal").val());
+          $("#deliveryCharges").html("+" + deliveryCharge);
+          $("#totalAmount").html("₹" + $("#inputtotal").val());
+          console.log("del" + deliveryCharge);
 
 
-    	});
-    });
-
+        });
+      });
     </script>
-   </body>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      axios.post('/placeOrder').then((info) => {
+        console.log(info);
+        var options = {
+          "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
+          "name": "Cornerkart",
+          "description": "Order Purchase Transaction",
+          "order_id": info.data.id,
+          "callback_url": "/is-order-complete",
+          "prefill": {
+            "name": "Gaurav Kumar",
+            "email": "gaurav.kumar@example.com",
+            "contact": "9999999999"
+          },
+          "theme": {
+            "color": "#3399cc"
+          }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('place_order_btn').onclick = function (e) {
+          rzp1.open();
+          e.preventDefault();
+        }
+      });
+    </script>
+</body>
 
 </html>

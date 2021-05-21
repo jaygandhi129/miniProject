@@ -65,8 +65,12 @@ connection.connect(function(error) {
 	}
 });
 
-
-
+// Razorpay Payment Gateway Setup
+const Razorpay = require('razorpay');
+const razorpay = new Razorpay({
+	key_id: process.env.RAZORPAY_KEY_ID,
+	key_secret: process.env.RAZORPAY_KEY_SECRET,
+})
 
 // passport configure
 
@@ -85,7 +89,7 @@ function checkAuthenticated(req, res, next) {
 		} else {
 			res.redirect('/business/login');
 		}
-
+		
 	} else {
 		res.redirect('/business/login');
 	}
@@ -549,6 +553,7 @@ app.post("/order",custCheckAuthenticated, function(req, res) {
 		else{
 
 			res.render('orderPage',{
+				key:process.env.RAZORPAY_KEY_ID,
 				user:req.user,
 				data:req.body,
 				rows,
@@ -558,9 +563,29 @@ app.post("/order",custCheckAuthenticated, function(req, res) {
 });
 
 app.post("/placeOrder",custCheckAuthenticated,function(req,res){
-	console.log("home"+req.body);
+	var options = {
+		amount: 50000,  // amount in the smallest currency unit
+		currency: "INR",
+		receipt: "CORNERKART"
+	  };
+	  razorpay.orders.create(options, function(err, order) {
+		console.log(order);
+		res.json(order);
+	  });
 
 });
+
+app.post('/is-order-complete',custCheckAuthenticated,function(req,res){
+	razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDoc)=>{
+		console.log(paymentDoc);
+		if(paymentDoc.status == 'captured'){
+			res.send('Payment Success');
+		}
+		else{
+			res.send('Payment Failed!');
+		}
+	})
+})
 
 
 
