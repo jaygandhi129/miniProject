@@ -545,7 +545,7 @@ app.get("/getSellersOnClick/:pId/:iId",function(req,res){
 app.post("/order",custCheckAuthenticated, function(req, res) {
 	console.log(req.body);
 	data=req.body;
-	query1="Select i.sellerPrice,i.iDelivery,i.iDeliveryCharges, p.pName, p.pMrp,p.pPhotoId,p.pBrand,b.bName,b.bId,b.bCity,b.bState,b.bAddress,b.bMobile from inventory i inner join products p on i.pId=p.pId inner join business_details b on b.seller = i.sId where i.iId=?";
+	query1="Select i.sellerPrice,i.iDelivery,i.iDeliveryCharges,p.pId ,p.pName, p.pMrp,p.pPhotoId,p.pBrand,b.bName,b.seller, b.bId,b.bCity,b.bState,b.bAddress,b.bMobile from inventory i inner join products p on i.pId=p.pId inner join business_details b on b.seller = i.sId where i.iId=?";
 	connection.query(query1,[parseInt(data.iId)],function(err,rows){
 		if(err){
 			console.log(err);
@@ -576,10 +576,12 @@ app.post("/placeOrder",custCheckAuthenticated,function(req,res){
 
 });
 
-app.post('/is-order-complete',custCheckAuthenticated,function(req,res){
+app.post('/is-order-complete/:item/:order',custCheckAuthenticated,function(req,res){
 	razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDoc)=>{
 		console.log(paymentDoc);
 		if(paymentDoc.status == 'captured'){
+			console.log('Item'+req.params.item);
+			console.log('Order'+req.params.order);
 			res.send('Payment Success');
 		}
 		else{
