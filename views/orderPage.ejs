@@ -208,6 +208,7 @@
               </dl>
               <hr> <button class="btn btn-out btn-primary btn-square btn-main" id='place_order_btn'> Make Purchase
               </button>
+              <p class="note" style="color:red;display:none;">* Please fill delivery details.</p>
             </div>
       </aside>
       </div>
@@ -244,20 +245,20 @@
             <h4 style="margin-left:0;margin-top:1%;">Delivery Address</h4>
             <div class="row g-3" style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
               <div class="col-md-4">
-                <input type="text" class="form-control fn" placeholder="First name" aria-label="First name"
+                <input type="text" class="form-control fn is-invalid make-valid" placeholder="First name" id="fnameinput" aria-label="First name"
                   name="firstName">
               </div>
               <div class="col-md-4">
-                <input type="text" class="form-control fn" placeholder="Last name" aria-label="Last name"
+                <input type="text" class="form-control fn is-invalid make-valid" placeholder="Last name" id="lnameinput" aria-label="Last name"
                   name="lastName">
               </div>
               <div class="col-md-4">
-                <input type="text" class="form-control fn" placeholder="Mobile No" aria-label="Mobile Number"
+                <input type="text" class="form-control fn is-invalid make-valid" placeholder="Mobile No" id="mobinput" aria-label="Mobile Number"
                   name="mobileNo">
               </div>
               <div class="col-12">
                 <label for="inputAddress" class="form-label checkDelivery">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
+                <input type="text" class="form-control is-invalid make-valid" id="inputAddress" placeholder="1234 Main St"
                   name="addressOrder">
               </div>
             </div>
@@ -294,6 +295,32 @@
       $(document).ready(function () {
         var deliveryCharge = 0
         console.log("del" + deliveryCharge);
+        var count = 0
+        $('.make-valid').on('change',function () {
+
+          if($(this).val() == ''){
+            $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');  
+          }
+          else{
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+          }
+
+          if($('#fnameinput').val()!=='' && $('#lnameinput').val()!=='' && $('#mobinput').val()!=='' && $('#inputAddress').val()!==''){
+            $('#place_order_btn').attr('disabled',false);
+            $('.note').attr('style','display:none;color:red;');
+          }
+          else{
+            $('#place_order_btn').attr('disabled',true);
+            $('.note').attr('style','display:block;color:red;');
+          }
+
+        });
+
+        
+
+        // Payment Gateway
         axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
           console.log(info);
           var options = {
@@ -319,6 +346,8 @@
           }
         });
         $("#Y").on("click", function (event) {
+          $('#place_order_btn').attr('disabled',true);
+          $('.note').attr('style','display:block;color:red;');
           $("#DeliveryDetails").attr("style",
             "display:block;margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;");
           $("#sellerAddress").attr("style", "display:none;margin-left:0;margin-right:0;margin-top:2%;");
@@ -354,6 +383,8 @@
           });
         });
         $("#N").on("click", function (event) {
+          $('#place_order_btn').attr('disabled',false);
+          $('.note').attr('style','display:none;color:red;');
           deliveryCharge = 0
           $("#DeliveryDetails").attr("style",
             "margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none");
