@@ -245,7 +245,7 @@
             <h4 style="margin-left:0;margin-top:1%;">Delivery Address</h4>
             <div class="row g-3" style="margin-left:0;margin-right:4%;margin-top:1%;margin-bottom:2%;">
               <div class="col-md-4">
-                <input type="text" class="form-control fn is-invalid make-valid" placeholder="First name" id="fnameinput" aria-label="First name"
+                <input type="text" class="form-control fn is-invalid make-valid" placeholder="First name" id="fnameinput"  aria-label="First name"
                   name="firstName">
               </div>
               <div class="col-md-4">
@@ -297,10 +297,9 @@
         console.log("del" + deliveryCharge);
         var count = 0
         $('.make-valid').on('change',function () {
-
           if($(this).val() == ''){
             $(this).removeClass('is-valid');
-          $(this).addClass('is-invalid');  
+          $(this).addClass('is-invalid');
           }
           else{
           $(this).removeClass('is-invalid');
@@ -315,10 +314,8 @@
             $('#place_order_btn').attr('disabled',true);
             $('.note').attr('style','display:block;color:red;');
           }
-
         });
 
-        
 
         // Payment Gateway
         axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
@@ -345,10 +342,13 @@
               'quantity':'<%=data.qty%>',
               'rate':'<%=rows[0].sellerPrice%>',
               'amount': $('#inputamount').val(),
-              'size':'<%=data.size%>'
+              'size':'<%=data.size%>',
+              'mrp': '<%=rows[0].pMrp%>'
             };
             const order = {
-              'dAddr': $('inputaddress').val(),
+              'dAddr': $('#inputAddress').val(),
+              'fname':$('#fnameinput').val(),
+              'lname':$('#lnameinput').val(),
               'zip':document.cookie.pincode,
               'sellerId':'<%=rows[0].seller%>',
               'dcharges': $('#inputdelivery').val(),
@@ -397,25 +397,33 @@
                 "color": "#3399cc"
               }
             };
-            
+
+            const item ={
+            'pId': '<%=rows[0].pId%>',
+            'quantity':'<%=data.qty%>',
+            'rate':'<%=rows[0].sellerPrice%>',
+            'amount': $('#inputamount').val(),
+            'size':'<%=data.size%>',
+            'mrp': '<%=rows[0].pMrp%>'
+          };
+          const order = {
+            'dAddr': $('#inputAddress').val(),
+            'fname': $('#fnameinput').val(),
+            'lname': $('#lnameinput').val(),
+            'zip':document.cookie.pincode,
+            'sellerId':'<%=rows[0].seller%>',
+            'dcharges': $('#inputdelivery').val(),
+            'total': $('#inputtotal').val(),
+            'phone': $('#mobinput').val(),
+            'deliveryMethod':'Y'
+          };
+
+
             document.getElementById('place_order_btn').onclick = function (e) {
-              
-              const item ={
-              'pId': '<%=rows[0].pId%>',
-              'quantity':'<%=data.qty%>',
-              'rate':'<%=rows[0].sellerPrice%>',
-              'amount': $('#inputamount').val(),
-              'size':'<%=data.size%>'
-            };
-            const order = {
-              'dAddr': $('inputaddress').val(),
-              'zip':document.cookie.pincode,
-              'sellerId':'<%=rows[0].seller%>',
-              'dcharges': $('#inputdelivery').val(),
-              'total': $('#inputtotal').val(),
-              'phone': $('#mobinput').val(),
-              'deliveryMethod':'Y'
-            };
+                order.dAddr = $('#inputAddress').val();
+                order.fname = $('#fnameinput').val();
+                order.lname = $('#lnameinput').val();
+                order.phone = $('#mobinput').val();
             sessionStorage.setItem('item',JSON.stringify(item));
             sessionStorage.setItem('order',JSON.stringify(order));
             options.callback_url = "/is-order-complete/"+sessionStorage.getItem('item')+'/'+sessionStorage.getItem('order');
@@ -458,17 +466,20 @@
                 "color": "#3399cc"
               }
             };
-            
+
             document.getElementById('place_order_btn').onclick = function (e) {
               const item ={
               'pId': '<%=rows[0].pId%>',
               'quantity':'<%=data.qty%>',
               'rate':'<%=rows[0].sellerPrice%>',
               'amount': $('#inputamount').val(),
-              'size':'<%=data.size%>'
+              'size':'<%=data.size%>',
+              'mrp': '<%=rows[0].pMrp%>'
             };
             const order = {
-              'dAddr': $('inputaddress').val(),
+              'dAddr': $('#inputAddress').val(),
+              'fname':$('#fnameinput').val(),
+              'lname':$('#lnameinput').val(),
               'zip':document.cookie.pincode,
               'sellerId':'<%=rows[0].seller%>',
               'dcharges': $('#inputdelivery').val(),

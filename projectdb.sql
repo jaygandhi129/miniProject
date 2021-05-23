@@ -138,13 +138,11 @@ CREATE TABLE `order_details` (
   `savedAmt` float NOT NULL,
   `product_size` varchar(20) DEFAULT NULL,
   `delivery_method` varchar(45) NOT NULL,
-  `product_status` varchar(80) NOT NULL,
+  `prod_status` varchar(45) NOT NULL,
   PRIMARY KEY (`order_id`,`product_id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`pId`),
-  CONSTRAINT `order_details_chk_1` CHECK ((`product_status` in (_utf8mb4'Accepted',_utf8mb4'Rejected',_utf8mb4'Pending',_utf8mb4'Cancelled'))),
-  CONSTRAINT `order_details_chk_2` CHECK ((`delivery_method` in (_utf8mb4'Home Delivery',_utf8mb4'Pickup')))
+  CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`pId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -154,7 +152,39 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
+INSERT INTO `order_details` VALUES (4000017,50031,3,39000,6000,'','Y','Awating');
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_payment_details`
+--
+
+DROP TABLE IF EXISTS `order_payment_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_payment_details` (
+  `orderId` int NOT NULL,
+  `razorpayOrderId` varchar(100) NOT NULL,
+  `razorpayPaymentId` varchar(100) NOT NULL,
+  `paymentMethod` varchar(45) NOT NULL,
+  `paymentEmail` varchar(45) NOT NULL,
+  `paymentPhone` varchar(45) NOT NULL,
+  `amount` float NOT NULL,
+  `paymentTimestamp` timestamp NOT NULL,
+  PRIMARY KEY (`orderId`,`razorpayPaymentId`),
+  CONSTRAINT `order_payment_details_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_payment_details`
+--
+
+LOCK TABLES `order_payment_details` WRITE;
+/*!40000 ALTER TABLE `order_payment_details` DISABLE KEYS */;
+INSERT INTO `order_payment_details` VALUES (4000017,'order_HEJzmMpC5WWeVk','pay_HEK07cfEwJzWad','upi','jaygandhi129@gmail.com','917709708626',3906000,'2021-05-23 17:47:52');
+/*!40000 ALTER TABLE `order_payment_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -177,15 +207,17 @@ CREATE TABLE `orders` (
   `seller_comment` varchar(200) DEFAULT NULL,
   `cust_feedback` varchar(200) DEFAULT NULL,
   `delivery_phone` bigint NOT NULL,
-  `status` varchar(85) NOT NULL,
+  `order_status` varchar(100) NOT NULL,
+  `del_fname` varchar(45) DEFAULT NULL,
+  `del_lname` varchar(45) DEFAULT NULL,
+  `paymentMethod` varchar(45) NOT NULL,
+  `paymentStatus` varchar(45) NOT NULL,
   PRIMARY KEY (`order_id`),
   KEY `seller_id` (`seller_id`),
   KEY `cust_id` (`cust_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `seller_details` (`sId`),
-  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`),
-  CONSTRAINT `orders_chk_1` CHECK ((`status` in (_utf8mb4'Accepted',_utf8mb4'Rejected',_utf8mb4'Pending',_utf8mb4'Delivered'))),
-  CONSTRAINT `orders_chk_2` CHECK ((`status` in (_utf8mb4'Accepted',_utf8mb4'Rejected',_utf8mb4'Pending',_utf8mb4'Cancelled',_utf8mb4'Completed')))
-) ENGINE=InnoDB AUTO_INCREMENT=4000001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4000018 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +226,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (4000017,'Testing Address',440015,1029,800001,60,39060,'2021-05-23 17:47:58',NULL,NULL,NULL,7709708626,'Awating','Tejas','Gandhi','','');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,4 +362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-19 23:18:29
+-- Dump completed on 2021-05-23 23:40:09

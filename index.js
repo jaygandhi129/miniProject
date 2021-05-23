@@ -89,7 +89,7 @@ function checkAuthenticated(req, res, next) {
 		} else {
 			res.redirect('/business/login');
 		}
-		
+
 	} else {
 		res.redirect('/business/login');
 	}
@@ -545,7 +545,7 @@ app.get("/getSellersOnClick/:pId/:iId",function(req,res){
 app.post("/order",custCheckAuthenticated, function(req, res) {
 	console.log(req.body);
 	data=req.body;
-	query1="Select i.sellerPrice,i.iDelivery,i.iDeliveryCharges,p.pId ,p.pName, p.pMrp,p.pPhotoId,p.pBrand,b.bName,b.seller, b.bId,b.bCity,b.bState,b.bAddress,b.bMobile from inventory i inner join products p on i.pId=p.pId inner join business_details b on b.seller = i.sId where i.iId=?";
+	query1="Select i.sellerPrice,i.iDelivery,i.iDeliveryCharges,p.pId ,p.pName,p.pMrp,p.pPhotoId,p.pBrand,b.bName,b.seller, b.bId,b.bCity,b.bState,b.bAddress,b.bMobile from inventory i inner join products p on i.pId=p.pId inner join business_details b on b.seller = i.sId where i.iId=?";
 	connection.query(query1,[parseInt(data.iId)],function(err,rows){
 		if(err){
 			console.log(err);
@@ -573,15 +573,43 @@ app.post("/placeOrder",custCheckAuthenticated,function(req,res){
 		console.log(order);
 		res.json(order);
 	  });
-
 });
 
 app.post('/is-order-complete/:item/:order',custCheckAuthenticated,function(req,res){
 	razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDoc)=>{
-		console.log(paymentDoc);
+		console.log("details : "+paymentDoc.id);
 		if(paymentDoc.status == 'captured'){
-			console.log('Item'+req.params.item);
-			console.log('Order'+req.params.order);
+			console.log(req.params.order);
+			var item=JSON.parse(req.params.item);
+			var order=JSON.parse(req.params.order);
+			query1="INSERT INTO orders (delivery_address,order_zip,seller_id,cust_id,delivery_charges,total_amount,delivery_phone,order_status,del_fname,del_lname,paymentMethod,paymentStatus) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+			connection.query(query1,[order.dAddr,parseInt(req.cookies.pincode),parseInt(order.sellerId),parseInt(req.user.cId),parseInt(order.dcharges),parseFloat(order.total),parseInt(order.phone),"Awating",order.fname,order.lname,____,"waiting"],function(err,rows){
+				if (err){
+					console.log(err);
+				}
+				else{
+					// console.log(rows.insertId);
+					var saved=parseInt(item.mrp)*(parseInt(item.quantity))-parseInt(item.amount);
+					query2="INSERT INTO order_details (order_id,product_id,product_qty,price,savedAmt,product_size,delivery_method,prod_status) VALUES (?,?,?,?,?,?,?,?)";
+					connection.query(query2,[rows.insertId,parseInt(item.pId),parseInt(item.quantity),parseInt(item.amount),saved,item.size,order.deliveryMethod,"Awating"],function(err,rows2){
+						if(err){
+							console.log(err);
+						}else{
+							// console.log("success order_details");
+							var time = paymentDoc.created_at;
+							query3="INSERT INTO order_payment_details (orderId,razorpayOrderId,razorpayPaymentId,paymentMethod,paymentEmail,paymentPhone,amount,paymentTimestamp) VALUES(?,?,?,?,?,?,?,FROM_UNIXTIME(?))";
+							connection.query(query3,[rows.insertId,paymentDoc.order_id,paymentDoc.id,paymentDoc.method,paymentDoc.email,parseInt(paymentDoc.contact),parseInt(paymentDoc.amount),time],function(err){
+								if (err){
+									console.log(err);
+								}else{
+									console.log("success-0rder-details-payment details");
+								}
+							});
+						}
+					});
+					// console.log("success");
+				}
+			});
 			res.send('Payment Success');
 		}
 		else{
