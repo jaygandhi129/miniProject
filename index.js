@@ -84,7 +84,7 @@ initialize(passport);
 function checkAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		if (req.user.role === 0) {
-			console.log(req.user.role);
+
 			return next()
 		} else {
 			res.redirect('/business/login');
@@ -332,7 +332,7 @@ app.get('/getCategory', function (req, res) {
 app.get('/getSubCategory/:id', function (req, res) {
 
 	var catId = parseInt(req.params.id);
-	console.log(catId);
+
 	var sql = 'SELECT * from product_subcategories where catId = ? order by subCatName';
 	connection.query(sql, [catId], function (err, result) {
 		if (err) throw err;
@@ -469,7 +469,7 @@ app.get('/productDetails/:pId', function (req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(pId);
+
 			if (req.user) {
 				pincode = req.cookies.pincode;
 				if (req.user.role === 1) {
@@ -543,7 +543,7 @@ app.get("/getSellersOnClick/:pId/:iId", function (req, res) {
 
 // orderpage.js Starts
 app.post("/order", custCheckAuthenticated, function (req, res) {
-	console.log(req.body);
+
 	data = req.body;
 	query1 = "Select i.sellerPrice,i.iDelivery,i.iDeliveryCharges,p.pId ,p.pName,p.pMrp,p.pPhotoId,p.pBrand,b.bName,b.seller, b.bId,b.bCity,b.bState,b.bAddress,b.bMobile from inventory i inner join products p on i.pId=p.pId inner join business_details b on b.seller = i.sId where i.iId=?";
 	connection.query(query1, [parseInt(data.iId)], function (err, rows) {
@@ -570,20 +570,18 @@ app.post("/placeOrder", custCheckAuthenticated, function (req, res) {
 		receipt: "CORNERKART"
 	};
 	razorpay.orders.create(options, function (err, order) {
-		console.log(order);
+
 		res.json(order);
 	});
 });
 
 app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (req, res) {
 	razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDoc) => {
-		console.log("details : " + paymentDoc.id);
 		if (paymentDoc.status == 'captured') {
-			console.log(req.params.order);
 			var item = JSON.parse(req.params.item);
 			var order = JSON.parse(req.params.order);
 			query1 = "INSERT INTO orders (delivery_address,order_zip,seller_id,cust_id,delivery_charges,total_amount,delivery_phone,order_status,del_fname,del_lname,paymentMethod,paymentStatus) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-			connection.query(query1, [order.dAddr, parseInt(req.cookies.pincode), parseInt(order.sellerId), parseInt(req.user.cId), parseInt(order.dcharges), parseFloat(order.total), parseInt(order.phone), "Awating", order.fname, order.lname,"online", "waiting"], function (err, rows) {
+			connection.query(query1, [order.dAddr, parseInt(req.cookies.pincode), parseInt(order.sellerId), parseInt(req.user.cId), parseInt(order.dcharges), parseFloat(order.total), parseInt(order.phone), "Awating Approval", order.fname, order.lname,"online", "Successfull"], function (err, rows) {
 				if (err) {
 					console.log(err);
 				} else {
@@ -768,7 +766,6 @@ app.post("/business/register/nextstep", upload.fields([{
 
 				}
 			});
-
 		}
 	});
 });
@@ -1090,6 +1087,51 @@ app.post("/saveProduct", checkAuthenticated, function (req, res) {
 	});
 });
 
+app.get('/sellerOrders', checkAuthenticated, function (req, res) {
+	var query = "SELECT o.order_id,o.total_amount,od.delivery_method,o.ordered_timestamp,o.order_status from orders o inner join order_details od on o.order_id = od.order_id where o.seller_id = ?"
+	connection.query(query, req.user.sId, function (err, rows) {
+		if (err) {
+			console.log(err);
+		} else {
+			var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+
+			connection.query(query2, req.user.sId, function (err, rows1) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.render('sellerOrders', {
+						rows,
+						edit: false,
+						name: rows1[0].sName,
+						source: rows1[0].bPhotoId
+					})
+				}
+
+			});
+		}
+	});
+});
+app.get('/sellerOrdersDetail/:order_id', checkAuthenticated, function (req, res) {
+	var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId where o.seller_id = ? and o.order_id = ?"
+	connection.query(query, [req.user.sId,req.params.order_id], function (err, rows) {
+		if(err){
+			console.log(err);
+		}else{
+			var query2 = "Select s.sName,b.bPhotoId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+			connection.query(query2, req.user.sId, function (err, rows1) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.render('sellerOrdersDetail', {
+						rows,
+						name: rows1[0].sName,
+						source: rows1[0].bPhotoId
+					})
+				}
+			});
+		}
+	});
+});
 //myproducts.ejs ends
 
 /************************************Seller Ends*************************************************/

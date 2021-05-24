@@ -266,10 +266,9 @@
           </div>
         </aside>
       </div>
+      <%}else{%>
+        <input type="text" class="form-control fn is-valid make-valid" value="<%=user.cMobile%>" placeholder="Mobile No" id="mobinput" aria-label="Mobile Number"name="mobileNo" hidden>
       <%}%>
-
-
-
 <div class="row" id="sellerAddress" style="margin-left:0;margin-right:0;margin-top:2%;">
 <aside class="col-lg-9">
   <div class="card container" style="margin-bottom:3%;">
@@ -294,7 +293,7 @@
     <script>
       $(document).ready(function () {
         var deliveryCharge = 0
-        console.log("del" + deliveryCharge);
+
         var count = 0
         $('.make-valid').on('change',function () {
           if($(this).val() == ''){
@@ -319,7 +318,7 @@
 
         // Payment Gateway
         axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
-          console.log(info);
+
           var options = {
             "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
             "name": "<%=rows[0].bName%>",
@@ -363,8 +362,7 @@
             sessionStorage.setItem('item',JSON.stringify(item));
             sessionStorage.setItem('order',JSON.stringify(order));
             options.callback_url = "/is-order-complete/"+sessionStorage.getItem('item')+'/'+sessionStorage.getItem('order');
-            console.log(sessionStorage.getItem('item'));
-            console.log(sessionStorage.getItem('order'));
+
             var rzp1 = new Razorpay(options);
             rzp1.open();
             e.preventDefault();
@@ -378,13 +376,13 @@
           $("#sellerAddress").attr("style", "display:none;margin-left:0;margin-right:0;margin-top:2%;");
           deliveryCharge = <%=rows[0].iDeliveryCharges%>;
           $("#inputtotal").val(parseInt($("#inputamount").val()) + deliveryCharge);
-          console.log($("#inputtotal").val());
+
           $("#deliveryCharges").html("+" + deliveryCharge);
           $('#inputdelivery').val(deliveryCharge);
           $("#totalAmount").html("₹" + $("#inputtotal").val());
-          console.log("del" + deliveryCharge);
+
           axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
-            console.log(info);
+
             var options = {
               "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
               "name": "<%=rows[0].bName%>",
@@ -431,8 +429,7 @@
             sessionStorage.setItem('item',JSON.stringify(item));
             sessionStorage.setItem('order',JSON.stringify(order));
             options.callback_url = "/is-order-complete/"+sessionStorage.getItem('item')+'/'+sessionStorage.getItem('order');
-            console.log(sessionStorage.getItem('item'));
-            console.log(sessionStorage.getItem('order'));
+
             var rzp1 = new Razorpay(options);
               rzp1.open();
               e.preventDefault();
@@ -447,13 +444,13 @@
             "margin-left:0;margin-bottom:0;margin-right:0;margin-top:2%;display:none");
           $("#sellerAddress").attr("style", "display:block;margin-left:0;margin-right:0;margin-top:2%;");
           $("#inputtotal").val(parseInt($("#inputamount").val()) + deliveryCharge);
-          console.log($("#inputtotal").val());
+
           $("#deliveryCharges").html("+" + deliveryCharge);
           $('#inputdelivery').val(deliveryCharge);
           $("#totalAmount").html("₹" + $("#inputtotal").val());
-          console.log("del" + deliveryCharge);
+
           axios.post('/placeOrder',{amount:$('#inputtotal').val()}).then((info) => {
-            console.log(info);
+
             var options = {
               "key": "<%=key%>", // Enter the Key ID generated from the Dashboard
               "name": "<%=rows[0].bName%>",
@@ -498,8 +495,6 @@
             sessionStorage.setItem('item',JSON.stringify(item));
             sessionStorage.setItem('order',JSON.stringify(order));
             options.callback_url = "/is-order-complete/"+sessionStorage.getItem('item')+'/'+sessionStorage.getItem('order');
-            console.log(sessionStorage.getItem('item'));
-            console.log(sessionStorage.getItem('order'));
             var rzp1 = new Razorpay(options);
               rzp1.open();
               e.preventDefault();
