@@ -336,26 +336,30 @@
               "color": "#3399cc"
             }
           };
+          const item ={
+            'pId': '<%=rows[0].pId%>',
+            'quantity':'<%=data.qty%>',
+            'rate':'<%=rows[0].sellerPrice%>',
+            'amount': $('#inputamount').val(),
+            'size':'<%=data.size%>',
+            'mrp': '<%=rows[0].pMrp%>'
+          };
+          const order = {
+            'dAddr': $('#inputAddress').val(),
+            'fname':$('#fnameinput').val(),
+            'lname':$('#lnameinput').val(),
+            'zip':document.cookie.pincode,
+            'sellerId':'<%=rows[0].seller%>',
+            'dcharges': $('#inputdelivery').val(),
+            'total': $('#inputtotal').val(),
+            'phone': $('#mobinput').val(),
+            'deliveryMethod':'N'
+          };
           document.getElementById('place_order_btn').onclick = function (e) {
-            const item ={
-              'pId': '<%=rows[0].pId%>',
-              'quantity':'<%=data.qty%>',
-              'rate':'<%=rows[0].sellerPrice%>',
-              'amount': $('#inputamount').val(),
-              'size':'<%=data.size%>',
-              'mrp': '<%=rows[0].pMrp%>'
-            };
-            const order = {
-              'dAddr': $('#inputAddress').val(),
-              'fname':$('#fnameinput').val(),
-              'lname':$('#lnameinput').val(),
-              'zip':document.cookie.pincode,
-              'sellerId':'<%=rows[0].seller%>',
-              'dcharges': $('#inputdelivery').val(),
-              'total': $('#inputtotal').val(),
-              'phone': $('#mobinput').val(),
-              'deliveryMethod':'N'
-            };
+            order.dAddr = $('#inputAddress').val();
+                order.fname = $('#fnameinput').val();
+                order.lname = $('#lnameinput').val();
+                order.phone = $('#mobinput').val();
             sessionStorage.setItem('item',JSON.stringify(item));
             sessionStorage.setItem('order',JSON.stringify(order));
             options.callback_url = "/is-order-complete/"+sessionStorage.getItem('item')+'/'+sessionStorage.getItem('order');
@@ -467,26 +471,30 @@
               }
             };
 
+            const item ={
+            'pId': '<%=rows[0].pId%>',
+            'quantity':'<%=data.qty%>',
+            'rate':'<%=rows[0].sellerPrice%>',
+            'amount': $('#inputamount').val(),
+            'size':'<%=data.size%>',
+            'mrp': '<%=rows[0].pMrp%>'
+          };
+          const order = {
+            'dAddr': $('#inputAddress').val(),
+            'fname':$('#fnameinput').val(),
+            'lname':$('#lnameinput').val(),
+            'zip':document.cookie.pincode,
+            'sellerId':'<%=rows[0].seller%>',
+            'dcharges': $('#inputdelivery').val(),
+            'total': $('#inputtotal').val(),
+            'phone': $('#mobinput').val(),
+            'deliveryMethod':'N'
+          };
             document.getElementById('place_order_btn').onclick = function (e) {
-              const item ={
-              'pId': '<%=rows[0].pId%>',
-              'quantity':'<%=data.qty%>',
-              'rate':'<%=rows[0].sellerPrice%>',
-              'amount': $('#inputamount').val(),
-              'size':'<%=data.size%>',
-              'mrp': '<%=rows[0].pMrp%>'
-            };
-            const order = {
-              'dAddr': $('#inputAddress').val(),
-              'fname':$('#fnameinput').val(),
-              'lname':$('#lnameinput').val(),
-              'zip':document.cookie.pincode,
-              'sellerId':'<%=rows[0].seller%>',
-              'dcharges': $('#inputdelivery').val(),
-              'total': $('#inputtotal').val(),
-              'phone': $('#mobinput').val(),
-              'deliveryMethod':'N'
-            };
+              order.dAddr = $('#inputAddress').val();
+                order.fname = $('#fnameinput').val();
+                order.lname = $('#lnameinput').val();
+                order.phone = $('#mobinput').val();
             sessionStorage.setItem('item',JSON.stringify(item));
             sessionStorage.setItem('order',JSON.stringify(order));
             options.callback_url = "/is-order-complete/"+sessionStorage.getItem('item')+'/'+sessionStorage.getItem('order');
