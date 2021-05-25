@@ -20,6 +20,102 @@
 
 <body id="page-top">
 
+	<!-- Modal for Accept -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Accept Order ?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Make sure you have this product in stock and will keep RESERVED for this order.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+					<form action="/acceptOrder" method="post">
+						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-success">Yes, Accept.</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal ends -->
+	<!-- Modal for Reject -->
+	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Reject Order ?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="/rejectOrder" method="post">
+					<p  style="color:#242e3d;">Order will be Rejected Permanently and payment will be refunded to the customer.</p>
+					<textarea name="reason" class="form-control" id="txt-area" rows="2" placeholder="Please provide a valid reason of rejection. This reason will be shared with the customer." cols="40"  required></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-danger">Yes, Reject.</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal ends -->
+	<!-- Modal for Delivered -->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Order Delivered?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="/deliveredOrder" method="post">
+					<p  style="color:#242e3d;">Enter OTP.</p>
+					<!-- <input name="otp" class="form-control" id="txt-area" placeholder="Please enter one time password" required></input> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-danger">Confirm.</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal ends -->
+	<!-- Modal for Pick up -->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Order Picked up?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="/pickedUpOrder" method="post">
+					<p  style="color:#242e3d;">Enter OTP.</p>
+					<!-- <input name="otp" class="form-control" id="txt-area" placeholder="Please enter one time password" required></input> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-danger">Confirm.</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal ends -->
+
+
+
+
+
+
+
+
+
 
 	<div id="wrapper">
 		<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgba(0,41,102,0.93);">
@@ -81,10 +177,10 @@
 				</div>
 				<div class="container">
 					<div class="row ">
-						<div class="col-7">
-							<div class="card">
+						<div class="col-md-7 col-xs-12 row1">
+							<div class="card SOD_table">
 								<div class="card-body">
-                  <table class="table table-borderless table-shopping-cart">
+                  <table class="table table-borderless table-shopping-cart " id="product_table">
                     <thead class="text-muted">
                         <tr class="small text-uppercase table-headings" style="text-align:center;font-size:0.9rem;">
                             <th scope="col" width:"200" style="text-align:left;">Product</th>
@@ -97,48 +193,72 @@
                     </thead>
                     <tbody>
                         <tr width="200" style="text-align:center;">
-                            <td>  <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media" class="img-fluid img-thumbnail"></td>
-                            <td>Samsung M20</td>
-                            <td>3</td>
-                            <td>₹ 15000</td>
-                            <td>₹ 45000</td>
+                            <td>  <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=rows[0].pPhotoId%>?alt=media" class="img-fluid img-thumbnail"></td>
+                            <td><%=rows[0].pBrand+" "+rows[0].pName%></td>
+                            <td><%=rows[0].product_qty%></td>
+                            <td>₹ <%=rows[0].price/rows[0].product_qty%></td>
+                            <td>₹ <%=rows[0].price%></td>
                         </tr>
                     </tbody>
                   </table>
-                  <p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE : 32</p>
-									<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+									<%if(rows[0].product_size.length>0){%>
+										<p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE : <%=rows[0].product_size%> </p>
+									<%}%>
 								</div>
 							</div>
 						</div>
-						<div class="col-5">
+						<div class="col-md-5 col-xs-12 row1">
               <div class="card">
 								<div class="card-body">
-									<h5 class="card-title">Order</h5>
-									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									<a href="#" class="btn btn-primary">Go somewhere</a>
+									<h5 class="card-title">Order<span style="float:right;font-size:0.8rem;"><%=rows[0].ordered_timestamp%></span></h5>
+									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER ID : &nbsp;</span><%=rows[0].order_id%></p>
+									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER STATUS : &nbsp;</span> <%=rows[0].order_status%></p>
+									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">DELIVERY CHARGES : &nbsp;</span>₹  <%=rows[0].delivery_charges%></p>
+									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">PAYMENT STATUS : &nbsp;</span>  <%=rows[0].paymentStatus%></p>
+									<p class="card-text" ><span style="color:#242e3d;font-size:1rem;font-weight:bold;">TOTAL AMOUNT : &nbsp;</span>₹  <%=rows[0].total_amount%></p>
 								</div>
 							</div>
 						</div>
-            <div class="col-7" style="margin-top:1%;">
+            <div class="col-md-7 col-xs-12 row2" style="margin-top:1%;">
               <div class="card">
               <div class="row">
-                  <div class="col-6">
+                  <div class="col-md-6 col-xs-6">
                     <div class="card-body">
                       <h5 class="card-title" style="margin-bottom:4%;">Order by</h5>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME : </span>Tejas Gandhi</p>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO. :</span> 7894561230</p>
+                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME : &nbsp;</span><%=rows[0].cName%></p>
+                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO. : &nbsp;</span><%=rows[0].cMobile%></p>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6 col-xs-6">
                     <div class="card-body">
+											<%if(rows[0].delivery_method=="Y"){%>
                       <h5 class="card-title" style="margin-bottom:4%;">Deliver to</h5>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME : </span>Tejas Gandhi</p>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO. :</span> 7894561230</p>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ADDRESS :</span> tejasgandhi129@gmail.com</p>
+                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME : &nbsp;</span><%=rows[0].del_fname+" "+rows[0].del_lname%></p>
+                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO. : &nbsp;</span><%=rows[0].delivery_phone%></p>
+                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ADDRESS : &nbsp;</span> <%=rows[0].delivery_address%></p>
+											<%}else{%>
+											<p style="margin-top:12%;color:#242e3d;">Customer is willing to pick up this order from your shop.</p>
+											<%}%>
                     </div>
                   </div>
   							</div>
               </div>
+						</div>
+						<div class="col-md-5 col-xs-12">
+							<div class="container">
+						<%if(rows[0].order_status == "Awaiting Approval"){%>
+								<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;" name="button">Accept Order &nbsp; &nbsp;<i class="fas fa-check-circle"></i></button>
+								<button type="button" class="btn btn-lg btn-outline-danger acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto;width:70%;margin-top:7%;" name="button">Reject Order &nbsp; &nbsp;<i class="fas fa-times-circle"></i></button>
+						<%}%>
+						<%if(rows[0].order_status == "Accepted, In-progress"){%>
+							<%if(rows[0].delivery_method=="Y"){%>
+								<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;" name="button">Deliver Order &nbsp; &nbsp;<i class="fas fa-check-circle"></i></button>
+						<%}else{%>
+							<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal4" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;" name="button">Order pick up &nbsp; &nbsp;<i class="fas fa-check-circle"></i></button>
+							<%}%>
+						<%}%>
+
+							</div>
 						</div>
 					</div>
 				</div>
@@ -158,5 +278,12 @@
 			</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
-		<script src="theme.js"></script>
+		<script src="../theme.js"></script>
+		<script>
+				$(document).ready(function(){
+  		  $("#exampleModal2").on('shown.bs.modal', function(){
+        $(this).find('#txt-area').focus();
+  	  });
+			});
+</script>
 		<%- include("partials/footer") -%>

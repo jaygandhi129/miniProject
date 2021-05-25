@@ -581,14 +581,14 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (re
 			var item = JSON.parse(req.params.item);
 			var order = JSON.parse(req.params.order);
 			query1 = "INSERT INTO orders (delivery_address,order_zip,seller_id,cust_id,delivery_charges,total_amount,delivery_phone,order_status,del_fname,del_lname,paymentMethod,paymentStatus) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-			connection.query(query1, [order.dAddr, parseInt(req.cookies.pincode), parseInt(order.sellerId), parseInt(req.user.cId), parseInt(order.dcharges), parseFloat(order.total), parseInt(order.phone), "Awating Approval", order.fname, order.lname,"online", "Successfull"], function (err, rows) {
+			connection.query(query1, [order.dAddr, parseInt(req.cookies.pincode), parseInt(order.sellerId), parseInt(req.user.cId), parseInt(order.dcharges), parseFloat(order.total), parseInt(order.phone), "Awaiting Approval", order.fname, order.lname,"online", "Successfull"], function (err, rows) {
 				if (err) {
 					console.log(err);
 				} else {
 					// console.log(rows.insertId);
 					var saved = parseInt(item.mrp) * (parseInt(item.quantity)) - parseInt(item.amount);
 					query2 = "INSERT INTO order_details (order_id,product_id,product_qty,price,savedAmt,product_size,delivery_method,prod_status) VALUES (?,?,?,?,?,?,?,?)";
-					connection.query(query2, [rows.insertId, parseInt(item.pId), parseInt(item.quantity), parseInt(item.amount), saved, item.size, order.deliveryMethod, "Awating"], function (err, rows2) {
+					connection.query(query2, [rows.insertId, parseInt(item.pId), parseInt(item.quantity), parseInt(item.amount), saved, item.size, order.deliveryMethod, "Awaiting Approval"], function (err, rows2) {
 						if (err) {
 							console.log(err);
 						} else {
@@ -1112,7 +1112,7 @@ app.get('/sellerOrders', checkAuthenticated, function (req, res) {
 	});
 });
 app.get('/sellerOrdersDetail/:order_id', checkAuthenticated, function (req, res) {
-	var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId where o.seller_id = ? and o.order_id = ?"
+	var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile,p.pName,p.pBrand,p.pPhotoId,p.pId from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId inner join products p on od.product_id = p.pId where o.seller_id = ? and o.order_id = ?"
 	connection.query(query, [req.user.sId,req.params.order_id], function (err, rows) {
 		if(err){
 			console.log(err);
@@ -1132,6 +1132,63 @@ app.get('/sellerOrdersDetail/:order_id', checkAuthenticated, function (req, res)
 		}
 	});
 });
+
+app.post('/acceptOrder', checkAuthenticated, function (req, res) {
+	var query = "update orders set order_status = 'Accepted, In-progress' where order_id = ?"
+	connection.query(query,parseInt(req.body.orderId),function(err){
+		if(err){
+			console.log(err);
+		}else{
+			var query2 = "update order_details set prod_status = 'Accepted, In-progress' where order_id = ?"
+			connection.query(query2,parseInt(req.body.orderId),function(err){
+				if(err){
+					console.log(err);
+				}else{
+					res.redirect("/sellerOrdersDetail/"+req.body.orderId);
+				}
+	});
+}
+});
+});
+app.post('/rejectOrder', checkAuthenticated, function (req, res) {
+	var query = "update orders set order_status = 'Rejected' , seller_comment = ? where order_id = ?"
+	connection.query(query,[req.body.reason,parseInt(req.body.orderId)],function(err){
+		if(err){
+			console.log(err);
+		}else{
+			var query2 = "update order_details set prod_status = 'Rejected' , seller_comment = ? where order_id = ?"
+			connection.query(query2,[req.body.reason,parseInt(req.body.orderId)],function(err){
+				if(err){
+					console.log(err);
+				}else{
+					res.redirect("/sellerOrdersDetail/"+req.body.orderId);
+				}
+	});
+}
+});
+});
+app.post('/deliveredOrder', checkAuthenticated, function (req, res) {
+	var query = "update orders set order_status = 'Delivered' , seller_comment = ? where order_id = ?"
+	connection.query(query,[req.body.reason,parseInt(req.body.orderId)],function(err){
+		if(err){
+			console.log(err);
+		}else{
+			var query2 = "update order_details set prod_status = 'Delivered' , seller_comment = ? where order_id = ?"
+			connection.query(query2,[req.body.reason,parseInt(req.body.orderId)],function(err){
+				if(err){
+					console.log(err);
+				}else{
+					res.redirect("/sellerOrdersDetail/"+req.body.orderId);
+				}
+	});
+}
+});
+});
+
+
+
+
+
 //myproducts.ejs ends
 
 /************************************Seller Ends*************************************************/

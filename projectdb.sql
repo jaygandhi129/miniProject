@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -152,7 +152,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (4000017,50031,3,39000,6000,'','Y','Awating');
+INSERT INTO `order_details` VALUES (4000023,50026,2,29000,998,'','N','Accepted, In-progress'),(4000024,50026,3,43500,1497,'','Y','Accepted, In-progress'),(4000025,50038,5,950,55,'22','N','Rejected');
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +183,7 @@ CREATE TABLE `order_payment_details` (
 
 LOCK TABLES `order_payment_details` WRITE;
 /*!40000 ALTER TABLE `order_payment_details` DISABLE KEYS */;
-INSERT INTO `order_payment_details` VALUES (4000017,'order_HEJzmMpC5WWeVk','pay_HEK07cfEwJzWad','upi','jaygandhi129@gmail.com','917709708626',3906000,'2021-05-23 17:47:52');
+INSERT INTO `order_payment_details` VALUES (4000023,'order_HF7et7PF7TlkDJ','pay_HF7f1t45LVeSfQ','upi','jaygandhi129@gmail.com','917709708626',2900000,'2021-05-25 18:22:34'),(4000024,'order_HF7fLKhg1m4tIt','pay_HF7fXedrFuuvjm','upi','jaygandhi129@gmail.com','917709708626',4357000,'2021-05-25 18:23:04'),(4000025,'order_HF7gXmaXJoVPhO','pay_HF7ge8kqGtXpHc','upi','jaygandhi129@gmail.com','917709708626',95000,'2021-05-25 18:24:06');
 /*!40000 ALTER TABLE `order_payment_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +217,7 @@ CREATE TABLE `orders` (
   KEY `cust_id` (`cust_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `seller_details` (`sId`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4000018 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4000026 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (4000017,'Testing Address',440015,1029,800001,60,39060,'2021-05-23 17:47:58',NULL,NULL,NULL,7709708626,'Awating','Tejas','Gandhi','','');
+INSERT INTO `orders` VALUES (4000023,'',440015,1029,800001,0,29000,'2021-05-25 18:22:39',NULL,NULL,NULL,7709708626,'Accepted, In-progress','','','online','Successfull'),(4000024,'PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR',440015,1029,800001,70,43570,'2021-05-25 18:23:08',NULL,NULL,NULL,7756901721,'Accepted, In-progress','SAURABH','DHOBLE','online','Successfull'),(4000025,NULL,440015,1029,800001,0,950,'2021-05-25 18:24:10',NULL,'Insufficient Stock',NULL,7709708626,'Rejected',NULL,NULL,'online','Successfull');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,4 +362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-23 23:40:09
+-- Dump completed on 2021-05-26  0:25:23
