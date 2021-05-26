@@ -1167,18 +1167,19 @@ app.post('/rejectOrder', checkAuthenticated, function (req, res) {
 }
 });
 });
-app.post('/deliveredOrder', checkAuthenticated, function (req, res) {
-	var query = "update orders set order_status = 'Delivered' , seller_comment = ? where order_id = ?"
-	connection.query(query,[req.body.reason,parseInt(req.body.orderId)],function(err){
+app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
+	var query = "update orders set order_status = 'Order Completed',delivered_timestamp = current_timestamp where order_id = ?";
+	connection.query(query, [parseInt(req.params.orderId)], function (err) {
 		if(err){
 			console.log(err);
 		}else{
-			var query2 = "update order_details set prod_status = 'Delivered' , seller_comment = ? where order_id = ?"
-			connection.query(query2,[req.body.reason,parseInt(req.body.orderId)],function(err){
+			var query2 = "update order_details set prod_status = 'Order Completed' where order_id = ?";
+			connection.query(query2,[parseInt(req.params.orderId)],function(err){
 				if(err){
 					console.log(err);
 				}else{
-					res.redirect("/sellerOrdersDetail/"+req.body.orderId);
+					console.log("Itha aala");
+					res.send(200);
 				}
 	});
 }

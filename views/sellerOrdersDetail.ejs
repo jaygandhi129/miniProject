@@ -8,12 +8,17 @@
 	<title>Order Details</title>
 	<link rel="stylesheet" href="../css/myproducts.css">
 	<link rel="stylesheet" href="../css/sellerDashboard.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/datatables.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/datatables.min.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 </head>
@@ -34,7 +39,8 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
 					<form action="/acceptOrder" method="post">
-						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-success">Yes, Accept.</button>
+						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>"
+							class="btn btn-success">Yes, Accept.</button>
 					</form>
 				</div>
 			</div>
@@ -51,12 +57,16 @@
 				</div>
 				<div class="modal-body">
 					<form action="/rejectOrder" method="post">
-					<p  style="color:#242e3d;">Order will be Rejected Permanently and payment will be refunded to the customer.</p>
-					<textarea name="reason" class="form-control" id="txt-area" rows="2" placeholder="Please provide a valid reason of rejection. This reason will be shared with the customer." cols="40"  required></textarea>
+						<p style="color:#242e3d;">Order will be Rejected Permanently and payment will be refunded to the
+							customer.</p>
+						<textarea name="reason" class="form-control" id="txt-area" rows="2"
+							placeholder="Please provide a valid reason of rejection. This reason will be shared with the customer."
+							cols="40" required></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-danger">Yes, Reject.</button>
+					<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>"
+						class="btn btn-danger">Yes, Reject.</button>
 					</form>
 				</div>
 			</div>
@@ -72,13 +82,16 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="/deliveredOrder" method="post">
-					<p  style="color:#242e3d;">Enter OTP.</p>
-					<!-- <input name="otp" class="form-control" id="txt-area" placeholder="Please enter one time password" required></input> -->
+					<form>
+						<p style="color:#242e3d;">OTP has been sent to Customer (<%=rows[0].delivery_phone%>)</p>
+						<p id='wrong-otp-text' style='display:none'>Wrong OTP, Try again.</p>
+						<input name="otp" class="form-control" id="otp-area"
+							placeholder="Enter OTP reveived by customer." required></input>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-danger">Confirm.</button>
+					<button type="button" id="confirmOTP" name="orderId" value="<%=rows[0].order_id%>"
+						class="btn btn-success">Confirm.</button>
 					</form>
 				</div>
 			</div>
@@ -86,26 +99,32 @@
 	</div>
 	<!-- modal ends -->
 	<!-- Modal for Pick up -->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Order Picked up?</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Order Picked Up?</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="/pickedUpOrder" method="post">
-					<p  style="color:#242e3d;">Enter OTP.</p>
-					<!-- <input name="otp" class="form-control" id="txt-area" placeholder="Please enter one time password" required></input> -->
+					<form>
+						<p style="color:#242e3d;">OTP has been sent to Customer (<%=rows[0].delivery_phone%>)</p>
+						<p id='wrong-otp-text' style='display:none'>Wrong OTP, Try again.</p>
+						<input name="otp" class="form-control" id="otp-area2" placeholder="Enter OTP reveived by customer."
+							required></input>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>" class="btn btn-danger">Confirm.</button>
+					<button type="button" id="confirmOTPpickup" name="orderId" value="<%=rows[0].order_id%>"
+						class="btn btn-success">Confirm.</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+
+	
 	<!-- modal ends -->
 
 
@@ -118,51 +137,75 @@
 
 
 	<div id="wrapper">
-		<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgba(0,41,102,0.93);">
-			<div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+		<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+			style="background: rgba(0,41,102,0.93);">
+			<div class="container-fluid d-flex flex-column p-0"><a
+					class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
 					<div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-shopping-cart"></i></div>
 					<div class="sidebar-brand-text mx-3"><span>Cornerkart</span></div>
 				</a>
 				<hr class="sidebar-divider my-0">
 				<ul class="navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item"><a class="nav-link" href="/dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="/sellerprofile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="/myproducts"><i class="fas fa-boxes"></i><span>My Products</span></a></li>
-					<li class="nav-item"><a class="nav-link active" href="/sellerOrders"><i class="fa fa-list-alt"></i><span>Orders</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/dashboard"><i
+								class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/sellerprofile"><i
+								class="fas fa-user"></i><span>Profile</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/myproducts"><i class="fas fa-boxes"></i><span>My
+								Products</span></a></li>
+					<li class="nav-item"><a class="nav-link active" href="/sellerOrders"><i
+								class="fa fa-list-alt"></i><span>Orders</span></a></li>
 					<li class="nav-item">
-						<form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit" style="color:rgba(255, 255, 255, .8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
+						<form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit"
+								style="color:rgba(255, 255, 255, .8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
 									class="fa fa-power-off"></i><span>Logout</span></button></form>
 					</li>
 				</ul>
-				<div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+				<div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+						id="sidebarToggle" type="button"></button></div>
 			</div>
 		</nav>
 		<div class="d-flex flex-column" id="content-wrapper">
 			<div id="content">
 				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-					<div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+					<div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3"
+							id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
 						<form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-							<div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button" style="background: rgba(0,41,102,0.93);"><i
-										class="fas fa-search"></i></button></div>
+							<div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+									placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"
+									style="background: rgba(0,41,102,0.93);"><i class="fas fa-search"></i></button>
+							</div>
 						</form>
 						<ul class="navbar-nav flex-nowrap ms-auto">
-							<li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
-								<div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+							<li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
+									aria-expanded="false" data-bs-toggle="dropdown" href="#"><i
+										class="fas fa-search"></i></a>
+								<div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
+									aria-labelledby="searchDropdown">
 									<form class="me-auto navbar-search w-100">
-										<div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-											<div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+										<div class="input-group"><input class="bg-light form-control border-0 small"
+												type="text" placeholder="Search for ...">
+											<div class="input-group-append"><button class="btn btn-primary py-0"
+													type="button"><i class="fas fa-search"></i></button></div>
 										</div>
 									</form>
 								</div>
 							</li>
 							<div class="d-none d-sm-block topbar-divider"></div>
 							<li class="nav-item dropdown no-arrow">
-								<div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"><%=name%></span>
-										<img class="border rounded-circle img-profile" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=source%>?alt=media"></a>
-									<div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="/sellerprofile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
+								<div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+										aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
+											class="d-none d-lg-inline me-2 text-gray-600 small"><%=name%></span>
+										<img class="border rounded-circle img-profile"
+											src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=source%>?alt=media"></a>
+									<div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
+											class="dropdown-item" href="/sellerprofile"><i
+												class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
 										<div class="dropdown-divider"></div>
-										<form action="/logout?_method=DELETE" method="post"><button class="dropdown-item" style="color:rgba(19, 19, 19, 0.8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
-													class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button></form>
+										<form action="/logout?_method=DELETE" method="post"><button
+												class="dropdown-item"
+												style="color:rgba(19, 19, 19, 0.8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
+													class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button>
+										</form>
 									</div>
 								</div>
 							</li>
@@ -180,29 +223,33 @@
 						<div class="col-md-7 col-xs-12 row1">
 							<div class="card SOD_table">
 								<div class="card-body">
-                  <table class="table table-borderless table-shopping-cart " id="product_table">
-                    <thead class="text-muted">
-                        <tr class="small text-uppercase table-headings" style="text-align:center;font-size:0.9rem;">
-                            <th scope="col" width:"200" style="text-align:left;">Product</th>
-                            <th scope="col" width="400">Name</th>
-                            <th scope="col" width="100">Quantity</th>
-                            <th scope="col" width="200">Rate</th>
-                            <th scope="col" width="200">Amount</th>
+									<table class="table table-borderless table-shopping-cart " id="product_table">
+										<thead class="text-muted">
+											<tr class="small text-uppercase table-headings"
+												style="text-align:center;font-size:0.9rem;">
+												<th scope="col" width:"200" style="text-align:left;">Product</th>
+												<th scope="col" width="400">Name</th>
+												<th scope="col" width="100">Quantity</th>
+												<th scope="col" width="200">Rate</th>
+												<th scope="col" width="200">Amount</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr width="200" style="text-align:center;">
-                            <td>  <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=rows[0].pPhotoId%>?alt=media" class="img-fluid img-thumbnail"></td>
-                            <td><%=rows[0].pBrand+" "+rows[0].pName%></td>
-                            <td><%=rows[0].product_qty%></td>
-                            <td>₹ <%=rows[0].price/rows[0].product_qty%></td>
-                            <td>₹ <%=rows[0].price%></td>
-                        </tr>
-                    </tbody>
-                  </table>
+											</tr>
+										</thead>
+										<tbody>
+											<tr width="200" style="text-align:center;">
+												<td> <img
+														src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=rows[0].pPhotoId%>?alt=media"
+														class="img-fluid img-thumbnail"></td>
+												<td><%=rows[0].pBrand+" "+rows[0].pName%></td>
+												<td><%=rows[0].product_qty%></td>
+												<td>₹ <%=rows[0].price/rows[0].product_qty%></td>
+												<td>₹ <%=rows[0].price%></td>
+											</tr>
+										</tbody>
+									</table>
 									<%if(rows[0].product_size.length>0){%>
-										<p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE : <%=rows[0].product_size%> </p>
+									<p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE :
+										<%=rows[0].product_size%> </p>
 									<%}%>
 								</div>
 							</div>
@@ -210,34 +257,56 @@
 						<div class="col-md-5 col-xs-12 row1">
               <div class="card">
 								<div class="card-body">
-									<h5 class="card-title">Order<span style="float:right;font-size:0.8rem;"><%=rows[0].ordered_timestamp%></span></h5>
-									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER ID : &nbsp;</span><%=rows[0].order_id%></p>
-									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER STATUS : &nbsp;</span> <%=rows[0].order_status%></p>
-									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">DELIVERY CHARGES : &nbsp;</span>₹  <%=rows[0].delivery_charges%></p>
-									<p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">PAYMENT STATUS : &nbsp;</span>  <%=rows[0].paymentStatus%></p>
-									<p class="card-text" ><span style="color:#242e3d;font-size:1rem;font-weight:bold;">TOTAL AMOUNT : &nbsp;</span>₹  <%=rows[0].total_amount%></p>
+									<h5 class="card-title">Order<span style="float:right;font-size:0.8rem;"><%=rows[0].ordered_timestamp%></span>
+									</h5>
+									<p class="card-text"><span
+											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER ID :
+											&nbsp;</span><%=rows[0].order_id%></p>
+									<p class="card-text"><span
+											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER STATUS :
+											&nbsp;</span> <%=rows[0].order_status%></p>
+									<p class="card-text"><span
+											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">DELIVERY CHARGES :
+											&nbsp;</span>₹ <%=rows[0].delivery_charges%></p>
+									<p class="card-text"><span
+											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">PAYMENT STATUS :
+											&nbsp;</span> <%=rows[0].paymentStatus%></p>
+									<p class="card-text"><span
+											style="color:#242e3d;font-size:1rem;font-weight:bold;">TOTAL AMOUNT :
+											&nbsp;</span>₹ <%=rows[0].total_amount%></p>
 								</div>
 							</div>
 						</div>
-            <div class="col-md-7 col-xs-12 row2" style="margin-top:1%;">
-              <div class="card">
-              <div class="row">
-                  <div class="col-md-6 col-xs-6">
-                    <div class="card-body">
-                      <h5 class="card-title" style="margin-bottom:4%;">Order by</h5>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME : &nbsp;</span><%=rows[0].cName%></p>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO. : &nbsp;</span><%=rows[0].cMobile%></p>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-xs-6">
-                    <div class="card-body">
+						<div class="col-md-7 col-xs-12 row2" style="margin-top:1%;">
+							<div class="card">
+								<div class="row">
+									<div class="col-md-6 col-xs-6">
+										<div class="card-body">
+											<h5 class="card-title" style="margin-bottom:4%;">Order by</h5>
+											<p class="card-text"><span
+													style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME :
+													&nbsp;</span><%=rows[0].cName%></p>
+											<p class="card-text"><span
+													style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO.
+													: &nbsp;</span><%=rows[0].cMobile%></p>
+										</div>
+									</div>
+									<div class="col-md-6 col-xs-6">
+										<div class="card-body">
 											<%if(rows[0].delivery_method=="Y"){%>
-                      <h5 class="card-title" style="margin-bottom:4%;">Deliver to</h5>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME : &nbsp;</span><%=rows[0].del_fname+" "+rows[0].del_lname%></p>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO. : &nbsp;</span><%=rows[0].delivery_phone%></p>
-                      <p class="card-text" ><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ADDRESS : &nbsp;</span> <%=rows[0].delivery_address%></p>
+											<h5 class="card-title" style="margin-bottom:4%;">Deliver to</h5>
+											<p class="card-text"><span
+													style="color:#242e3d;font-size:0.8rem;font-weight:bold;">NAME :
+													&nbsp;</span><%=rows[0].del_fname+" "+rows[0].del_lname%></p>
+											<p class="card-text"><span
+													style="color:#242e3d;font-size:0.8rem;font-weight:bold;">MOBILE NO.
+													: &nbsp;</span><%=rows[0].delivery_phone%></p>
+											<p class="card-text"><span
+													style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ADDRESS :
+													&nbsp;</span> <%=rows[0].delivery_address%></p>
 											<%}else{%>
-											<p style="margin-top:12%;color:#242e3d;">Customer is willing to pick up this order from your shop.</p>
+											<p style="margin-top:12%;color:#242e3d;">Customer is willing to pick up this
+												order from your shop.</p>
 											<%}%>
                     </div>
                   </div>
@@ -247,43 +316,163 @@
 						<div class="col-md-5 col-xs-12">
 							<div class="container">
 						<%if(rows[0].order_status == "Awaiting Approval"){%>
-								<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;" name="button">Accept Order &nbsp; &nbsp;<i class="fas fa-check-circle"></i></button>
-								<button type="button" class="btn btn-lg btn-outline-danger acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto;width:70%;margin-top:7%;" name="button">Reject Order &nbsp; &nbsp;<i class="fas fa-times-circle"></i></button>
-						<%}%>
+											<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn"
+												data-bs-toggle="modal" data-bs-target="#exampleModal"
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;"
+												name="button">Accept Order &nbsp; &nbsp;<i
+													class="fas fa-check-circle"></i></button>
+											<button type="button" class="btn btn-lg btn-outline-danger acc_rej_btn"
+												data-bs-toggle="modal" data-bs-target="#exampleModal2"
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto;width:70%;margin-top:7%;"
+												name="button">Reject Order &nbsp; &nbsp;<i
+													class="fas fa-times-circle"></i></button>
+											<%}%>
 						<%if(rows[0].order_status == "Accepted, In-progress"){%>
-							<%if(rows[0].delivery_method=="Y"){%>
-								<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;" name="button">Deliver Order &nbsp; &nbsp;<i class="fas fa-check-circle"></i></button>
-						<%}else{%>
-							<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn" data-bs-toggle="modal" data-bs-target="#exampleModal4" style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;" name="button">Order pick up &nbsp; &nbsp;<i class="fas fa-check-circle"></i></button>
-							<%}%>
+											<%if(rows[0].delivery_method=="Y"){%>
+											<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn"
+												data-bs-toggle="modal" data-bs-target="#exampleModal3"
+												id="deliverOrderBtn"
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;"
+												name="button">Deliver Order &nbsp; &nbsp;<i
+													class="fas fa-check-circle"></i></button>
+											<%}else{%>
+											<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn"
+												data-bs-toggle="modal" data-bs-target="#exampleModal4"
+												id = 'pickupBtn'
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;"
+												name="button">Order Picked Up &nbsp; &nbsp;<i
+													class="fas fa-check-circle"></i></button>
+											<%}%>
 						<%}%>
 
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-				<script>
-					$(".delete-btn").on("click", function() {
-						var inventId = $(this).data("id");
-						$("#confirm-delete").val(inventId);
-					})
-				</script>
 
-				<footer class="bg-white sticky-footer">
-					<div class="container my-auto">
-						<div class="text-center my-auto copyright"><span>Copyright © CornerKart 2021</span></div>
-					</div>
-				</footer>
+							<footer class="bg-white sticky-footer">
+								<div class="container my-auto">
+									<div class="text-center my-auto copyright"><span>Copyright © CornerKart 2021</span>
+									</div>
+								</div>
+							</footer>
 
-			</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
-		<script src="../theme.js"></script>
-		<script>
-				$(document).ready(function(){
-  		  $("#exampleModal2").on('shown.bs.modal', function(){
-        $(this).find('#txt-area').focus();
-  	  });
-			});
-</script>
-		<%- include("partials/footer") -%>
+						</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i
+								class="fas fa-angle-up"></i></a>
+					</div>
+					<script
+						src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js">
+					</script>
+					<script src="../theme.js"></script>
+
+
+					<script>
+						$(document).ready(function () {
+							$("#exampleModal2").on('shown.bs.modal', function () {
+								$(this).find('#txt-area').focus();
+							});
+
+						});
+					</script>
+
+
+					<script>
+						var firebaseConfig = {
+							apiKey: "AIzaSyDLQsm7HiBoPdl8aGhcDBAWkdIJv1vGwn4",
+							authDomain: "cornerkart-cd3d7.firebaseapp.com",
+							projectId: "cornerkart-cd3d7",
+							storageBucket: "cornerkart-cd3d7.appspot.com",
+							messagingSenderId: "366678809746",
+							appId: "1:366678809746:web:7aa30b8f227d5345451a4b",
+							measurementId: "G-CCPZV569VL"
+						};
+						firebase.initializeApp(firebaseConfig);
+						firebase.auth().languageCode = 'it';
+						firebase.auth().useDeviceLanguage();
+						$('#deliverOrderBtn').on('click', function (event) {
+
+
+							window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('deliverOrderBtn', {
+								'size': 'invisible',
+								'callback': (response) => {
+									// reCAPTCHA solved, allow signInWithPhoneNumber.
+									onSignInSubmit();
+								}
+							});
+							const phoneNumber = '+914545545445';
+							const appVerifier = window.recaptchaVerifier;
+							firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+								.then((confirmationResult) => {
+									// SMS sent. Prompt user to type the code from the message, then sign the
+									// user in with confirmationResult.confirm(code).
+									console.log("Send OTP Success");
+									window.confirmationResult = confirmationResult;
+									$('#confirmOTP').on('click', function (event) {
+
+										const code = $('#otp-area').val();
+										confirmationResult.confirm(code).then((result) => {
+											// User signed in successfully.
+											console.log("Code Matched");
+											  $.get("/deliveredOrder/<%=rows[0].order_id%>", function(data,status){
+												console.log(status);
+												window.location = '/sellerOrdersDetail/<%=rows[0].order_id%>'
+											  });
+											// ...
+										}).catch((error) => {
+											// User couldn't sign in (bad verification code?)
+											// ...
+											$('#wrong-otp-text').attr('style', 'display:block;color:red;');
+
+										});
+									})
+									// ...
+								}).catch((error) => {
+									console.log(error);
+								});
+
+						});
+
+						$('#pickupBtn').on('click', function (event) {
+
+
+						window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('pickupBtn', {
+						'size': 'invisible',
+						'callback': (response) => {
+						// reCAPTCHA solved, allow signInWithPhoneNumber.
+						onSignInSubmit();
+						}
+						});
+						const phoneNumber = '+914545545445';
+						const appVerifier = window.recaptchaVerifier;
+						firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+						.then((confirmationResult) => {
+						// SMS sent. Prompt user to type the code from the message, then sign the
+						// user in with confirmationResult.confirm(code).
+						console.log("Send OTP Success");
+						window.confirmationResult = confirmationResult;
+						$('#confirmOTPpickup').on('click', function (event) {
+
+						const code = $('#otp-area2').val();
+						confirmationResult.confirm(code).then((result) => {
+						// User signed in successfully.
+						console.log("Code Matched");
+						$.get("/deliveredOrder/<%=rows[0].order_id%>", function(data,status){
+						console.log(status);
+						window.location = '/sellerOrdersDetail/<%=rows[0].order_id%>'
+						});
+						// ...
+						}).catch((error) => {
+						// User couldn't sign in (bad verification code?)
+						// ...
+						$('#wrong-otp-text').attr('style', 'display:block;color:red;');
+
+						});
+						})
+						// ...
+						}).catch((error) => {
+						console.log(error);
+						});
+
+						});
+					</script>
+					<%- include("partials/footer") -%>
