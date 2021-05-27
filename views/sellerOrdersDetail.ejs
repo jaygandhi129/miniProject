@@ -130,9 +130,9 @@
 			</div>
 		</div>
 	</div>
-	
 
-	
+
+
 	<!-- modal ends -->
 
 
@@ -272,13 +272,19 @@
 											&nbsp;</span><%=rows[0].order_id%></p>
 									<p class="card-text"><span
 											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">ORDER STATUS :
-											&nbsp;</span> <%=rows[0].order_status%></p>
+											&nbsp;</span> <span style="font-size:01rem;font-weight:bold;"><%=rows[0].order_status%></span></p>
 									<p class="card-text"><span
 											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">DELIVERY CHARGES :
 											&nbsp;</span>₹ <%=rows[0].delivery_charges%></p>
-									<p class="card-text"><span
-											style="color:#242e3d;font-size:0.8rem;font-weight:bold;">PAYMENT STATUS :
-											&nbsp;</span> <%=rows[0].paymentStatus%></p>
+									<p class="card-text"><span style="color:#242e3d;font-size:0.8rem;font-weight:bold;">PAYMENT STATUS : &nbsp;
+										<%if(rows[0].paymentStatus == "Refunded"){%>
+										</span> <%=rows[0].paymentStatus%> at <%=rows[0].refundTimeStamp%></p>
+
+										<%}else{%>
+
+										</span> <%=rows[0].paymentStatus%></p>
+										<%}%>
+
 									<p class="card-text"><span
 											style="color:#242e3d;font-size:1rem;font-weight:bold;">TOTAL AMOUNT :
 											&nbsp;</span>₹ <%=rows[0].total_amount%></p>
@@ -424,7 +430,7 @@
 										confirmationResult.confirm(code).then((result) => {
 											// User signed in successfully.
 											console.log("Code Matched");
-											
+
 											  $.get("/deliveredOrder/<%=rows[0].order_id%>", function(data,status){
 												console.log(status);
 												window.location = '/sellerOrdersDetail/<%=rows[0].order_id%>'

@@ -43,8 +43,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-//Mongoose Connection
-
 
 
 //Establishing Connection to database
@@ -643,7 +641,7 @@ app.post("/business/register/home", checkNotAuthenticated, function(req, res) {
 app.post("/business/register/nextstep", upload.fields([{
 	name: 'bShop_photo',
 	maxCount: 1
-	}]), checkNotAuthenticated, async (req, res) => {
+}]), checkNotAuthenticated, async (req, res) => {
 	var data = req.body;
 	var sPassword = md5(data.sPassword);
 	var query = "INSERT INTO seller_details (sName, sPhoneNo, sDOB, sGender, sAddress, sCity, sState, sZip, sAadhar, sPAN, sPassword) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1033,7 +1031,7 @@ app.get('/sellerOrders', checkAuthenticated, function(req, res) {
 	});
 });
 app.get('/sellerOrdersDetail/:order_id', checkAuthenticated, function(req, res) {
-	var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile,p.pName,p.pBrand,p.pPhotoId,p.pId from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId inner join products p on od.product_id = p.pId where o.seller_id = ? and o.order_id = ?"
+	var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile,p.pName,p.pBrand,p.pPhotoId,p.pId,pay.refundTimeStamp from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId inner join products p on od.product_id = p.pId inner join order_payment_details pay on o.order_id = pay.orderId where o.seller_id = ? and o.order_id = ?"
 	connection.query(query, [req.user.sId, req.params.order_id], function(err, rows) {
 		if (err) {
 			console.log(err);
@@ -1071,6 +1069,7 @@ app.post('/acceptOrder', checkAuthenticated, function(req, res) {
 		}
 	});
 });
+var request = require('request');
 app.post('/rejectOrder', checkAuthenticated, function(req, res) {
 	var query = "update orders set order_status = 'Rejected' , seller_comment = ? where order_id = ?"
 	connection.query(query, [req.body.reason, parseInt(req.body.orderId)], function(err) {
@@ -1082,7 +1081,38 @@ app.post('/rejectOrder', checkAuthenticated, function(req, res) {
 				if (err) {
 					console.log(err);
 				} else {
-					res.redirect("/sellerOrdersDetail/" + req.body.orderId);
+						var query3 = "SELECT razorpayPaymentId, amount from order_payment_details where orderId = ?"
+						connection.query(query3, [parseInt(req.body.orderId)], function(err,rows3) {
+							if(err){
+								console.log(err);
+							}else{
+									razorpay.payments.refund(rows3[0].razorpayPaymentId, {'amount':rows3[0].amount}).then((result)=>{
+									console.log("Refund : "+result.id+" TIME : "+result.created_at);
+									razorpay.refunds.fetch(result.id, {'payment_id':result.payment_id}).then((refundResult)=>{
+										if(refundResult.status=="processed"){
+											var query4 = "update order_payment_details set refundId = ?, refundTimeStamp = FROM_UNIXTIME(?) where orderId = ?"
+											connection.query(query4, [refundResult.id,refundResult.created_at,parseInt(req.body.orderId)], function(err) {
+												if(err){
+													console.log(err);
+												}else{
+													var query5 = "update orders set paymentStatus = 'Refunded' where order_id = ?"
+													connection.query(query5, [parseInt(req.body.orderId)], function(err) {
+														if(err){
+															console.log(err);
+														}else{
+															console.log("Refund Successfull");
+															res.redirect("/sellerOrdersDetail/" + req.body.orderId);
+														}
+													});
+												}
+											});
+										}
+									});
+								}).catch((err)=>{
+									console.log("Refund not successfull: "+err);
+								});
+							}
+						});
 				}
 			});
 		}
