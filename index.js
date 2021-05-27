@@ -53,6 +53,7 @@ var connection = mysql.createConnection({
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
 	database: process.env.DB_SCHEMA,
+	port: 3306,
 	dateStrings: 'date'
 });
 
