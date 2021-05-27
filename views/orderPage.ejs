@@ -437,6 +437,13 @@
           });
         });
         $("#N").on("click", function (event) {
+          $('#fnameinput').val("");
+          $('#lnameinput').val("");
+          $('#inputAddress').val("");
+          $('#mobinput').val(<%=user.cMobile%>);
+          $('#lnameinput').addClass("is-invalid");
+          $('#fnameinput').addClass("is-invalid");
+          $('#inputAddress').addClass("is-invalid");
           $('#place_order_btn').attr('disabled',false);
           $('.note').attr('style','display:none;color:red;');
           deliveryCharge = 0
