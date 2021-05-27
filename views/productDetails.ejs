@@ -433,6 +433,7 @@ $(document).ready(function () {
 					$("#selldiv").append(str1);
 				}
             size = data[0].iSize.split(',');
+            $('#si').empty();
             $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
             $('#siz').val(size[0])
 				for (var i = 1; i < size.length; i++) {
@@ -475,9 +476,9 @@ $(document).on("click", '.sellerButton', function (event) {
 			$("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
 			$("#" + data[0].iId).text("₹ " + data[0].sellerPrice);
 			size = data[0].iSize.split(',');
-
-            $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
-            $('#siz').val(size[0]);
+      $('#si').empty();
+      $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
+      $('#siz').val(size[0]);
 				for (var i = 1; i < size.length; i++) {
 					$('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
 				}
