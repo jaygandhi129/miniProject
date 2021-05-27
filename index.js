@@ -197,7 +197,7 @@ app.get("/", custCheckNotAuthenticated, function (req, res) {
 app.post("/", function (req, res) {
 	var pincode = req.body.pincode;
 	let options = {
-		maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+		maxAge: -1, // would expire after 30 minutes
 		httpOnly: true, // The cookie only accessible by the web server
 		signed: false // Indicates if the cookie should be signed
 	}
@@ -258,7 +258,7 @@ app.post("/productList/:catId", function (req, res) {
 	var catId = req.params.catId;
 	var pincode = req.body.pincode;
 	let options = {
-		maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+		maxAge: -1, // would expire after 30 minutes
 		httpOnly: true, // The cookie only accessible by the web server
 		signed: false // Indicates if the cookie should be signed
 	}
@@ -503,7 +503,7 @@ app.post("/productDetails/:pId", function (req, res) {
 	var pId = req.params.pId;
 	var pincode = req.body.pincode;
 	let options = {
-		maxAge: 1000 * 60 * 30, // would expire after 30 minutes
+		maxAge: -1, // would expire after 30 minutes
 		httpOnly: true, // The cookie only accessible by the web server
 		signed: false // Indicates if the cookie should be signed
 	}
@@ -1179,7 +1179,7 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
 					console.log(err);
 				}else{
 					console.log("Itha aala");
-					res.send(200);
+					res.sendStatus(200);
 				}
 	});
 }

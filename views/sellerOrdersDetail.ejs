@@ -16,7 +16,15 @@
 	<link rel="stylesheet" type="text/css"
 		href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/datatables.min.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
+	<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+
+	<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+
+	<!-- Add Firebase products that you want to use -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -378,17 +386,19 @@
 
 					<script>
 						var firebaseConfig = {
-							apiKey: "AIzaSyDLQsm7HiBoPdl8aGhcDBAWkdIJv1vGwn4",
-							authDomain: "cornerkart-cd3d7.firebaseapp.com",
-							projectId: "cornerkart-cd3d7",
-							storageBucket: "cornerkart-cd3d7.appspot.com",
-							messagingSenderId: "366678809746",
-							appId: "1:366678809746:web:7aa30b8f227d5345451a4b",
-							measurementId: "G-CCPZV569VL"
+							apiKey: "<%=process.env.FIREBASE_API_KEY%>",
+							authDomain: "<%=process.env.FIREBASE_AUTH_DOMAIN%>",
+							projectId: "<%=process.env.FIREBASE_PROJECT_ID%>",
+							storageBucket: "<%=process.env.FIREBASE_BUCKET%>",
+							messagingSenderId: "<%=process.env.FIREBASE_MESSAGE_ID%>",
+							appId: "<%=process.env.FIREBASE_APP_ID%>",
+							measurementId: "<%=process.env.FIREBASE_MEASUREMENT_ID%>"
 						};
 						firebase.initializeApp(firebaseConfig);
 						firebase.auth().languageCode = 'it';
 						firebase.auth().useDeviceLanguage();
+
+						/*Delivered OTP AUTH*/
 						$('#deliverOrderBtn').on('click', function (event) {
 
 
@@ -401,6 +411,7 @@
 							});
 							const phoneNumber = '+914545545445';
 							const appVerifier = window.recaptchaVerifier;
+
 							firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
 								.then((confirmationResult) => {
 									// SMS sent. Prompt user to type the code from the message, then sign the
@@ -413,6 +424,7 @@
 										confirmationResult.confirm(code).then((result) => {
 											// User signed in successfully.
 											console.log("Code Matched");
+											
 											  $.get("/deliveredOrder/<%=rows[0].order_id%>", function(data,status){
 												console.log(status);
 												window.location = '/sellerOrdersDetail/<%=rows[0].order_id%>'
@@ -428,9 +440,12 @@
 									// ...
 								}).catch((error) => {
 									console.log(error);
+									alert(error.code);
 								});
 
 						});
+
+						/*Picked Up OTP AUth*/
 
 						$('#pickupBtn').on('click', function (event) {
 
@@ -471,6 +486,7 @@
 						// ...
 						}).catch((error) => {
 						console.log(error);
+						alert(error.code);
 						});
 
 						});
