@@ -109,13 +109,25 @@
 								<tbody>
 									<%var i=1%>
 									<% rows.forEach(function(row){ %>
-									<tr data-link="/sellerOrdersDetail/<%=row.order_id%>" data-target="_BLANK">
+									<tr data-link="/sellerOrdersDetail/<%=row.order_id%>" data-target="">
 										<td><%=i%></td>
 										<td><u><%=  row.order_id %></u></td>
 										<td><%= row.total_amount%></td>
 										<td><%=  row.delivery_method %></td>
 										<td><%=  row.ordered_timestamp %></td>
-										<td style="color:red;"><%= row.order_status %>&nbsp;&nbsp;⏳</td>
+
+										<%if(row.order_status == "Awaiting Approval"){%>
+										<td style="color:#3f5468;font-weight:bold;"><%= row.order_status %>&nbsp;&nbsp;</td>
+									  <%}else if(row.order_status == "Accepted, In-progress"){%>
+										<td style="color:#e6a400;font-weight:bold;"><%= row.order_status %>&nbsp;&nbsp;</td>
+										<%}else if(row.order_status == "Cancelled"){%>
+										<td style="color:#e40017;"><%= row.order_status %>&nbsp;&nbsp;</td>
+										<%}else if(row.order_status == "Rejected"){%>
+										<td style="color:#fa1e0e;"><%= row.order_status %>&nbsp;&nbsp;</td>
+										<%}else if(row.order_status == "Order Completed"){%>
+										<td style="color:#01d28e;font-weight:bold;"><%= row.order_status %>&nbsp;&nbsp;</td>
+										<%}%>
+
 										<td><button class="btn btn-primary btn-sm">View Details</button></td>
 									</tr>
 									<% i=i+1 }); %>

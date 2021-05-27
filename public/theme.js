@@ -83,6 +83,7 @@ $(document).ready(function() {
   function enable1() {
     $(".sdis").removeAttr("readonly");
     $(".ssave").removeAttr("disabled");
+    $(".ssave").attr("style","display:block");
   }
 
   $(".sellereditbutt").on("click", enable1);
@@ -90,6 +91,7 @@ $(document).ready(function() {
   function enable2() {
     $(".bdis").removeAttr("readonly");
     $(".bsave").removeAttr("disabled");
+    $(".bsave").attr("style","display:block");
   }
   $(".businesseditbutt").on("click", enable2);
 
