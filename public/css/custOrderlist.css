@@ -1,0 +1,30 @@
+.order-card{
+  max-width: 94%;
+  max-height:50%;
+  box-shadow:grey 0.5px 1px 4px;
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
+@media (max-width:700px){
+  .img-small{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  p{
+    font-size: 0.7rem;
+  }
+  h5{
+    font-size: 0.9rem; }
+  .hide{
+      display: none;
+    }
+    .show{
+      display: block !important;
+      margin-top: 0 !important;
+    }
+  .mob{
+      margin-top: 3% !important;
+    }
+}

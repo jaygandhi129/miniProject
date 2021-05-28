@@ -570,8 +570,24 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function(req
 			res.send('Payment Failed!');
 		}
 	})
-})
+});
 
+app.get("/myorders",custCheckAuthenticated, function(req, res) {
+	if (req.user) {
+		pincode = req.cookies.pincode;
+		if (req.user.role === 1) {
+			res.render('custOrderList', {
+				loggedIn: true,
+				pincode: req.cookies.pincode,
+				user: req.user
+			});
+		} else {
+			res.redirect('/');
+		}
+	} else {
+		res.redirect('/');
+	}
+});
 
 
 /************************************Seller Starts*************************************************/
