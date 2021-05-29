@@ -9,10 +9,14 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="../css/custOrderlist.css">
-        <link rel="stylesheet" href="../css/cstyles.css">
+      <link rel="stylesheet" href="../css/custOrderDetails.css">
+      <link rel="stylesheet" href="../css/cstyles.css">
+      <!-- <link rel="stylesheet" href="../css/myproducts.css"> -->
       <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
    </head>
    <body style="background-color:rgb(249 248 248)">
       <!-- Pincode Modal Starts -->
@@ -33,7 +37,7 @@
                   <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
                </div>
                <div class="modal-body" style="margin-top:3%;">
-                  <form class="" action="/productDetails/<%=rows[0].pId%>" method="post">
+                  <form class="" action="/productDetails/<%= pId%>" method="post">
                      <div class="row g-2">
                         <div class="col col-auto">
                            <input type="text" class="form-control form-custom form-custom form-control form-custom-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
@@ -141,52 +145,104 @@
       <!-- Orderdetails html -->
       <!------ Include the above in your HEAD tag ---------->
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-      <div class="container" style="margin-left:3%;">
-      <h2 style="margin-top:1%;">My Orders</h2>
-      <div class="row" >
-        <% for (i = 0; i < rows.length; i++){%>
-        <div class="card order-card ">
-          <a href="/custOrderDetails/<%=rows[i].order_id%>" class="stretched-link"></a>
-      <div class="row g-0" style="overflow-x:auto;">
-        <div class="col-sm-3 col-6">
-          <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[i].pPhotoId %>?alt=media" class="img-small" width="130px" height="130px" style="object-fit: contain;margin-top:5%;" >
-        </div>
-        <div class="col-sm-3 col-6">
-        <h5 style="margin-top:8%;"><%=rows[i].pName%></h5>
-        <p><%=rows[i].pBrand%></p>
-        <small>Seller :</small>
-        <p>
-          <%=rows[i].bName%>
-        </p>
-        </div>
+      <h3 style="margin-left:3%;margin-top:1%;">Order Details : <span><small>#346456</small></span></h3>
+      <div class="container" style="margin-top:1%;">
+        <div class="row ">
+          <div class="col-md-7 col-xs-12 row1">
+            <div class="card SOD_table">
+              <div class="card-body">
+                <table class="table table-borderless table-shopping-cart " id="product_table">
+                  <thead class="text-muted">
+                    <tr class="small text-uppercase table-headings"
+                      style="text-align:center;font-size:0.9rem;">
+                      <th scope="col" width:"200" style="text-align:left;">Product</th>
+                      <th scope="col" width="400">Name</th>
+                      <th scope="col" width="100">Quantity</th>
+                      <th scope="col" width="200">Rate</th>
+                      <th scope="col" width="200">Amount</th>
 
-        <div class="col-sm-3 col-6">
-        <p class="mob" style="margin-top:13%;">Price : ₹ <%=rows[i].total_amount%>
-          <br class="break" style="display:none">
-        <span>  &nbsp;&nbsp;Quantity : <%=rows[i].product_qty%></span></p>
-        </div>
-        <div class="col-sm-3 col-6">
-          <div class="card-body hide">
-            <h5 class="card-title" style="margin-top:6%;">Order Status</h5>
-            <%if(rows[i].order_status == "Awaiting Approval"){%>
-            <p style="color:#3f5468;font-weight:bold;"><%= rows[i].order_status %>&nbsp;&nbsp;</p>
-            <%}else if(rows[i].order_status == "Accepted, In-progress"){%>
-            <p style="color:#e6a400;font-weight:bold;"><%= rows[i].order_status %>&nbsp;&nbsp;</p>
-            <%}else if(rows[i].order_status == "Cancelled"){%>
-            <p style="color:#e40017;"><%= rows[i].order_status %>&nbsp;&nbsp;</p>
-            <%}else if(rows[i].order_status == "Rejected"){%>
-            <p style="color:#fa1e0e;"><%= rows[i].order_status %>&nbsp;&nbsp;</p>
-            <%}else if(rows[i].order_status == "Order Completed"){%>
-            <p style="color:#01d28e;font-weight:bold;"><%= rows[i].order_status %>&nbsp;&nbsp;</p>
-            <%}%>
-            <p class="card-text"><small class="text-muted">Ordered on : <%=rows[i].ordered_timestamp%></small></p>
-
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr width="200" style="text-align:center;">
+                      <td> <img src="../images/logo2.png"
+                          class="img-fluid img-thumbnail"></td>
+                      <td>pbrand</td>
+                      <td>product_qty</td>
+                      <td>₹ price</td>
+                      <td>₹ amount </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <%if(5>0){%>
+                <p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE :
+                  product_size </p>
+                <%}%>
+              </div>
+            </div>
           </div>
-          <span class="show" style="font-weight:bold; margin-top:10%; display:none;" ><%=rows[i].order_status%></span>
-        </div>
-      </div>
-    </div>
-    <%}%>
+          <div class="col-md-5 col-xs-12 row1">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Seller Details
+                </h5>
+                <p>Name :</p>
+                <p>
+                  Address :
+                  </p>
+                  <p>Contact No :</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 col-xs-12 row2" style="margin-top:1%;">
+            <div class="card">
+              <div class="container">
+    <div class="row">
+      <h5 style="margin-left:3%;margin-top:3%;">Order Tracking : </h5>
+  						<div class="col-12 col-md-10 hh-grayBox pt45 pb20">
+
+  							<div class="row justify-content-between">
+  								<div class="order-tracking completed">
+  									<span class="is-complete"></span>
+  									<p>Ordered<br><span>Mon, June 24</span></p>
+  								</div>
+  								<div class="order-tracking completed">
+  									<span class="is-complete"></span>
+  									<p>Shipped<br><span>Tue, June 25</span></p>
+  								</div>
+  								<div class="order-tracking">
+  									<span class="is-complete"></span>
+  									<p>Delivered<br><span>Fri, June 28</span></p>
+  								</div>
+  							</div>
+  						</div>
+  					</div>
+  </div>
+            </div>
+          </div>
+          <div class="col-md-5 col-xs-12 row1" style="margin-top:0%;">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Delivery Details<span style="float:right;font-size:0.8rem;"> ordered_timestamp</span>
+                </h5>
+                <p>Name :</p>
+                <p>
+                  Address :
+                  </p>
+                  <p>Contact No :</p>
+              </div>
+            </div>
+            <button type="button" class="btn btn-lg btn-outline-danger acc_rej_btn"
+              style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;"
+              name="button">Cancel Order</button>
+          </div>
+
+              </div>
+            </div>
+
+
+
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
