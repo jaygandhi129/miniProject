@@ -576,19 +576,34 @@ app.get("/myorders",custCheckAuthenticated, function(req, res) {
 	if (req.user) {
 		pincode = req.cookies.pincode;
 		if (req.user.role === 1) {
-			res.render('custOrderList', {
-				loggedIn: true,
-				pincode: req.cookies.pincode,
-				user: req.user
+			query="SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,od.product_qty,o.order_id,o.total_amount,o.order_status,o.ordered_timestamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id where o.cust_id=? order by o.ordered_timestamp desc";
+			connection.query(query,[parseInt(req.user.cId)],function(err,rows){
+				if (err){
+					console.log(err);
+				}else{
+					res.render('custOrderList', {
+						loggedIn: true,
+						pincode: req.cookies.pincode,
+						user: req.user,
+						rows
+					});
+				}
 			});
 		} else {
-			res.redirect('/');
+			res.redirect('/login');
 		}
 	} else {
 		res.redirect('/');
 	}
 });
 
+app.get("/custOrderDetails/:order_id", function(req, res) {
+	res.render('custOrderDetails', {
+		loggedIn: true,
+		pincode: req.cookies.pincode,
+		user: req.user
+	});
+});
 
 /************************************Seller Starts*************************************************/
 
