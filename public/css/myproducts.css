@@ -48,4 +48,8 @@ td, th {
   .row2{
     margin-top: 2% !important;
   }
+
+  .sel-but{
+    margin-top: 5% !important;
+  }
 }
