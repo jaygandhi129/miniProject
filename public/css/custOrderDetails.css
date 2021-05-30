@@ -1,8 +1,8 @@
 .hh-grayBox {
 background-color: #FFF;
-margin-bottom: 20px;
+margin-bottom: 0;
 padding: 35px;
-margin-top: 20px;
+margin-top: 0;
 margin-left: 2%;
 }
 .pt45{padding-top:45px;}
@@ -85,8 +85,9 @@ td, th {
 
 }
 .img-thumbnail{
-  width: 75px;
-  height: 75px;
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
 }
 
 .table-container{
