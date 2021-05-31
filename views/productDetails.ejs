@@ -1,91 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-      <title></title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="../css/productDetails.css">
-      <link rel="stylesheet" href="../css/cstyles.css">
-      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-   </head>
-   <body>
-      <!-- Pincode Modal Starts -->
-      <%if(pincode===undefined){%>
-      <script>
-         function showModal() {
-         	$('#staticBackdrop').modal('show');
-         }
 
-         $(window).on('load', function() {
-         	$('#staticBackdrop').modal('show');
-         });
-      </script>
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog" style="margin-top:5%;">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
-               </div>
-               <div class="modal-body" style="margin-top:3%;">
-                  <form class="" action="/productDetails/<%=rows[0].pId%>" method="post">
-                     <div class="row g-2">
-                        <div class="col col-auto">
-                           <input type="text" class="form-control form-custom form-custom form-control form-custom-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
-                        </div>
-                        <div class="col col-auto">
-                           <button type="submit" class="btn btn-warning btn-md">Submit</button>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are
-                           available in this
-                           Pincode
-                        </p>
-                     </div>
-                  </form>
-               </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/productDetails.css">
+    <link rel="stylesheet" href="../css/cstyles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- Pincode Modal Starts -->
+    <%if(pincode===undefined){%>
+        <script>
+            function showModal() {
+                $('#staticBackdrop').modal('show');
+            }
+
+            $(window).on('load', function() {
+                $('#staticBackdrop').modal('show');
+            });
+        </script>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" style="margin-top:5%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
+                    </div>
+                    <div class="modal-body" style="margin-top:3%;">
+                        <form class="" action="/productDetails/<%=rows[0].pId%>" method="post">
+                            <div class="row g-2">
+                                <div class="col col-auto">
+                                    <input type="text" class="form-control form-custom form-custom form-control form-custom-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
+                                </div>
+                                <div class="col col-auto">
+                                    <button type="submit" class="btn btn-warning btn-md">Submit</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are available in this Pincode
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <%}%>
-      <!-- Pincode Modal Ends -->
-      <div class="text-nowrap">
-         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
-            <div class="dropdown ">
-               <!-- <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        </div>
+        <%}%>
+            <!-- Pincode Modal Ends -->
+            <div class="text-nowrap">
+                <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+                    <div class="dropdown ">
+                        <!-- <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
                </button> -->
-               <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="/changePincodeCat">Change Pincode</a></li>
                </ul> -->
-            </div>
-            <%if(loggedIn == false){%>
-            <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-            <%}else{%>
-            <div class="dropdown desktop-hidden user-dropdown-menu">
-               <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    </div>
+                    <%if(loggedIn == false){%>
+                        <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+                        <%}else{%>
+                            <div class="dropdown desktop-hidden user-dropdown-menu">
+                                <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                <%=user.cName%>
                </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                  <li>
-                     <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-                  </li>
-               </ul>
-            </div>
-            <%}%>
-            <div class="container" style="margin-left:0">
-               <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-               <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
-                  <ul class="navbar-nav me-auto catagory-div">
-                     <!-- <li class="nav-item">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                                    <li>
+                                        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                                    </li>
+                                </ul>
+                            </div>
+                            <%}%>
+                                <div class="container" style="margin-left:0">
+                                    <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a>
+                                    <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                                    <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
+                                        <ul class="navbar-nav me-auto catagory-div">
+                                            <!-- <li class="nav-item">
                         <div class="dropdown">
                            <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
                            Sub-Categories
@@ -100,165 +101,173 @@
                            </ul>
                         </div>
                      </li> -->
-                     <li class="nav-item"></li>
-                  </ul>
-                  <ul class="navbar-nav me-auto desktop-hidden">
-                     <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
-                  </ul>
-                  <div class="col text-start padMar">
-                    <div class="wrapper">
-                    <div class="searchBar">
-                      <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search Products" value="" />
-                      <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                                            <li class="nav-item"></li>
+                                        </ul>
+                                        <ul class="navbar-nav me-auto desktop-hidden">
+                                            <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                                        </ul>
+                                        <div class="col text-start padMar">
+                                            <div class="wrapper">
+                                                <div class="searchBar">
+                                                    <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search Products" value="" />
+                                                    <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                         </svg>
                       </button>
-                    </div>
-                    <!-- </div> -->
-                    </div>
-                  </div>
-                  <form class="d-sm-block me-auto" target="_self">
-                     <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
-                  </form>
-                  <ul class="navbar-nav me-auto mob-hidden">
-                     <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
-                  </ul>
-                  <%if(loggedIn == false){%>
-                  <span class="navbar-text actions">
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                        <form class="d-sm-block me-auto" target="_self">
+                                            <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
+                                        </form>
+                                        <ul class="navbar-nav me-auto mob-hidden">
+                                            <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                                        </ul>
+                                        <%if(loggedIn == false){%>
+                                            <span class="navbar-text actions">
                   <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
                   </span>
-                  <%}else{%>
-                  <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
-                     <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <%}else{%>
+                                                <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+                                                    <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                      <%=user.cName%>
                      </button>
-                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                        <li>
-                           <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-                        </li>
-                     </ul>
-                  </div>
-                  <%}%>
-               </div>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                                                        <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                                                        <li>
+                                                            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <%}%>
+                                    </div>
+                                </div>
+                </nav>
             </div>
-         </nav>
-      </div>
-      <!-- productdetails html -->
-      <!------ Include the above in your HEAD tag ---------->
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-      <div class="pd-wrap">
-         <div class="container">
-            <div class="heading-section" style="text-align:left;">
-               <a href="/productList/<%= rows[0].catId%>" class="catNavigation"><%=rows[0].catName%> > </a><a href="/productListBySub/<%=rows[0].subCatId%>" class="catNavigation"><%=rows[0].subCatName%></a>
-               <h2 class="brandName"><%=rows[0].pBrand%> <%=rows[0].pName%></h2>
-            </div>
-            <div class="row">
-               <div class="col-md-6">
-                  <div id="slider" class="owl-carousel product-slider">
-                     <div class="img-magnifier-container item ">
-                        <img id="myimage" class="product-image" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" />
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                 <div class="proAvailable">
-
-
-                <span style="font-size:1.2rem;color:#048f83;" class="proAvailable" >Available Sellers for this product. </span><span style="font-size:0.8rem;color:black;float:right;" class="click">Click to select</span>
-                 </div>
-                  <div class="row" id="selldiv" style="margin-top:2%;">
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="container">
-            <div class="row" style="margin-top:3%;">
-               <div class="col-md-6">
-                  <div class="product-dtl">
-                     <div class="product-info">
-                        <div class="product-price-discount"><span id="sellerPrice" class="sellerPricefocus" style="font-size: 2.1rem;"></span><span class="line-through MRP">₹ <%=rows[0].pMrp%></span><span class="dress-card-off youSaved mobHide" style="font-size:1.1rem;color:#5f6670;" id="youSaved"> &nbsp; &nbsp;</span>
+            <!-- productdetails html -->
+            <!------ Include the above in your HEAD tag ---------->
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+            <div class="pd-wrap">
+                <div class="container">
+                    <div class="heading-section" style="text-align:left;">
+                        <a href="/productList/<%= rows[0].catId%>" class="catNavigation">
+                            <%=rows[0].catName%> > </a>
+                        <a href="/productListBySub/<%=rows[0].subCatId%>" class="catNavigation">
+                            <%=rows[0].subCatName%>
+                        </a>
+                        <h2 class="brandName">
+                            <%=rows[0].pBrand%>
+                                <%=rows[0].pName%>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="slider" class="owl-carousel product-slider">
+                                <div class="img-magnifier-container item ">
+                                    <img id="myimage" class="product-image" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" />
+                                </div>
+                            </div>
                         </div>
-                            <span class="dress-card-off mobShow youSaved" style="font-size:1.1rem;color:#5f6670;" id="youSaved2"></span>
-                        <div class="delivery" id="deliveryDiv" style="margin-top:3%;margin-bottom:3%">
+                        <div class="col-md-6">
+                            <div class="proAvailable">
+
+
+                                <span style="font-size:1.2rem;color:#048f83;" class="proAvailable">Available Sellers for this product. </span><span style="font-size:0.8rem;color:black;float:right;" class="click">Click to select</span>
+                            </div>
+                            <div class="row" id="selldiv" style="margin-top:2%;">
+                            </div>
                         </div>
-                      </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row" style="margin-top:3%;">
+                        <div class="col-md-6">
+                            <div class="product-dtl">
+                                <div class="product-info">
+                                    <div class="product-price-discount"><span id="sellerPrice" class="sellerPricefocus" style="font-size: 2.1rem;"></span><span class="line-through MRP">₹ <%=rows[0].pMrp%></span><span class="dress-card-off youSaved mobHide" style="font-size:1.1rem;color:#5f6670;"
+                                            id="youSaved"> &nbsp; &nbsp;</span>
+                                    </div>
+                                    <span class="dress-card-off mobShow youSaved" style="font-size:1.1rem;color:#5f6670;" id="youSaved2"></span>
+                                    <div class="delivery" id="deliveryDiv" style="margin-top:3%;margin-bottom:3%">
+                                    </div>
+                                </div>
 
-                        <div class="product-count disButton">
-                           <label for="size" class="Quantity">Quantity</label>
-                           <form action="#" class="display-flex">
-                              <div class="qtyminus disButton">-</div>
-                              <input type="text" name="quantity" value="1" class="qty">
-                              <div class="qtyplus disButton">+</div>
-                           </form>
-                        </div>
+                                <div class="product-count disButton">
+                                    <label for="size" class="Quantity">Quantity</label>
+                                    <form action="#" class="display-flex">
+                                        <div class="qtyminus disButton">-</div>
+                                        <input type="text" name="quantity" value="1" class="qty">
+                                        <div class="qtyplus disButton">+</div>
+                                    </form>
+                                </div>
 
 
-                    <%if(rows[0].catName=="Clothing" || rows[0].catName=="Footware"){%>
-                        <div class="row">
-	        				<div class="col-md-6">
-	        					<label style="" class="Size" for="si">Size</label>
-								<select id="si" name="size" class="form-control size-input">
+                                <%if(rows[0].catName=="Clothing" || rows[0].catName=="Footware"){%>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label style="" class="Size" for="si">Size</label>
+                                            <select id="si" name="size" class="form-control size-input">
 
 								</select>
-	        				</div>
-	        			</div>
-                <%}%>
+                                        </div>
+                                    </div>
+                                    <%}%>
 
 
-                     </div>
-                  </div>
-                  <div class="col-md-6"style="float:right;">
-                     <div class="container storeDet disButton">
-                       <h3 class="storeDetcs" style="color:#048f83;"><i class="fas fa-store"></i>&nbsp; Store Details</h3>
-
-                        <div class="row">
-                           <div class="col-md-6">
-                              <h4 id="bName" style="font-size: 1.3rem;"></h4>
-                           </div>
-                           <div class="col-md-6">
-                              <p id="bAddress"></p>
-                           </div>
-                           <div class="col-md-6">
-                              <p id="bMobile"></p>
-                           </div>
-                           <div class="col-md-6">
-                             <p id="bWebsite"></p>
-                           </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="buybuttons disButton">
-                       <form class="" method="post" action="/order">
-                        <button class="round-black-btn-1" type="submit"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
-                        <input id="invent" type="text" name="iId" value="" style="display:none;">
-                        <input id="quant" type="text" name="qty" value="1" style="display:none;">
-                        <input id="siz" type="text" name="size" value="" style="display:none;">
-                        </form>
-                        <br>
-                        <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
-                     </div>
-                  </div>
-               </div>
+                        <div class="col-md-6" style="float:right;">
+                            <div class="container storeDet disButton">
+                                <h3 class="storeDetcs" style="color:#048f83;"><i class="fas fa-store"></i>&nbsp; Store Details</h3>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 id="bName" style="font-size: 1.3rem;"></h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="bAddress"></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="bMobile"></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="bWebsite"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buybuttons disButton">
+                                <form class="" method="post" action="/order">
+                                    <button class="round-black-btn-1" type="submit"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
+                                    <input id="invent" type="text" name="iId" value="" style="display:none;">
+                                    <input id="quant" type="text" name="qty" value="1" style="display:none;">
+                                    <input id="siz" type="text" name="size" value="" style="display:none;">
+                                </form>
+                                <br>
+                                <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="container">
-            <div class="product-info-tabs disButton">
-               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item">
-                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                  </li>
-                  <!-- <li class="nav-item">
+            <div class="container">
+                <div class="product-info-tabs disButton">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                        </li>
+                        <!-- <li class="nav-item">
                      <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews (0)</a>
                      </li> -->
-               </ul>
-               <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
 
-                  </div>
-                  <!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                        </div>
+                        <!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                      <div class="review-heading">REVIEWS</div>
                      <p class="mb-20">There are no reviews yet.</p>
                      <form class="review-form">
@@ -298,212 +307,210 @@
                      	<button class="round-black-btn">Submit Review</button>
                      </form>
                      </div> -->
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
-      <script type="text/javascript">
-         	var slider = $("#slider");
-$(document).ready(function () {
-	var thumb = $("#thumb");
-	var slidesPerPage = 1; //globaly define number of elements per page
-	var syncedSecondary = true;
-	slider.owlCarousel({
-		items: 1,
-		slideSpeed: 2000,
-		nav: false,
-		autoplay: false,
-		dots: false,
-		loop: false,
-		responsiveRefreshRate: 200
-	}).on('changed.owl.carousel', syncPosition);
-	thumb
-		.on('initialized.owl.carousel', function () {
-			thumb.find(".owl-item").eq(0).addClass("current");
-		})
-		.owlCarousel({
-			items: slidesPerPage,
-			dots: false,
-			nav: true,
-			item: 1,
-			smartSpeed: 200,
-			slideSpeed: 500,
-			slideBy: slidesPerPage,
-			navText: ['<svg width="18px" height="18px" viewBox="0 0 11 20"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M9.554,1.001l-8.607,8.607l8.607,8.606"/></svg>',
-				'<svg width="25px" height="25px" viewBox="0 0 11 20" version="1.1"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M1.054,18.214l8.606,-8.606l-8.606,-8.607"/></svg>'
-			],
-			responsiveRefreshRate: 100
-		}).on('changed.owl.carousel', syncPosition2);
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript">
+                var slider = $("#slider");
+                $(document).ready(function() {
+                    var thumb = $("#thumb");
+                    var slidesPerPage = 1; //globaly define number of elements per page
+                    var syncedSecondary = true;
+                    slider.owlCarousel({
+                        items: 1,
+                        slideSpeed: 2000,
+                        nav: false,
+                        autoplay: false,
+                        dots: false,
+                        loop: false,
+                        responsiveRefreshRate: 200
+                    }).on('changed.owl.carousel', syncPosition);
+                    thumb
+                        .on('initialized.owl.carousel', function() {
+                            thumb.find(".owl-item").eq(0).addClass("current");
+                        })
+                        .owlCarousel({
+                            items: slidesPerPage,
+                            dots: false,
+                            nav: true,
+                            item: 1,
+                            smartSpeed: 200,
+                            slideSpeed: 500,
+                            slideBy: slidesPerPage,
+                            navText: ['<svg width="18px" height="18px" viewBox="0 0 11 20"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M9.554,1.001l-8.607,8.607l8.607,8.606"/></svg>',
+                                '<svg width="25px" height="25px" viewBox="0 0 11 20" version="1.1"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M1.054,18.214l8.606,-8.606l-8.606,-8.607"/></svg>'
+                            ],
+                            responsiveRefreshRate: 100
+                        }).on('changed.owl.carousel', syncPosition2);
 
-	function syncPosition(el) {
-		var count = el.item.count - 1;
-		var current = Math.round(el.item.index - (el.item.count / 2) - .5);
-		if (current < 0) {
-			current = count;
-		}
-		if (current > count) {
-			current = 0;
-		}
-		thumb
-			.find(".owl-item")
-			.removeClass("current")
-			.eq(current)
-			.addClass("current");
-		var onscreen = thumb.find('.owl-item.active').length - 1;
-		var start = thumb.find('.owl-item.active').first().index();
-		var end = thumb.find('.owl-item.active').last().index();
-		if (current > end) {
-			thumb.data('owl.carousel').to(current, 100, true);
-		}
-		if (current < start) {
-			thumb.data('owl.carousel').to(current - onscreen, 100, true);
-		}
-	}
+                    function syncPosition(el) {
+                        var count = el.item.count - 1;
+                        var current = Math.round(el.item.index - (el.item.count / 2) - .5);
+                        if (current < 0) {
+                            current = count;
+                        }
+                        if (current > count) {
+                            current = 0;
+                        }
+                        thumb
+                            .find(".owl-item")
+                            .removeClass("current")
+                            .eq(current)
+                            .addClass("current");
+                        var onscreen = thumb.find('.owl-item.active').length - 1;
+                        var start = thumb.find('.owl-item.active').first().index();
+                        var end = thumb.find('.owl-item.active').last().index();
+                        if (current > end) {
+                            thumb.data('owl.carousel').to(current, 100, true);
+                        }
+                        if (current < start) {
+                            thumb.data('owl.carousel').to(current - onscreen, 100, true);
+                        }
+                    }
 
-	function syncPosition2(el) {
-		if (syncedSecondary) {
-			var number = el.item.index;
-			slider.data('owl.carousel').to(number, 100, true);
-		}
-	}
-	thumb.on("click", ".owl-item", function (e) {
-		e.preventDefault();
-		var number = $(this).index();
-		slider.data('owl.carousel').to(number, 300, true);
-	});
-
-
-	$(".qtyminus").on("click", function () {
-		var now = $(".qty").val();
-		if ($.isNumeric(now)) {
-			if (parseInt(now) - 1 > 0) {
-				now--;
-			}
-			$(".qty").val(now);
-			$("#quant").val(now);
-		}
-	})
-	$(".qtyplus").on("click", function () {
-		var now = $(".qty").val();
-		if ($.isNumeric(now)) {
-			$(".qty").val(parseInt(now) + 1);
-			$("#quant").val(parseInt(now) + 1);
-		}
-	});
-
-	$.ajax({
-
-		url: "/getSellers/" + <%=rows[0].pId%>,
-		type: "GET",
-		success: function (data) {
-
-			var len = data.length;
-
-			$("#selldiv").empty();
-
-			if (len == 0) {
-				$("#selldiv").append("<h2>No Sellers found</h2>");
-				$(".MRP").removeClass("line-through");
-				$(".disButton").attr("style", "display:none;");
-
-			} else {
-        var ys=parseInt(<%=rows[0].pMrp%>);
-        var ys2=parseInt(data[0].sellerPrice);
-        var res = ys-ys2;
-        $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
-        $("#youSaved2").html("You save ₹ " +  res);
-        if (data[0].iDelivery == 'Y') {
-          $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
-        } else {
-          $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>')
-        }
-            $('#invent').val(data[0].iId);
-            $("#sellerPrice").html("₹ " + data[0].sellerPrice);
-            var size;
-
-				$("#description").html(data[0].iDescription);
-
-				$("#bName").html(data[0].bName);
-				$("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
-				$("#bMobile").html("Contact No. : " + data[0].bMobile);
-				$("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
-        for (var i = 0; i < len; i++) {
-					if (i == 0) {
-						var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
-					} else {
-						var str1 = "<button id='Individualseller' class='sellerButton' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
-					}
-					$("#selldiv").append(str1);
-				}
-            size = data[0].iSize.split(',');
-            $('#si').empty();
-            $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
-            $('#siz').val(size[0])
-				for (var i = 1; i < size.length; i++) {
-					$('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
-				}
-			}
-
-		}
-	});
-   $('#si').on('change',function() {
-               $('#siz').val($(this).val());
-            });
-});
-$(document).on("click", '.sellerButton', function (event) {
-	var id = $(this).val();
-	$(".sellerButton").removeAttr("style");
-	$(this).attr('style', 'color:#048f83;box-shadow: 0px 0px 3px #048f83;');
-
-	$.ajax({
-
-		url: "/getSellersOnClick/" + <%=rows[0].pId%> +"/" + id,
-		type: "GET",
-		success: function (data) {
-         $('#invent').val(data[0].iId);
-         if (data[0].iDelivery == 'Y') {
-   				$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
-   			} else {
-   				$("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>');
-   			}
-			$("#sellerPrice").html("₹ " + data[0].sellerPrice);
-      var ys=parseInt(<%=rows[0].pMrp%>);
-      var ys2=parseInt(data[0].sellerPrice);
-      var res = ys-ys2;
-      $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
-      $("#youSaved2").html("You save ₹ " + res);
-			$("#description").html(data[0].iDescription);
-			$("#bName").html(data[0].bName);
-			$("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
-			$("#bMobile").html("Contact No. : " + data[0].bMobile);
-			$("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
-			$("#" + data[0].iId).text("₹ " + data[0].sellerPrice);
-			size = data[0].iSize.split(',');
-      $('#si').empty();
-      $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
-      $('#siz').val(size[0]);
-				for (var i = 1; i < size.length; i++) {
-					$('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
-				}
+                    function syncPosition2(el) {
+                        if (syncedSecondary) {
+                            var number = el.item.index;
+                            slider.data('owl.carousel').to(number, 100, true);
+                        }
+                    }
+                    thumb.on("click", ".owl-item", function(e) {
+                        e.preventDefault();
+                        var number = $(this).index();
+                        slider.data('owl.carousel').to(number, 300, true);
+                    });
 
 
-		}
+                    $(".qtyminus").on("click", function() {
+                        var now = $(".qty").val();
+                        if ($.isNumeric(now)) {
+                            if (parseInt(now) - 1 > 0) {
+                                now--;
+                            }
+                            $(".qty").val(now);
+                            $("#quant").val(now);
+                        }
+                    })
+                    $(".qtyplus").on("click", function() {
+                        var now = $(".qty").val();
+                        if ($.isNumeric(now)) {
+                            $(".qty").val(parseInt(now) + 1);
+                            $("#quant").val(parseInt(now) + 1);
+                        }
+                    });
 
-	});
-   $('#si').on('change',function() {
-               $('#siz').val($(this).val());
-            });
-});
+                    $.ajax({
 
-      </script>
-      <script type="text/javascript">
+                        url: "/getSellers/" + <%=rows[0].pId%>,
+                        type: "GET",
+                        success: function(data) {
 
-      </script>
+                            var len = data.length;
 
-   </body>
+                            $("#selldiv").empty();
+
+                            if (len == 0) {
+                                $("#selldiv").append("<h2>No Sellers found</h2>");
+                                $(".MRP").removeClass("line-through");
+                                $(".disButton").attr("style", "display:none;");
+
+                            } else {
+                                var ys = parseInt(<%=rows[0].pMrp%>);
+                                var ys2 = parseInt(data[0].sellerPrice);
+                                var res = ys - ys2;
+                                $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
+                                $("#youSaved2").html("You save ₹ " + res);
+                                if (data[0].iDelivery == 'Y') {
+                                    $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
+                                } else {
+                                    $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>')
+                                }
+                                $('#invent').val(data[0].iId);
+                                $("#sellerPrice").html("₹ " + data[0].sellerPrice);
+                                var size;
+
+                                $("#description").html(data[0].iDescription);
+
+                                $("#bName").html(data[0].bName);
+                                $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
+                                $("#bMobile").html("Contact No. : " + data[0].bMobile);
+                                $("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
+                                for (var i = 0; i < len; i++) {
+                                    if (i == 0) {
+                                        var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
+                                    } else {
+                                        var str1 = "<button id='Individualseller' class='sellerButton' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
+                                    }
+                                    $("#selldiv").append(str1);
+                                }
+                                size = data[0].iSize.split(',');
+                                $('#si').empty();
+                                $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
+                                $('#siz').val(size[0])
+                                for (var i = 1; i < size.length; i++) {
+                                    $('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
+                                }
+                            }
+
+                        }
+                    });
+                    $('#si').on('change', function() {
+                        $('#siz').val($(this).val());
+                    });
+                });
+                $(document).on("click", '.sellerButton', function(event) {
+                    var id = $(this).val();
+                    $(".sellerButton").removeAttr("style");
+                    $(this).attr('style', 'color:#048f83;box-shadow: 0px 0px 3px #048f83;');
+
+                    $.ajax({
+
+                        url: "/getSellersOnClick/" + <%=rows[0].pId%> + "/" + id,
+                        type: "GET",
+                        success: function(data) {
+                            $('#invent').val(data[0].iId);
+                            if (data[0].iDelivery == 'Y') {
+                                $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
+                            } else {
+                                $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>');
+                            }
+                            $("#sellerPrice").html("₹ " + data[0].sellerPrice);
+                            var ys = parseInt(<%=rows[0].pMrp%>);
+                            var ys2 = parseInt(data[0].sellerPrice);
+                            var res = ys - ys2;
+                            $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
+                            $("#youSaved2").html("You save ₹ " + res);
+                            $("#description").html(data[0].iDescription);
+                            $("#bName").html(data[0].bName);
+                            $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
+                            $("#bMobile").html("Contact No. : " + data[0].bMobile);
+                            $("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
+                            $("#" + data[0].iId).text("₹ " + data[0].sellerPrice);
+                            size = data[0].iSize.split(',');
+                            $('#si').empty();
+                            $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
+                            $('#siz').val(size[0]);
+                            for (var i = 1; i < size.length; i++) {
+                                $('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
+                            }
+
+
+                        }
+
+                    });
+                    $('#si').on('change', function() {
+                        $('#siz').val($(this).val());
+                    });
+                });
+            </script>
+            <script type="text/javascript">
+            </script>
+
+</body>
 
 </html>
