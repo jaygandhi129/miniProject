@@ -2,342 +2,358 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <% if(rows[0].catName){%>
-  <title><%=rows[0].catName%></title>
-  <% }else{ %>
-  <title><%=rows[0].subCatName%></title>
-  <% } %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <% if(rows[0].catName){%>
+        <title>
+            <%=rows[0].catName%>
+        </title>
+        <% }else{ %>
+            <title>
+                <%=rows[0].subCatName%>
+            </title>
+            <% } %>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/cstyles.css">
-  <link rel="stylesheet" href="../css/productPage.css">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <link rel="stylesheet" href="../css/cstyles.css">
+                <link rel="stylesheet" href="../css/productPage.css">
 
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body style="background: rgb(249,248,248);">
 
-  <!-- Pincode Modal Starts -->
-  <%if(pincode===undefined){%>
+    <!-- Pincode Modal Starts -->
+    <%if(pincode===undefined){%>
 
-  <script>
-    function showModal() {
-      $('#staticBackdrop').modal('show');
-    }
+        <script>
+            function showModal() {
+                $('#staticBackdrop').modal('show');
+            }
 
-    $(window).on('load', function() {
-      $('#staticBackdrop').modal('show');
-    });
-  </script>
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" style="margin-top:5%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
-        </div>
+            $(window).on('load', function() {
+                $('#staticBackdrop').modal('show');
+            });
+        </script>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" style="margin-top:5%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
+                    </div>
 
-        <div class="modal-body" style="margin-top:3%;">
-          <form class="" action="/productList/<%=rows[0].catId%>" method="post">
-            <div class="row g-2">
-              <div class="col col-auto">
-                <input type="text" class="form-control form-custm-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
-              </div>
-              <div class="col col-auto">
-                <button type="submit" class="btn btn-warning btn-md">Submit</button>
-              </div>
+                    <div class="modal-body" style="margin-top:3%;">
+                        <form class="" action="/productList/<%=rows[0].catId%>" method="post">
+                            <div class="row g-2">
+                                <div class="col col-auto">
+                                    <input type="text" class="form-control form-custm-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
+                                </div>
+                                <div class="col col-auto">
+                                    <button type="submit" class="btn btn-warning btn-md">Submit</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are available in this Pincode
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-              <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are
-                available in this
-                Pincode</p>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
-  </div>
-  <%}%>
-  <!-- Pincode Modal Ends -->
+        <%}%>
+            <!-- Pincode Modal Ends -->
 
 
-    <div class="text-nowrap">
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
-          <div class="dropdown ">
-              <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="text-nowrap">
+                <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+                    <div class="dropdown ">
+                        <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
   </button>
 
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-    <li><a class="dropdown-item" href="/changePincodeCat/<%=rows[0].catId%>" value=>Change Pincode</a></li>
-  </ul>
-  </div>
-  <%if(loggedIn == false){%>
-  <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-  <%}else{%>
-  <div class="dropdown desktop-hidden user-dropdown-menu">
-    <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <li><a class="dropdown-item" href="/changePincodeCat/<%=rows[0].catId%>" value=>Change Pincode</a></li>
+                        </ul>
+                    </div>
+                    <%if(loggedIn == false){%>
+                        <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+                        <%}else{%>
+                            <div class="dropdown desktop-hidden user-dropdown-menu">
+                                <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       <%=user.cName%>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-      <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-      <li>
-        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-      </li>
-    </ul>
-  </div>
-  <%}%>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                                    <li>
+                                        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                                    </li>
+                                </ul>
+                            </div>
+                            <%}%>
 
-            <div class="container" style="margin-left:0">
-              <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
-                    <ul class="navbar-nav me-auto catagory-div">
-                        <li class="nav-item">
-                          <div class="dropdown">
-                  <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
+                                <div class="container" style="margin-left:0">
+                                    <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a>
+                                    <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                                    <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
+                                        <ul class="navbar-nav me-auto catagory-div">
+                                            <li class="nav-item">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
                     Sub-Categories
                   </button>
 
-                  <ul class="dropdown-menu dropdown-menu-cat" style="width: 300%;" id="category_dropdown" aria-labelledby="dropdownMenuButton2">
-                      <div class="row">
-                        <div class="col-md-6" id="catDiv1">
+                                                    <ul class="dropdown-menu dropdown-menu-cat" style="width: 300%;" id="category_dropdown" aria-labelledby="dropdownMenuButton2">
+                                                        <div class="row">
+                                                            <div class="col-md-6" id="catDiv1">
 
-                        </div>
-                        <div class="col-md-6" id="catDiv2">
+                                                            </div>
+                                                            <div class="col-md-6" id="catDiv2">
 
-                        </div>
-                      </div>
-                  </ul>
-                  </div>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
+                                                </div>
 
-                        </li>
-                        <li class="nav-item"></li>
-                    </ul>
-                    <ul class="navbar-nav me-auto desktop-hidden">
-                        <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px; display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
-                    </ul>
-                    <!-- <div class="row padMar"> -->
-                        <div class="col text-start padMar">
-                          <div class="wrapper">
-                          <div class="searchBar">
-                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search Products" value="" />
-                            <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                                            </li>
+                                            <li class="nav-item"></li>
+                                        </ul>
+                                        <ul class="navbar-nav me-auto desktop-hidden">
+                                            <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px; display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                                        </ul>
+                                        <!-- <div class="row padMar"> -->
+                                        <div class="col text-start padMar">
+                                            <div class="wrapper" style="margin-left:2%;margin-right:10%;">
+                                                <div class="searchBar">
+                                                    <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search Products" value="" />
+                                                    <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
                               <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                               </svg>
                             </button>
-                          </div>
-                          <!-- </div> -->
-                          </div>
-                        </div>
-                    <!-- </div> -->
-                    <form class="d-sm-block me-auto" target="_self">
-                        <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
-                    </form>
-                    <ul class="navbar-nav me-auto mob-hidden">
-                        <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px; display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
-                    </ul>
-                    <%if(loggedIn == false){%>
-  <span class="navbar-text actions">
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                        <form class="d-sm-block me-auto" target="_self">
+                                            <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
+                                        </form>
+                                        <ul class="navbar-nav me-auto mob-hidden">
+                                            <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px; display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                                        </ul>
+                                        <%if(loggedIn == false){%>
+                                            <span class="navbar-text actions">
     <a class="btn btn-outline-warning action-button mob-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
   </span>
-  <%}else{%>
-  <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
-    <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <%}else{%>
+                                                <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+                                                    <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       <%=user.cName%>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-      <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-      <li>
-        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
-      </li>
-    </ul>
-  </div>
-  <%}%>
-                </div>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                                                        <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                                                        <li>
+                                                            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <%}%>
+                                    </div>
+                                </div>
+                </nav>
             </div>
-        </nav>
-    </div>
 
 
 
 
-		<div class="container">
-      <% if(rows[0].catName){%>
-  <h1 style="margin-top:3%; font-size:2rem;"><%=rows[0].catName%></h1>
+            <div class="container">
+                <% if(rows[0].catName){%>
+                    <h1 style="margin-top:3%; font-size:2rem;">
+                        <%=rows[0].catName%>
+                    </h1>
 
-  <% }else{ %>
-  <h1 style="margin-top:3%; font-size:2rem;"><%=rows[0].subCatName%></h1>
-  <% } %>
+                    <% }else{ %>
+                        <h1 style="margin-top:3%; font-size:2rem;">
+                            <%=rows[0].subCatName%>
+                        </h1>
+                        <% } %>
 
-  <% if(rows1!==undefined && rows1.length!==0){ %>
-  <p style="margin-top:0%; color:#048f83;">*Prices shown below are lowest from your locality. Please confirm actual price before ordering.</p>
-  <br />
-  <div class="row">
-    <% rows1.forEach(function(row){ %>
-    <div class="col-md-3">
-      <div class="dress-card">
-        <div class="dress-card-head">
-          <img class="dress-card-img-top" style="width:300px; height:300px; object-fit:contain;" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" alt="">
-        </div>
-        <div class="dress-card-body">
-          <h4 class="dress-card-title"><%=row.pBrand%></h4>
-          <p class="dress-card-para" style="font-size:1.3rem;"><%=row.pName%></p>
-          <p class="dress-card-para"><span class="dress-card-price" style="font-size:1.2rem;">₹<%=row.price%> &nbsp;</span><span class="dress-card-crossed" style="font-size:0.9rem;">₹<%=row.pMrp%>
+                            <% if(rows1!==undefined && rows1.length!==0){ %>
+                                <p style="margin-top:0%; color:#048f83;">*Prices shown below are lowest from your locality. Please confirm actual price before ordering.</p>
+                                <br />
+                                <div class="row">
+                                    <% rows1.forEach(function(row){ %>
+                                        <div class="col-md-3">
+                                            <div class="dress-card">
+                                                <div class="dress-card-head">
+                                                    <img class="dress-card-img-top" style="width:300px; height:300px; object-fit:contain;" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" alt="">
+                                                </div>
+                                                <div class="dress-card-body">
+                                                    <h4 class="dress-card-title">
+                                                        <%=row.pBrand%>
+                                                    </h4>
+                                                    <p class="dress-card-para" style="font-size:1.3rem;">
+                                                        <%=row.pName%>
+                                                    </p>
+                                                    <p class="dress-card-para"><span class="dress-card-price" style="font-size:1.2rem;">₹<%=row.price%> &nbsp;</span><span class="dress-card-crossed" style="font-size:0.9rem;">₹<%=row.pMrp%>
               <p>
             </span><span class="dress-card-off">(You save ₹ <%= row.pMrp - row.price %> )</span></p>
-          </p>
-          <div class="row">
-            <div class="col-md-12 card-button"><a href="/productDetails/<%=row.pId%>">
-                <div class="card-button-inner wish-button">Buy Now</div>
-              </a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% });%>
-    <% } else if(rows1==undefined || rows1.length==0){ %>
-    <% if(rows[0].catName){%>
-    <h5 style="color:red;">No <%=rows[0].catName%> found in your locality😐</h5>
-    <% }else{ %>
-    <h5 style="color:red;">No <%=rows[0].subCatName%> found in your locality😐</h5>
-    <% } %>
-    <h4>Try a different Product😊</h4>
-  </div>
-  <%  } %>
+                                                    </p>
+                                                    <div class="row">
+                                                        <div class="col-md-12 card-button">
+                                                            <a href="/productDetails/<%=row.pId%>">
+                                                                <div class="card-button-inner wish-button">Buy Now</div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% });%>
+                                            <% } else if(rows1==undefined || rows1.length==0){ %>
+                                                <% if(rows[0].catName){%>
+                                                    <h5 style="color:red;">No
+                                                        <%=rows[0].catName%> found in your locality😐</h5>
+                                                    <% }else{ %>
+                                                        <h5 style="color:red;">No
+                                                            <%=rows[0].subCatName%> found in your locality😐</h5>
+                                                        <% } %>
+                                                            <h4>Try a different Product😊</h4>
+                                </div>
+                                <%  } %>
 
-  </div>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $.ajax({
-        url: "/getSubCategory/" + <%= rows[0].catId %>,
-        type: "GET",
-        success: function(data) {
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $.ajax({
+                        url: "/getSubCategory/" + <%= rows[0].catId %>,
+                        type: "GET",
+                        success: function(data) {
 
-          var len = data.length;
-
-
-          $("#catDiv1").empty();
-          $("#catDiv2").empty();
-
-          for (var i = 0; i < len; i++) {
-            var value2 = data[i]['subCatId'];
-            var value1 = data[i]['subCatName'];
-            var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productListBySub/" + value2 + "'>" + value1 + "</a></li>";
-            if (i < len / 2) {
-              $("#catDiv1").append(str);
-            } else {
-              $("#catDiv2").append(str);
-            }
-          }
-        }
-      });
-    });
-  </script> %>
+                            var len = data.length;
 
 
+                            $("#catDiv1").empty();
+                            $("#catDiv2").empty();
 
-
-
-
+                            for (var i = 0; i < len; i++) {
+                                var value2 = data[i]['subCatId'];
+                                var value1 = data[i]['subCatName'];
+                                var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productListBySub/" + value2 + "'>" + value1 + "</a></li>";
+                                if (i < len / 2) {
+                                    $("#catDiv1").append(str);
+                                } else {
+                                    $("#catDiv2").append(str);
+                                }
+                            }
+                        }
+                    });
+                });
+            </script> %>
 
 
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
 
 
-  <script type="text/javascript">
-    const toggleForm = () => {
-      const container = document.querySelector('.container');
-      container.classList.toggle('active');
-    };
 
-    function openSearch() {
-      document.getElementById("myOverlay").style.display = "block";
-    }
 
-    function closeSearch() {
-      document.getElementById("myOverlay").style.display = "none";
-    }
 
-    $(document).ready(function() {
-      $("#search-field").on("click", function() {
-        $("#search-field").animate({
-          "width": "200px"
-        });
-        $("#search-field").css({
-          color: '#000'
-        });
-        $("#form").css({
-          backgroundColor: '#fff'
-        });
-        $("#icon-busca").css({
-          color: '#56aa1c'
-        });
-        $("#search-field::-webkit-input-placeholder").css({
-          color: '#ccc'
-        });
-        $("#search-field:-moz-placeholder").css({
-          color: '#ccc'
-        });
-        $("#search-field::-moz-placeholder").css({
-          color: '#ccc'
-        });
-        $("#search-field:-ms-input-placeholder").css({
-          color: '#ccc'
-        });
-      })
 
-      $('#search-field, #botao-limpa').blur(function() {
-        setTimeout(function() {
-          if (!$('#search-field, #botao-limpa').is(':focus')) {
-            $("#search-field").animate({
-              "width": "172px"
-            });
-          }
-        }, 10);
-        $("#form").css({
-          backgroundColor: '#36752d'
-        });
-        $("#search-field").css({
-          color: '#fff'
-        });
-        $("#icon-busca").css({
-          color: '#fff'
-        });
-      });;
-    });
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
 
-    document.getElementById("link-nacional").disabled = true;
-    document.getElementById("link-internacional").disabled = true;
 
-    $('#search-field').keyup(function() {
-      var text = $(this).val();
+            <script type="text/javascript">
+                const toggleForm = () => {
+                    const container = document.querySelector('.container');
+                    container.classList.toggle('active');
+                };
 
-      if (text == "") {
-        document.getElementById('botao-limpa').style.display = 'none';
-      } else {
-        document.getElementById('botao-limpa').style.display = 'block';
-      }
+                function openSearch() {
+                    document.getElementById("myOverlay").style.display = "block";
+                }
 
-    });
+                function closeSearch() {
+                    document.getElementById("myOverlay").style.display = "none";
+                }
 
-    function limpa() {
-      if (document.getElementById('search-field').value != "") {
-        document.getElementById('search-field').value = "";
-        document.getElementById('botao-limpa').style.display = 'none';
-        document.getElementById("search-field").focus();
-        document.getElementById("search-field").click();
-      }
-    }
-  </script>
+                $(document).ready(function() {
+                    $("#search-field").on("click", function() {
+                        $("#search-field").animate({
+                            "width": "200px"
+                        });
+                        $("#search-field").css({
+                            color: '#000'
+                        });
+                        $("#form").css({
+                            backgroundColor: '#fff'
+                        });
+                        $("#icon-busca").css({
+                            color: '#56aa1c'
+                        });
+                        $("#search-field::-webkit-input-placeholder").css({
+                            color: '#ccc'
+                        });
+                        $("#search-field:-moz-placeholder").css({
+                            color: '#ccc'
+                        });
+                        $("#search-field::-moz-placeholder").css({
+                            color: '#ccc'
+                        });
+                        $("#search-field:-ms-input-placeholder").css({
+                            color: '#ccc'
+                        });
+                    })
+
+                    $('#search-field, #botao-limpa').blur(function() {
+                        setTimeout(function() {
+                            if (!$('#search-field, #botao-limpa').is(':focus')) {
+                                $("#search-field").animate({
+                                    "width": "172px"
+                                });
+                            }
+                        }, 10);
+                        $("#form").css({
+                            backgroundColor: '#36752d'
+                        });
+                        $("#search-field").css({
+                            color: '#fff'
+                        });
+                        $("#icon-busca").css({
+                            color: '#fff'
+                        });
+                    });;
+                });
+
+                document.getElementById("link-nacional").disabled = true;
+                document.getElementById("link-internacional").disabled = true;
+
+                $('#search-field').keyup(function() {
+                    var text = $(this).val();
+
+                    if (text == "") {
+                        document.getElementById('botao-limpa').style.display = 'none';
+                    } else {
+                        document.getElementById('botao-limpa').style.display = 'block';
+                    }
+
+                });
+
+                function limpa() {
+                    if (document.getElementById('search-field').value != "") {
+                        document.getElementById('search-field').value = "";
+                        document.getElementById('botao-limpa').style.display = 'none';
+                        document.getElementById("search-field").focus();
+                        document.getElementById("search-field").click();
+                    }
+                }
+            </script>
 
 
 </body>
