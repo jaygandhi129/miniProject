@@ -224,11 +224,12 @@
   								</div>
   								<div class="order-tracking waiting">
   									<span class="is-complete"></span>
-                    <%if(rows[0].order_status=="Accepted, In-progress" || rows[0].order_status=="Awaiting Approval"){%>
-  									<p><%=rows[0].order_status%><br></p>
+                    <%if(rows[0].order_status=="Accepted, In-progress" || rows[0].order_status=="Awaiting Approval" || rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>	
+                     <p><%=rows[0].order_status%><br></p>
   								<%}if(rows[0].order_status=="Order Completed"){%>
                     <p>Accepted, In-progress<br></p>
                     <%}%>
+
                 </div>
   								<div class="order-tracking done">
   									<span class="is-complete"></span>
@@ -236,6 +237,7 @@
   									<p><%=rows[0].order_status%><br><span><%=rows[0].delivered_timestamp%></span></p>
                     <%}else if(rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
                       <p><%=rows[0].order_status%><br></p>
+                      
                       <%}%>
   								</div>
   							</div>
@@ -274,6 +276,11 @@
         if('<%=rows[0].order_status%>' == "Order Completed" ){
           $(".waiting").addClass("completed");
           $(".done").addClass("completed");
+        }else if('<%=rows[0].order_status%>' == "Rejected" || '<%=rows[0].order_status%>' == "Cancelled"){
+           $('.done').attr('style','visibility:hidden;');
+           $('.waiting .is-complete').attr('style','background-color:red;border-color:red;');
+           $(".waiting").html('<i class="fas fa-times-circle" style="color:red;font-size:2rem;"></i><p style="color:black"><%=rows[0].order_status%></p>');
+           $('order-tracking::before').attr('style','background-color:red');
         }
       });
       </script>

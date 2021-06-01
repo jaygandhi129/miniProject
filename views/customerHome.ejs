@@ -161,34 +161,29 @@
                 <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
                     <div class="carousel-inner">
                         <div class="carousel-item">
-                            <div class="bg-light border rounded border-light pulse animated hero-nature carousel-hero jumbotron py-5 px-4">
-                                <h1 class="hero-title">Hero Nature</h1>
-                                <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                                <p><a class="btn btn-primary hero-button plat" role="button" href="#">Learn more</a></p>
+                            <a class="plat" href="#">
+                            <div class="bg-light border rounded border-light pulse animated hero-nature-1 carousel-hero jumbotron py-5 px-4">
                             </div>
+                            </a>
                         </div>
                         <div class="carousel-item">
-                            <div class="bg-light border rounded border-light pulse animated hero-photography carousel-hero jumbotron py-5 px-4">
-                                <h1 class="hero-title">Hero Photography</h1>
-                                <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                                <p><a class="btn btn-primary hero-button plat" role="button" href="#">Learn more</a></p>
-                            </div>
+                            <a class="plat" href="#">
+                                <div
+                                    class="bg-light border rounded border-light pulse animated hero-nature-2 carousel-hero jumbotron py-5 px-4">
+                                </div>
+                            </a>
                         </div>
                         <div class="carousel-item active">
-                            <div class="bg-light border rounded border-light pulse animated hero-technology carousel-hero jumbotron py-5 px-4" style="height: 405px;">
-                                <h1 class="hero-title">Hero Technology</h1>
-                                <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                                <p><a class="btn btn-primary hero-button plat" role="button" href="#">Learn more</a></p>
-                            </div>
+                            <a class="plat" href="#">
+                                <div
+                                    class="bg-light border rounded border-light pulse animated hero-nature-3 carousel-hero jumbotron py-5 px-4">
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1"
                             role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
-                    <ol class="carousel-indicators">
-                        <li data-bs-target="#carousel-1" data-bs-slide-to="0"></li>
-                        <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
-                        <li data-bs-target="#carousel-1" data-bs-slide-to="2" class="active"></li>
-                    </ol>
+
                 </div>
             </section>
             <section>
@@ -208,9 +203,11 @@
 
                     <!-- First Row [Products]-->
                     <h2 class="font-weight-bold mb-2">Top selling products</h2>
-                    <div class="row pb-5 mb-4">
+                    <div class="container" >
+                    
+                    <div class="row" style='overflow-x:auto;display:flex;'>
 
-                        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                        <div class="col-auto">
                             <!-- Card-->
                             <div class="card rounded shadow-sm border-0">
                                 <div class="card-body p-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556485076/shoes-1_gthops.jpg" alt="" class="img-fluid d-block mx-auto mb-3">
@@ -222,6 +219,39 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-auto">
+                            <!-- Card-->
+                            <div class="card rounded shadow-sm border-0">
+                                <div class="card-body p-4"><img
+                                        src="https://res.cloudinary.com/mhmd/image/upload/v1556485076/shoes-1_gthops.jpg"
+                                        alt="" class="img-fluid d-block mx-auto mb-3">
+                                    <h5> <a href="#" class="text-dark">Product Name</a></h5>
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media"
+                                        class="img-small" width="200px" height="200px"
+                                        style="object-fit: contain;margin-top:5%;">
+                                    <p class="small text-muted font-italic">Price</p>
+                                    <p class="small text-muted font-italic">Price</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Card-->
+                            <div class="card rounded shadow-sm border-0">
+                                <div class="card-body p-4"><img
+                                        src="https://res.cloudinary.com/mhmd/image/upload/v1556485076/shoes-1_gthops.jpg"
+                                        alt="" class="img-fluid d-block mx-auto mb-3">
+                                    <h5> <a href="#" class="text-dark">Product Name</a></h5>
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media"
+                                        class="img-small" width="200px" height="200px"
+                                        style="object-fit: contain;margin-top:5%;">
+                                    <p class="small text-muted font-italic">Price</p>
+                                    <p class="small text-muted font-italic">Price</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
 
                     <!-- Second Row [Team]-->

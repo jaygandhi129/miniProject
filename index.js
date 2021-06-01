@@ -598,7 +598,7 @@ app.get("/myorders",custCheckAuthenticated, function(req, res) {
 });
 
 app.get("/custOrderDetails/:order_id",custCheckAuthenticated,function(req, res) {
-		query="SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,b.bAddress,b.bMobile,od.product_qty,od.product_size,od.price,o.order_id,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
+		query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,b.bAddress,b.bMobile,od.product_qty,od.product_size,od.price,o.order_id,o.delivered_timestamp,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
     connection.query(query,[parseInt(req.params.order_id)],function(err,rows){
 			if(err){
 				console.log(err);
