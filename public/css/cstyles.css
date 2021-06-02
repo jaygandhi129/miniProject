@@ -12,26 +12,27 @@ div.jumbotron.carousel-hero {
     padding-bottom: 100px;
     margin-bottom: 0;
 }
-.hero-button{
-    margin-top:20%;
+
+.hero-button {
+    margin-top: 20%;
 }
 
 div.jumbotron.hero-nature-3 {
     background-image: url('../images/banners/main banner-3.jpg');
-    height:450px;
-    object-fit:contain;
+    height: 450px;
+    object-fit: contain;
 }
 
 div.jumbotron.hero-nature-2 {
     background-image: url('../images/banners/main banner-2.jpg');
-    height:450px;
-    object-fit:contain;
+    height: 450px;
+    object-fit: contain;
 }
 
 div.jumbotron.hero-nature-1 {
     background-image: url('../images/banners/main banner-1.jpg');
-    height:450px;
-    object-fit:contain;
+    height: 450px;
+    object-fit: contain;
 }
 
 h1.hero-title,
@@ -50,7 +51,7 @@ p.hero-subtitle {
 
 .plat {
     border-radius: 0px;
-    margin-top:100px;
+    margin-top: 100px;
 }
 
 .btn-primary.focus,
@@ -746,7 +747,40 @@ label {
     display: none;
 }
 
+.cards-row {
+    align-items: stretch !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+}
+
+.cards {
+    width: 20rem;
+    display: flex;
+    margin-left: 10px;
+}
+
+.cards-image {
+    object-fit: contain;
+    margin-top: 5%;
+    margin-left: 30px;
+}
+
+.cards-row::-webkit-scrollbar {
+    width: 0 !important;
+    display: none !important;
+}
+
+.arrows {
+    margin-left: 85% !important;
+    margin-top: 1%;
+}
+
 @media (max-width: 680px) {
+    .arrows {
+        margin-left: 75% !important;
+    }
     .pincode-btn {
         width: 120%;
     }
@@ -774,6 +808,9 @@ label {
 }
 
 @media(max-width: 765px) {
+    .arrows {
+        margin-left: 70% !important;
+    }
     .dropdown-item-cat {
         font-size: 1rem;
     }
@@ -807,6 +844,12 @@ label {
     .searchBar {
         width: 100% !important;
         margin-left: 0 !important;
+    }
+}
+
+@media(max-width: 1000px) {
+    .arrows {
+        margin-left: 75% !important;
     }
 }
 
