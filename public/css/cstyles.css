@@ -772,9 +772,30 @@ label {
     display: none !important;
 }
 
-.arrows {
-    margin-left: 85% !important;
-    margin-top: 1%;
+.arrows-right {
+    margin-left: 82% !important;
+    margin-top: 10% !important;
+    position: absolute !important;
+    z-index: 1 !important;
+}
+
+.arrows-left {
+    margin-top: 10%;
+    position: absolute !important;
+    z-index: 1 !important;
+    margin-left: -0.8% !important;
+}
+
+.slide-btn:hover {
+    background-color: rgb(255, 191, 0) !important;
+    color: black !important;
+    border: solid 1px rgb(255, 191, 0) !important;
+}
+
+.slide-btn:focus {
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
 }
 
 @media (max-width: 680px) {
