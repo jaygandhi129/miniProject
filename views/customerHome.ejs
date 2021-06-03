@@ -74,10 +74,11 @@
             <%=user.cName%>
         </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>  Profile</a></li>
-                                    <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i>  My Orders</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                                     <li>
-                                        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i>  Logout</button></form>
+                                        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
@@ -146,9 +147,10 @@
         </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                         <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                                                        <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i>  My Orders</a></li>
+                                                        <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                                                         <li>
-                                                            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i>  Logout</button></form>
+                                                            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                                                            </form>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -304,82 +306,29 @@
 
                         <div id="rows2" class="row cards-row">
 
-                            <!-- Card 1-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
 
-                            <!-- Card 2-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
+                            <% rows.forEach(function(row){ %>
+                                <div class="card cards">
+                                    <div class="card-body ">
 
-                            <!-- Card 3-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
+                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
+                                        <div style="height: 75px">
+                                            <h5 class="card-title">
+                                                <%=row.pBrand%>
+                                                    <%=row.pName%>
+                                            </h5>
+                                        </div>
 
-                            <!-- Card 4-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
+                                        <div>
+                                            <p style="margin-top:10px;"><span style="font-size: 1.3rem;">Save upto <%=row.difference%></span> on Rs
+                                                <%=row.pMrp%>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <%})%>
 
-                            <!-- Card 5-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
 
-                            <!-- Card 6-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 7-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- Banner -->
@@ -397,10 +346,12 @@
                     <h2 class="font-weight-bold mb-2 ">We care about your safety</h2>
                     <div class="container">
                         <div class="mob-hidden arrows-left">
-                            <button id="slideBack3" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
+                            <button id="slideBack3" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i
+                    class="fa fa-lg fa-chevron-left"></i></button>
                         </div>
                         <div class=" mob-hidden arrows-right">
-                            <button id="slide3" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
+                            <button id="slide3" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                    class="fa fa-lg fa-chevron-right "></i></button>
                         </div>
 
                         <div id="rows3" class="row cards-row">
@@ -487,10 +438,12 @@
                     <h2 class="font-weight-bold mb-2 ">Top Sellers at your locality</h2>
                     <div class="container">
                         <div class="mob-hidden arrows-left">
-                            <button id="slideBack4" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
+                            <button id="slideBack4" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i
+                    class="fa fa-lg fa-chevron-left"></i></button>
                         </div>
                         <div class=" mob-hidden arrows-right">
-                            <button id="slide4" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
+                            <button id="slide4" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                    class="fa fa-lg fa-chevron-right "></i></button>
                         </div>
 
                         <div id="rows4" class="row cards-row">
@@ -588,10 +541,12 @@
                     <h2 class="font-weight-bold mb-2 ">Top Sellers at your locality</h2>
                     <div class="container">
                         <div class="mob-hidden arrows-left">
-                            <button id="slideBack5" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
+                            <button id="slideBack5" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i
+                    class="fa fa-lg fa-chevron-left"></i></button>
                         </div>
                         <div class=" mob-hidden arrows-right">
-                            <button id="slide5" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
+                            <button id="slide5" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                    class="fa fa-lg fa-chevron-right "></i></button>
                         </div>
 
                         <div id="rows5" class="row cards-row">
@@ -799,7 +754,8 @@
                             </ul><a href="# ">Privacy Policy</a>
                         </div>
                         <div class="col-md-3 social-networks ">
-                            <div></div><a class="facebook " href="# "><i class="fa fa-facebook "></i></a><a class="twitter " href="# "><i class="fa fa-twitter "></i></a><a class="google " href="# "><i class="fa fa-google-plus "></i></a>
+                            <div></div><a class="facebook " href="# "><i class="fa fa-facebook "></i></a><a class="twitter " href="# "><i class="fa fa-twitter "></i></a><a class="google " href="# "><i
+                            class="fa fa-google-plus "></i></a>
                             <a class="linkedin " href="# "><i class="fa fa-linkedin "></i></a><button class="btn btn-primary " style="margin-top:20px; " type="button ">Contact us</button>
                         </div>
                     </div>
@@ -810,7 +766,8 @@
                     </div>
                 </div>
             </footer>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js "></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js ">
+            </script>
             <script src="./cIndex.js "></script>
             <script type="text/javascript ">
                 $(document).ready(function() {
@@ -828,8 +785,10 @@
                             for (var i = 0; i < len; i++) {
                                 var value2 = data[i]['catId'];
                                 var value1 = data[i]['catName'];
-                                var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productList/" + value2 + "'>" + value1 + "</a></li>";
-                                if (i <11) {
+                                var str =
+                                    "<li><a class='dropdown-item dropdown-item-cat' href='/productList/" +
+                                    value2 + "'>" + value1 + "</a></li>";
+                                if (i < 11) {
                                     $("#catDiv1").append(str);
                                 } else {
                                     $("#catDiv2").append(str);
@@ -840,20 +799,32 @@
 
                     /*Top selling products list */
                     $.ajax({
-                    url: "/getTopSelling",
-                    type: "GET",
-                    success: function(data) {
+                        url: "/getTopSelling",
+                        type: "GET",
+                        success: function(data) {
 
-                    var len = data.length;
+                            var len = data.length;
 
-                    console.log(data);
-                    $("#catDiv1").empty();
-                    $("#catDiv2").empty();
+                            console.log(data);
+                            $("#catDiv1").empty();
+                            $("#catDiv2").empty();
 
-                    for (var i = 0; i < len; i++) { var value2=data[i]['catId']; var value1=data[i]['catName']; var
-                        str="<li><a class='dropdown-item dropdown-item-cat' href='/productList/" + value2 + "'>" +
-                        value1 + "</a></li>" ; if (i <11) { $("#catDiv1").append(str); } else {
-                        $("#catDiv2").append(str); } } } });
+                            for (var i = 0; i < len; i++) {
+                                var value2 = data[i]['catId'];
+                                var value1 = data[i]['catName'];
+                                var
+                                    str =
+                                    "<li><a class='dropdown-item dropdown-item-cat' href='/productList/" +
+                                    value2 + "'>" +
+                                    value1 + "</a></li>";
+                                if (i < 11) {
+                                    $("#catDiv1").append(str);
+                                } else {
+                                    $("#catDiv2").append(str);
+                                }
+                            }
+                        }
+                    });
                 });
             </script>
             <script>
@@ -946,5 +917,7 @@
 
 
 </body>
+
+</html>
 
 </html>

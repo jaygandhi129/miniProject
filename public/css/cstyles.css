@@ -757,6 +757,7 @@ label {
 
 .cards {
     width: 20rem;
+    height: 30.5rem;
     display: flex;
     margin-left: 10px;
 }
