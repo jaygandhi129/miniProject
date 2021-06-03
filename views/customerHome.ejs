@@ -815,30 +815,45 @@
             <script type="text/javascript ">
                 $(document).ready(function() {
                     $.ajax({
-                        url: "/getCategory ",
-                        type: "GET ",
+                        url: "/getCategory",
+                        type: "GET",
                         success: function(data) {
 
                             var len = data.length;
 
                             console.log(data);
-                            $("#catDiv1 ").empty();
-                            $("#catDiv2 ").empty();
+                            $("#catDiv1").empty();
+                            $("#catDiv2").empty();
 
                             for (var i = 0; i < len; i++) {
                                 var value2 = data[i]['catId'];
                                 var value1 = data[i]['catName'];
                                 var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productList/" + value2 + "'>" + value1 + "</a></li>";
-                                if (i <
-                                    script 11) {
+                                if (i <11) {
                                     $("#catDiv1").append(str);
                                 } else {
-                                    $(
-                                        "#catDiv2").append(str);
+                                    $("#catDiv2").append(str);
                                 }
                             }
                         }
                     });
+
+                    /*Top selling products list */
+                    $.ajax({
+                    url: "/getTopSelling",
+                    type: "GET",
+                    success: function(data) {
+
+                    var len = data.length;
+
+                    console.log(data);
+                    $("#catDiv1").empty();
+                    $("#catDiv2").empty();
+
+                    for (var i = 0; i < len; i++) { var value2=data[i]['catId']; var value1=data[i]['catName']; var
+                        str="<li><a class='dropdown-item dropdown-item-cat' href='/productList/" + value2 + "'>" +
+                        value1 + "</a></li>" ; if (i <11) { $("#catDiv1").append(str); } else {
+                        $("#catDiv2").append(str); } } } });
                 });
             </script>
             <script>

@@ -164,6 +164,10 @@ function checkFileType(file, cb) {
 
 
 app.get("/", custCheckNotAuthenticated, function(req, res) {
+    if(req.cookies.pincode !== undefined){
+        query1 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller where b.bZip=? and p.pId in (select od.product_id from order_details od inner join orders o on o.order_id = od.order_id where od.prod_status ='Order Completed ' and o.order_zip=440015 group by od.product_id order by count(od.product_id) desc;) group by p.pId"
+    }
+    else{
     if (req.user) {
         if (req.user.role === 1) {
             res.render('customerHome', {
@@ -182,7 +186,8 @@ app.get("/", custCheckNotAuthenticated, function(req, res) {
             pincode: req.cookies.pincode,
             loggedIn: false
         });
-    }
+    }}
+
 });
 
 app.post("/", function(req, res) {
@@ -195,11 +200,7 @@ app.post("/", function(req, res) {
     res.cookie('pincode', pincode, options); // options is optional
     if (req.user) {
         if (req.user.role == 1) {
-            res.render('customerHome', {
-                loggedIn: true,
-                pincode: pincode,
-                user: req.user
-            });
+            res.redirect("/");
         } else {
             res.redirect("/");
         }
