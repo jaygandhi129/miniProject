@@ -216,7 +216,7 @@
                             <!-- Card 1-->
                             <div class="card cards">
                                 <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
+                                    <h5 class="card-title ">Product Name </h5>
                                     <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
                                     <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
                                     <p>Price</p>
@@ -298,10 +298,10 @@
                     <h2 class="font-weight-bold mb-2 ">Pocket savers</h2>
                     <div class="container">
                         <div class="mob-hidden arrows-left">
-                            <button id="slideBack2" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
+                            <button id="slideBack2" style="height: 80px;width:35px;margin-top: 100%;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
                         </div>
                         <div class=" mob-hidden arrows-right">
-                            <button id="slide2" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
+                            <button id="slide2" style="height: 80px;width:35px;margin-top: 100%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
                         </div>
 
                         <div id="rows2" class="row cards-row">
@@ -312,7 +312,7 @@
                                     <div class="card-body ">
 
                                         <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
-                                        <div style="height: 75px">
+                                        <div style="height: 75px;text-align: center;">
                                             <h5 class="card-title">
                                                 <%=row.pBrand%>
                                                     <%=row.pName%>
@@ -320,7 +320,7 @@
                                         </div>
 
                                         <div>
-                                            <p style="margin-top:10px;"><span style="font-size: 1.3rem;">Save upto <%=row.difference%></span> on Rs
+                                            <p style="margin-top:10px;text-align: center;"><span style="font-size: 1.3rem;color:#048f83">Save upto <%=row.difference%>%</span> on ₹
                                                 <%=row.pMrp%>
                                             </p>
                                         </div>
@@ -343,95 +343,39 @@
                         </div>
                     </div>
                     <!-- Covid-->
-                    <h2 class="font-weight-bold mb-2 ">We care about your safety</h2>
+                    <h2 class="font-weight-bold mb-2 "> We care about your safety <i class="fas fa-virus-slash"></i></h2>
                     <div class="container">
                         <div class="mob-hidden arrows-left">
-                            <button id="slideBack3" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            <button id="slideBack3" style="height: 80px;width:35px;margin-top: 100%;" class="btn btn-outline-secondary btn-sm slide-btn"><i
                     class="fa fa-lg fa-chevron-left"></i></button>
                         </div>
                         <div class=" mob-hidden arrows-right">
-                            <button id="slide3" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            <button id="slide3" style="height: 80px;width:35px;margin-top: 100%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
                     class="fa fa-lg fa-chevron-right "></i></button>
                         </div>
 
                         <div id="rows3" class="row cards-row">
 
-                            <!-- Card 1-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
+                            <% rows2.forEach(function(row){ %>
+                                <div class="card cards">
+                                    <div class="card-body ">
 
-                            <!-- Card 2-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
+                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
+                                        <div style="height: 75px;text-align: center;">
+                                            <h5 class="card-title">
+                                                <%=row.pBrand%>
+                                                    <%=row.pName%>
+                                            </h5>
+                                        </div>
 
-                            <!-- Card 3-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
+                                        <div>
+                                            <p style="margin-top:10px;text-align: center;">Lowest Price ₹
+                                                <%=row.pMrp%><i class="fas fa-virus"></i>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Card 4-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 5-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 6-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 7-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
+                                <%})%>
                         </div>
                     </div>
                     <!-- Top Sellers at your locality-->
@@ -843,13 +787,13 @@
                 var button = document.getElementById('slide2');
                 button.onclick = function() {
                     var container = document.getElementById('rows2');
-                    sideScroll(container, 'right', 5, 350, 11);
+                    sideScroll(container, 'right', 5, 350, 10);
                 };
 
                 var back = document.getElementById('slideBack2');
                 back.onclick = function() {
                     var container = document.getElementById('rows2');
-                    sideScroll(container, 'left', 5, 350, 11);
+                    sideScroll(container, 'left', 5, 350, 10);
                 };
 
                 var button = document.getElementById('slide3');
