@@ -7,52 +7,57 @@
     <title>CornerKart: Local Market Place</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/cstyles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body style="background: rgb(249,248,248);">
 
     <!-- Pincode Modal Starts -->
     <%if(pincode===undefined){%>
-        <script>
-            function showModal() {
-                $('#staticBackdrop').modal('show');
-            }
+    <script>
+        function showModal() {
+            $('#staticBackdrop').modal('show');
+        }
 
-            $(window).on('load', function() {
-                $('#staticBackdrop').modal('show');
-            });
-        </script>
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog" style="margin-top:5%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
-                    </div>
-                    <div class="modal-body" style="margin-top:3%;">
-                        <form class="" action="/" method="post">
-                            <div class="row g-2">
-                                <div class="col col-auto">
-                                    <input type="text" class="form-control form-custom form-control-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
-                                </div>
-                                <div class="col col-auto">
-                                    <button type="submit" class="btn btn-warning btn-md">Submit</button>
-                                </div>
+        $(window).on('load', function () {
+            $('#staticBackdrop').modal('show');
+        });
+    </script>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top:5%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
+                </div>
+                <div class="modal-body" style="margin-top:3%;">
+                    <form class="" action="/" method="post">
+                        <div class="row g-2">
+                            <div class="col col-auto">
+                                <input type="text" class="form-control form-custom form-control-md search-bar-input"
+                                    placeholder="Ex: 444000" name="pincode" value="" required>
                             </div>
-                            <div class="row">
-                                <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are available in this Pincode
-                                </p>
+                            <div class="col col-auto">
+                                <button type="submit" class="btn btn-warning btn-md">Submit</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row">
+                            <p style="margin-top:3%;color:grey;font-size:1.1rem;">* Products will be shown which are
+                                available in this Pincode
+                            </p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <%}%>
+    </div>
+    <%}%>
             <!-- Pincode Modal Ends -->
 
 
@@ -63,27 +68,30 @@
                 <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i><%=pincode%>
     </button>
 
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="/changePincode">Change Pincode</a></li>
-                        </ul>
-                    </div>
-                    <%if(loggedIn == false){%>
-                        <a class="btn btn-light action-button desktop-hidden" role="button" style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-                        <%}else{%>
-                            <div class="dropdown desktop-hidden user-dropdown-menu">
-                                <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/changePincode">Change Pincode</a></li>
+    </ul>
+    </div>
+    <%if(loggedIn == false){%>
+    <a class="btn btn-light action-button desktop-hidden" role="button"
+        style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+    <%}else{%>
+    <div class="dropdown desktop-hidden user-dropdown-menu">
+        <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black"
+            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <%=user.cName%>
         </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                                    <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                                    <li>
-                                        <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                            <%}%>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+            <li>
+                <form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
+                        class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <%}%>
 
                                 <div class="container" style="margin-left:0">
                                     <a class="navbar-brand expand" href="/"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="./images/logo.png"></button></a>
@@ -137,25 +145,27 @@
                     </ul> -->
 
                                         <%if(loggedIn == false){%>
-                                            <span class="navbar-text actions">
+    <span class="navbar-text actions">
         <a class="btn btn-outline-warning action-button mob-hidden" role="button"
             style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
     </span>
-                                            <%}else{%>
-                                                <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
-                                                    <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <%}else{%>
+    <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+        <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
             <%=user.cName%>
         </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                                                        <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                                                        <li>
-                                                            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <%}%>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+            <li>
+                <form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
+                        class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <%}%>
                                     </div>
                                 </div>
                 </nav>
@@ -196,304 +206,93 @@
             </section>
 
             <% if (pincode!=undefined){%>
-            <div class="bootstrap_cards2">
-                <div class="container py-5 ">
+    <div class="bootstrap_cards2">
+        <div class="container py-5 ">
 
-                    <header class="text-center mb-5">
-                        <h1 class="display-4 font-weight-bold">Explore Products</h1>
-                    </header>
+            <header class="text-center mb-5">
+                <h1 class="display-4 font-weight-bold">Explore Products</h1>
+            </header>
 
-                    <!-- First Row [Products]-->
-                    <h2 class="font-weight-bold mb-2">Top selling products</h2>
+            <!-- First Row [Products]-->
+            <h2 class="font-weight-bold mb-2 px-3" style="padding-bottom: 2%;">Top selling products</h2>
 
-                    <div class="container">
-                        <div class="mob-hidden arrows-left">
-                            <button id="slideBack" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
-                        </div>
-                        <div class=" mob-hidden arrows-right">
-                            <button id="slide" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
-                        </div>
+            <div class="container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack" style="height: 60px;" class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide" style="height: 60px;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
 
-                        <div id="rows" class="row cards-row">
+                <div id="rows" class="row cards-row">
 
-                            <!-- Card 1-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name </h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
+                    <!-- Card 1-->
+                    <%rows6.forEach(function(row){%>
+                    <div class="card cards">
+                        <a href="/productDetails/<%=row.product_id%>" class="stretched-link"></a>
+                        <div class="card-body ">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
+                                alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                class="img-fluid d-block mx-auto mb-3 ">
+                            <div style="height: 75px;text-align: center;">
+                                <h5 class="card-title">
+                                    <%=row.pBrand%>
+                                    <%=row.pName%>
+                                </h5>
                             </div>
-
-                            <!-- Card 2-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
+                            <div>
+                                <p style="margin-top:10px;text-align: center;">MRP ₹
+                                    <%=row.pMRP%><i class="fas fa-hand-holding-medical"></i>
+                                </p>
                             </div>
-
-                            <!-- Card 3-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 4-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 5-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 6-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 7-->
-                            <div class="card cards">
-                                <div class="card-body ">
-                                    <h5 class="card-title ">Product Name</h5>
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50026-photo.png?alt=media " alt=" " class="img-fluid d-block mx-auto mb-3 " width="150px " height="150px ">
-                                    <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                                    <p>Price</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Second Row [Team]-->
-                    <h2 class="font-weight-bold mb-2 ">Pocket savers</h2>
-                    <div class="container">
-                        <div class="mob-hidden arrows-left">
-                            <button id="slideBack2" style="height: 80px;width:35px;margin-top: 100%;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
-                        </div>
-                        <div class=" mob-hidden arrows-right">
-                            <button id="slide2" style="height: 80px;width:35px;margin-top: 100%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
-                        </div>
-
-                        <div id="rows2" class="row cards-row">
-
-
-                            <% rows.forEach(function(row){ %>
-                                <div class="card cards">
-                                    <div class="card-body ">
-
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
-                                        <div style="height: 75px;text-align: center;">
-                                            <h5 class="card-title">
-                                                <%=row.pBrand%>
-                                                    <%=row.pName%>
-                                            </h5>
-                                        </div>
-
-                                        <div>
-                                            <p style="margin-top:10px;text-align: center;"><span style="font-size: 1.3rem;color:#048f83">Save upto <%=row.difference%>%</span> on ₹
-                                                <%=row.pMrp%>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%})%>
-
-
                         </div>
                     </div>
-                    <!-- Banner -->
-                    <div class="row pb-5 mb-4 ">
-                        <div class="card ">
-                            <div class="card-body ">
-                                <h5 class="card-title ">Card title</h5>
-                                <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text "><small class="text-muted ">Last updated 3 mins ago</small></p>
+                    <% });%>
+                </div>
+
+            </div>
+
+
+            <!-- Second Row [Team]-->
+            <h2 class="font-weight-bold mb-2 px-3 headings-cards">Pocket savers</h2>
+            <div class="container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack2" style="height: 80px;width:35px;margin-top: 100%;"
+                        class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide2" style="height: 80px;width:35px;margin-top: 100%;"
+                        class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
+
+                <div id="rows2" class="row cards-row">
+
+
+                    <% rows.forEach(function(row){ %>
+                    <div class="card cards">
+                        <a href="/productDetails/<%=row.pId%>" class="stretched-link"></a>
+                        <div class="card-body ">
+
+                            <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
+                                alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                class="img-fluid d-block mx-auto mb-3 ">
+                            <div style="height: 75px;text-align: center;">
+                                <h5 class="card-title">
+                                    <%=row.pBrand%>
+                                    <%=row.pName%>
+                                </h5>
                             </div>
-                            <img src="... " class="card-img-bottom " alt="... ">
-                        </div>
-                    </div>
-                    <!-- Covid-->
-                    <h2 class="font-weight-bold mb-2 "> We care about your safety </h2><i class="fas fa-hand-holding-medical"></i>
-                    <div class="container">
-                        <div class="mob-hidden arrows-left">
-                            <button id="slideBack3" style="height: 80px;width:35px;margin-top: 100%;" class="btn btn-outline-secondary btn-sm slide-btn"><i
-                    class="fa fa-lg fa-chevron-left"></i></button>
-                        </div>
-                        <div class=" mob-hidden arrows-right">
-                            <button id="slide3" style="height: 80px;width:35px;margin-top: 100%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
-                    class="fa fa-lg fa-chevron-right "></i></button>
-                        </div>
 
-                        <div id="rows3" class="row cards-row">
-                            <% rows2.forEach(function(row){ %>
-                                <div class="card cards">
-                                    <div class="card-body ">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
-                                        <div style="height: 75px;text-align: center;">
-                                            <h5 class="card-title">
-                                                <%=row.pBrand%>
-                                                    <%=row.pName%>
-                                            </h5>
-                                        </div>
-                                        <div>
-                                            <p style="margin-top:10px;text-align: center;">Lowest Price ₹
-                                                <%=row.minPrice%><i class="fas fa-hand-holding-medical"></i>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%})%>
-                        </div>
-                    </div>
-                    <!-- Top Sellers at your locality-->
-                    <h2 class="font-weight-bold mb-2 ">SmartPhones </h2>
-                    <div class="container">
-                        <div class="mob-hidden arrows-left">
-                            <button id="slideBack4" style="height: 80px;width:35px;margin-top: 100%;" class="btn btn-outline-secondary btn-sm slide-btn"><i
-                    class="fa fa-lg fa-chevron-left"></i></button>
-                        </div>
-                        <div class=" mob-hidden arrows-right">
-                            <button id="slide4" style="height: 80px;width:35px;margin-top: 100%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
-                    class="fa fa-lg fa-chevron-right "></i></button>
-                        </div>
-
-                        <div id="rows4" class="row cards-row">
-
-                            <!-- Card 1-->
-                            <% rows3.forEach(function(row){ %>
-                                <div class="card cards">
-                                    <div class="card-body ">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
-                                        <div style="height: 75px;text-align: center;">
-                                            <h5 class="card-title">
-                                                <%=row.pBrand%>
-                                                    <%=row.pName%>
-                                            </h5>
-                                        </div>
-                                        <div>
-                                            <p style="margin-top:10px;text-align: center;">Lowest Price ₹
-                                                <%=row.minPrice%><i class="fas fa-hand-holding-medical"></i>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%})%>
-                        </div>
-                    </div>
-                    <!-- Banner -->
-                    <div class="row pb-5 mb-4 ">
-                        <div class="card ">
-                            <div class="card-body ">
-                                <h5 class="card-title ">Card title</h5>
-                                <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text "><small class="text-muted ">Last updated 3 mins ago</small></p>
-                            </div>
-                            <img src="... " class="card-img-bottom " alt="... ">
-                        </div>
-                    </div>
-                    <!-- Top Sellers at your locality-->
-                    <h2 class="font-weight-bold mb-2 ">Style your Wardrobe.</h2>
-                    <div class="container">
-                        <div class="mob-hidden arrows-left">
-                            <button id="slideBack5" style="height: 80px;width:35px;margin-top: 100%;" class="btn btn-outline-secondary btn-sm slide-btn"><i
-                    class="fa fa-lg fa-chevron-left"></i></button>
-                        </div>
-                        <div class=" mob-hidden arrows-right">
-                            <button id="slide5" style="height: 80px;width:35px;margin-top: 100%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i
-                    class="fa fa-lg fa-chevron-right "></i></button>
-                        </div>
-
-                        <div id="rows5" class="row cards-row">
-
-                            <!-- Card 1-->
-                            <% rows4.forEach(function(row){ %>
-                                <div class="card cards">
-                                    <div class="card-body ">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media " alt=" " style="width:250px; height:300px; object-fit:contain;" class="img-fluid d-block mx-auto mb-3 ">
-                                        <div style="height: 75px;text-align: center;">
-                                            <h5 class="card-title">
-                                                <%=row.pBrand%>
-                                                    <%=row.pName%>
-                                            </h5>
-                                        </div>
-                                        <div>
-                                            <p style="margin-top:10px;text-align: center;">Lowest Price ₹
-                                                <%=row.minPrice%><i class="fas fa-hand-holding-medical"></i>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%})%>
-
-                        </div>
-                    </div>
-
-                    <!-- Third Row [Profiles]-->
-                    <h2 class="font-weight-bold mb-2 ">Top Sellers</h2>
-
-
-
-                    <div class="container">
-                        <div class="mob-hidden arrows-left">
-                            <button id="slideBack6" style="height: 60px;width:35px;margin-top: 90%;" class="btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-left"></i></button>
-                        </div>
-                        <div class=" mob-hidden arrows-right">
-                            <button id="slide6" style="height: 60px;width:35px;margin-top: 90%;" class=" btn btn-outline-secondary btn-sm slide-btn"><i class="fa fa-lg fa-chevron-right "></i></button>
-                        </div>
-                        <div class="row cards-row" id="rows6">
-                          <!-- card -->
-                          <% rows5.forEach(function(row){ %>
-                    <div class="card rounded shadow-sm border-0 cards2 ">
-                        <div class="card-body p-0 ">
-                            <div class="bg-primary px-5 py-4 text-center card-img-top ">
-                              <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.bPhotoId%>?alt=media " alt=" " width="100" height="100" style="border:4px solid white;" class="rounded-circle d-block mx-auto ">
-
-
-                                <h5 class="text-white mb-0 "><%=row.bName%></h5>
-                                <p class="small text-white mb-0 ">Hello ji</p>
-                            </div>
-                            <div class="p-4 d-flex justify-content-center ">
-                                <ul class="list-inline mb-0 ">
-                                    <li class="list-inline-item ">
-                                        <h5 class="font-weight-bold mb-0 d-block ">241</h5><small class="text-muted "><i class="fa fa-picture-o mr-1 text-primary "></i>Photos</small>
-                                    </li>
-                                    <li class="list-inline-item ">
-                                        <h5 class="font-weight-bold mb-0 d-block ">84K</h5><small class="text-muted "><i class="fa fa-user-circle-o mr-1 text-primary "></i>Followers</small>
-                                    </li>
-                                </ul>
+                            <div>
+                                <p style="margin-top:10px;text-align: center;"><span
+                                        style="font-size: 1.3rem;color:#048f83">Save upto <%=row.difference%>%</span> on
+                                    ₹
+                                    <%=row.pMrp%>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -502,9 +301,203 @@
 
                 </div>
             </div>
+
+            <!-- Banner -->
+            <div class="row pb-5 mb-4 banner-1">
+                <div class="card ">
+                    <div class="card-body ">
+                        <h5 class="card-title ">Card title</h5>
+                        <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text "><small class="text-muted ">Last updated 3 mins ago</small></p>
+                    </div>
+                    <img src="... " class="card-img-bottom " alt="... ">
                 </div>
             </div>
-            <%}%>
+            <!-- Covid-->
+            <h2 class="font-weight-bold mb-2 headings-cards px-3"> We care about your safety </h2><i
+                class="fas fa-hand-holding-medical"></i>
+            <div class="container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack3" style="height: 80px;width:35px;margin-top: 100%;"
+                        class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide3" style="height: 80px;width:35px;margin-top: 100%;"
+                        class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
+
+                <div id="rows3" class="row cards-row">
+                    <% rows2.forEach(function(row){ %>
+                    <div class="card cards">
+                        <a href="/productDetails/<%=row.pId%>" class="stretched-link"></a>
+                        <div class="card-body ">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
+                                alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                class="img-fluid d-block mx-auto mb-3 ">
+                            <div style="height: 75px;text-align: center;">
+                                <h5 class="card-title">
+                                    <%=row.pBrand%>
+                                    <%=row.pName%>
+                                </h5>
+                            </div>
+                            <div>
+                                <p style="margin-top:10px;text-align: center;">Lowest Price ₹
+                                    <%=row.minPrice%><i class="fas fa-hand-holding-medical"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
+            <!-- Top Sellers at your locality-->
+            <h2 class="font-weight-bold mb-2 headings-cards px-3">SmartPhones </h2>
+            <div class="container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack4" style="height: 80px;width:35px;margin-top: 100%;"
+                        class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide4" style="height: 80px;width:35px;margin-top: 100%;"
+                        class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
+
+                <div id="rows4" class="row cards-row">
+
+                    <!-- Card 1-->
+                    <% rows3.forEach(function(row){ %>
+                    <div class="card cards">
+                        <a href="/productDetails/<%=row.pId%>" class="stretched-link"></a>
+                        <div class="card-body ">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
+                                alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                class="img-fluid d-block mx-auto mb-3 ">
+                            <div style="height: 75px;text-align: center;">
+                                <h5 class="card-title">
+                                    <%=row.pBrand%>
+                                    <%=row.pName%>
+                                </h5>
+                            </div>
+                            <div>
+                                <p style="margin-top:10px;text-align: center;">Lowest Price ₹
+                                    <%=row.minPrice%><i class="fas fa-hand-holding-medical"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
+            <!-- Banner -->
+            <div class="row pb-5 mb-4 banner-1">
+                <div class="card ">
+                    <div class="card-body ">
+                        <h5 class="card-title ">Card title</h5>
+                        <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text "><small class="text-muted ">Last updated 3 mins ago</small></p>
+                    </div>
+                    <img src="... " class="card-img-bottom " alt="... ">
+                </div>
+            </div>
+            <!-- Top Sellers at your locality-->
+            <h2 class="font-weight-bold mb-2 headings-cards px-3">Style your Wardrobe.</h2>
+            <div class="container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack5" style="height: 80px;width:35px;margin-top: 100%;"
+                        class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide5" style="height: 80px;width:35px;margin-top: 100%;"
+                        class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
+
+                <div id="rows5" class="row cards-row">
+
+                    <!-- Card 1-->
+                    <% rows4.forEach(function(row){ %>
+                    <div class="card cards">
+                        <a href="/productDetails/<%=row.pId%>" class="stretched-link"></a>
+                        <div class="card-body ">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
+                                alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                class="img-fluid d-block mx-auto mb-3 ">
+                            <div style="height: 75px;text-align: center;">
+                                <h5 class="card-title">
+                                    <%=row.pBrand%>
+                                    <%=row.pName%>
+                                </h5>
+                            </div>
+                            <div>
+                                <p style="margin-top:10px;text-align: center;">Lowest Price ₹
+                                    <%=row.minPrice%><i class="fas fa-hand-holding-medical"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+
+                </div>
+            </div>
+
+            <!-- Third Row [Profiles]-->
+            <h2 class="font-weight-bold mb-2 headings-cards px-3">Top Sellers</h2>
+
+
+
+            <div class="container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack6" style="height: 60px;width:35px;margin-top: 90%;"
+                        class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide6" style="height: 60px;width:35px;margin-top: 90%;"
+                        class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
+                <div class="row cards-row" id="rows6">
+                    <!-- card -->
+                    <% rows5.forEach(function(row){ %>
+                    <div class="card rounded shadow-sm border-0 cards2 ">
+                        <div class="card-body p-0 ">
+                            <div class="bg-primary px-5 py-4 text-center card-img-top " style="margin-top:2%">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.bPhotoId%>?alt=media "
+                                    alt=" " width="100" height="100" style="border:4px solid white;"
+                                    class="rounded-circle d-block mx-auto ">
+
+
+                                <h5 class="text-white mb-0 " style="margin-top: 3%;"><%=row.bName%></h5>
+                            </div>
+                            <div class="p-4  justify-content-center ">
+
+                                <div style="height:100px">
+                                    <p style="text-align:center; font-weight:bold;">Address</p>
+                                    <p class="small mb-0 " style="text-align: center;"><%=row.bAddress%></p>
+                                    <p class="small mb-0 " style="text-align: center;"><%=row.bCity%></p>
+                                </div>
+                                <div style="text-align: center;margin-top: 5%;">
+                                    <h5 class="font-weight-bold mb-0 d-block "><%=row.count%></h5>
+                                        <p style="font-weight: bold;">Total Orders</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
             <footer id="myFooter ">
                 <div class="container-fluid ">
                     <div class="row text-center ">

@@ -20,19 +20,22 @@ div.jumbotron.carousel-hero {
 div.jumbotron.hero-nature-3 {
     background-image: url('../images/banners/main banner-3.jpg');
     height: 450px;
-    object-fit: contain;
+    background-size: 90% 100%;
+    background-repeat: no-repeat;
 }
 
 div.jumbotron.hero-nature-2 {
     background-image: url('../images/banners/main banner-2.jpg');
     height: 450px;
-    object-fit: contain;
+    background-size: 90% 100%;
+    background-repeat: no-repeat;
 }
 
 div.jumbotron.hero-nature-1 {
     background-image: url('../images/banners/main banner-1.jpg');
     height: 450px;
-    object-fit: contain;
+    background-size: 90% 100%;
+    background-repeat: no-repeat;
 }
 
 h1.hero-title,
@@ -747,12 +750,24 @@ label {
     display: none;
 }
 
+.banner-1{
+    margin:0 !important;
+    padding:0 !important;
+    margin-left: 0.9% !important;
+    margin-top: 3% !important;
+}
 .cards-row {
     align-items: stretch !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
+}
+
+.headings-cards{
+    padding-bottom: 2% !important;
+    padding-top:4% !important;
+    font-size:2rem !important;
 }
 
 .cards {
@@ -763,7 +778,7 @@ label {
 }
 .cards2 {
     width: 20rem;
-    height: 25rem;
+    height: 26rem;
     display: flex;
     margin-left: 10px;
 }
@@ -953,3 +968,5 @@ label {
 #searchQuerySubmit:hover {
     cursor: pointer;
 }
+
+
