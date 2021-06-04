@@ -761,6 +761,13 @@ label {
     display: flex;
     margin-left: 10px;
 }
+.cards2 {
+    width: 20rem;
+    height: 25rem;
+    display: flex;
+    margin-left: 10px;
+}
+
 
 .cards-image {
     object-fit: contain;

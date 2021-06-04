@@ -163,8 +163,10 @@ function checkFileType(file, cb) {
 
 
 
-app.get("/", custCheckNotAuthenticated, function(req, res) {
+app.get("/",  function(req, res) {
+  console.log("//////");
     if (req.cookies.pincode !== undefined) {
+      console.log("pin ");
         var query = "select  p.pId,p.pName,p.pPhotoId,p.pBrand,p.pMrp,min(i.sellerPrice) as minPrice,ceil(((p.pMrp - i.sellerPrice)/p.pMrp*100)) as difference from products p inner join inventory i on p.pId = i.pId inner join business_details b on i.sId = b.seller where b.bZip = ? group by p.pId order by difference desc; ";
         connection.query(query, [req.cookies.pincode], function(err, rows) {
             if (err) {
@@ -175,21 +177,45 @@ app.get("/", custCheckNotAuthenticated, function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
+                      var query3="SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where pCategory=2000007 and pSubCategory=3000088 and b.bZip=? group by p.pId";
+                        connection.query(query3,[req.cookies.pincode], function(err, rows3) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+
+                              var query4="SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where pCategory=2000001 and pSubCategory!=3000011 and pSubCategory!=3000012 and pSubCategory!=3000013 and b.bZip=? group by p.pId";
+                              connection.query(query4,[req.cookies.pincode], function(err, rows4) {
+                                  if (err) {
+                                      console.log(err);
+                                  } else {
+
+                                    var query5="SELECT o.seller_id,b.bName,b.bPhotoId FROM orders o inner join business_details b on b.seller=o.seller_id where order_zip=? group by seller_id order by count(seller_id) desc limit 8;";
+                                    connection.query(query5,[req.cookies.pincode], function(err, rows5) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
                         if (req.user) {
+                          console.log("if user");
                             if (req.user.role === 1) {
                                 res.render('customerHome', {
-                                    loggedIn: true,
                                     pincode: req.cookies.pincode,
                                     user: req.user,
+                                    loggedIn: true,
                                     rows,
-                                    rows2
+                                    rows2,
+                                    rows3,
+                                    rows4,
+                                    rows5
                                 });
                             } else {
                                 res.render('customerHome', {
                                     pincode: req.cookies.pincode,
                                     loggedIn: false,
                                     rows,
-                                    rows2
+                                    rows2,
+                                    rows3,
+                                    rows4,
+                                    rows5
                                 });
                             }
                         } else {
@@ -197,15 +223,25 @@ app.get("/", custCheckNotAuthenticated, function(req, res) {
                                 pincode: req.cookies.pincode,
                                 loggedIn: false,
                                 rows,
-                                rows2
+                                rows2,
+                                rows3,
+                                rows4,
+                                rows5
                             });
                         }
-                    }
+                      }
+                    });
+                      }
+                    });
+                      }
+                    });
+                  }
                 });
             }
         });
 
     } else {
+      console.log("no pin");
         if (req.user) {
             if (req.user.role === 1) {
                 res.render('customerHome', {
@@ -319,18 +355,14 @@ app.post("/custRegister", custCheckNotAuthenticated, function(req, res) {
 })
 
 app.post('/custlogin', custCheckNotAuthenticated, passport.authenticate('customerLocal', {
-    successRedirect: '/success-login',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }));
 
 app.get('/success-login', custCheckAuthenticated, function(req, res) {
     var pincode = req.cookies.pincode;
-    res.render('customerHome', {
-        loggedIn: true,
-        pincode: pincode,
-        user: req.user
-    });
+    res.redirect("/");
 })
 
 //Logout Users
