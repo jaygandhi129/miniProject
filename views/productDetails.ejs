@@ -247,7 +247,7 @@
                                     <input id="siz" type="text" name="size" value="" style="display:none;">
                                 </form>
                                 <br>
-                                <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a>
+                                <!-- <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a> -->
                             </div>
                         </div>
                     </div>
@@ -439,7 +439,7 @@
                                 $("#bName").html(data[0].bName);
                                 $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
                                 $("#bMobile").html("Contact No. : " + data[0].bMobile);
-                                $("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
+                                $("#bWebsite").html('<a href=data[0].bWebsite style="font-size:1rem;">' + data[0].bWebsite + '</a>');
                                 for (var i = 0; i < len; i++) {
                                     if (i == 0) {
                                         var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
