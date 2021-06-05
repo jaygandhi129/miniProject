@@ -265,18 +265,6 @@
 
 .round-black-btn-1 {
   font-size: 1.3rem;
-  border-radius: 4px;
-  background: white;
-  color: black;
-  padding: 12px 100px;
-  display: inline-block;
-  margin-top: 20px;
-  border: solid 2px #ffbf00;
-  transition: all 0.5s ease-in-out 0s;
-}
-
-.round-black-btn-2 {
-  font-size: 1.15rem;
   margin-left: 5px;
   border-radius: 4px;
   background: #ffbf00;
@@ -291,18 +279,7 @@
 
 .round-black-btn-1:hover,
 .round-black-btn-1:focus {
-  background: #ffbf00;
-  color: black;
-  text-decoration: none;
-}
-
-.round-black-btn-2:hover,
-.round-black-btn-2:focus {
-  opacity: 0.7;
-  background: #ffbf00;
-  color: black;
-  text-decoration: none;
-  border: solid 2px #ffbf00;
+  font-size: 1.5rem;
 }
 
 .product-info-tabs {

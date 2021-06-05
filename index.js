@@ -904,10 +904,19 @@ app.get('/dashboard', checkAuthenticated, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('dashboard', {
-                name: req.user.sName,
-                source: rows[0].bPhotoId
-            });
+          query="SELECT count(order_id) as total_orders,(select count(order_id) from orders where order_status='Accepted, In-progress' and seller_id=?) as pending_orders,(select count(order_id) from orders where order_status='Awaiting Approval' and seller_id=?) as new_orders,(select sum(total_amount) from orders where order_status='Order Completed' and seller_id=?) as total_amount from orders where seller_id=?;";
+          connection.query(query,[req.user.sId,req.user.sId,req.user.sId,req.user.sId],function(err,rows1){
+            if(err){
+              console.log(err);
+            }else {
+              res.render('dashboard', {
+                  name: req.user.sName,
+                  source: rows[0].bPhotoId,
+                  rows1
+              });
+            }
+          });
+
         }
     })
 });

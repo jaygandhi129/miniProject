@@ -546,6 +546,23 @@ label {
         font-size: 20px;
         text-align: center;
     }
+    div.jumbotron.hero-nature-1{
+      height: 200px;
+      background-size: 90% 100%;
+      background-repeat: no-repeat;
+    }
+
+    div.jumbotron.hero-nature-2{
+      height: 200px;
+      background-size: 90% 100%;
+      background-repeat: no-repeat;
+    }
+
+    div.jumbotron.hero-nature-3{
+      height: 200px;
+      background-size: 90% 100%;
+      background-repeat: no-repeat;
+    }
 }
 
 .form-control:focus {
@@ -968,5 +985,3 @@ label {
 #searchQuerySubmit:hover {
     cursor: pointer;
 }
-
-

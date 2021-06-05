@@ -330,12 +330,12 @@
 						<div class="col-md-5 col-xs-12">
 							<div class="container">
 						<%if(rows[0].order_status == "Awaiting Approval"){%>
-											<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn"
+											<button type="button" class="btn btn-lg btn-success acc_rej_btn"
 												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;"
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;color:white;"
 												name="button">Accept Order &nbsp; &nbsp;<i
 													class="fas fa-check-circle"></i></button>
-											<button type="button" class="btn btn-lg btn-outline-danger acc_rej_btn"
+											<button type="button" class="btn btn-lg btn-danger acc_rej_btn"
 												data-bs-toggle="modal" data-bs-target="#exampleModal2"
 												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto;width:70%;margin-top:7%;"
 												name="button">Reject Order &nbsp; &nbsp;<i
@@ -343,17 +343,17 @@
 											<%}%>
 						<%if(rows[0].order_status == "Accepted, In-progress"){%>
 											<%if(rows[0].delivery_method=="Y"){%>
-											<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn"
+											<button type="button" class="btn btn-lg btn-success acc_rej_btn"
 												data-bs-toggle="modal" data-bs-target="#exampleModal3"
 												id="deliverOrderBtn"
-												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;"
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;color:white;"
 												name="button">Deliver Order &nbsp; &nbsp;<i
 													class="fas fa-check-circle"></i></button>
 											<%}else{%>
-											<button type="button" class="btn btn-lg btn-outline-success acc_rej_btn"
+											<button type="button" class="btn btn-lg btn-success acc_rej_btn"
 												data-bs-toggle="modal" data-bs-target="#exampleModal4"
 												id = 'pickupBtn'
-												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;"
+												style="font-size: 1.5rem;display:block;margin-left:auto; margin-right:auto; width:70%;color:white;"
 												name="button">Order Picked Up &nbsp; &nbsp;<i
 													class="fas fa-check-circle"></i></button>
 											<%}%>
