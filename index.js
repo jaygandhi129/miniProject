@@ -924,14 +924,40 @@ app.get('/dashboard', checkAuthenticated, function (req, res) {
             if(err){
               console.log(err);
             }else {
-              res.render('dashboard', {
-                  name: req.user.sName,
-                  source: rows[0].bPhotoId,
-                  rows1
+              query2="Select o.order_id,o.total_amount,od.product_qty,od.delivery_method from orders o inner join order_details od on o.order_id=od.order_id where o.order_status='Awaiting Approval' and o.seller_id=? order by o.ordered_timestamp desc limit 8";
+              connection.query(query2,[req.user.sId],function(err,rows2){
+                if(err){
+                  console.log(err);
+                }
+                else {
+                  query3="Select o.order_id,o.total_amount,od.product_qty,od.delivery_method from orders o inner join order_details od on o.order_id=od.order_id where o.order_status='Accepted, In-progress' and o.seller_id=? order by o.ordered_timestamp desc limit 8"
+                  connection.query(query3,[req.user.sId],function(err,rows3){
+                    if(err){
+                      console.log(err);
+                    }
+                    else {
+                      query4="SELECT count(od.product_id) as count,p.pName,p.pBrand,p.pPhotoId from order_details od inner join products p on od.product_id=p.pId inner join orders o on o.order_id=od.order_id where o.seller_id=? and o.order_status != 'Cancelled' group by product_id order by count desc;"
+                      connection.query(query4,[req.user.sId],function(err,rows4){
+                        if(err){
+                          console.log(err);
+                        }else{
+                          res.render('dashboard', {
+                              name: req.user.sName,
+                              source: rows[0].bPhotoId,
+                              rows1,
+                              rows2,
+                              rows3,
+                              rows4
+                          });
+                        }
+                      });
+
+                    }
+                  });
+                }
               });
             }
           });
-
         }
     })
 });
