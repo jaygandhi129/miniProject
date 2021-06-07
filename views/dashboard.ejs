@@ -133,20 +133,67 @@
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="text-primary fw-bold m-0">Waiting For Approval</h6>
+                                    <h6 class="text-primary fw-bold m-0" style="font-size:1.2rem;">Waiting For Approval</h6>
+                                    <div class="container">
+                                      <div class="row ">
+                                        <div class="col-12 " style="overflow-x:auto;margin-top:2%;">
+                                          <table class="table table-image table-striped display table-bordered " id="test-table2" style="width: 100%; margin: 0 auto;">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Order Id</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Delivery</th>
+                                                <th scope="col">Quantity</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            <%  rows2.forEach(function(row){%>
+                                              <tr data-link="/sellerOrdersDetail/<%=row.order_id%>" data-target="">
+                                                <td><u><%=row.order_id%></u></td>
+                                                <td><%=row.total_amount%></td>
+                                                <td><%=row.delivery_method%></td>
+                                                <td><%=row.product_qty%></td>
+                                              </tr>
+                                            <%  })%>
+                                            </tbody>
+                                          </table>
+                                          <a href="/sellerOrders" style="float:right;">View More</a>
+                                        </div>
+                                      </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col">
                             <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Pending Orders</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                <div class="card-header justify-content-between align-items-center">
+                                    <h6 class="text-primary fw-bold m-0" style="font-size:1.2rem;">Pending Orders</h6>
+                                    <div class="container">
+                                      <div class="row ">
+                                        <div class="col-12 " style="overflow-x:auto;margin-top:2%;">
+                                          <table class="table table-image table-striped display table-bordered " id="test-table2" style="width: 100%; margin: 0 auto;">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Order Id</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Delivery</th>
+                                                <th scope="col">Quantity</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            <%  rows3.forEach(function(row){%>
+                                              <tr data-link="/sellerOrdersDetail/<%=row.order_id%>" data-target="">
+                                                <td><u><%=row.order_id%></u></td>
+                                                <td><%=row.total_amount%></td>
+                                                <td><%=row.delivery_method%></td>
+                                                <td><%=row.product_qty%></td>
+                                              </tr>
+                                            <%  })%>
+                                            </tbody>
+                                          </table>
+                                          <a href="/sellerOrders" style="float:right;">View More</a>
                                         </div>
+                                      </div>
                                     </div>
                                 </div>
                                 <div class="card-body"></div>
@@ -155,15 +202,40 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-7 col-xl-8" style="width: 100%;">
+                        <div class="col-lg-7 col-xl-8" style="width: 50%;">
                             <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Top Selling Products</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                <div class="card-header justify-content-between align-items-center">
+                                    <h6 class="text-primary fw-bold" style="margin-top:1%;font-size:1.2rem;">Top Ordered Products</h6>
+                                    <div class="container">
+                                      <div class="row ">
+                                        <div class="col-12" style="overflow-x:auto;margin-top:2%;">
+                                          <table class="table table-image table-striped display table-bordered " id="test-table2" style="width: 100%; margin: 0 auto;">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Sr No.</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Order Count</th>
+
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <%i=1%>
+                                            <%rows4.forEach(function(row){%>
+                                              <tr>
+                                                <td><%=i%></td>
+                                                <td><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" style="height:50px;width:50px;object-fit:contain;"></td>
+                                                <td><%=row.pBrand%> <%=row.pName%></td>
+                                                <td><%=row.count%></td>
+
+                                              </tr>
+
+                                            <%i++})%>
+                                            </tbody>
+                                          </table>
+
                                         </div>
+                                      </div>
                                     </div>
                                 </div>
                                 <div class="card-body"></div>
@@ -179,6 +251,20 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <script>
+			$(function() {
+				$("table tr").click(function(e) {
+					var u = $(this).data("link");
+					var t = $(this).data("target");
+					console.log(u, t);
+					if (t.length) {
+						window.open(u, t);
+					} else {
+						window.location.href = u;
+					}
+				});
+			});
+		</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
     <script src="theme.js"></script>
 </body>
