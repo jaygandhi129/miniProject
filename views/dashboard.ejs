@@ -196,13 +196,12 @@
                                       </div>
                                     </div>
                                 </div>
-                                <div class="card-body"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-7 col-xl-8" style="width: 50%;">
+                        <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header justify-content-between align-items-center">
                                     <h6 class="text-primary fw-bold" style="margin-top:1%;font-size:1.2rem;">Top Ordered Products</h6>
@@ -216,7 +215,6 @@
                                                 <th scope="col">Product</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Order Count</th>
-
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -227,18 +225,30 @@
                                                 <td><img class="img-sm" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" style="height:50px;width:50px;object-fit:contain;"></td>
                                                 <td><%=row.pBrand%> <%=row.pName%></td>
                                                 <td><%=row.count%></td>
-
                                               </tr>
-
                                             <%i++})%>
                                             </tbody>
                                           </table>
-
                                         </div>
                                       </div>
                                     </div>
                                 </div>
-                                <div class="card-body"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header justify-content-between align-items-center">
+                                    <h6 class="text-primary fw-bold" style="margin-top:1%;font-size:1.2rem;">Order Status Statistics<span style="color:grey;font-size:1rem;">&nbsp;&nbsp;(Last 30 days)</span></h6>
+                                    <div class="container">
+                                      <div class="row ">
+                                        <div class="col-12 pie-chart" style="overflow-x:auto;margin-top:2%;">
+                                            <div class="card-body">
+                                                <div id="piechart" class="pie-chart" style="width:100%; height: 300px;margin-left: 15%;"></div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -267,6 +277,28 @@
 		</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
     <script src="theme.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    
+        google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Status', 'order'],
+           <% for(i=0 ; i<rows5.length ; i++){ %>
+          ['<%=rows5[i].status%>', parseInt(<%=rows5[i].count%>)],
+          <%}%>
+        ]);
+        var options = {
+          is3D: true,
+          legend: {position: 'bottom', textStyle: { fontSize: 10}, alignment: 'end'},
+          chartArea:{left:0,top:5},
+          backgroundColor: '#f8f9fc',
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
 </body>
 
 </html>
