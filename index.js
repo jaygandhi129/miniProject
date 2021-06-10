@@ -763,6 +763,57 @@ app.get('/cancelOrder/:order_id', custCheckAuthenticated, function (req, res) {
     });
 });
 
+
+app.post("/searchtag",function(req,res){
+  query="select i.pId,p.pName,p.pBrand,p.pPhotoId,p.pMrp,min(i.sellerPrice) as price from inventory i inner join business_details bd on i.sId=bd.seller inner join products p on i.pId=p.pId where iTags like '%"+req.body.searchQueryInput+"%' and bd.bZip=? ";
+  connection.query(query,[parseInt(req.cookies.pincode)],function(err,rows1){
+    if(err){
+      console.log(err);
+    }else{
+      if (req.user) {
+          pincode = req.cookies.pincode;
+          if (req.user.role === 1) {
+              res.render('productPage0', {
+                  rows1,
+                  searchquery:req.body.searchQueryInput,
+                  loggedIn: true,
+                  pincode: req.cookies.pincode,
+                  user: req.user
+              });
+          } else {
+              res.render('productPage0', {
+                  rows1,
+                  searchquery:req.body.searchQueryInput,
+                  pincode: req.cookies.pincode,
+                  loggedIn: false
+              });
+          }
+      } else {
+          res.render('productPage0', {
+              rows1,
+              searchquery:req.body.searchQueryInput,
+              pincode: req.cookies.pincode,
+              loggedIn: false
+          });
+      }
+    }
+  });
+});
+
+
+app.get("/changepincodesearch",function(req,res){
+  res.clearCookie("pincode");
+  if (req.user) {
+      if (req.user.role == 1) {
+          res.redirect("/");
+      } else {
+          res.redirect("/");
+      }
+  } else {
+      res.redirect("/");
+  }
+});
+
 /************************************Seller Starts*************************************************/
 
 //Seller Home Page
@@ -1001,14 +1052,24 @@ app.post('/addproduct', upload.fields([{
         if (err) {
             console.log(err);
         } else if (rows.length) {
-            connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges) VALUES(?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges], function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Data Inserted Successfully");
-                    res.redirect("/myproducts");
-                }
-            })
+          query10="Select c.catName,sc.subCatName from product_subcategories sc inner join product_categories c on sc.catId=c.catId where sc.subCatId=?";
+          connection.query(query10,[parseInt(pDetails.pSubCategory)],function(err,rows10){
+          if(err){
+            console.log(err);
+          }else{
+            var tag=pDetails.pBrand+' '+pDetails.pName+' '+rows10[0].subCatName+' '+rows10[0].catName;
+              connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges,tag], function (err) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                      console.log("Data Inserted Successfully");
+                      res.redirect("/myproducts");
+                  }
+              })
+          }
+
+          });
+
         } else {
             var subCat = parseInt(pDetails.pSubCategory);
 
@@ -1067,14 +1128,23 @@ app.post('/addproduct', upload.fields([{
                         if (err) {
                             console.log(err);
                         } else {
-                            connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges) VALUES(?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges], function (err) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log("Data Inserted Successfully");
-                                    res.redirect("/myproducts");
-                                }
-                            })
+                          query10="Select c.catName,sc.subCatName from product_subcategories sc inner join product_categories c on sc.catId=c.catId where sc.subCatId=?";
+                          connection.query(query10,[parseInt(pDetails.pSubCategory)],function(err,rows10){
+                          if(err){
+                            console.log(err);
+                          }else{
+                            var tag=pDetails.pBrand+' '+pDetails.pName+' '+rows10[0].subCatName+' '+rows10[0].catName;
+                              connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges,tag], function (err) {
+                                  if (err) {
+                                      console.log(err);
+                                  } else {
+                                      console.log("Data Inserted Successfully");
+                                      res.redirect("/myproducts");
+                                  }
+                              })
+                          }
+
+                          });
                         }
                     });
                 }
