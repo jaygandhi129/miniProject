@@ -78,7 +78,7 @@
                </button>
                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                  <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                   <li>
                      <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
                   </li>
@@ -137,7 +137,7 @@
                      </button>
                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                        <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                         <li>
                            <form action="/logout-customer?_method=DELETE" method="post"><button type="submit" class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button></form>
                         </li>
@@ -224,7 +224,7 @@
   								</div>
   								<div class="order-tracking waiting">
   									<span class="is-complete"></span>
-                    <%if(rows[0].order_status=="Accepted, In-progress" || rows[0].order_status=="Awaiting Approval" || rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>	
+                    <%if(rows[0].order_status=="Accepted, In-progress" || rows[0].order_status=="Awaiting Approval" || rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
                      <p><%=rows[0].order_status%><br></p>
   								<%}if(rows[0].order_status=="Order Completed"){%>
                     <p>Accepted, In-progress<br></p>
@@ -237,7 +237,7 @@
   									<p><%=rows[0].order_status%><br><span><%=rows[0].delivered_timestamp%></span></p>
                     <%}else if(rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
                       <p><%=rows[0].order_status%><br></p>
-                      
+
                       <%}%>
   								</div>
   							</div>

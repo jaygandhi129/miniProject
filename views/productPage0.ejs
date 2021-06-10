@@ -4,15 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <% if(rows[0].catName){%>
-        <title>
-            <%=rows[0].catName%>
-        </title>
-        <% }else{ %>
-            <title>
-                <%=rows[0].subCatName%>
-            </title>
-            <% } %>
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
@@ -46,7 +37,7 @@
                     </div>
 
                     <div class="modal-body" style="margin-top:3%;">
-                        <form class="" action="/productList/<%=rows[0].catId%>" method="post">
+                        <form class="" action="/productList/" method="post">
                             <div class="row g-2">
                                 <div class="col col-auto">
                                     <input type="text" class="form-control form-custm-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
@@ -76,8 +67,7 @@
   </button>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                            <li><a class="dropdown-item" href="/changePincodeCat/<%=rows[0].catId%>" value=>Change Pincode</a></li>
+                            <li><a class="dropdown-item" href="/changepincodesearch" value=>Change Pincode</a></li>
                         </ul>
                     </div>
                     <%if(loggedIn == false){%>
@@ -101,7 +91,7 @@
                                     <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a>
                                     <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                                     <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
-                                        <ul class="navbar-nav me-auto catagory-div">
+                                        <!-- <ul class="navbar-nav me-auto catagory-div">
                                             <li class="nav-item">
                                                 <div class="dropdown">
                                                     <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
@@ -122,7 +112,7 @@
 
                                             </li>
                                             <li class="nav-item"></li>
-                                        </ul>
+                                        </ul> -->
                                         <ul class="navbar-nav me-auto desktop-hidden">
                                             <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px; display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
                                         </ul>
@@ -173,17 +163,9 @@
 
 
             <div class="container">
-                <% if(rows[0].catName){%>
-                    <h1 style="margin-top:3%; font-size:2rem;">
-                        <%=rows[0].catName%>
-                    </h1>
-
-                    <% }else{ %>
-                        <h1 style="margin-top:3%; font-size:2rem;">
-                            <%=rows[0].subCatName%>
-                        </h1>
-                        <% } %>
-
+              <h1 style="margin-top:3%; font-size:2rem;">
+                  Results for <%=searchquery%>
+              </h1>
                             <% if(rows1!==undefined && rows1.length!==0){ %>
                                 <p style="margin-top:0%; color:#048f83;">*Prices shown below are lowest from your locality. Please confirm actual price before ordering.</p>
                                 <br />
@@ -217,52 +199,12 @@
                                         </div>
                                         <% });%>
                                             <% } else if(rows1==undefined || rows1.length==0){ %>
-                                                <% if(rows[0].catName){%>
-                                                    <h5 style="color:red;">No
-                                                        <%=rows[0].catName%> found in your locality😐</h5>
-                                                    <% }else{ %>
-                                                        <h5 style="color:red;">No
-                                                            <%=rows[0].subCatName%> found in your locality😐</h5>
-                                                        <% } %>
+
                                                             <h4>Try a different Product😊</h4>
                                 </div>
                                 <%  } %>
 
             </div>
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $.ajax({
-                        url: "/getSubCategory/" + <%= rows[0].catId %>,
-                        type: "GET",
-                        success: function(data) {
-
-                            var len = data.length;
-
-
-                            $("#catDiv1").empty();
-                            $("#catDiv2").empty();
-
-                            for (var i = 0; i < len; i++) {
-                                var value2 = data[i]['subCatId'];
-                                var value1 = data[i]['subCatName'];
-                                var str = "<li><a class='dropdown-item dropdown-item-cat' href='/productListBySub/" + value2 + "'>" + value1 + "</a></li>";
-                                if (i < len / 2) {
-                                    $("#catDiv1").append(str);
-                                } else {
-                                    $("#catDiv2").append(str);
-                                }
-                            }
-                        }
-                    });
-                });
-            </script> %>
-
-
-
-
-
-
-
 
 
 
@@ -354,8 +296,6 @@
                     }
                 }
             </script>
-
-
 </body>
 
 </html>
