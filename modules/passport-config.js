@@ -31,7 +31,7 @@ function initialize(passport) {
         if (!rows.length) {
           console.log("User not found");
           return done(null, false, {
-            'message': 'No user found'
+            'message': 'Mobile Number not registered!!'
           });
         }
         if (md5(password) !== rows[0].sPassword) {
@@ -58,13 +58,13 @@ function initialize(passport) {
         //     return done(null, false, {'message':'Oops! Wrong password.'});}
         //   else{
         //     console.log(password);
-        //     return done(null, rows[0]);	
+        //     return done(null, rows[0]);
         //   }
       })
     }
   ))
 
-  //CustomerLocal Login 
+  //CustomerLocal Login
   passport.use('customerLocal', new LocalStrategy({
       usernameField: 'cMobile',
       passwordField: 'cPassword',
@@ -107,7 +107,7 @@ function initialize(passport) {
         //     return done(null, false, {'message':'Oops! Wrong password.'});}
         //   else{
         //     console.log(password);
-        //     return done(null, rows[0]);	
+        //     return done(null, rows[0]);
         //   }
       })
     }
@@ -120,7 +120,7 @@ function initialize(passport) {
       connection.query("select * from seller_details where sId = " + user.sId, function (err, rows) {
         done(err, rows[0]);
       });
-    } 
+    }
     else{
       connection.query("select * from cust_details where cId = " + user.cId, function (err, rows) {
         done(err, rows[0]);
