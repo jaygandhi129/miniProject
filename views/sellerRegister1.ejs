@@ -252,7 +252,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Shop Photo</label>
-                                            <input class="form-control" name="bShop_photo" type="file" id="formFile">
+                                            <input class="form-control" name="bShop_photo" type="file" id="formFile" required>
                                         </div>
                                         <div class="col-12 first-page-valid">
                                             <label for="inputAddress" class="form-label">Website</label>
@@ -274,6 +274,7 @@
                         <div id="single-form-next-prev-1" class="multisteps-form__panel shadow p-4 rounded bg-white"
                             data-animation="scaleIn">
                             <h3 class="text-center multisteps-form__title">Business Address</h3>
+
                             <div id="form-content-2" class="multisteps-form__content">
                                 <div class="row g-3">
                                     <div class="col-12 first-page-valid">
@@ -301,6 +302,7 @@
                                         <div class="invalid-feedback">Zip Code must contain 6 digits.</div>
                                     </div>
                                 </div>
+                                <p class="correct_details" style="margin-top:2%;color:red;display:none">*Make sure that you have filled correct details. (Check previous pages as well)</p>
                                 <div id="next-prev-buttons-1" class="button-row mt-4"><button
                                         class="btn btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
                                     <button class="btn btn btn-primary ml-auto" type="submit" style="margin-left: 1%; background: rgb(0,41,102);"
@@ -346,6 +348,7 @@
                         if (!form.checkValidity()) {
                             event.preventDefault()
                             event.stopPropagation()
+                            $(".correct_details").attr('style',"display:block;color:red");
                         }
                         form.classList.add('was-validated');
                     }, false)
