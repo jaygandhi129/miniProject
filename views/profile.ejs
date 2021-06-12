@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Profile - Brand</title>
+  <title>Seller Profile</title>
   <link rel="stylesheet" href="css/sellerDashboard.css">
+  
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,9 +36,9 @@
           <div id="content">
               <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                   <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                      <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                      <!-- <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                           <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button" style="background: rgba(0,41,102,0.93);"><i class="fas fa-search"></i></button></div>
-                      </form>
+                      </form> -->
                       <ul class="navbar-nav flex-nowrap ms-auto">
                           <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                               <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
@@ -84,10 +85,15 @@
 
                     </div>
                     <div class="card-body">
-                      <form action="/updateprofileseller" method="post">
+                      <form action="/updateprofileseller" class="needs-validation" method="post" novalidate>
                         <div class="row">
                           <div class="col">
-                            <div class="mb-3"><label class="form-label" for="Name"><strong>Name</strong></label><input class="form-control sdis" type="text" id="username" name="sName" placeholder="Name" value="<%=rows[0].sName%>" readonly></div>
+                            <div class="mb-3"><label class="form-label" for="Name"><strong>Name</strong></label>
+                              <input
+                                class="form-control sdis" type="text" id="username" name="sName" placeholder="Name"
+                                value="<%=rows[0].sName%>" pattern="[A-Za-z\s]*" readonly required>
+                              <div class="invalid-feedback">Name must contain only alphabets.</div>
+                            </div>
                           </div>
 
                           <div class="col">
@@ -103,7 +109,7 @@
                             <div class="mb-3"><label class="form-label" for="dob"><strong>Birth Date</strong></label><input class="form-control sdis" type="date" id="last_name" placeholder="Dob" name="sDOB" value="<%=rows[0].sDOB%>" readonly></div>
                           </div>
                         </div>
-                        <div class="mb-3"><button class="btn btn-primary btn-sm ssave" style="display:none;" type="submit" disabled>Save Settings</button></div>
+                        <div class="mb-3"><button class="btn btn-primary btn-sm ssave" style="display:none;" type="submit" disabled>Save</button></div>
                       </form>
                     </div>
                   </div>
@@ -113,39 +119,42 @@
           </div>
           <div class="card shadow mb-5">
             <div class="card-header py-3">
-              <p class="text-primary m-0 fw-bold">Business Details
+              <p class="text-primary m-0 fw-bold" style="font-size:1.6rem">Business Details
               <button class="btn btn-primary btn-sm d-sm-inline-block businesseditbutt" style="background: rgba(0,41,102,0.93); float:right;">
                 Edit</button></p>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-                  <form action="/updateprofilebusiness" method="post">
+                  <form action="/updateprofilebusiness" class="needs-validation" method="post" novalidate>
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bName"><strong>Business Name</strong></label><input class="form-control bdis" type="text" id="bname" placeholder="Business Name" name="bName" value="<%=rows[0].bName%>" readonly>
+                      <div class="col-md-12">
+                        <div class="mb"><label class="form-label" for="bName"><strong>Business Name</strong></label><input class="form-control bdis" type="text" id="bname" placeholder="Business Name" name="bName" value="<%=rows[0].bName%>" readonly required>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <!-- <div class="col-md-6">
                         <div class="mb"><label class="form-label" for="bCategory"><strong>Business Category</strong></label><input class="form-control bdis" type="text" id="bCategory" placeholder="Business Category" name="bCategory"
                             value="<%=rows[0].bCategory%>" readonly></div>
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="row bpadd">
                       <div class="col-md-6">
                         <div class="mb"><label class="form-label" for="bMobile"><strong>Business Mobile</strong></label><input class="form-control bdis" type="text" id="bmobile" placeholder="Business Mobile" name="bMobile" value="<%=rows[0].bMobile%>"
-                            readonly></div>
+                            readonly required pattern="[0-9]{10}"><div class="invalid-feedback">Business Mobile must contain 10 digits.</div>
+                            </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="mb"><label class="form-label" for="bGSt"><strong>GST No</strong></label><input class="form-control" type="text" id="bGst" placeholder="GST" name="bGST" value="<%=rows[0].bGST%>" readonly></div>
+                        <div class="mb"><label class="form-label" for="bGSt"><strong>GST No</strong></label><input class="form-control" type="text" id="bGst" placeholder="GST" name="bGST" value="<%=rows[0].bGST%>" readonly required></div>
                       </div>
                     </div>
 
                     <div class="row bpadd">
                       <div class="col-md-6">
                         <div class="mb"><label class="form-label" for="bEmail"><strong>Business Email</strong></label><input class="form-control bdis" type="text" id="bemail" placeholder="abc@example.com" name="bEmail" value="<%=rows[0].bEmail%>"
-                            readonly></div>
+                            readonly required pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><div
+                              class="invalid-feedback">Enter valid Email</div>
+                            </div>
                       </div>
                       <div class="col-md-6">
                         <div class="mb"><label class="form-label" for="bsite"><strong>Website</strong></label><input class="form-control bdis" type="text" id="bsite" placeholder="www.eg.com" name="bWebsite" value="<%=rows[0].bWebsite%>" readonly></div>
@@ -155,24 +164,28 @@
                     <div class="row bpadd">
                       <div class="col-md-12">
                         <div class="mb"><label class="form-label" for="badd"><strong>Shop Address</strong></label><input class="form-control bdis" type="text" id="bmobile" placeholder="Business Address" name="bAddress" value="<%=rows[0].bAddress%>"
-                            readonly></div>
+                            readonly required></div>
                       </div>
 
                       <div class="row bpadd">
                         <div class="col-md-4">
-                          <div class="mb"><label class="form-label" for="bcity"><strong>City</strong></label><input class="form-control bdis" type="text" id="bcity" placeholder="City" name="bCity" value="<%=rows[0].bCity%>" readonly></div>
+                          <div class="mb"><label class="form-label" for="bcity"><strong>City</strong></label><input class="form-control bdis" type="text" id="bcity" placeholder="City" name="bCity" value="<%=rows[0].bCity%>" readonly required></div>
                         </div>
                         <div class="col-md-4">
-                          <div class="mb"><label class="form-label" for="bstate"><strong>State</strong></label><input class="form-control bdis" type="text" id="bstate" placeholder="State" name="bState" value="<%=rows[0].bState%>" readonly></div>
+                          <div class="mb"><label class="form-label" for="bstate"><strong>State</strong></label><input class="form-control bdis" type="text" id="bstate" placeholder="State" name="bState" value="<%=rows[0].bState%>" readonly required></div>
                         </div>
                         <div class="col-md-4">
-                          <div class="mb"><label class="form-label" for="bzip"><strong>Pin Code</strong></label><input class="form-control bdis" type="text" id="bzip" placeholder="Zip" name="bZip" value="<%=rows[0].bZip%>" readonly></div>
+                          <div class="mb"><label class="form-label" for="bzip"><strong>Pin Code</strong></label><input
+                              class="form-control bdis" type="text" id="bzip" placeholder="Zip" name="bZip"
+                              value="<%=rows[0].bZip%>" readonly required pattern="[0-9]{6}">
+                            <div class="invalid-feedback">Pin Code must contain 6 digits.</div>
+                          </div>
                         </div>
                       </div>
 
                     </div>
 
-                    <div class="mb-3 bpadd"><button class="btn btn-primary btn-sm bsave" style="display:none;" type="submit" disabled>Save Settings</button></div>
+                    <div class="mb-3 bpadd"><button class="btn btn-primary btn-sm bsave" style="display:none;" type="submit" disabled>Save</button></div>
 
                   </form>
                 </div>
@@ -190,7 +203,28 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
   <script src="theme.js"></script>
+  <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      'use strict'
 
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+  </script>
 </body>
 
 </html>

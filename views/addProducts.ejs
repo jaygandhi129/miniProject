@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Add Products</title>
 	<link rel="stylesheet" href="css/sellerDashboard.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,7 +27,7 @@
 
 		<!-- form started -->
 
-		<form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/addproduct" enctype="multipart/form-data">
+		<form id="main-form" class="multisteps-form__form needs-validation" method="POST" action="/addproduct" enctype="multipart/form-data" novalidate>
 			<div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
 
 				<div id="form-content" class="multisteps-form__content">
@@ -56,12 +58,13 @@
 
 						<div class="col-md-12 first-page-valid">
 							<label for="inputEmail4" class="form-label">Description</label>
-							<textarea type="text" name="pDescription" class="form-control" required></textarea>
+							<textarea type="text" name="pDescription" class="form-control" required pattern="[A-Za-z0-9]*" maxlength="500"></textarea>
+							<div class="invalid-feedback">Enter Description of Product with Max Length 500 alphanumeric characters.</div>
 						</div>
 						<div class="col-sm-6 col-md-6 col-xl-6 clothesSize">
 							<div class="form-group">
 								<label for="clothesSize" class="form-label">Sizes Available</label>
-                    <select name="clothesSize" id="clothesSize" class="mul-select" multiple="true">
+                    <select name="clothesSize" id="clothesSize" class="mul-select" multiple="true" required>
                         <option value="18">18</option>
                         <option value="20">20</option>
 												<option value="22">22</option>
@@ -78,12 +81,13 @@
 												<option value="44">44</option>
 												<option value="46">46</option>
                     </select>
+					<div class="invalid-feedback">Select atleast one size.</div>
 							</div>
            </div>
 					 <div class="col-sm-6 col-md-6 col-xl-6 shoesSize">
 						 <div class="form-group">
 							 <label for="shoesSize" class="form-label">Sizes (C = Child)</label>
-									 <select name="shoesSize" id="shoesSize" class="mul-select" multiple="true">
+									 <select name="shoesSize" id="shoesSize" class="mul-select" multiple="true" required>
 											 <option value="6C">6C</option>
 										   <option value="7C">7C</option>
 											 <option value="8C">8C</option>
@@ -105,21 +109,26 @@
 											 <option value="11">11</option>
 											 <option value="12">12</option>
 									 </select>
+									 <div class="invalid-feedback">Select atleast one size.</div>
 						 </div>
 					</div>
 						<div class="col-md-6 first-page-valid">
 							<label for="inputEmail4" class="form-label">MRP(₹)</label>
-							<input type="text" name="pMRP" class="form-control" required>
+							<input type="text" name="pMRP" class="form-control" required pattern="[0-9.]*">
+							<div class="invalid-feedback">Enter numeric value.</div>
 						</div>
 						<div class="col-md-6 first-page-valid">
 							<label for="inputEmail4" class="form-label">Your Price(₹)</label>
-							<input type="text" name="pPrice" class="form-control" required>
+							<input type="text" name="pPrice" class="form-control" required pattern="[0-9.]*">
+							<div class="invalid-feedback">Enter numeric value.</div>
 						</div>
 						<div class="col-md-6 first-page-valid">
 							<label for="inputEmail4" class="form-label">Quantity Avaliable</label>
-							<input type="text" name="pQuantity" class="form-control" required>
+							<input type="text" name="pQuantity" class="form-control" required pattern="[0-9]*">
+							<div class="invalid-feedback">Enter numeric value.</div>
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-6 mb-3">
 							<label for="formFile" class="form-label">Product Image</label>
 							<input class="form-control" name="product_photo" type="file" id="formFile" required>
 						</div>
@@ -138,8 +147,8 @@
 						<div class="col-md-6 first-page-valid">
 							<div class="DeliveryCharges">
 							<label for="pDeliveryCharges" class="form-label">Delivery Charges(₹)</label>
-							<input type="text" id="pDeliveryCharges" name="pDeliveryCharges" value=0 class="form-control">
-							<p style="margin-top:0%; color:grey;font-size:1rem;">*If multiple products are ordered (from your store) then maximum of delivery charge from ordered products will be considered.</p>
+							<input type="text" id="pDeliveryCharges" name="pDeliveryCharges" value=0 class="form-control" pattern="[0-9]*">
+							<!-- <p style="margin-top:0%; color:grey;font-size:1rem;">*If multiple products are ordered (from your store) then maximum of delivery charge from ordered products will be considered.</p> -->
 
 						</div>
 						</div>
@@ -253,6 +262,28 @@
 			});
 
 		});
+		</script>
+		<script>
+			// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(function () {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+			.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+			if (!form.checkValidity()) {
+			event.preventDefault()
+			event.stopPropagation()
+			}
+
+			form.classList.add('was-validated')
+			}, false)
+			})
+			})()
 		</script>
 </body>
 
