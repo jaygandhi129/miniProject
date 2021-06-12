@@ -364,7 +364,7 @@ app.post("/productList/:catId", function (req, res) {
 
 // Customer Login
 app.get("/login", custCheckNotAuthenticated, function (req, res) {
-    res.render("cLoginSignup");
+    res.render("cLoginSignup",{err:undefined});
 });
 
 app.post("/custRegister", custCheckNotAuthenticated, function (req, res) {
@@ -381,9 +381,13 @@ app.post("/custRegister", custCheckNotAuthenticated, function (req, res) {
 
 app.post('/custlogin', custCheckNotAuthenticated, passport.authenticate('customerLocal', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/custloginfail',
     failureFlash: true
 }));
+
+app.get('/custloginfail',function(req,res){
+  res.render("cLoginSignup",{err:"Incorrect Mobile number or Password"});
+});
 
 app.get('/success-login', custCheckAuthenticated, function (req, res) {
     var pincode = req.cookies.pincode;
