@@ -23,11 +23,13 @@
         <div class="formBx">
           <form action="/custlogin" method="POST" autocomplete="off">
             <h2>Log In</h2>
+            <%if(err){%>
+              <p style="color:red;"><%=err%></p>
+            <%}%>
             <input type="text" name="cMobile" placeholder="Mobile No" autocomplete="off" required/>
             <input type="password" name="cPassword" placeholder="Password" autocomplete="new-password" required/>
             <%# <input type="submit" name="" value="Login" /> %>
 						<button type="submit" class="btn" style="margin-left:0; margin-top:6px;background-color:#048f83;color: white;">Log In</button>
-
             <p class="signup">
               Don't have an account ?
               <a href="#" onclick="toggleForm();">Sign Up.</a>
@@ -37,14 +39,22 @@
       </div>
       <div class="user signupBx">
         <div class="formBx">
-          <form action="/custRegister" method="post" autocomplete="off">
+          <form action="/custRegister" class="needs-validation" method="post" autocomplete="off" novalidate>
             <h2>Create an account</h2>
             <input type="text" name="cName" placeholder="Name" autocomplete="off" required/>
-            <input type="text" name="cMobile" placeholder="Mobile" autocomplete="off" required/>
-            <input type="email" name="cEmail" placeholder="Email Address" autocomplete="off" required/>
-            <input type="text" name="cPincode" placeholder="Your Area Pincode" autocomplete="off" required/>
-            <div id="emailHelp" class="form-text" style="font-size:0.7rem;">* Products will be shown which are available in this Pincode.</div>
-            <input type="password" name="cPassword" placeholder="Confirm Password" autocomplete="new-password" required/>
+            <div>
+              <input type="text" name="cMobile" class="form-control" placeholder="Mobile" autocomplete="off" required pattern="[0-9]"{10}/>
+              <div class="invalid-feedback">Mobile number must contain 10 digits only.</div>
+            </div>
+            <div class="">
+              <input type="email" name="cEmail" placeholder="Email Address" autocomplete="off" required pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+              <div class="invalid-feedback">Invalid Email.</div>
+            </div>
+             <div class="">
+               <input type="text" name="cPincode" placeholder="Your Area Pincode" autocomplete="off" required pattern="[0-9]{6}"/>
+               <div class="invalid-feedback">Pincode must contain 6 digits only.</div>
+             </div>
+            <input type="password" name="cPassword" placeholder="Password" autocomplete="new-password" required/>
             <div id="emailHelp" class="form-text" style="font-size:0.7rem;">By Signing up, I agree to Terms & Conditions and Privacy Policy</div>
 						<button type="submit" class="btn" style="margin-left:0; margin-top:6px;background-color:#048f83;color: white;">Sign Up</button>
             <p class="signup">
@@ -63,6 +73,27 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
 <script src="./cIndex.js"></script>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict'
 
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
 
 </html>
