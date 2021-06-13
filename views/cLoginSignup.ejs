@@ -26,7 +26,7 @@
             <%if(err){%>
               <p style="color:red;"><%=err%></p>
             <%}%>
-            <input type="text" name="cMobile" placeholder="Mobile No" autocomplete="off" required/>
+            <input type="text" name="cMobile" placeholder="Mobile No" autocomplete="off" required maxlength="10"/>
             <input type="password" name="cPassword" placeholder="Password" autocomplete="new-password" required/>
             <%# <input type="submit" name="" value="Login" /> %>
 						<button type="submit" class="btn" style="margin-left:0; margin-top:6px;background-color:#048f83;color: white;">Log In</button>
@@ -43,7 +43,7 @@
             <h2>Create an account</h2>
             <input type="text" name="cName" placeholder="Name" autocomplete="off" required/>
             <div>
-              <input type="text" name="cMobile" class="form-control" placeholder="Mobile" autocomplete="off" required pattern="[0-9]"{10}/>
+              <input type="text" name="cMobile" class="form-control" placeholder="Mobile" autocomplete="off" required pattern="[0-9]"{10} maxlength="10"/>
               <div class="invalid-feedback">Mobile number must contain 10 digits only.</div>
             </div>
             <div class="">

@@ -159,15 +159,11 @@ span {
     color: #0077e2;
 }
 
-#myFooter .google:hover {
-    color: #ef1a1a;
-}
-
 #myFooter .twitter:hover {
     color: #00aced;
 }
 
-#myFooter .linkedin:hover {
+#myFooter .instagram:hover {
     color: #007BB6;
 }
 

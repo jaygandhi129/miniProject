@@ -33,11 +33,15 @@
                   <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
                </div>
                <div class="modal-body" style="margin-top:3%;">
-                  <form class="" action="/productDetails/<%=rows[0].pId%>" method="post">
+                  <form class="needs-validation" action="/productDetails/<%=rows[0].pId%>" method="post" novalidate>
                      <div class="row g-2">
-                        <div class="col col-auto">
-                           <input type="text" class="form-control form-custom form-custom form-control form-custom-md search-bar-input" placeholder="Ex: 444000" name="pincode" value="" required>
-                        </div>
+                       <div class="col col-auto">
+                           <input type="text" class="form-control form-custom form-control-md search-bar-input"
+                               placeholder="Ex: 444000" name="pincode" value="" required pattern="^[1-9][0-9]{5}$" maxlength="6">
+                               <div class="invalid-feedback">
+                                 Enter a valid pincode.
+                               </div>
+                       </div>
                         <div class="col col-auto">
                            <button type="submit" class="btn btn-warning btn-md">Submit</button>
                         </div>
@@ -200,6 +204,28 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+      <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+              }, false)
+            })
+        })()
+      </script>
    </body>
 
 </html>
