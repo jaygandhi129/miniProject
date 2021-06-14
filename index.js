@@ -1046,6 +1046,7 @@ app.post('/addproduct', upload.fields([{
     name: 'product_photo',
     maxCount: 1
 }]), checkAuthenticated, function (req, res) {
+    console.log("Add Product");
     var pDetails = req.body;
     var size = null;
     var deliveryCharges = parseInt(pDetails.pDeliveryCharges);

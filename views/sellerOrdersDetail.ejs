@@ -117,7 +117,7 @@
 				<div class="modal-body">
 					<form>
 						<p style="color:#242e3d;">OTP has been sent to Customer (<%=rows[0].delivery_phone%>)</p>
-						<p id='wrong-otp-text' style='display:none'>Wrong OTP, Try again.</p>
+						<p id='wrong-otp-text-2' style='display:none'>Wrong OTP, Try again.</p>
 						<input name="otp" class="form-control" id="otp-area2" placeholder="Enter OTP reveived by customer."
 							required></input>
 				</div>
@@ -415,14 +415,15 @@
 									onSignInSubmit();
 								}
 							});
-							const phoneNumber = '+914545545445';
+							const phoneNumber = "+91<%=rows[0].delivery_phone%>";
+							console.log("PN : "+phoneNumber);
 							const appVerifier = window.recaptchaVerifier;
 
 							firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
 								.then((confirmationResult) => {
 									// SMS sent. Prompt user to type the code from the message, then sign the
 									// user in with confirmationResult.confirm(code).
-									console.log("Send OTP Success");
+									console.log("Send OTP Success"+phoneNumber);
 									window.confirmationResult = confirmationResult;
 									$('#confirmOTP').on('click', function (event) {
 
@@ -463,7 +464,7 @@
 						onSignInSubmit();
 						}
 						});
-						const phoneNumber = '+914545545445';
+						const phoneNumber = '+91<%=rows[0].delivery_phone%>';
 						const appVerifier = window.recaptchaVerifier;
 						firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
 						.then((confirmationResult) => {
@@ -483,9 +484,8 @@
 						});
 						// ...
 						}).catch((error) => {
-						// User couldn't sign in (bad verification code?)
-						// ...
-						$('#wrong-otp-text').attr('style', 'display:block;color:red;');
+					
+						$('#wrong-otp-text-2').attr('style', 'display:block;color:red;');
 
 						});
 						})
