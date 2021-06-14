@@ -43,7 +43,7 @@
             <h2>Create an account</h2>
             <input type="text" name="cName" placeholder="Name" autocomplete="off" required/>
             <div>
-              <input type="text" name="cMobile" class="form-control" placeholder="Mobile" autocomplete="off" required pattern="[0-9]"{10} maxlength="10"/>
+              <input type="text" name="cMobile" class="form-control" placeholder="Mobile" autocomplete="off" required pattern="[0-9]{10}" maxlength="10"/>
               <div class="invalid-feedback">Mobile number must contain 10 digits only.</div>
             </div>
             <div class="">
@@ -51,7 +51,7 @@
               <div class="invalid-feedback">Invalid Email.</div>
             </div>
              <div class="">
-               <input type="text" name="cPincode" placeholder="Your Area Pincode" autocomplete="off" required pattern="[0-9]{6}"/>
+               <input type="text" name="cPincode" placeholder="Your Area Pincode" autocomplete="off" required pattern="[0-9]{6}" maxlength="6"/>
                <div class="invalid-feedback">Pincode must contain 6 digits only.</div>
              </div>
             <input type="password" name="cPassword" placeholder="Password" autocomplete="new-password" required/>

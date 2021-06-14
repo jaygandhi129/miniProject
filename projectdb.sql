@@ -42,7 +42,7 @@ CREATE TABLE `business_details` (
   UNIQUE KEY `bEmail` (`bEmail`),
   KEY `sellerBusiness` (`seller`),
   CONSTRAINT `sellerBusiness` FOREIGN KEY (`seller`) REFERENCES `seller_details` (`sId`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `business_details` (
 
 LOCK TABLES `business_details` WRITE;
 /*!40000 ALTER TABLE `business_details` DISABLE KEYS */;
-INSERT INTO `business_details` VALUES (18,1029,'mybusiness','...',7756901721,'AB1234567808767','dhoblesaurabh35@gmail.com','','PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR','NAGPUR','Maharashtra',440015,NULL),(26,1044,'Gada Electronics','Electronics and Accessories',6363636363,'542198546523251','sdfsd@gmail.com','','Sujaynagar-8','Akluj','Maharashtra',440015,'Seller%2F1044%2F26-photo.jpg'),(29,1048,'Tejas Shop','Electronics and Accessories',5216325298,'521325269875465','tejas@gmail.com','','SUJAYNAGAR 8 , BYPASS ROAD,','Akluj','Maharashtra',413101,'Seller%2F1048%2F29-photo.PNG');
+INSERT INTO `business_details` VALUES (32,1051,'Dhoble Mart','Mart',7756901721,'22AAAAA0000A1Z5','dhoblesaurabh35@gmail.com','','PN. 23, DHOBLE MART, MANISH NAGAR','NAGPUR','Maharashtra',440015,'Seller%2F1051%2F32-photo.jpg'),(33,1052,'Tejas Shoppy','Mart',8087630373,'22AAAAA0000A1Z4','tgandhi172@gmail.com','','PN. 47, TEJAS SHOPPY, MANISH NAGAR','NAGPUR','Maharashtra',440015,'Seller%2F1052%2F33-photo.jpg'),(34,1053,'Chavan General Store','Other',7378770771,'22AAAAA0000A1Z3','pc.chavan@gmail.com','','A2, Navi Peth','Solapur','Maharashtra',413002,'Seller%2F1053%2F34-photo.jpg'),(35,1054,'J Store','Mart',7709708626,'22AAAAA0000A1Z2','contact@jaygandhi.tech','www.jaygandhi.tech','A3, Navi Peth','Solapur','Maharashtra',413002,'Seller%2F1054%2F35-photo.jpg');
 /*!40000 ALTER TABLE `business_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,7 +73,7 @@ CREATE TABLE `cust_details` (
   PRIMARY KEY (`cId`),
   UNIQUE KEY `cEmail_UNIQUE` (`cEmail`),
   UNIQUE KEY `cMobile_UNIQUE` (`cMobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=800002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=800007 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `cust_details` (
 
 LOCK TABLES `cust_details` WRITE;
 /*!40000 ALTER TABLE `cust_details` DISABLE KEYS */;
-INSERT INTO `cust_details` VALUES (800001,'Jay Nandan Gandhi','jaygandhi129@gmail.com',7709708626,413101,'70b4269b412a8af42b1f7b0d26eceff2',1);
+INSERT INTO `cust_details` VALUES (800003,'Sanyukta Patil','sp.patil@gmail.com',9146632518,440015,'10b8e822d03fb4fd946188e852a4c3e2',1),(800004,'Ajay Phade','ap.phade@gmail.com',9422129600,413002,'10b8e822d03fb4fd946188e852a4c3e2',1),(800005,'Akshay Kumar','ak.kumar@gmail.com',9145598626,413002,'10b8e822d03fb4fd946188e852a4c3e2',1),(800006,'SAURABH SHASHANK DHOBLE','dhoblesaurabh35@gmail.com',7756901721,440015,'10b8e822d03fb4fd946188e852a4c3e2',1);
 /*!40000 ALTER TABLE `cust_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,16 +101,15 @@ CREATE TABLE `inventory` (
   `pId` int DEFAULT NULL,
   `iDelivery` char(1) NOT NULL,
   `iSize` varchar(50) DEFAULT NULL,
-  `iDescription` varchar(300) NOT NULL,
+  `iDescription` varchar(500) NOT NULL,
   `iDeliveryCharges` int NOT NULL DEFAULT '0',
+  `iTags` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`iId`),
   UNIQUE KEY `sId` (`sId`,`pId`),
   KEY `pId` (`pId`),
   CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`sId`) REFERENCES `seller_details` (`sId`),
-  CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`),
-  CONSTRAINT `CHK_Delivery` CHECK ((`iDelivery` in (_utf8mb4'Y',_utf8mb4'N'))),
-  CONSTRAINT `inventory_chk_1` CHECK ((`stockAvailable` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=100042 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +118,6 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (100027,14500,100,1029,50026,'Y',NULL,'6GB 128GB',70),(100029,190,25,1029,50029,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyicduicojm',0),(100030,190,3,1029,50030,'Y',NULL,'Watch jdciusdgfciudhciodc cjdbcidcd ckjjgdyi',0),(100031,13000,15,1029,50031,'Y',NULL,'Good Camera',60),(100032,12000,33,1044,50026,'N',NULL,'lowest price',0),(100035,1100,3,1029,50035,'N','30,32,34,36,38,40,50','White',0),(100036,1400,10,1029,50036,'N','7C,8C,9C,10C,12C,13C,14,13','White',0),(100037,250,122,1029,50037,'N',NULL,'Class 10',0),(100038,1300,24,1044,50036,'Y','10,11,12','Boot',60),(100039,151,12,1044,50038,'N','26,28','asasas',0),(100041,190,12,1029,50038,'N','18,20,22','dsdsds',0);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +141,7 @@ CREATE TABLE `order_details` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`pId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +150,6 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (4000023,50026,2,29000,998,'','N','Accepted, In-progress'),(4000024,50026,3,43500,1497,'','Y','Accepted, In-progress'),(4000025,50038,5,950,55,'22','N','Rejected');
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,10 +168,12 @@ CREATE TABLE `order_payment_details` (
   `paymentEmail` varchar(45) NOT NULL,
   `paymentPhone` varchar(45) NOT NULL,
   `amount` float NOT NULL,
-  `paymentTimestamp` timestamp NOT NULL,
+  `paymentTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `refundId` varchar(100) DEFAULT NULL,
+  `refundTimeStamp` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`orderId`,`razorpayPaymentId`),
   CONSTRAINT `order_payment_details_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +182,6 @@ CREATE TABLE `order_payment_details` (
 
 LOCK TABLES `order_payment_details` WRITE;
 /*!40000 ALTER TABLE `order_payment_details` DISABLE KEYS */;
-INSERT INTO `order_payment_details` VALUES (4000023,'order_HF7et7PF7TlkDJ','pay_HF7f1t45LVeSfQ','upi','jaygandhi129@gmail.com','917709708626',2900000,'2021-05-25 18:22:34'),(4000024,'order_HF7fLKhg1m4tIt','pay_HF7fXedrFuuvjm','upi','jaygandhi129@gmail.com','917709708626',4357000,'2021-05-25 18:23:04'),(4000025,'order_HF7gXmaXJoVPhO','pay_HF7ge8kqGtXpHc','upi','jaygandhi129@gmail.com','917709708626',95000,'2021-05-25 18:24:06');
 /*!40000 ALTER TABLE `order_payment_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +215,7 @@ CREATE TABLE `orders` (
   KEY `cust_id` (`cust_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `seller_details` (`sId`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4000026 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4000068 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +224,6 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (4000023,'',440015,1029,800001,0,29000,'2021-05-25 18:22:39',NULL,NULL,NULL,7709708626,'Accepted, In-progress','','','online','Successfull'),(4000024,'PLOT NO. 23, DHOBLE KIRANA STORES, MANISH NAGAR',440015,1029,800001,70,43570,'2021-05-25 18:23:08',NULL,NULL,NULL,7756901721,'Accepted, In-progress','SAURABH','DHOBLE','online','Successfull'),(4000025,NULL,440015,1029,800001,0,950,'2021-05-25 18:24:10',NULL,'Insufficient Stock',NULL,7709708626,'Rejected',NULL,NULL,'online','Successfull');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,7 +238,7 @@ CREATE TABLE `product_categories` (
   `catId` int NOT NULL AUTO_INCREMENT,
   `catName` varchar(100) NOT NULL,
   PRIMARY KEY (`catId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2000023 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2000023 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +265,7 @@ CREATE TABLE `product_subcategories` (
   PRIMARY KEY (`subCatId`),
   KEY `product_subcategories_ibfk_1` (`catId`),
   CONSTRAINT `product_subcategories_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `product_categories` (`catId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3000261 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3000261 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +298,7 @@ CREATE TABLE `products` (
   KEY `pSubCategory` (`pSubCategory`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`pCategory`) REFERENCES `product_categories` (`catId`),
   CONSTRAINT `products_ibfk_2` FOREIGN KEY (`pSubCategory`) REFERENCES `product_subcategories` (`subCatId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50039 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50054 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,7 +307,6 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (50026,'Galaxy M20',14999,2000007,'Product%2F50026-photo.png',3000088,'Samsung'),(50027,'Purse',1999.99,2000002,'Product%2F50027-photo.png',3000015,'Levi\'s'),(50029,'Baby powder',201,2000017,'Product%2F50029-photo.png',3000259,'Johnson & Johnson'),(50030,'Helmet',201,2000015,'Product%2F50030-photo.png',3000196,'Vega'),(50031,'Note 5 pro',15000,2000007,'Product%2F50031-photo.jpg',3000088,'Redmi'),(50032,'T shirt',1200,2000001,'Product%2F50032-photo.png',3000001,'Levi\'s'),(50033,'Shirt',2500,2000001,'Product%2F50033-photo.png',3000005,'Killer'),(50034,'T shirt',1200,2000001,NULL,3000001,'Killer'),(50035,'T shirt',1200,2000001,'Product%2F50035-photo.png',3000002,'Cotton King'),(50036,'Air',1499,2000003,'Product%2F50036-photo.png',3000022,'Nike'),(50037,'Physics',300,2000018,'Product%2F50037-photo.png',3000215,'NCERT'),(50038,'Top',201,2000001,'Product%2F50038-photo.png',3000012,'Chinki');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,9 +334,8 @@ CREATE TABLE `seller_details` (
   PRIMARY KEY (`sId`),
   UNIQUE KEY `sPhoneNo` (`sPhoneNo`),
   UNIQUE KEY `sAadhar` (`sAadhar`),
-  UNIQUE KEY `sPAN` (`sPAN`),
-  CONSTRAINT `seller_details_chk_1` CHECK ((`sGender` in (_utf8mb4'M',_utf8mb4'F',_utf8mb4'O')))
-) ENGINE=InnoDB AUTO_INCREMENT=1049 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `sPAN` (`sPAN`)
+) ENGINE=InnoDB AUTO_INCREMENT=1055 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -349,7 +344,7 @@ CREATE TABLE `seller_details` (
 
 LOCK TABLES `seller_details` WRITE;
 /*!40000 ALTER TABLE `seller_details` DISABLE KEYS */;
-INSERT INTO `seller_details` VALUES (1029,'Saurabh Dhoble',7756901721,'2021-04-13','M','23, Manish Nagar, Nagpur','NAGPUR','Maharashtra',413101,9911881277336659,'9011882275','10b8e822d03fb4fd946188e852a4c3e2',0),(1044,'Jethalal Gada',2312121212,'2021-04-15','M','Hhjahj','Akluj','Maharashtra',413101,7578555555555555,'2222222222','dc02c947d1b6c77047f17e5f01ea39ed',0),(1048,'Tejas Gandhi',8087630373,'2021-04-23','M','sdfsasd','Solapur','Maharashtra',215421,5212212132565212,'1245236985','15e8e7c72ea16ca290930fd7c4db760b',0);
+INSERT INTO `seller_details` VALUES (1051,'Saurabh Dhoble',7756901721,'2000-06-28','M','Pt. No. 23, Manish Nagar, Nagpur - 15','Nagpur','Maharashtra',440015,787898985252,'ABCDE1234F','10b8e822d03fb4fd946188e852a4c3e2',0),(1052,'Tejas Gandhi',8087630373,'2000-12-22','M','Pt. No. 47, Manish Nagar, Nagpur - 15','Nagpur','Maharashtra',440015,525265656363,'FGHIJ1234K','10b8e822d03fb4fd946188e852a4c3e2',0),(1053,'Pooja Chavan',7378770771,'2000-01-23','F','A2-90, Mantri Chandak Nagar, Solapur','Solapur','Maharashtra',413002,323265652525,'LMNOP1234Q','10b8e822d03fb4fd946188e852a4c3e2',0),(1054,'Jay Gandhi',7709708626,'2000-06-29','M','Sujay Nagar, Solapur','Solapur','Maharashtra',413002,656236326563,'RSTUV1234W','10b8e822d03fb4fd946188e852a4c3e2',0);
 /*!40000 ALTER TABLE `seller_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -362,4 +357,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-26  0:25:23
+-- Dump completed on 2021-06-14 16:32:18
