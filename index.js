@@ -778,6 +778,7 @@ app.post("/searchtag", function (req, res) {
         if (err) {
             console.log(err);
         } else {
+          console.log(rows1);
             if (req.user) {
                 pincode = req.cookies.pincode;
                 if (req.user.role === 1) {
