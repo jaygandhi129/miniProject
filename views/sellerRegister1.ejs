@@ -161,8 +161,8 @@
 
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputEmail4" class="form-label">Aadhar No</label>
-                                        <input type="text" name="sAadhar" class="form-control" required pattern="[0-9]{16}">
-                                        <div class="invalid-feedback">Aadhar Number must contain 16 digits.</div>
+                                        <input type="text" name="sAadhar" class="form-control" required pattern="[0-9]{12}">
+                                        <div class="invalid-feedback">Aadhar Number must contain 12 digits.</div>
                                     </div>
                                     <div class="col-md-6 first-page-valid">
                                         <label for="inputPassword4" class="form-label">Pan No</label>
@@ -207,6 +207,7 @@
                                             <label for="inputState" class="form-label">Category</label>
                                             <select id="inputState" name="bCategory" class="form-select" required>
                                                 <option selected>Choose...</option>
+                                                <option>Mart</option>
                                                 <option>Grocery</option>
                                                 <option>Clothing</option>
                                                 <option>Electrical</option>
@@ -227,6 +228,8 @@
                                                 <option>Books</option>
                                                 <option>Imitation Jewellery</option>
                                                 <option>Baby Care</option>
+                                                <option>Other</option>
+
 
 
                                             </select>
