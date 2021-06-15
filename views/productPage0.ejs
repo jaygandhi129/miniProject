@@ -170,7 +170,7 @@
 
             <div class="container">
               <h1 style="margin-top:3%; font-size:2rem;">
-                  Search Results for <%=searchquery%>
+                  Search Results for '<%=searchquery%>'
               </h1>
                             <% if(rows1!==undefined && rows1.length!==0){ %>
                                 <p style="margin-top:0%; color:#048f83;">*Prices shown below are lowest from your locality. Please confirm actual price before ordering.</p>
@@ -178,7 +178,7 @@
                                 <div class="row">
                                     <% rows1.forEach(function(row){ %>
                                         <div class="col-md-3">
-                                            <div class="dress-card">
+                                            <div class="dress-card product-page-card-pad">
                                                 <div class="dress-card-head">
                                                     <img class="dress-card-img-top" style="width:300px; height:300px; object-fit:contain;" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" alt="">
                                                 </div>

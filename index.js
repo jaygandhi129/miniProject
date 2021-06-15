@@ -773,7 +773,7 @@ app.get('/cancelOrder/:order_id', custCheckAuthenticated, function (req, res) {
 
 
 app.post("/searchtag", function (req, res) {
-    query = "select i.pId,p.pName,p.pBrand,p.pPhotoId,p.pMrp,min(i.sellerPrice) as price from inventory i inner join business_details bd on i.sId=bd.seller inner join products p on i.pId=p.pId where iTags like '%" + req.body.searchQueryInput + "%' and bd.bZip=? ";
+    query = "select i.pId,p.pName,p.pBrand,p.pPhotoId,p.pMrp,min(i.sellerPrice) as price from inventory i inner join business_details bd on i.sId=bd.seller inner join products p on i.pId=p.pId where iTags like '%" + req.body.searchQueryInput + "%' and bd.bZip=? group by i.pId";
     connection.query(query, [parseInt(req.cookies.pincode)], function (err, rows1) {
         if (err) {
             console.log(err);

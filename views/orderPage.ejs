@@ -98,8 +98,8 @@
                         </div>
         </nav>
     </div>
-
-    <h1 style="margin-top:1%;text-align:center;">Order Checkout</h1>
+<div style="background-color:#048f83;color:white;font-size:20px;text-align:center;padding-bottom: 0.3%;">Page will refresh in <span id="timer"></span></div>
+    <h1 style="margin-top:1%;text-align:center;" class="ocheckouttext">Order Checkout</h1>
 
     <!-- orders html starts -->
     <div class="container-fluid">
@@ -308,6 +308,38 @@
                 <script src="theme.js"></script>
                 <script>
                     $(document).ready(function() {
+                        //Page Refresh
+                        setInterval(function () {
+                        window.location.reload(1);
+                        }, 600000);
+
+                        //Timer Countdown
+                        document.getElementById('timer').innerHTML = 10 + ":" + 00;
+            startTimer();
+            function startTimer() {
+                var presentTime = document.getElementById('timer').innerHTML;
+                var timeArray = presentTime.split(/[:]+/);
+                var m = timeArray[0];
+                var s = checkSecond((timeArray[1] - 1));
+                if (s == 59) {
+                    m = m - 1
+                }
+                if (s <= 5 && m == 0){
+                    $('#place_order_btn').attr('disabled', true);
+                }
+                //if(m<0){alert('timer completed')} 
+                document.getElementById('timer').innerHTML = m + ":" + s;
+                console.log(m);
+                setTimeout(startTimer, 1000);
+            }
+
+            function checkSecond(sec) {
+                if (sec < 10 && sec >=
+                    0) {
+                    sec = "0" + sec
+                }; // add zero in front of numbers < 10 
+                if (sec < 0) {sec="59" }; return sec;
+            }
                         var deliveryCharge = 0
 
                         var count = 0
