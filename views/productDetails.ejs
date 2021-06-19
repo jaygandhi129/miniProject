@@ -265,14 +265,14 @@
                 <div class="product-info-tabs disButton">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" style="font-size:1.5rem">Description</a>
                         </li>
                         <!-- <li class="nav-item">
                      <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews (0)</a>
                      </li> -->
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <div class="tab-pane show active " style="white-space: pre-line" id="description"  aria-labelledby="description-tab">
 
                         </div>
                         <!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -441,8 +441,8 @@
                                 $('#invent').val(data[0].iId);
                                 $("#sellerPrice").html("₹ " + data[0].sellerPrice);
                                 var size;
-
-                                $("#description").html(data[0].iDescription);
+                                console.log("D : ",data[0].iDescription);
+                                $("#description").html("<p style='font-size:1.2rem;'>"+data[0].iDescription+"</p>");
 
                                 $("#bName").html(data[0].bName);
                                 $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
@@ -493,11 +493,11 @@
                             var res = ys - ys2;
                             $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
                             $("#youSaved2").html("You save ₹ " + res);
-                            $("#description").html(data[0].iDescription);
+                            $("#description").html("<p style='font-size:1.2rem;'>"+data[0].iDescription+"</p>");
                             $("#bName").html(data[0].bName);
                             $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
                             $("#bMobile").html("Contact No. : " + data[0].bMobile);
-                            $("#bWebsite").html('<a href=data[0].bWebsite>' + data[0].bWebsite + '</a>');
+                            $("#bWebsite").html('<a href='+data[0].bWebsite +'>'+ data[0].bWebsite + '</a>');
                             $("#" + data[0].iId).text("₹ " + data[0].sellerPrice);
                             size = data[0].iSize.split(',');
                             $('#si').empty();
