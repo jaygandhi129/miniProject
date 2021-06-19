@@ -204,7 +204,7 @@ app.get("/", function (req, res) {
                                         console.log(err);
                                     } else {
 
-                                        var query5 = "SELECT o.seller_id,b.bName,b.bAddress,b.bCity,b.bPhotoId, (select count(seller_id) from orders where order_status='Order Completed' and order_zip=? and seller_id=o.seller_id) as count FROM orders o inner join business_details b on b.seller=o.seller_id where order_zip=? group by seller_id order by count(seller_id) desc limit 8;";
+                                        var query5 = "SELECT o.seller_id,b.bName,b.bAddress,b.bCity,b.bPhotoId, (select count(seller_id) from orders where order_status='Order Completed' and order_zip=? and seller_id=o.seller_id) as count FROM orders o inner join business_details b on b.seller=o.seller_id where order_zip=? group by seller_id order by count desc limit 8;";
                                         connection.query(query5, [req.cookies.pincode, req.cookies.pincode], function (err, rows5) {
                                             if (err) {
                                                 console.log(err);
@@ -1057,110 +1057,122 @@ app.post('/addproduct', upload.fields([{
         size = (pDetails.shoesSize).join();
     }
     var sId = req.user.sId;
-    var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
-    connection.query(query, [pDetails.pName, pDetails.pBrand], function (err, rows) {
-        if (err) {
-            console.log(err);
-        } else if (rows.length) {
-            query10 = "Select c.catName,sc.subCatName from product_subcategories sc inner join product_categories c on sc.catId=c.catId where sc.subCatId=?";
-            connection.query(query10, [parseInt(pDetails.pSubCategory)], function (err, rows10) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName;
-                    connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log("Data Inserted Successfully");
-                            res.redirect("/myproducts");
-                        }
-                    })
-                }
+    var query99="Select * from business_details where seller=?";
+    connection.query(query99,[parseInt(sId)],function(err,rows99){
+      if (err){
+        console.log(err);
+      }else{
+        var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
+        connection.query(query, [pDetails.pName, pDetails.pBrand], function (err, rows) {
+            if (err) {
+                console.log(err);
+            } else if (rows.length) {
+                query10 = "Select c.catName,sc.subCatName from product_subcategories sc inner join product_categories c on sc.catId=c.catId where sc.subCatId=?";
+                connection.query(query10, [parseInt(pDetails.pSubCategory)], function (err, rows10) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                      console.log(rows99[0].bName);
 
-            });
-
-        } else {
-            var subCat = parseInt(pDetails.pSubCategory);
-
-            var q = "INSERT INTO products (pName,pMrp,pCategory,pSubCategory,pBrand) VALUES(?,?,?,?,?)";
-            if (subCat === -1) {
-                var values = [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), 3000259, pDetails.pBrand];
-            } else {
-                var values = [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), parseInt(pDetails.pSubCategory), pDetails.pBrand]
-
-            }
-            connection.query(q, values, function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    extension = path.extname(req.files.product_photo[0].originalname);
-                    var query2 = "SELECT pId FROM products WHERE pName = ?"
-                    connection.query(query2, pDetails.pName, function (err, rows2) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            blob = bucket.file('Product/' + rows2[0].pId + '-photo' + extension);
-                            blobStream = blob.createWriteStream({
-                                metadata: {
-                                    contentType: blob.mimetype
-                                }
-                            });
-                            blobStream.on('error', err => {
+                        var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName+' '+rows99[0].bName;
+                        connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
+                            if (err) {
                                 console.log(err);
-                                next(err);
-                            });
+                            } else {
+                                console.log("Data Inserted Successfully");
+                                res.redirect("/myproducts");
+                            }
+                        })
+                    }
 
-                            blobStream.on('finish', () => {
-                                // The public URL can be used to directly access the file via HTTP.
-                                const publicUrl = format(
-                                    `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-                                );
+                });
 
-                                // res.status(200).send(publicUrl);
-                            });
-                            blobStream.end(req.files.product_photo[0].buffer);
+            } else {
+                var subCat = parseInt(pDetails.pSubCategory);
 
+                var q = "INSERT INTO products (pName,pMrp,pCategory,pSubCategory,pBrand) VALUES(?,?,?,?,?)";
+                if (subCat === -1) {
+                    var values = [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), 3000259, pDetails.pBrand];
+                } else {
+                    var values = [pDetails.pName, parseFloat(pDetails.pMRP), parseInt(pDetails.pCategory), parseInt(pDetails.pSubCategory), pDetails.pBrand]
 
-
-                            var query3 = "UPDATE products SET pPhotoId = ? WHERE pId = ?";
-                            connection.query(query3, [blob.id, rows2[0].pId], function (err) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log("Photo Id updated Successfully");
-                                }
-                            });
-                        }
-                    });
-                    var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
-                    connection.query(query, [pDetails.pName, pDetails.pBrand], function (err, rows) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            query10 = "Select c.catName,sc.subCatName from product_subcategories sc inner join product_categories c on sc.catId=c.catId where sc.subCatId=?";
-                            connection.query(query10, [parseInt(pDetails.pSubCategory)], function (err, rows10) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName;
-                                    connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
-                                        if (err) {
-                                            console.log(err);
-                                        } else {
-                                            console.log("Data Inserted Successfully");
-                                            res.redirect("/myproducts");
-                                        }
-                                    })
-                                }
-
-                            });
-                        }
-                    });
                 }
-            });
-        }
+                connection.query(q, values, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        extension = path.extname(req.files.product_photo[0].originalname);
+                        var query2 = "SELECT pId FROM products WHERE pName = ?"
+                        connection.query(query2, pDetails.pName, function (err, rows2) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                blob = bucket.file('Product/' + rows2[0].pId + '-photo' + extension);
+                                blobStream = blob.createWriteStream({
+                                    metadata: {
+                                        contentType: blob.mimetype
+                                    }
+                                });
+                                blobStream.on('error', err => {
+                                    console.log(err);
+                                    next(err);
+                                });
+
+                                blobStream.on('finish', () => {
+                                    // The public URL can be used to directly access the file via HTTP.
+                                    const publicUrl = format(
+                                        `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+                                    );
+
+                                    // res.status(200).send(publicUrl);
+                                });
+                                blobStream.end(req.files.product_photo[0].buffer);
+
+
+
+                                var query3 = "UPDATE products SET pPhotoId = ? WHERE pId = ?";
+                                connection.query(query3, [blob.id, rows2[0].pId], function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log("Photo Id updated Successfully");
+                                    }
+                                });
+                            }
+                        });
+                        var query = "SELECT * FROM products WHERE pName = ? and pBrand = ?";
+                        connection.query(query, [pDetails.pName, pDetails.pBrand], function (err, rows) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                query10 = "Select c.catName,sc.subCatName from product_subcategories sc inner join product_categories c on sc.catId=c.catId where sc.subCatId=?";
+                                connection.query(query10, [parseInt(pDetails.pSubCategory)], function (err, rows10) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+
+                                      console.log(rows99[0].bName);
+                                        var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName+' '+rows99[0].bName;
+                                        connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                console.log("Data Inserted Successfully");
+                                                res.redirect("/myproducts");
+                                            }
+                                        })
+                                    }
+
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+      }
     });
+
 });
 
 
