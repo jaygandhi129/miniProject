@@ -869,6 +869,11 @@ label {
   display:none;
 }
 
+.backtocategory{
+  margin-top:2% !important;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 680px){
   .pincode-btn{
     width:120%;
@@ -886,6 +891,10 @@ label {
   }
   .desktop-hidden{
     display: block;
+  }
+
+  .backmob{
+    font-size: 1rem !important;
   }
 }
 

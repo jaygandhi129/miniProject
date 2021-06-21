@@ -25,7 +25,6 @@
 </head>
 
 <body style="background: rgb(249,248,248);">
-
     <!-- Pincode Modal Starts -->
     <%if(pincode===undefined){%>
 
@@ -179,6 +178,9 @@
 
 
             <div class="container">
+              <p  class="backtocategory">
+                <a href="/" class="backmob"><< Back to Category</a>
+              </p>
                 <% if(rows[0].catName){%>
                     <h1 style="margin-top:3%; font-size:2rem;">
                         <%=rows[0].catName%>

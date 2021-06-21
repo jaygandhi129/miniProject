@@ -611,7 +611,7 @@ label {
 
 .testimonials-section {
   background: #fff;
-  height: 600px;
+  height: 450px;
   position: relative;
   overflow: hidden;
   display: -webkit-box;
@@ -675,7 +675,7 @@ label {
 
 .slider__inner {
   position: absolute;
-  top: 80px;
+  top: 60px;
   left: 0;
   width: 500%;
   height: auto;
