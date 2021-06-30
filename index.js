@@ -1061,7 +1061,7 @@ app.post('/addproduct', upload.fields([{
         }
 
     } else if (pDetails.shoesSize != undefined) {
-        size = (pDetails.shoesSize).join;
+        size = (pDetails.shoesSize).join();
     }
     var sId = req.user.sId;
     var query99 = "Select * from business_details where seller=?";
