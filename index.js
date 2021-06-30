@@ -1052,7 +1052,7 @@ app.post('/addproduct', upload.fields([{
     var size = null;
     var deliveryCharges = parseInt(pDetails.pDeliveryCharges);
     if (pDetails.clothesSize != undefined) {
-        if (pDetails.clothesSize.split(",").length > 1) {
+        if (pDetails.clothesSize.toString().split(",").length > 1) {
             size = (pDetails.clothesSize).join();
             console.log("SIZE : " + size);
         } else {
