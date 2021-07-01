@@ -823,6 +823,11 @@ app.get("/changepincodesearch", function (req, res) {
     }
 });
 
+app.get("/invoice/:order_id", function (req, res) {
+  query="Select "
+    res.render('receipt');
+});
+
 /************************************Seller Starts*************************************************/
 
 //Seller Home Page

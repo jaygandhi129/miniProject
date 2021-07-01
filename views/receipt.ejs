@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+    <style>
+      #invoice{
+        margin-top: 5%;
+      }
+      .invoice {
+        margin-bottom: 15px;
+        border-top: 2px solid;
+        border-bottom: 2px solid;
+        background: #ffc107;
+        padding: 0 17px;
+      }
+      .border {
+        border: 1px solid #e5e5e5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" id="invoice">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 border">
+          <div class="row">
+            <div class="col-md-12 invoice text-center">
+              <h2>CornerKart E-Receipt</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <p><strong>Invoice No: </strong> 12345</p>
+              <p><strong>Date:</strong> 15/Jan/2020</p>
+              <p>Bangalore</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 well invoice-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Product Name</td>
+                    <td>15/Jan/2020</td>
+                    <td>$1000.00</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$1000.00</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <img src="../images/signature.png" style="height:150px;width:150px;margin-left:78%;object-fit:contain" alt="stamp">
+            <div class="col-md-11 text-right mt-2 mb-2">Signature</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row ">
+        <div class="col-md-12 text-center mb-4">
+          <button class="btn btn-warning" id="downloadPdf" style="margin-top:3%;">
+            Generate Invoice &nbsp;<i class="fas fa-download"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document
+      .getElementById("downloadPdf")
+      .addEventListener("click", function download() {
+        const element = document.getElementById("invoice");
+        html2pdf()
+          .from(element)
+          .save();
+      });
+  </script>
+</html>

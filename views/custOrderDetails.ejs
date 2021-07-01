@@ -270,7 +270,10 @@
           <%if(rows[0].order_status!="Rejected" && rows[0].order_status!="Cancelled" && rows[0].order_status!="Order Completed" ){%>
 
           <a href="/cancelOrder/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-outline-danger acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button">Cancel Order</a>
-            <%}%>
+            <%}else if(rows[0].order_status=="Order Completed"){%>
+
+            <a href="/invoice/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-outline-warning acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button"><i class="fas fa-receipt"></i>&nbsp;&nbsp;&nbsp;E-Receipt</a>
+              <%}%>
           </div>
               </div>
             </div>
