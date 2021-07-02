@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Order Receipt</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+    <!-- HTML TO PDF -->
     <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <!-- QR CODE -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 
     <style>
@@ -26,6 +29,23 @@
       .border {
         border: 1px solid #e5e5e5;
       }
+      @media (max-width: 800px){
+      .signature-img{
+      margin-left: 35% !important;
+      }
+      .sign-div{
+        margin-left:40% !important;
+      }
+       .qr-text{
+       margin-left:20% !important;
+       }
+    }
+      @media (max-width: 500px){
+        .signature-img{
+          margin-left: 40% !important;
+        }
+      }
+      
     </style>
   </head>
 
@@ -40,10 +60,22 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-md-12 text-left">
+              <p><strong>Order No: </strong> <%=rows[0].order_id%></p>
+              
+              <p><strong>Sold By:</strong> <%=rows[0].bName%></p>
+              <p><%=rows[0].bAddress%>, <%=rows[0].bCity%>, <%=rows[0].bState%>, <%=rows[0].bZip%></p>
+              <p><%=rows[0].bMobile%></p>
+              <p><strong>GST No:</strong> <%=rows[0].bGST%></p>
+              <p><strong>PAN No:</strong> <%=rows[0].sPAN%></p>
+            </div>
             <div class="col-md-12 text-right">
-              <p><strong>Invoice No: </strong> 12345</p>
-              <p><strong>Date:</strong> 15/Jan/2020</p>
-              <p>Bangalore</p>
+              <p><strong>Order Placed Date:</strong> <%=rows[0].ordered_timestamp%></p>
+              <p><strong>Order Completed Date:</strong> <%=rows[0].delivered_timestamp%></p>
+              <strong>Billing Address:</strong>
+              <p> <%=rows[0].cName%></p>
+              <p> <%=rows[0].bCity%>, <%=rows[0].cPincode%></p>
+              <p> <%=rows[0].cMobile%></p>
             </div>
           </div>
           <div class="row">
@@ -52,28 +84,39 @@
                 <thead>
                   <tr>
                     <th>Description</th>
-                    <th>Date</th>
+                    <th>Quantity</th>
                     <th>Amount</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Product Name</td>
-                    <td>15/Jan/2020</td>
-                    <td>$1000.00</td>
+                    <td><%=rows[0].pBrand%> <%=rows[0].pName%></td>
+                    <td><%=rows[0].product_qty%></td>
+                    <td><%=rows[0].price%></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>Delivery Charge</td>
+                    <td><%=rows[0].total_amount - rows[0].price%></td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>
                     <td><strong>Total</strong></td>
-                    <td><strong>$1000.00</strong></td>
+                    <td><strong><%=rows[0].total_amount%></strong></td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
           <div class="row">
-            <img src="../images/signature.png" style="height:150px;width:150px;margin-left:78%;object-fit:contain" alt="stamp">
-            <div class="col-md-11 text-right mt-2 mb-2">Signature</div>
+            <div class="col-md-6">
+              <div id="qrcode-2" class="signature-img"></div>
+              <small class="qr-text">*Scan this QR Code to view your order details.</small>
+              </div>
+              <div class="col-md-6">
+                <img src="../images/signature.png" class="signature-img" style="height:150px;width:150px;margin-left:60%;object-fit:contain" alt="stamp">
+                <div class="col-md-11 mt-2 mb-2 sign-div" style="margin-left: 65%;">E-Stamp</div>
+                </div>
           </div>
         </div>
       </div>
@@ -88,6 +131,16 @@
       </div>
     </div>
   </body>
+  <script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode-2"), {
+      text: "https://cornerkart.herokuapp.com/custOrderDetails/<%=rows[0].order_id%>",
+      width: 128,
+      height: 128,
+      colorDark: "#5868bf",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script> 
   <script>
     document
       .getElementById("downloadPdf")

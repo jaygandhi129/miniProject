@@ -824,8 +824,15 @@ app.get("/changepincodesearch", function (req, res) {
 });
 
 app.get("/invoice/:order_id", function (req, res) {
-  query="Select "
-    res.render('receipt');
+  query="Select o.order_id, o.total_amount, o.ordered_timestamp, o.delivered_timestamp, od.product_id, od.product_qty, od.price, bd.bName, bd.bGST, bd.bMobile, bd.bAddress, bd.bCity, bd.bZip, bd.bState, s.sPAN, c.cName, c.cMobile, c.cPincode, p.pBrand, p.pName from orders o inner join order_details od on o.order_id=od.order_id inner join products p on p.pId = od.product_id inner join seller_details s on s.sId = o.seller_id inner join business_details bd on bd.seller=o.seller_id inner join cust_details c on c.cId = o.cust_id where o.order_id=? ";
+  connection.query(query,[req.params.order_id],function (err, rows){
+      if(err){
+          console.log(err);
+      }
+      else{
+          res.render('receipt',{rows});
+      }
+  })
 });
 
 /************************************Seller Starts*************************************************/
