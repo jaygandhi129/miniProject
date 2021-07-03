@@ -16,7 +16,12 @@ div.jumbotron.carousel-hero {
 .hero-button {
     margin-top: 20%;
 }
-
+div.jumbotron.hero-nature-4 {
+    background-image: url('../images/banners/main banner-4.png');
+    height: 450px;
+    background-size: 90% 100%;
+    background-repeat: no-repeat;
+}
 div.jumbotron.hero-nature-3 {
     background-image: url('../images/banners/main banner-3.jpg');
     height: 450px;
@@ -574,6 +579,11 @@ label {
       height: 200px;
       background-size: 90% 100%;
       background-repeat: no-repeat;
+    }
+    div.jumbotron.hero-nature-4 {
+        height: 200px;
+        background-size: 90% 100%;
+        background-repeat: no-repeat;
     }
 }
 
