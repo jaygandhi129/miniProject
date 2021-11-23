@@ -4,7 +4,7 @@ Dynamic and Responsive platform for Local Vendors to sell their products in thei
 ## Live Website Link
 Customer Portal:
 https://cornerkart.herokuapp.com/
-(Use 413002 as pincode)
+(Use 413002 or 440015 as Pincode)
 Seller Portal:
 https://cornerkart.herokuapp.com/business
 
