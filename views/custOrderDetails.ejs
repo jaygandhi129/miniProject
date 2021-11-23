@@ -272,7 +272,8 @@
           <a href="/cancelOrder/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-outline-danger acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button">Cancel Order</a>
             <%}else if(rows[0].order_status=="Order Completed"){%>
 
-            <a href="/invoice/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-outline-warning acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button"><i class="fas fa-receipt"></i>&nbsp;&nbsp;&nbsp;E-Receipt</a>
+            <a href="/invoice/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-success acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button"><i class="fas fa-receipt"></i>&nbsp;&nbsp;&nbsp;E-Receipt</a>
+            <a href="/custOrderDetails/<%=rows[0].order_id%>/feedback" type="button" class="btn btn-lg btn-warning acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button"><i class="fas fa-star-half-alt"></i>&nbsp;&nbsp;&nbsp;Feedback</a>
               <%}%>
           </div>
               </div>

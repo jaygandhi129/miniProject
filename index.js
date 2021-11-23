@@ -823,7 +823,7 @@ app.get("/changepincodesearch", function (req, res) {
     }
 });
 
-app.get("/invoice/:order_id", function (req, res) {
+app.get("/invoice/:order_id",custCheckAuthenticated ,function (req, res) {
   query="Select o.order_id, o.total_amount, o.ordered_timestamp, o.delivered_timestamp, od.product_id, od.product_qty, od.price, bd.bName, bd.bGST, bd.bMobile, bd.bAddress, bd.bCity, bd.bZip, bd.bState, s.sPAN, c.cName, c.cMobile, c.cPincode, p.pBrand, p.pName from orders o inner join order_details od on o.order_id=od.order_id inner join products p on p.pId = od.product_id inner join seller_details s on s.sId = o.seller_id inner join business_details bd on bd.seller=o.seller_id inner join cust_details c on c.cId = o.cust_id where o.order_id=? ";
   connection.query(query,[req.params.order_id],function (err, rows){
       if(err){
@@ -834,6 +834,36 @@ app.get("/invoice/:order_id", function (req, res) {
       }
   })
 });
+
+app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated , function(req, res){
+    
+    res.render('feedback', {
+        loggedIn: true,
+        pincode: req.cookies.pincode,
+        user: req.user,   
+        orderid:req.params.order_id     
+    });
+
+});
+
+app.post('/feedback/product/submit', custCheckAuthenticated, function(req,res){
+    var p_rating = req.body.p_rating;
+    var p_comment = req.body.p_comment;
+    console.log("Rating is"+ p_rating);
+    console.log("Done")
+    res.redirect("/custOrderDetails/"+ req.body.order_id + "/feedback");
+});
+app.post('/feedback/seller/submit', custCheckAuthenticated, function(req,res){
+    var s_rating = req.body.s_rating;
+    var s_comment = req.body.s_comment;
+    console.log("Rating is"+ s_rating);
+    console.log("Done")
+    res.redirect("/custOrderDetails/"+ req.body.order_id + "/feedback");
+});
+
+
+
+
 
 /************************************Seller Starts*************************************************/
 
