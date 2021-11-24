@@ -117,7 +117,7 @@
                 <div class="card-body p_card_body">
                     <img src="" alt="product-img">
                     <form action="" method="">
-                    <fieldset class="rating p_rating" id="p_rating_fieldset">
+                    <fieldset class="rating p_rating" id="p_rating_fieldset" required>
                         <input type="radio" id="p_star5" name="p_rating" value="5" />
                         <label class = "p_full" for="p_star5" title="Awesome - 5 stars"></label>
                         <input type="radio" id="p_star4half" name="p_rating" value="4.5" />
@@ -157,7 +157,7 @@
                 <div class="card-body s_card_body">
                     <img src="" alt="seller-img">
                     <form action="" method="">
-                    <fieldset class="rating s_rating" id="s_rating_fieldset">
+                    <fieldset class="rating s_rating" id="s_rating_fieldset" required>
                         <input type="radio" id="s_star5" name="s_rating" value="5" />
                         <label class = "s_full" for="s_star5" title="Awesome - 5 stars"></label>
                         <input type="radio" id="s_star4half" name="s_rating" value="4.5" />
@@ -223,48 +223,48 @@
                             'p_rating': document.querySelector('input[name="p_rating"]:checked').value,
                             'p_comment': $("#p_comment").val(), 
                             'order_id': "<%=orderid%>"
-                        },
-                        success: function (result) {    
-                            $('.p_card_body').css("display","none");
-                            $('.p-thank-you').css("display","block");
-                            feedback_count+=1;
-                           if(feedback_count == 2){
-                                $('.gobtn').css('display','block');
-                            } 
+            },
+            success: function (result) {
+            $('.p_card_body').css("display","none");
+            $('.p-thank-you').css("display","block");
+            feedback_count+=1;
+            if(feedback_count == 2){
+            $('.gobtn').css('display','block');
+            }
 
-                        },
-                        error: function (request, status, error) {
-                            serviceError();
-                        }
-                    });
-                });
-                $('#s_submit').click(function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        global: false,
-                        type: 'POST',
-                        url: '/feedback/seller/submit', // missing quotes  
-                        dataType: 'html',
-                        data: {
-                            's_rating': document.querySelector('input[name="s_rating"]:checked').value,
-                            's_comment': $("#s_comment").val(), 
-                            'order_id': "<%=orderid%>"
-                        },
-                        success: function (result) {    
-                            $('.s_card_body').css("display","none");
-                            $('.s-thank-you').css("display","block");
-                            feedback_count+=1;
-                            if(feedback_count == 2){
-                                $('.container').css({'display':'block','text-align':'center'});
+            },
+            error: function (request, status, error) {
+            serviceError();
+            }
+            });
+            });
+            $('#s_submit').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+            global: false,
+            type: 'POST',
+            url: '/feedback/seller/submit', // missing quotes
+            dataType: 'html',
+            data: {
+            's_rating': document.querySelector('input[name="s_rating"]:checked').value,
+            's_comment': $("#s_comment").val(),
+            'order_id': "<%=orderid%>"
+            },
+            success: function (result) {
+            $('.s_card_body').css("display","none");
+            $('.s-thank-you').css("display","block");
+            feedback_count+=1;
+            if(feedback_count == 2){
+            $('.container').css({'display':'block','text-align':'center'});
 
-                            }   
+            }
 
-                        },
-                        error: function (request, status, error) {
-                            serviceError();
-                        }
-                    });
-                });
+            },
+            error: function (request, status, error) {
+            serviceError();
+            }
+            });
+            });
             </script>
 </body>
 
