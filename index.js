@@ -853,26 +853,57 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                 res.redirect("/");
             }
         }
-
     });
-
-
 });
 
 app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res) {
     var p_rating = req.body.p_rating;
     var p_comment = req.body.p_comment;
-    console.log("Rating is" + p_rating);
-    console.log("Done")
-    res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+    var orderId = req.body.order_id;
+    var cId = req.user.cId;
+    var query = "Select product_id from order_details where order_id = ?";
+    connection.query(query, [orderId], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
+            connection.query(query2, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.redirect("/myorders");
+                    // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                }
+            });
+        }
+    });
+
+
+
 });
 
 app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) {
     var s_rating = req.body.s_rating;
     var s_comment = req.body.s_comment;
-    console.log("Rating is" + s_rating);
-    console.log("Done")
-    res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+    console.log(s_comment);
+    var orderId = req.body.order_id;
+    var cId = req.user.cId;
+    var query = "Select seller_id from orders where order_id = ?";
+    connection.query(query, [orderId], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
+            connection.query(query2, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.redirect("/myorders");
+                    // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                }
+            });
+        }
+    });
 });
 
 
@@ -1103,7 +1134,7 @@ app.post('/addproduct', upload.fields([{
     name: 'product_photo',
     maxCount: 1
 }]), checkAuthenticated, function (req, res) {
-  
+
     var pDetails = req.body;
     var size = null;
     var deliveryCharges = parseInt(pDetails.pDeliveryCharges);
