@@ -179,9 +179,9 @@ function checkFileType(file, cb) {
 
 
 app.get("/", function (req, res) {
-    console.log("//////");
+
     if (req.cookies.pincode !== undefined) {
-        console.log("pin ");
+
         var query = "select  p.pId,p.pName,p.pPhotoId,p.pBrand,p.pMrp,min(i.sellerPrice) as minPrice,ceil(((p.pMrp - i.sellerPrice)/p.pMrp*100)) as difference from products p inner join inventory i on p.pId = i.pId inner join business_details b on i.sId = b.seller where b.bZip = ? group by p.pId order by difference desc limit 8; ";
         connection.query(query, [req.cookies.pincode], function (err, rows) {
             if (err) {
@@ -215,7 +215,7 @@ app.get("/", function (req, res) {
                                                         console.log(err);
                                                     } else {
                                                         if (req.user) {
-                                                            console.log("if user");
+
                                                             if (req.user.role === 1) {
                                                                 res.render('customerHome', {
                                                                     pincode: req.cookies.pincode,
@@ -823,42 +823,87 @@ app.get("/changepincodesearch", function (req, res) {
     }
 });
 
-app.get("/invoice/:order_id",custCheckAuthenticated ,function (req, res) {
-  query="Select o.order_id, o.total_amount, o.ordered_timestamp, o.delivered_timestamp, od.product_id, od.product_qty, od.price, bd.bName, bd.bGST, bd.bMobile, bd.bAddress, bd.bCity, bd.bZip, bd.bState, s.sPAN, c.cName, c.cMobile, c.cPincode, p.pBrand, p.pName from orders o inner join order_details od on o.order_id=od.order_id inner join products p on p.pId = od.product_id inner join seller_details s on s.sId = o.seller_id inner join business_details bd on bd.seller=o.seller_id inner join cust_details c on c.cId = o.cust_id where o.order_id=? ";
-  connection.query(query,[req.params.order_id],function (err, rows){
-      if(err){
-          console.log(err);
-      }
-      else{
-          res.render('receipt',{rows});
-      }
-  })
+app.get("/invoice/:order_id", custCheckAuthenticated, function (req, res) {
+    query = "Select o.order_id, o.total_amount, o.ordered_timestamp, o.delivered_timestamp, od.product_id, od.product_qty, od.price, bd.bName, bd.bGST, bd.bMobile, bd.bAddress, bd.bCity, bd.bZip, bd.bState, s.sPAN, c.cName, c.cMobile, c.cPincode, p.pBrand, p.pName from orders o inner join order_details od on o.order_id=od.order_id inner join products p on p.pId = od.product_id inner join seller_details s on s.sId = o.seller_id inner join business_details bd on bd.seller=o.seller_id inner join cust_details c on c.cId = o.cust_id where o.order_id=? ";
+    connection.query(query, [req.params.order_id], function (err, rows) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('receipt', { rows });
+        }
+    })
 });
 
-app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated , function(req, res){
-    
-    res.render('feedback', {
-        loggedIn: true,
-        pincode: req.cookies.pincode,
-        user: req.user,   
-        orderid:req.params.order_id     
+app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function (req, res) {
+    query = "Select cust_id from orders where order_id = ?";
+    //console.log("Feedback" + req.user.cId);
+    connection.query(query, [req.params.order_id], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (req.user.cId === rows[0].cust_id) {
+                res.render('feedback', {
+                    loggedIn: true,
+                    pincode: req.cookies.pincode,
+                    user: req.user,
+                    orderid: req.params.order_id
+                });
+            } else {
+                res.redirect("/");
+            }
+        }
     });
-
 });
 
-app.post('/feedback/product/submit', custCheckAuthenticated, function(req,res){
+app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res) {
     var p_rating = req.body.p_rating;
     var p_comment = req.body.p_comment;
-    console.log("Rating is"+ p_rating);
-    console.log("Done")
-    res.redirect("/custOrderDetails/"+ req.body.order_id + "/feedback");
+    var orderId = req.body.order_id;
+    var cId = req.user.cId;
+    var query = "Select product_id from order_details where order_id = ?";
+    connection.query(query, [orderId], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
+            connection.query(query2, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.redirect("/myorders");
+                    // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                }
+            });
+        }
+    });
+
+
+
 });
-app.post('/feedback/seller/submit', custCheckAuthenticated, function(req,res){
+
+app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) {
     var s_rating = req.body.s_rating;
     var s_comment = req.body.s_comment;
-    console.log("Rating is"+ s_rating);
-    console.log("Done")
-    res.redirect("/custOrderDetails/"+ req.body.order_id + "/feedback");
+    console.log(s_comment);
+    var orderId = req.body.order_id;
+    var cId = req.user.cId;
+    var query = "Select seller_id from orders where order_id = ?";
+    connection.query(query, [orderId], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
+            connection.query(query2, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.redirect("/myorders");
+                    // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                }
+            });
+        }
+    });
 });
 
 
@@ -1089,7 +1134,7 @@ app.post('/addproduct', upload.fields([{
     name: 'product_photo',
     maxCount: 1
 }]), checkAuthenticated, function (req, res) {
-    console.log("Add Product");
+
     var pDetails = req.body;
     var size = null;
     var deliveryCharges = parseInt(pDetails.pDeliveryCharges);
