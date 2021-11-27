@@ -45,6 +45,21 @@ app.use(passport.session())
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Establishing Connection to database
 var connection = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -125,6 +140,42 @@ function custCheckNotAuthenticated(req, res, next) {
         next()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /////////////////////Firebase and Multer Configure///////////////////////////////
@@ -836,18 +887,52 @@ app.get("/invoice/:order_id", custCheckAuthenticated, function (req, res) {
 });
 
 app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function (req, res) {
-    query = "Select cust_id from orders where order_id = ?";
-    //console.log("Feedback" + req.user.cId);
+    query = "Select o.cust_id, od.product_id from orders o join order_details od on o.order_id = od.order_id where o.order_id = ?";
     connection.query(query, [req.params.order_id], function (err, rows) {
         if (err) {
             console.log(err);
         } else {
+            console.log(rows[0].product_id, rows[0].cust_id);
             if (req.user.cId === rows[0].cust_id) {
-                res.render('feedback', {
-                    loggedIn: true,
-                    pincode: req.cookies.pincode,
-                    user: req.user,
-                    orderid: req.params.order_id
+                var query2 = "Select * from product_feedback where pId = ? and cId = ?";
+                connection.query(query2, [rows[0].product_id, rows[0].cust_id], function (err, rows2) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        var query3 = "Select * from seller_feedback where seller_id = ? and cId = ?";
+                        //check whether already reviewed or not
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        if (!rows2[0]) {
+                            res.render('feedback', {
+                                loggedIn: true,
+                                pincode: req.cookies.pincode,
+                                user: req.user,
+                                orderid: req.params.order_id
+                            });
+                        } else {
+                            res.render('feedback', {
+                                loggedIn: true,
+                                pincode: req.cookies.pincode,
+                                user: req.user,
+                                orderid: req.params.order_id,
+                                prating: rows2[0].p_rating,
+                                preview: rows2[0].p_review
+                            });
+                        }
+                    }
                 });
             } else {
                 res.redirect("/");
@@ -866,15 +951,36 @@ app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res)
         if (err) {
             console.log(err);
         } else {
-            var query2 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
-            connection.query(query2, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
+            var query2 = "select cId from product_feedback where pId = ?";
+            connection.query(query2, [rows[0].product_id], function (err, rows2) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.redirect("/myorders");
-                    // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                    if (!rows2[0]) {
+                        var query3 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
+                        connection.query(query3, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.redirect("/myorders");
+                                // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                            }
+                        });
+                    } else {
+                        var query3 = "Update product_feedback set p_rating = ?, p_review = ? where cId = ? and pId = ?";
+                        connection.query(query3, [p_rating, p_comment, cId, rows[0].product_id], function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(p_comment, p_rating);
+                                res.redirect("/myorders");
+                            }
+                        });
+                    }
                 }
+
             });
+
         }
     });
 
@@ -905,6 +1011,54 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
         }
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1486,6 +1640,7 @@ app.post('/acceptOrder', checkAuthenticated, function (req, res) {
     });
 });
 var request = require('request');
+const { connect } = require('tls');
 app.post('/rejectOrder', checkAuthenticated, function (req, res) {
     var query = "update orders set order_status = 'Rejected' , seller_comment = ? where order_id = ?"
     connection.query(query, [req.body.reason, parseInt(req.body.orderId)], function (err) {
