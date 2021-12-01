@@ -115,38 +115,45 @@
         <div class="card feedback-card">
                 <h5 class="card-header">Product Feedback</h5>
                 <div class="card-body p_card_body">
-                    <img src="" alt="product-img">
-                    <form action="" method="">
-                    <fieldset class="rating p_rating" id="p_rating_fieldset" >
-                        <input type="radio" class="5" id="p_star5" name="p_rating" value="5" required />
-                        <label class = "p_full" for="p_star5" title="Awesome - 5 stars"></label>
-                        <input type="radio" class="4.5" id="p_star4half" name="p_rating" value="4.5" required />
-                        <label class="p_half" for="p_star4half" title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" class="4" id="p_star4" name="p_rating" value="4" required />
-                        <label class = "p_full" for="p_star4" title="Pretty good - 4 stars"></label>
-                        <input type="radio" class="3.5"  id="p_star3half" name="p_rating" value="3.5" required />
-                        <label class="p_half" for="p_star3half" title="Meh - 3.5 stars"></label>
-                        <input type="radio" class="3"  id="p_star3" name="p_rating" value="3" required />
-                        <label class = "p_full" for="p_star3" title="Meh - 3 stars"></label>
-                        <input type="radio" class="2.5" id="p_star2half" name="p_rating" value="2.5" required />
-                        <label class="p_half" for="p_star2half" title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" class="2" id="p_star2" name="p_rating" value="2" required />
-                        <label class = "p_full" for="p_star2" title="Kinda bad - 2 stars"></label>
-                        <input type="radio" class="1.5" id="p_star1half" name="p_rating" value="1.5" required />
-                        <label class="p_half" for="p_star1half" title="Meh - 1.5 stars"></label>
-                        <input type="radio" class="1" id="p_star1" name="p_rating" value="1" required />
-                        <label class = "p_full" for="p_star1" title="Sucks big time - 1 star"></label>
-                        <input type="radio" class="0.5" id="p_starhalf" name="p_rating" value="0.5" required />
-                        <label class="p_half" for="p_starhalf" title="Sucks big time - 0.5 stars"></label>
-                    </fieldset>
-                    <h5>Seller Name</h5>    
-                    
-                <h5 class="card-title">Write a review</h5>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows4[0].pPhotoId %>?alt=media" height="100px">
+                    </div>
+                    <div class="col col-md-6"  style="margin-top:7%;">
+                      <form action="" method="">
+                        <fieldset class="rating p_rating" id="p_rating_fieldset" >
+                            <input type="radio" class="5" id="p_star5" name="p_rating" value="5" required />
+                            <label class = "p_full" for="p_star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" class="4.5" id="p_star4half" name="p_rating" value="4.5" required />
+                            <label class="p_half" for="p_star4half" title="Pretty good - 4.5 stars"></label>
+                            <input type="radio" class="4" id="p_star4" name="p_rating" value="4" required />
+                            <label class = "p_full" for="p_star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" class="3.5"  id="p_star3half" name="p_rating" value="3.5" required />
+                            <label class="p_half" for="p_star3half" title="Okay - 3.5 stars"></label>
+                            <input type="radio" class="3"  id="p_star3" name="p_rating" value="3" required />
+                            <label class = "p_full" for="p_star3" title="Okay - 3 stars"></label>
+                            <input type="radio" class="2.5" id="p_star2half" name="p_rating" value="2.5" required />
+                            <label class="p_half" for="p_star2half" title="Poor - 2.5 stars"></label>
+                            <input type="radio" class="2" id="p_star2" name="p_rating" value="2" required />
+                            <label class = "p_full" for="p_star2" title="Poor - 2 stars"></label>
+                            <input type="radio" class="1.5" id="p_star1half" name="p_rating" value="1.5" required />
+                            <label class="p_half" for="p_star1half" title="Very Poor - 1.5 stars"></label>
+                            <input type="radio" class="1" id="p_star1" name="p_rating" value="1" required />
+                            <label class = "p_full" for="p_star1" title="Very Poor - 1 star"></label>
+                            <input type="radio" class="0.5" id="p_starhalf" name="p_rating" value="0.5" required />
+                            <label class="p_half" for="p_starhalf" title="Sucks big time - 0.5 stars"></label>
+                        </fieldset>
+                    </div>
+                  </div>
+                  <br>
+                    <h4><%=rows4[0].pBrand%> <%=rows4[0].pName%></h4>
+
+                <h6 class="card-title">Write a review</h6>
                 <%if(preview){%>
             <%console.log(sreview,preview)%>
-            <textarea id="p_comment" name="product_review" cols="50" rows="5" maxlength="256"><%=preview%></textarea>
+            <textarea id="p_comment" name="product_review" cols="48" rows="5" maxlength="256" style="font-size:1.2rem;"><%=preview%></textarea>
             <%}else{%>
-            <textarea id="p_comment" name="product_review" cols="50" rows="5" maxlength="256"></textarea>
+            <textarea id="p_comment" name="product_review" cols="48" rows="5" maxlength="256"  style="font-size:1.2rem;"></textarea>
             <%}%>
             <button id="p_submit" class="btn btn-primary submit-feedback">Submit</button>
             </form>
@@ -160,38 +167,46 @@
         <div class="card feedback-card">
             <h5 class="card-header">Seller Feedback</h5>
             <div class="card-body s_card_body">
-                <img src="" alt="seller-img">
-                <form action="" method="">
-                    <fieldset class="rating s_rating" id="s_rating_fieldset">
-                        <input type="radio" class="s_5" id="s_star5" name="s_rating" value="5" required />
-                        <label class="s_full" for="s_star5" title="Awesome - 5 stars"></label>
-                        <input type="radio" class="s_4.5" id="s_star4half" name="s_rating" value="4.5" required />
-                        <label class="s_half" for="s_star4half" title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" class="s_4" id="s_star4" name="s_rating" value="4" required />
-                        <label class="s_full" for="s_star4" title="Pretty good - 4 stars"></label>
-                        <input type="radio" class="s_3.5" id="s_star3half" name="s_rating" value="3.5" required />
-                        <label class="s_half" for="s_star3half" title="Meh - 3.5 stars"></label>
-                        <input type="radio" class="s_3" id="s_star3" name="s_rating" value="3" required />
-                        <label class="s_full" for="s_star3" title="Meh - 3 stars"></label>
-                        <input type="radio" class="s_2.5" id="s_star2half" name="s_rating" value="2.5" required />
-                        <label class="s_half" for="s_star2half" title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" class="s_2" id="s_star2" name="s_rating" value="2" required />
-                        <label class="s_full" for="s_star2" title="Kinda bad - 2 stars"></label>
-                        <input type="radio" class="s_1.5"  id="s_star1half" name="s_rating" value="1.5" required />
-                        <label class="s_half" for="s_star1half" title="Meh - 1.5 stars"></label>
-                        <input type="radio" class="s_1" id="s_star1" name="s_rating" value="1" required />
-                        <label class="s_full"  for="s_star1" title="Sucks big time - 1 star"></label>
-                        <input type="radio" class="s_0.5" id="s_starhalf" name="s_rating" value="0.5" required />
-                        <label class="s_half" for="s_starhalf" title="Sucks big time - 0.5 stars"></label>
-                    </fieldset>
-                    <h5>Seller Name</h5>
+              <div class="row">
+                <div class="col col-md-6">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows4[0].bPhotoId %>?alt=media" height="100px">
+                </div>
+                <div class="col col-md-6" style="margin-top:7%;">
+
+                    <form action="" method="">
+                        <fieldset class="rating s_rating" id="s_rating_fieldset">
+                            <input type="radio" class="s_5" id="s_star5" name="s_rating" value="5" required />
+                            <label class="s_full" for="s_star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" class="s_4.5" id="s_star4half" name="s_rating" value="4.5" required />
+                            <label class="s_half" for="s_star4half" title="Pretty good - 4.5 stars"></label>
+                            <input type="radio" class="s_4" id="s_star4" name="s_rating" value="4" required />
+                            <label class="s_full" for="s_star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" class="s_3.5" id="s_star3half" name="s_rating" value="3.5" required />
+                            <label class="s_half" for="s_star3half" title="Okay - 3.5 stars"></label>
+                            <input type="radio" class="s_3" id="s_star3" name="s_rating" value="3" required />
+                            <label class="s_full" for="s_star3" title="Okay - 3 stars"></label>
+                            <input type="radio" class="s_2.5" id="s_star2half" name="s_rating" value="2.5" required />
+                            <label class="s_half" for="s_star2half" title="Poor - 2.5 stars"></label>
+                            <input type="radio" class="s_2" id="s_star2" name="s_rating" value="2" required />
+                            <label class="s_full" for="s_star2" title="Poor - 2 stars"></label>
+                            <input type="radio" class="s_1.5"  id="s_star1half" name="s_rating" value="1.5" required />
+                            <label class="s_half" for="s_star1half" title="Very Poor - 1.5 stars"></label>
+                            <input type="radio" class="s_1" id="s_star1" name="s_rating" value="1" required />
+                            <label class="s_full"  for="s_star1" title="Very Poor - 1 star"></label>
+                            <input type="radio" class="s_0.5" id="s_starhalf" name="s_rating" value="0.5" required />
+                            <label class="s_half" for="s_starhalf" title="Sucks big time - 0.5 stars"></label>
+                        </fieldset>
+                </div>
+              </div>
+              <br>
+                    <h4><%=rows4[0].bName%></h4>
                     <h3></h3>
-                    <h5 class="card-title">Write a review</h5>
+                    <h6 class="card-title">Write a review</h6>
             <%if(sreview){%>
 
-            <textarea id="s_comment" name="seller_review" cols="50" rows="5" maxlength="256"><%=sreview%></textarea>
+            <textarea id="s_comment" name="seller_review" cols="48" rows="5" maxlength="256" style="font-size:1.2rem;"><%=sreview%></textarea>
             <%}else{%>
-            <textarea id="s_comment" name="seller_review" cols="50" rows="5" maxlength="256"></textarea>
+            <textarea id="s_comment" name="seller_review" cols="48" rows="5" maxlength="256" style="font-size:1.2rem;"></textarea>
             <%}%>
 
                 <button id="s_submit" class="btn btn-primary submit-feedback">Submit</button>
