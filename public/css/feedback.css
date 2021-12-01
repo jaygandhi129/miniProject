@@ -20,28 +20,28 @@ fieldset, label { margin: 0; padding: 0; }
 /****** Style Star Rating Widget *****/
 /***** CSS to Highlight Stars on Hover (Product) *****/
 
-.p_rating { 
+.p_rating {
   border: none;
-  font-size: 2rem;     
+  font-size: 2rem;
 }
 
-.p_rating > input { display: none; } 
-.p_rating > label:before { 
+.p_rating > input { display: none; }
+.p_rating > label:before {
   margin: 5px;
-  font-size: 2.25em;
+  font-size: 3em;
   font-family: FontAwesome;
   display: inline-block;
   content: "\f005";
 }
 
-.p_rating > .p_half:before { 
+.p_rating > .p_half:before {
   content: "\f089";
   position: absolute;
 }
 
-.p_rating > label { 
-  color: #ddd; 
- float: right; 
+.p_rating > label {
+  color: #ddd;
+ float: right;
 }
 
 
@@ -54,7 +54,7 @@ fieldset, label { margin: 0; padding: 0; }
 .p_rating > input:checked + label:hover, /* hover current star when changing p_rating */
 .p_rating > input:checked ~ label:hover,
 .p_rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.p_rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.p_rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
 /***** CSS to Highlight Stars on Hover (Seller) *** **/
 
@@ -65,30 +65,30 @@ fieldset, label { margin: 0; padding: 0; }
 .s_rating > input:checked + label:hover, /* hover current star when changing s_rating */
 .s_rating > input:checked ~ label:hover,
 .s_rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.s_rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.s_rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
-.s_rating { 
+.s_rating {
     border: none;
-    font-size: 2rem;     
+    font-size: 2rem;
   }
-  
-  .s_rating > input { display: none; } 
-  .s_rating > label:before { 
+
+  .s_rating > input { display: none; }
+  .s_rating > label:before {
     margin: 5px;
-    font-size: 2.25em;
+    font-size: 3em;
     font-family: FontAwesome;
     display: inline-block;
     content: "\f005";
   }
-  
-  .s_rating > .s_half:before { 
+
+  .s_rating > .s_half:before {
     content: "\f089";
     position: absolute;
   }
-  
-  .s_rating > label { 
-    color: #ddd; 
-   float: right; 
+
+  .s_rating > label {
+    color: #ddd;
+   float: right;
   }
 
   .container{

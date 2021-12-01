@@ -55,7 +55,7 @@ app.use(passport.session())
 
 
 
-
+//git 
 
 
 
@@ -901,7 +901,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                     if (err) {
                         console.log(err)
                     } else {
-                        if (!rows[0]) {
+                        if (!rows2[0]) {
                             pflag = 0;
                         } else {
                             pflag = 1;
@@ -919,52 +919,65 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                                 sflag = 1;
                             }
                         }
-                        if (sflag == 0 && pflag == 0) {
-                            res.render('feedback', {
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user,
-                                orderid: req.params.order_id,
-                                srating: 0,
-                                sreview: "",
-                                prating: 0,
-                                preview: ""
-                            });
-                        } else if (sflag == 0 && pflag == 1) {
-                            res.render('feedback', {
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user,
-                                orderid: req.params.order_id,
-                                srating: 0,
-                                sreview: "",
-                                prating: rows2[0].p_rating,
-                                preview: rows2[0].p_review
-                            });
-                        } else if (sflag == 1 && pflag == 0) {
-                            res.render('feedback', {
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user,
-                                orderid: req.params.order_id,
-                                srating: rows3[0].s_rating,
-                                sreview: rows3[0].s_review,
-                                prating: 0,
-                                preview: ""
-                            });
-                        } else if (sflag == 1 && pflag == 1) {
-                            console.log(rows3[0].s_review);
-                            res.render('feedback', {
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user,
-                                orderid: req.params.order_id,
-                                srating: rows3[0].s_rating,
-                                sreview: rows3[0].s_review,
-                                prating: rows2[0].p_rating,
-                                preview: rows2[0].p_review
-                            });
-                        }
+                        var query4 = "Select p.pPhotoId,p.pName,p.pBrand,b.bName,b.bPhotoId from products p,business_details b where p.pId=? and b.seller=?";
+                        connection.query(query4,[rows[0].product_id,rows3[0].seller_id],function(err,rows4){
+                          if(err){
+                            console.log(err);
+                          }else{
+                            if (sflag == 0 && pflag == 0) {
+                                res.render('feedback', {
+                                    loggedIn: true,
+                                    pincode: req.cookies.pincode,
+                                    user: req.user,
+                                    orderid: req.params.order_id,
+                                    srating: 0,
+                                    sreview: "",
+                                    prating: 0,
+                                    preview: "",
+                                    rows4
+                                });
+                            } else if (sflag == 0 && pflag == 1) {
+                                res.render('feedback', {
+                                    loggedIn: true,
+                                    pincode: req.cookies.pincode,
+                                    user: req.user,
+                                    orderid: req.params.order_id,
+                                    srating: 0,
+                                    sreview: "",
+                                    prating: rows2[0].p_rating,
+                                    preview: rows2[0].p_review,
+                                    rows4
+                                });
+                            } else if (sflag == 1 && pflag == 0) {
+                                res.render('feedback', {
+                                    loggedIn: true,
+                                    pincode: req.cookies.pincode,
+                                    user: req.user,
+                                    orderid: req.params.order_id,
+                                    srating: rows3[0].s_rating,
+                                    sreview: rows3[0].s_review,
+                                    prating: 0,
+                                    preview: "",
+                                    rows4
+                                });
+                            } else if (sflag == 1 && pflag == 1) {
+                                console.log(rows3[0].s_review);
+                                res.render('feedback', {
+                                    loggedIn: true,
+                                    pincode: req.cookies.pincode,
+                                    user: req.user,
+                                    orderid: req.params.order_id,
+                                    srating: rows3[0].s_rating,
+                                    sreview: rows3[0].s_review,
+                                    prating: rows2[0].p_rating,
+                                    preview: rows2[0].p_review,
+                                    rows4
+
+                                });
+                            }
+                          }
+                        })
+
                     });
                 });
             }
