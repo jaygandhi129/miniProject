@@ -887,7 +887,9 @@ app.get("/invoice/:order_id", custCheckAuthenticated, function (req, res) {
 });
 
 app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function (req, res) {
-    query = "Select o.cust_id, od.product_id from orders o join order_details od on o.order_id = od.order_id where o.order_id = ?";
+    sflag = 0;
+    pflag = 0;
+    query = "Select o.cust_id, od.product_id, o.seller_id from orders o join order_details od on o.order_id = od.order_id where o.order_id = ?";
     connection.query(query, [req.params.order_id], function (err, rows) {
         if (err) {
             console.log(err);
@@ -899,43 +901,72 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                     if (err) {
                         console.log(err)
                     } else {
-                        var query3 = "Select * from seller_feedback where seller_id = ? and cId = ?";
-                        //check whether already reviewed or not
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        if (!rows2[0]) {
-                            res.render('feedback', {
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user,
-                                orderid: req.params.order_id
-                            });
+                        if (!rows[0]) {
+                            pflag = 0;
                         } else {
+                            pflag = 1;
+                        }
+                    }
+                    var query3 = "Select * from seller_feedback where seller_id = ? and cust_id = ?";
+                    connection.query(query3, [rows[0].seller_id, rows[0].cust_id], function (err, rows3) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            // console.log(rows3[0].s_review);
+                            if (!rows3[0]) {
+                                sflag = 0;
+                            } else {
+                                sflag = 1;
+                            }
+                        }
+                        if (sflag == 0 && pflag == 0) {
                             res.render('feedback', {
                                 loggedIn: true,
                                 pincode: req.cookies.pincode,
                                 user: req.user,
                                 orderid: req.params.order_id,
+                                srating: 0,
+                                sreview: "",
+                                prating: 0,
+                                preview: ""
+                            });
+                        } else if (sflag == 0 && pflag == 1) {
+                            res.render('feedback', {
+                                loggedIn: true,
+                                pincode: req.cookies.pincode,
+                                user: req.user,
+                                orderid: req.params.order_id,
+                                srating: 0,
+                                sreview: "",
+                                prating: rows2[0].p_rating,
+                                preview: rows2[0].p_review
+                            });
+                        } else if (sflag == 1 && pflag == 0) {
+                            res.render('feedback', {
+                                loggedIn: true,
+                                pincode: req.cookies.pincode,
+                                user: req.user,
+                                orderid: req.params.order_id,
+                                srating: rows3[0].s_rating,
+                                sreview: rows3[0].s_review,
+                                prating: 0,
+                                preview: ""
+                            });
+                        } else if (sflag == 1 && pflag == 1) {
+                            console.log(rows3[0].s_review);
+                            res.render('feedback', {
+                                loggedIn: true,
+                                pincode: req.cookies.pincode,
+                                user: req.user,
+                                orderid: req.params.order_id,
+                                srating: rows3[0].s_rating,
+                                sreview: rows3[0].s_review,
                                 prating: rows2[0].p_rating,
                                 preview: rows2[0].p_review
                             });
                         }
-                    }
+                    });
                 });
-            } else {
-                res.redirect("/");
             }
         }
     });
@@ -967,8 +998,8 @@ app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res)
                             }
                         });
                     } else {
-                        var query3 = "Update product_feedback set p_rating = ?, p_review = ? where cId = ? and pId = ?";
-                        connection.query(query3, [p_rating, p_comment, cId, rows[0].product_id], function (err) {
+                        var query4 = "Update product_feedback set p_rating = ?, p_review = ? where cId = ? and pId = ?";
+                        connection.query(query4, [p_rating, p_comment, cId, rows[0].product_id], function (err) {
                             if (err) {
                                 console.log(err);
                             } else {
@@ -999,13 +1030,31 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
         if (err) {
             console.log(err);
         } else {
-            var query2 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
-            connection.query(query2, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
+            var query2 = "select cust_id from seller_feedback where seller_id = ?"
+            connection.query(query2, [rows[0].seller_id], function (err, rows2) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.redirect("/myorders");
-                    // res.redirect("/custOrderDetails/" + req.body.order_id + "/feedback");
+                    if (!rows2[0]) {
+                        var query3 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
+                        connection.query(query3, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.redirect("/myorders");
+                            }
+                        });
+                    } else {
+                        var query4 = "Update seller_feedback set s_rating = ?, s_review = ? where cust_id = ? and seller_id = ?";
+                        connection.query(query4, [s_rating, s_comment, cId, rows[0].seller_id], function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.redirect("/myorders");
+                            }
+                        });
+
+                    }
                 }
             });
         }

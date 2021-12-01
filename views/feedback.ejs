@@ -142,9 +142,10 @@
                     <h5>Seller Name</h5>    
                     
                 <h5 class="card-title">Write a review</h5>
-                <%try{if(preview){%>
+                <%if(preview){%>
+            <%console.log(sreview,preview)%>
             <textarea id="p_comment" name="product_review" cols="50" rows="5" maxlength="256"><%=preview%></textarea>
-            <%}}catch(err){%>
+            <%}else{%>
             <textarea id="p_comment" name="product_review" cols="50" rows="5" maxlength="256"></textarea>
             <%}%>
             <button id="p_submit" class="btn btn-primary submit-feedback">Submit</button>
@@ -162,32 +163,38 @@
                 <img src="" alt="seller-img">
                 <form action="" method="">
                     <fieldset class="rating s_rating" id="s_rating_fieldset">
-                        <input type="radio" id="s_star5" name="s_rating" value="5" required />
+                        <input type="radio" class="s_5" id="s_star5" name="s_rating" value="5" required />
                         <label class="s_full" for="s_star5" title="Awesome - 5 stars"></label>
-                        <input type="radio" id="s_star4half" name="s_rating" value="4.5" required />
+                        <input type="radio" class="s_4.5" id="s_star4half" name="s_rating" value="4.5" required />
                         <label class="s_half" for="s_star4half" title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" id="s_star4" name="s_rating" value="4" required />
+                        <input type="radio" class="s_4" id="s_star4" name="s_rating" value="4" required />
                         <label class="s_full" for="s_star4" title="Pretty good - 4 stars"></label>
-                        <input type="radio" id="s_star3half" name="s_rating" value="3.5" required />
+                        <input type="radio" class="s_3.5" id="s_star3half" name="s_rating" value="3.5" required />
                         <label class="s_half" for="s_star3half" title="Meh - 3.5 stars"></label>
-                        <input type="radio" id="s_star3" name="s_rating" value="3" required />
+                        <input type="radio" class="s_3" id="s_star3" name="s_rating" value="3" required />
                         <label class="s_full" for="s_star3" title="Meh - 3 stars"></label>
-                        <input type="radio" id="s_star2half" name="s_rating" value="2.5" required />
+                        <input type="radio" class="s_2.5" id="s_star2half" name="s_rating" value="2.5" required />
                         <label class="s_half" for="s_star2half" title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" id="s_star2" name="s_rating" value="2" required />
+                        <input type="radio" class="s_2" id="s_star2" name="s_rating" value="2" required />
                         <label class="s_full" for="s_star2" title="Kinda bad - 2 stars"></label>
-                        <input type="radio" id="s_star1half" name="s_rating" value="1.5" required />
+                        <input type="radio" class="s_1.5"  id="s_star1half" name="s_rating" value="1.5" required />
                         <label class="s_half" for="s_star1half" title="Meh - 1.5 stars"></label>
-                        <input type="radio" id="s_star1" name="s_rating" value="1" required />
-                        <label class="s_full" for="s_star1" title="Sucks big time - 1 star"></label>
-                        <input type="radio" id="s_starhalf" name="s_rating" value="0.5" required />
+                        <input type="radio" class="s_1" id="s_star1" name="s_rating" value="1" required />
+                        <label class="s_full"  for="s_star1" title="Sucks big time - 1 star"></label>
+                        <input type="radio" class="s_0.5" id="s_starhalf" name="s_rating" value="0.5" required />
                         <label class="s_half" for="s_starhalf" title="Sucks big time - 0.5 stars"></label>
                     </fieldset>
                     <h5>Seller Name</h5>
                     <h3></h3>
                     <h5 class="card-title">Write a review</h5>
-                    <textarea id="s_comment" name="seller_review" cols="50" rows="5" maxlength="256"></textarea>
-                    <button id="s_submit" class="btn btn-primary submit-feedback">Submit</button>
+            <%if(sreview){%>
+
+            <textarea id="s_comment" name="seller_review" cols="50" rows="5" maxlength="256"><%=sreview%></textarea>
+            <%}else{%>
+            <textarea id="s_comment" name="seller_review" cols="50" rows="5" maxlength="256"></textarea>
+            <%}%>
+
+                <button id="s_submit" class="btn btn-primary submit-feedback">Submit</button>
                 </form>
             </div>
             <div class="card-body s-thank-you" style="display: none;">
@@ -212,7 +219,14 @@
     </script>
 
     <script>
-        document.getElementsByClassName("<%=prating%>")[0].setAttribute("checked",true);
+        // Star rating if already rated the product
+        if("<%=prating%>"!="0"){
+            document.getElementsByClassName("<%=prating%>")[0].setAttribute("checked",true);
+            }
+            // Star rating if already rated the seller
+            if("<%=srating%>"!="0"){
+            document.getElementsByClassName("s_<%=srating%>")[0].setAttribute("checked",true);
+            }
             var feedback_count = 0;
             $('#p_submit').click(function (e) {
             e.preventDefault();
