@@ -55,7 +55,7 @@ app.use(passport.session())
 
 
 
-//git 
+//git
 
 
 
@@ -582,29 +582,39 @@ app.get('/productDetails/:pId', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            if (req.user) {
-                pincode = req.cookies.pincode;
-                if (req.user.role === 1) {
-                    res.render('productDetails', {
-                        rows,
-                        loggedIn: true,
-                        pincode: req.cookies.pincode,
-                        user: req.user
-                    });
-                } else {
-                    res.render('productDetails', {
-                        rows,
-                        pincode: req.cookies.pincode,
-                        loggedIn: false
-                    });
-                }
+          var query1="select pf.p_rating,pf.p_review,c.cName from product_feedback pf inner join cust_details c on pf.cId= c.cId where c.cPincode=? and pf.pId=?;";
+          connection.query(query1,[req.cookies.pincode,pId],function(err,rows1){
+if(err){
+  console.log(err);
+    }else{
+      if (req.user) {
+          pincode = req.cookies.pincode;
+          if (req.user.role === 1) {
+                res.render('productDetails', {
+                  rows,
+                  rows1,
+                  loggedIn: true,
+                  pincode: req.cookies.pincode,
+                  user: req.user
+                  });
             } else {
                 res.render('productDetails', {
-                    rows,
-                    pincode: req.cookies.pincode,
-                    loggedIn: false
+                  rows,
+                  rows1,
+                  pincode: req.cookies.pincode,
+                  loggedIn: false
                 });
+              }
+            } else {
+              res.render('productDetails', {
+                rows,
+                rows1,
+                pincode: req.cookies.pincode,
+                loggedIn: false
+              });
+              }
             }
+          });
         }
     });
 });
@@ -915,12 +925,13 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                             // console.log(rows3[0].s_review);
                             if (!rows3[0]) {
                                 sflag = 0;
+
                             } else {
                                 sflag = 1;
                             }
                         }
                         var query4 = "Select p.pPhotoId,p.pName,p.pBrand,b.bName,b.bPhotoId from products p,business_details b where p.pId=? and b.seller=?";
-                        connection.query(query4,[rows[0].product_id,rows3[0].seller_id],function(err,rows4){
+                        connection.query(query4,[rows[0].product_id,rows[0].seller_id],function(err,rows4){
                           if(err){
                             console.log(err);
                           }else{
