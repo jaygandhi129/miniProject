@@ -1,3 +1,5 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 .pd-wrap {
   padding: 40px 0;
   font-family: 'Poppins', sans-serif;
@@ -419,4 +421,50 @@
     width: 40% !important;
   }
 
+}
+
+
+
+/* Animation for Stars */
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+
+
+.stars-rating {
+  font-size: 2.2rem;
+  position: absolute; 
+  display: inline-block;
+}
+
+.stars-rating:before {
+  content: "\1f7ca\1f7ca\1f7ca\1f7ca\1f7ca";
+  color: #e5e5e5;
+  filter: drop-shadow(0 0.6rem 0.3rem rgba(0,0,0,0.05));
+}
+
+.stars-rating__fill {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  animation: fill-star 2s ease-in-out;
+  
+}
+
+.stars-rating__fill:before {
+  content: "\1f7ca\1f7ca\1f7ca\1f7ca\1f7ca";
+  color: #FF619B;
+}
+
+@keyframes fill-star {
+  0% {
+    width: 0;
+  }
 }

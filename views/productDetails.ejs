@@ -328,17 +328,34 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane show active " style="white-space: pre-line" id="description"  aria-labelledby="description-tab">
-                          Rating stars:
+                        <%if(rows1.length){%>
+                            <div class="rating-body">
+                                <div class="stars-rating">
+                                    <div class="stars-rating__fill" style="width: <%=rows2[0].avg_rating%>%">
+                                    </div>
+                                  </div>
+                              </div>
+                              <h5><%=rows2[0].avg_rating/20%>/5</h5>
+                          
                           <% rows1.forEach(function(row){ %>
                             <div class="">
-                                <h5><%=row.cName%> : Stars -  <%=row.p_rating%>/5</h5>
+                                <h5><%=row.cName%></h5>
+                                <div class="rating-body">
+                                    <div class="stars-rating">
+                                        <div class="stars-rating__fill" style="width: <%=row.per_rating%>%">
+                                        </div>
+                                      </div>
+                                  </div>
                                 
                                 <!-- https://codepen.io/Lubna/pen/XWjdKEm -->
-
+                                <%if(row.p_review){%>
                                 <p>Review: <%=row.p_review%>
                                 </p>
+                                <%}%>
                             </div>
-                          <%})%>
+                          <%})}else{%>
+                            <h5>No Reviews Available for this product.</h5>
+                            <%}%>
 
                         </div>
                         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">

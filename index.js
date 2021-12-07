@@ -582,39 +582,53 @@ app.get('/productDetails/:pId', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-          var query1="select pf.p_rating,pf.p_review,c.cName from product_feedback pf inner join cust_details c on pf.cId= c.cId where c.cPincode=? and pf.pId=?;";
-          connection.query(query1,[req.cookies.pincode,pId],function(err,rows1){
-if(err){
-  console.log(err);
-    }else{
-      if (req.user) {
-          pincode = req.cookies.pincode;
-          if (req.user.role === 1) {
-                res.render('productDetails', {
-                  rows,
-                  rows1,
-                  loggedIn: true,
-                  pincode: req.cookies.pincode,
-                  user: req.user
-                  });
-            } else {
-                res.render('productDetails', {
-                  rows,
-                  rows1,
-                  pincode: req.cookies.pincode,
-                  loggedIn: false
-                });
-              }
-            } else {
-              res.render('productDetails', {
-                rows,
-                rows1,
-                pincode: req.cookies.pincode,
-                loggedIn: false
-              });
-              }
-            }
-          });
+            var query1 = "select pf.p_rating,pf.p_rating*20 as per_rating,pf.p_review,c.cName from product_feedback pf inner join cust_details c on pf.cId= c.cId where c.cPincode=? and pf.pId=?;";
+            connection.query(query1, [req.cookies.pincode, pId], function (err, rows1) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var query2 = "select avg(pf.p_rating)*20 as avg_rating from product_feedback pf inner join cust_details c on pf.cId= c.cId where c.cPincode=? and pf.pId=?;"
+                    connection.query(query2,[req.cookies.pincode, pId],function (err, rows2) {
+                        
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            if (req.user) {
+                                pincode = req.cookies.pincode;
+                                if (req.user.role === 1) {
+                                    res.render('productDetails', {
+                                        rows,
+                                        rows1,
+                                        rows2,
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user
+                                    });
+                                } else {
+                                    res.render('productDetails', {
+                                        rows,
+                                        rows1,
+                                        rows2,
+                                        pincode: req.cookies.pincode,
+                                        loggedIn: false
+                                    });
+                                }
+                            } else {
+                                res.render('productDetails', {
+                                    rows,
+                                    rows1,
+                                    rows2,
+                                    pincode: req.cookies.pincode,
+                                    loggedIn: false
+                                });
+                            }
+                        }
+
+                    })
+                    
+                }
+            });
         }
     });
 });
@@ -889,9 +903,10 @@ app.get("/invoice/:order_id", custCheckAuthenticated, function (req, res) {
     connection.query(query, [req.params.order_id], function (err, rows) {
         if (err) {
             console.log(err);
-        }
-        else {
-            res.render('receipt', { rows });
+        } else {
+            res.render('receipt', {
+                rows
+            });
         }
     })
 });
@@ -931,62 +946,62 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                             }
                         }
                         var query4 = "Select p.pPhotoId,p.pName,p.pBrand,b.bName,b.bPhotoId from products p,business_details b where p.pId=? and b.seller=?";
-                        connection.query(query4,[rows[0].product_id,rows[0].seller_id],function(err,rows4){
-                          if(err){
-                            console.log(err);
-                          }else{
-                            if (sflag == 0 && pflag == 0) {
-                                res.render('feedback', {
-                                    loggedIn: true,
-                                    pincode: req.cookies.pincode,
-                                    user: req.user,
-                                    orderid: req.params.order_id,
-                                    srating: 0,
-                                    sreview: "",
-                                    prating: 0,
-                                    preview: "",
-                                    rows4
-                                });
-                            } else if (sflag == 0 && pflag == 1) {
-                                res.render('feedback', {
-                                    loggedIn: true,
-                                    pincode: req.cookies.pincode,
-                                    user: req.user,
-                                    orderid: req.params.order_id,
-                                    srating: 0,
-                                    sreview: "",
-                                    prating: rows2[0].p_rating,
-                                    preview: rows2[0].p_review,
-                                    rows4
-                                });
-                            } else if (sflag == 1 && pflag == 0) {
-                                res.render('feedback', {
-                                    loggedIn: true,
-                                    pincode: req.cookies.pincode,
-                                    user: req.user,
-                                    orderid: req.params.order_id,
-                                    srating: rows3[0].s_rating,
-                                    sreview: rows3[0].s_review,
-                                    prating: 0,
-                                    preview: "",
-                                    rows4
-                                });
-                            } else if (sflag == 1 && pflag == 1) {
-                                console.log(rows3[0].s_review);
-                                res.render('feedback', {
-                                    loggedIn: true,
-                                    pincode: req.cookies.pincode,
-                                    user: req.user,
-                                    orderid: req.params.order_id,
-                                    srating: rows3[0].s_rating,
-                                    sreview: rows3[0].s_review,
-                                    prating: rows2[0].p_rating,
-                                    preview: rows2[0].p_review,
-                                    rows4
+                        connection.query(query4, [rows[0].product_id, rows[0].seller_id], function (err, rows4) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                if (sflag == 0 && pflag == 0) {
+                                    res.render('feedback', {
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user,
+                                        orderid: req.params.order_id,
+                                        srating: 0,
+                                        sreview: "",
+                                        prating: 0,
+                                        preview: "",
+                                        rows4
+                                    });
+                                } else if (sflag == 0 && pflag == 1) {
+                                    res.render('feedback', {
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user,
+                                        orderid: req.params.order_id,
+                                        srating: 0,
+                                        sreview: "",
+                                        prating: rows2[0].p_rating,
+                                        preview: rows2[0].p_review,
+                                        rows4
+                                    });
+                                } else if (sflag == 1 && pflag == 0) {
+                                    res.render('feedback', {
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user,
+                                        orderid: req.params.order_id,
+                                        srating: rows3[0].s_rating,
+                                        sreview: rows3[0].s_review,
+                                        prating: 0,
+                                        preview: "",
+                                        rows4
+                                    });
+                                } else if (sflag == 1 && pflag == 1) {
+                                    console.log(rows3[0].s_review);
+                                    res.render('feedback', {
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user,
+                                        orderid: req.params.order_id,
+                                        srating: rows3[0].s_rating,
+                                        sreview: rows3[0].s_review,
+                                        prating: rows2[0].p_rating,
+                                        preview: rows2[0].p_review,
+                                        rows4
 
-                                });
+                                    });
+                                }
                             }
-                          }
                         })
 
                     });
@@ -1006,12 +1021,13 @@ app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res)
         if (err) {
             console.log(err);
         } else {
-            var query2 = "select cId from product_feedback where pId = ?";
-            connection.query(query2, [rows[0].product_id], function (err, rows2) {
+            var query2 = "select cId from product_feedback where pId = ? and cId=?";
+            connection.query(query2, [rows[0].product_id, cId], function (err, rows2) {
                 if (err) {
                     console.log(err);
                 } else {
                     if (!rows2[0]) {
+                        console.log("check1");
                         var query3 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
                         connection.query(query3, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
                             if (err) {
@@ -1713,7 +1729,9 @@ app.post('/acceptOrder', checkAuthenticated, function (req, res) {
     });
 });
 var request = require('request');
-const { connect } = require('tls');
+const {
+    connect
+} = require('tls');
 app.post('/rejectOrder', checkAuthenticated, function (req, res) {
     var query = "update orders set order_status = 'Rejected' , seller_comment = ? where order_id = ?"
     connection.query(query, [req.body.reason, parseInt(req.body.orderId)], function (err) {
