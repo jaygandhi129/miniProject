@@ -171,7 +171,18 @@
                         <h2 class="brandName">
                             <%=rows[0].pBrand%>
                                 <%=rows[0].pName%>
-                        </h2>
+                                <div class="rating">
+                                    
+                                    <%if(rows1.length){%>
+                                        <div class="rating-body">
+                                            <div class="stars-rating" style="font-size:3.1rem">
+                                                <div class="stars-rating__fill" style="width: <%=rows2[0].avg_rating%>%; font-size: 3.1rem;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                    </div>
+                                </h2>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -256,7 +267,6 @@
                                     <input id="siz" type="text" name="size" value="" style="display:none;">
                                 </form>
                                 <br>
-                                <!-- <a href="#" class="round-black-btn-2"><i class="fas fa-shopping-cart"></i>&nbsp; Add to Cart</a> -->
                             </div>
                         </div>
                     </div>
@@ -271,48 +281,7 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane show active " style="white-space: pre-line" id="description"  aria-labelledby="description-tab">
-
                         </div>
-                        <!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                     <div class="review-heading">REVIEWS</div>
-                     <p class="mb-20">There are no reviews yet.</p>
-                     <form class="review-form">
-                     	<div class="form-group">
-                     		<label>Your rating</label>
-                     		<div class="reviews-counter">
-                     			<div class="rate">
-                     				<input type="radio" id="star5" name="rate" value="5" />
-                     				<label for="star5" title="text">5 stars</label>
-                     				<input type="radio" id="star4" name="rate" value="4" />
-                     				<label for="star4" title="text">4 stars</label>
-                     				<input type="radio" id="star3" name="rate" value="3" />
-                     				<label for="star3" title="text">3 stars</label>
-                     				<input type="radio" id="star2" name="rate" value="2" />
-                     				<label for="star2" title="text">2 stars</label>
-                     				<input type="radio" id="star1" name="rate" value="1" />
-                     				<label for="star1" title="text">1 star</label>
-                     			</div>
-                     		</div>
-                     	</div>
-                     	<div class="form-group">
-                     		<label>Your message</label>
-                     		<textarea class="form-control form-custom" rows="10"></textarea>
-                     	</div>
-                     	<div class="row">
-                     		<div class="col-md-6">
-                     			<div class="form-group">
-                     				<input type="text" name="" class="form-control form-custom" placeholder="Name*">
-                     			</div>
-                     		</div>
-                     		<div class="col-md-6">
-                     			<div class="form-group">
-                     				<input type="text" name="" class="form-control form-custom" placeholder="Email Id*">
-                     			</div>
-                     		</div>
-                     	</div>
-                     	<button class="round-black-btn">Submit Review</button>
-                     </form>
-                     </div> -->
                     </div>
                 </div>
             </div>
@@ -327,35 +296,31 @@
                      </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane show active " style="white-space: pre-line" id="description"  aria-labelledby="description-tab">
+                        <div class="tab-pane show active " style="margin-bottom: 40px;width:60%;" id="description"  aria-labelledby="description-tab">
                         <%if(rows1.length){%>
-                            <div class="rating-body">
-                                <div class="stars-rating">
-                                    <div class="stars-rating__fill" style="width: <%=rows2[0].avg_rating%>%">
-                                    </div>
-                                  </div>
-                              </div>
-                              <h5><%=rows2[0].avg_rating/20%>/5</h5>
                           
                           <% rows1.forEach(function(row){ %>
-                            <div class="">
-                                <h5><%=row.cName%></h5>
-                                <div class="rating-body">
+                            <div class="" style="margin-bottom: 20px;">
+                                <h5 style="color:#2B2B2B;"><%=row.cName%></h5>
+                                <div class="rating-body" style="margin-top:10px">
                                     <div class="stars-rating">
-                                        <div class="stars-rating__fill" style="width: <%=row.per_rating%>%">
+                                        <div class="stars-rating__fill" style="font-size: 2rem; width: <%=row.per_rating%>%;">
                                         </div>
-                                      </div>
-                                  </div>
-                                
-                                <!-- https://codepen.io/Lubna/pen/XWjdKEm -->
-                                <%if(row.p_review){%>
-                                <p>Review: <%=row.p_review%>
-                                </p>
-                                <%}%>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- https://codepen.io/Lubna/pen/XWjdKEm -->
+                            <%if(row.p_review){%>
+                                <p style="padding-top:20px;padding-left: 5px; font-size:1.1rem;"><%=row.p_review%>
+                                </p>
+                                <hr style="height:1px;border:none;color:#333;background-color:#333;">
+                                <%}%>
                           <%})}else{%>
+
                             <h5>No Reviews Available for this product.</h5>
                             <%}%>
+                            
 
                         </div>
                         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -468,7 +433,7 @@
 
                     $.ajax({
 
-                        url: "/getSellers/" + <%=rows[0].pId%>,
+                        url: "/getSellers/" + "<%=rows[0].pId%>",
                         type: "GET",
                         success: function(data) {
 
@@ -504,9 +469,9 @@
                                 $("#bWebsite").html('<a href=data[0].bWebsite style="font-size:1rem;">' + data[0].bWebsite + '</a>');
                                 for (var i = 0; i < len; i++) {
                                     if (i == 0) {
-                                        var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
+                                        var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-4 column1'><h5 class='sellingPrice sp'>" + data[i].bName  +"</h5></div><div class='col-auto col-4 column'><h5 class='sellingPrice sp'>"+ data[i].avg_rating +"⭐</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
                                     } else {
-                                        var str1 = "<button id='Individualseller' class='sellerButton' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-8 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
+                                        var str1 = "<button id='Individualseller' class='sellerButton' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-4 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 class='sellingPrice sp'>"+ data[i].avg_rating+"⭐</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
                                     }
                                     $("#selldiv").append(str1);
                                 }
