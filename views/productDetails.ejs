@@ -323,13 +323,8 @@
                             
 
                         </div>
-                        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                          Rating stars:
-
-                          <div class="">
-                              Customer reviews:
-
-                          </div>
+                        <div class="tab-pane fade seller_review_section" style="margin-bottom: 40px;width:60%;" id="review" role="tabpanel" aria-labelledby="review-tab">
+            
 
 
 
@@ -437,45 +432,49 @@
                         type: "GET",
                         success: function(data) {
 
-                            var len = data.length;
+                            var len = data.data1.length;
 
                             $("#selldiv").empty();
 
-                            if (len == 0) {
+                            if (len == 0) { 
                                 $("#selldiv").append("<h2>No Sellers found</h2>");
                                 $(".MRP").removeClass("line-through");
                                 $(".disButton").attr("style", "display:none;");
 
                             } else {
-                                var ys = parseInt(<%=rows[0].pMrp%>);
-                                var ys2 = parseInt(data[0].sellerPrice);
+                                var ys = parseInt("<%=rows[0].pMrp%>");
+                                var ys2 = parseInt(data.data1[0].sellerPrice);
                                 var res = ys - ys2;
+                                //For by default rating of first seller
+                                $(".seller_review_section").append("<div style='width=60%;'><h5>"+data.data2[0].cName+"</h5><p>"+data.data2[0].s_review+"</p><hr></div>");
+                                
+                            //for other details
                                 $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
                                 $("#youSaved2").html("You save ₹ " + res);
-                                if (data[0].iDelivery == 'Y') {
+                                if (data.data1[0].iDelivery == 'Y') {
                                     $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
                                 } else {
                                     $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>')
                                 }
-                                $('#invent').val(data[0].iId);
-                                $("#sellerPrice").html("₹ " + data[0].sellerPrice);
+                                $('#invent').val(data.data1[0].iId);
+                                $("#sellerPrice").html("₹ " + data.data1[0].sellerPrice);
                                 var size;
-                                console.log("D : ",data[0].iDescription);
-                                $("#description").html("<p style='font-size:1.2rem;'>"+data[0].iDescription+"</p>");
+                                console.log("D : ",data.data1[0].iDescription);
+                                $("#description").html("<p style='font-size:1.2rem;'>"+data.data1[0].iDescription+"</p>");
 
-                                $("#bName").html(data[0].bName);
-                                $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
-                                $("#bMobile").html("Contact No. : " + data[0].bMobile);
-                                $("#bWebsite").html('<a href=data[0].bWebsite style="font-size:1rem;">' + data[0].bWebsite + '</a>');
+                                $("#bName").html(data.data1[0].bName);
+                                $("#bAddress").html(data.data1[0].bAddress + ', ' + data.data1[0].bCity + ', ' + data.data1[0].bState);
+                                $("#bMobile").html("Contact No. : " + data.data1[0].bMobile);
+                                $("#bWebsite").html('<a href=data.data1[0].bWebsite style="font-size:1rem;">' + data.data1[0].bWebsite + '</a>');
                                 for (var i = 0; i < len; i++) {
                                     if (i == 0) {
-                                        var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-4 column1'><h5 class='sellingPrice sp'>" + data[i].bName  +"</h5></div><div class='col-auto col-4 column'><h5 class='sellingPrice sp'>"+ data[i].avg_rating +"⭐</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
+                                        var str1 = "<button id='Individualseller' class='sellerButton' style='color:#048f83;box-shadow: 0px 0px 3px #048f83;' value=" + data.data1[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-4 column1'><h5 class='sellingPrice sp'>" + data.data1[i].bName  +"</h5></div><div class='col-auto col-4 column'><h5 class='sellingPrice sp'>"+ data.data1[i].avg_rating +"⭐</h5></div><div class='col-auto col-4 column'><h5 id=" + data.data1[i].iId + " class='sellingPrice'>₹ " + data.data1[i].sellerPrice + "</h5></div></div></div></div></button>";
                                     } else {
-                                        var str1 = "<button id='Individualseller' class='sellerButton' value=" + data[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-4 column1'><h5 class='sellingPrice sp'>" + data[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 class='sellingPrice sp'>"+ data[i].avg_rating+"⭐</h5></div><div class='col-auto col-4 column'><h5 id=" + data[i].iId + " class='sellingPrice'>₹ " + data[i].sellerPrice + "</h5></div></div></div></div></button>";
+                                        var str1 = "<button id='Individualseller' class='sellerButton' value=" + data.data1[i].iId + "><div class='card sellerSide'  style=''><div class='card-body'><div class='row'><div class='col-auto col-4 column1'><h5 class='sellingPrice sp'>" + data.data1[i].bName + "</h5></div><div class='col-auto col-4 column'><h5 class='sellingPrice sp'>"+ data.data1[i].avg_rating+"⭐</h5></div><div class='col-auto col-4 column'><h5 id=" + data.data1[i].iId + " class='sellingPrice'>₹ " + data.data1[i].sellerPrice + "</h5></div></div></div></div></button>";
                                     }
                                     $("#selldiv").append(str1);
                                 }
-                                size = data[0].iSize.split(',');
+                                size = data.data1[0].iSize.split(',');
                                 $('#si').empty();
                                 $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
                                 $('#siz').val(size[0])
@@ -492,50 +491,53 @@
                 });
                 $(document).on("click", '.sellerButton', function(event) {
                     var id = $(this).val();
+                    $(".seller_review_section").empty();
                     $(".sellerButton").removeAttr("style");
                     $(this).attr('style', 'color:#048f83;box-shadow: 0px 0px 3px #048f83;');
 
                     $.ajax({
-
-                        url: "/getSellersOnClick/" + <%=rows[0].pId%> + "/" + id,
+                        url: "/getSellersOnClick/" + "<%=rows[0].pId%>" + "/" + id,
                         type: "GET",
                         success: function(data) {
-                            $('#invent').val(data[0].iId);
-                            if (data[0].iDelivery == 'Y') {
+                            $('#invent').val(data.data1[0].iId);
+                            if (data.data1[0].iDelivery == 'Y') {
                                 $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:#048f83;display:inline;" ><i class="fas fa-check-circle"></i>Home Delivery Avaliable</span>');
                             } else {
                                 $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>');
                             }
-                            $("#sellerPrice").html("₹ " + data[0].sellerPrice);
-                            var ys = parseInt(<%=rows[0].pMrp%>);
-                            var ys2 = parseInt(data[0].sellerPrice);
+                            data.data2.forEach((s_feedback)=>{
+                                $(".seller_review_section").append("<div style='width=60%;'><h5>"+s_feedback.cName+"</h5><p>"+s_feedback.s_review+"</p><hr></div>");
+                            });
+                            $("#sellerPrice").html("₹ " + data.data1[0].sellerPrice);
+                            var ys = parseInt("<%=rows[0].pMrp%>");
+                            var ys2 = parseInt(data.data1[0].sellerPrice);
                             var res = ys - ys2;
                             $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
                             $("#youSaved2").html("You save ₹ " + res);
-                            $("#description").html("<p style='font-size:1.2rem;'>"+data[0].iDescription+"</p>");
-                            $("#bName").html(data[0].bName);
-                            $("#bAddress").html(data[0].bAddress + ', ' + data[0].bCity + ', ' + data[0].bState);
-                            $("#bMobile").html("Contact No. : " + data[0].bMobile);
-                            $("#bWebsite").html('<a href='+data[0].bWebsite +'>'+ data[0].bWebsite + '</a>');
-                            $("#" + data[0].iId).text("₹ " + data[0].sellerPrice);
-                            size = data[0].iSize.split(',');
+                            $("#description").html("<p style='font-size:1.2rem;'>"+data.data1[0].iDescription+"</p>");
+                            $("#bName").html(data.data1[0].bName);
+                            $("#bAddress").html(data.data1[0].bAddress + ', ' + data.data1[0].bCity + ', ' + data.data1[0].bState);
+                            $("#bMobile").html("Contact No. : " + data.data1[0].bMobile);
+                            $("#bWebsite").html('<a href='+data.data1[0].bWebsite +'>'+ data.data1[0].bWebsite + '</a>');
+                            $("#" + data.data1[0].iId).text("₹ " + data.data1[0].sellerPrice);
+                            size = data.data1[0].iSize.split(',');
                             $('#si').empty();
                             $('#si').append('<option selected value=' + size[0] + '>' + size[0] + '</option>');
                             $('#siz').val(size[0]);
                             for (var i = 1; i < size.length; i++) {
                                 $('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
                             }
+                            
 
+                            }
 
-                        }
+                        
 
                     });
                     $('#si').on('change', function() {
                         $('#siz').val($(this).val());
                     });
                 });
-            </script>
-            <script type="text/javascript">
             </script>
             <script>
               // Example starter JavaScript for disabling form submissions if there are invalid fields
