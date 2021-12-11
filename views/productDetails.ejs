@@ -171,7 +171,18 @@
                         <h2 class="brandName">
                             <%=rows[0].pBrand%>
                                 <%=rows[0].pName%>
-                        </h2>
+                                <div class="rating">
+                                    
+                                    <%if(rows1.length){%>
+                                        <div class="rating-body">
+                                            <div class="stars-rating" style="font-size:3.1rem">
+                                                <div class="stars-rating__fill" style="width: <%=rows2[0].avg_rating%>%; font-size: 3.1rem;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                    </div>
+                                </h2>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -327,22 +338,15 @@
                      </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane show active " style="white-space: pre-line" id="description"  aria-labelledby="description-tab">
+                        <div class="tab-pane show active " style="margin-bottom: 40px;" id="description"  aria-labelledby="description-tab">
                         <%if(rows1.length){%>
-                            <div class="rating-body">
-                                <div class="stars-rating">
-                                    <div class="stars-rating__fill" style="width: <%=rows2[0].avg_rating%>%">
-                                    </div>
-                                  </div>
-                              </div>
-                              <h5><%=rows2[0].avg_rating/20%>/5</h5>
                           
                           <% rows1.forEach(function(row){ %>
-                            <div class="">
+                            <div class="" style="margin-bottom: 40px;">
                                 <h5><%=row.cName%></h5>
-                                <div class="rating-body">
+                                <div class="rating-body" style="margin-top:20px">
                                     <div class="stars-rating">
-                                        <div class="stars-rating__fill" style="width: <%=row.per_rating%>%">
+                                        <div class="stars-rating__fill" style="font-size: 2rem; width: <%=row.per_rating%>%;">
                                         </div>
                                       </div>
                                   </div>
@@ -468,7 +472,7 @@
 
                     $.ajax({
 
-                        url: "/getSellers/" + <%=rows[0].pId%>,
+                        url: "/getSellers/" + "<%=rows[0].pId%>",
                         type: "GET",
                         success: function(data) {
 

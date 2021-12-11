@@ -1,5 +1,5 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+
 .pd-wrap {
   padding: 40px 0;
   font-family: 'Poppins', sans-serif;
@@ -7,6 +7,13 @@
 
 .heading-section {
   text-align: center;
+  margin-bottom: 20px;
+}
+
+.rating {
+  position: relative;
+  display: block;
+  z-index: 1;
   margin-bottom: 20px;
 }
 
@@ -119,15 +126,17 @@
   text-align: center;
   margin-top: 6%;
 }
-.sellerButton{
+
+.sellerButton {
   background: none;
-  border:none;
-  padding:0px;
-  margin:0px;
-  margin-top:1%;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 1%;
   border-radius: 0.25rem;
 
 }
+
 .Quantity {
   font-size: 1.4rem;
   color: #38414f;
@@ -136,7 +145,7 @@
   margin-top: 3%;
 }
 
-.Size{
+.Size {
   font-size: 1.4rem;
   color: #38414f;
   font-weight: 400;
@@ -186,7 +195,7 @@
   float: right;
   width: 15px;
   overflow: hidden;
-  white-space: nowrap;
+
   cursor: pointer;
   font-size: 21px;
   color: #ccc;
@@ -360,8 +369,8 @@
   cursor: pointer;
 }
 
-.mobShow{
-	display: none;
+.mobShow {
+  display: none;
 }
 
 @media(max-width:420px) {
@@ -401,23 +410,23 @@
 
   .storeDet {
     padding-left: 0;
-		padding-top: 30px;
+    padding-top: 30px;
   }
 
-	.storeDetcs{
+  .storeDetcs {
     font-size: 1.2rem !important;
-	}
+  }
 
-	.mobHide{
-		display: none;
-	}
+  .mobHide {
+    display: none;
+  }
 
-	.mobShow{
-		display: block;
-	}
+  .mobShow {
+    display: block;
+  }
 
-  .size-input{
-    height:40% !important;
+  .size-input {
+    height: 40% !important;
     width: 40% !important;
   }
 
@@ -437,30 +446,31 @@
 
 
 .stars-rating {
-  font-size: 2.2rem;
-  position: absolute; 
-  display: inline-block;
-}
+  font-size: 2rem;
+  position: absolute;
+  display: block;
+  }
 
 .stars-rating:before {
   content: "\1f7ca\1f7ca\1f7ca\1f7ca\1f7ca";
   color: #e5e5e5;
-  filter: drop-shadow(0 0.6rem 0.3rem rgba(0,0,0,0.05));
+  filter: drop-shadow(0 0.6rem 0.3rem rgba(0, 0, 0, 0.05));
 }
 
 .stars-rating__fill {
   position: absolute;
-  display: block;
+  display: inline-block;
   top: 0;
   left: 0;
   overflow: hidden;
-  animation: fill-star 2s ease-in-out;
-  
+  animation: fill-star 1s ease-in-out;
+
 }
 
 .stars-rating__fill:before {
   content: "\1f7ca\1f7ca\1f7ca\1f7ca\1f7ca";
   color: #FF619B;
+
 }
 
 @keyframes fill-star {
