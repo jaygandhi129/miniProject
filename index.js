@@ -588,12 +588,13 @@ app.get('/productDetails/:pId', function (req, res) {
                     console.log(err);
                 } else {
                     var query2 = "select avg(pf.p_rating)*20 as avg_rating from product_feedback pf inner join cust_details c on pf.cId= c.cId where c.cPincode=? and pf.pId=?;"
-                    connection.query(query2,[req.cookies.pincode, pId],function (err, rows2) {
-                        
-                        if(err){
+                    connection.query(query2, [req.cookies.pincode, pId], function (err, rows2) {
+
+                        if (err) {
                             console.log(err);
                         }
-                        else{
+                        else {
+                            var query3=""
                             if (req.user) {
                                 pincode = req.cookies.pincode;
                                 if (req.user.role === 1) {
@@ -626,7 +627,7 @@ app.get('/productDetails/:pId', function (req, res) {
                         }
 
                     })
-                    
+
                 }
             });
         }
@@ -656,10 +657,13 @@ app.post("/productDetails/:pId", function (req, res) {
 
 app.get("/getSellers/:pId", function (req, res) {
     var pin = req.cookies.pincode;
-    var query = "SELECT b.bName,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile,i.iSize, i.sellerPrice,i.iId, i.iDelivery, i.iDescription from business_details b inner join inventory i on b.seller = i.sId where i.pId = ? and b.bZip = ? order by i.sellerPrice";
+    var query = "SELECT b.bName,b.seller,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile,i.iSize, i.sellerPrice,i.iId, i.iDelivery, i.iDescription,COALESCE(avg(sf.s_rating),0) as avg_rating from business_details b inner join inventory i on b.seller = i.sId left outer join seller_feedback sf on sf.seller_id= b.seller where i.pId = ? and b.bZip = ? group by b.seller order by i.sellerPrice";
     connection.query(query, [req.params.pId, pin], function (err, result) {
-        if (err) throw err;
-        res.json(result);
+        if (err) {
+            throw err;
+        } else {
+            res.json(result);
+        }
     });
 });
 app.get("/getSellersOnClick/:pId/:iId", function (req, res) {

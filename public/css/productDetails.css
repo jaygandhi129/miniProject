@@ -398,6 +398,7 @@
 
   .sellingPrice {
     font-size: 1rem !important;
+    color: yellow;
   }
 
   .sellerPricefocus {
