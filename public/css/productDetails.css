@@ -447,9 +447,9 @@
 
 
 .stars-rating {
-  font-size: 2rem;
   position: absolute;
-  display: block;
+  font-size: 2rem;
+  display: flex;
   }
 
 .stars-rating:before {
@@ -460,7 +460,7 @@
 
 .stars-rating__fill {
   position: absolute;
-  display: inline-block;
+  display: flex;
   top: 0;
   left: 0;
   overflow: hidden;

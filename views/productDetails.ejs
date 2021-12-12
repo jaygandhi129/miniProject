@@ -286,6 +286,46 @@
                 </div>
             </div>
             <div class="container">
+                <div class="row">
+                    <div class="col-auto col-6" style="height: 200px; overflow-y: auto;">
+                        <%if(rows1.length){%>
+                          
+                            <% rows1.forEach(function(row){ %>
+                              <div class="" style="margin-bottom: 20px;">
+                                  <h5 style="color:#2B2B2B;"><%=row.cName%></h5>
+                                  <div class="rating-body" style="margin-top:10px">
+                                      <div class="stars-rating">
+                                          <div class="stars-rating__fill" style="font-size: 2rem; width: <%=row.per_rating%>%;">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                          
+                              <%if(row.p_review){%>
+                                  <p style="padding-top:20px;padding-left: 5px; font-size:1.1rem;"><%=row.p_review%>
+                                  </p>
+                                  <hr style="height:1px;border:none;color:#333;background-color:#333;">
+                                  <%}%>
+                            <%})}else{%>
+  
+                              <h5>No Reviews Available for this product.</h5>
+                              <%}%>
+                    </div>
+                    <div class="col-auto col-6">
+                        <div class="seller_review_section">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- <div class="container">
                 <div class="product-info-tabs disButton">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -310,7 +350,7 @@
                                 </div>
                             </div>
                             
-                            <!-- https://codepen.io/Lubna/pen/XWjdKEm -->
+                        
                             <%if(row.p_review){%>
                                 <p style="padding-top:20px;padding-left: 5px; font-size:1.1rem;"><%=row.p_review%>
                                 </p>
@@ -321,17 +361,12 @@
                             <h5>No Reviews Available for this product.</h5>
                             <%}%>
                             
-
                         </div>
                         <div class="tab-pane fade seller_review_section" style="margin-bottom: 40px;width:60%;" id="review" role="tabpanel" aria-labelledby="review-tab">
-            
-
-
-
                      </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -431,11 +466,18 @@
                         url: "/getSellers/" + "<%=rows[0].pId%>",
                         type: "GET",
                         success: function(data) {
-
+                            
                             var len = data.data1.length;
-
+                            
                             $("#selldiv").empty();
+                            if(data.data2.length){
 
+                                $(".seller_review_section").append("<div style='width=60%;'><h5>"+data.data2[0].cName+"</h5><p>"+data.data2[0].s_review+"</p><hr></div>");
+                            }else{
+                                $(".seller_review_section").append("No Reviews for this seller found.");
+
+                            }
+                            
                             if (len == 0) { 
                                 $("#selldiv").append("<h2>No Sellers found</h2>");
                                 $(".MRP").removeClass("line-through");
@@ -446,9 +488,8 @@
                                 var ys2 = parseInt(data.data1[0].sellerPrice);
                                 var res = ys - ys2;
                                 //For by default rating of first seller
-                                $(".seller_review_section").append("<div style='width=60%;'><h5>"+data.data2[0].cName+"</h5><p>"+data.data2[0].s_review+"</p><hr></div>");
                                 
-                            //for other details
+                                //for other details
                                 $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
                                 $("#youSaved2").html("You save ₹ " + res);
                                 if (data.data1[0].iDelivery == 'Y') {
@@ -505,9 +546,14 @@
                             } else {
                                 $("#deliveryDiv").html('<span style="font-size: 1.2rem;color:red;display:inline;"><i class="fas fa-times-circle"></i>Home Delivery Unavailable<br/></span><span style="color:#048f83;font-size: 1rem;">You can order product and collect it from the shop</span>');
                             }
-                            data.data2.forEach((s_feedback)=>{
-                                $(".seller_review_section").append("<div style='width=60%;'><h5>"+s_feedback.cName+"</h5><p>"+s_feedback.s_review+"</p><hr></div>");
-                            });
+                            if(data.data2.length){
+                                data.data2.forEach((s_feedback)=>{
+                                    $(".seller_review_section").append("<div style='width=60%;'><h5>"+s_feedback.cName+"</h5><p>"+s_feedback.s_review+"</p><hr></div>");
+                                });
+                            }else{
+                                $(".seller_review_section").append("No Reviews for this seller found.");
+
+                            }
                             $("#sellerPrice").html("₹ " + data.data1[0].sellerPrice);
                             var ys = parseInt("<%=rows[0].pMrp%>");
                             var ys2 = parseInt(data.data1[0].sellerPrice);
