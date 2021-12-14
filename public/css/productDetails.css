@@ -479,3 +479,14 @@
     width: 0;
   }
 }
+
+.seller_review_section{
+  height: 200px; 
+  overflow-y: auto;
+}
+
+@media (min-width:800px) {
+  .review-cols{
+    width: 50% !important;
+  }
+}
