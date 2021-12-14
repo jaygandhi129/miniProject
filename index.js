@@ -594,7 +594,7 @@ app.get('/productDetails/:pId', function (req, res) {
                             console.log(err);
                         }
                         else {
-                            var query3=""
+                            var query3 = ""
                             if (req.user) {
                                 pincode = req.cookies.pincode;
                                 if (req.user.role === 1) {
@@ -663,18 +663,18 @@ app.get("/getSellers/:pId", function (req, res) {
             throw err;
         } else {
             var query2 = "select sf.s_review, sf.s_rating, cd.cName from seller_feedback sf inner join order_details od on sf.order_id = od.order_id inner join cust_details cd on sf.cust_id = cd.cId where sf.seller_id = ? and od.product_id=?;"
-            connection.query(query2,[result[0].sId,req.params.pId], function(err,result1) {
-                if(err){
+            connection.query(query2, [result[0].sId, req.params.pId], function (err, result1) {
+                if (err) {
                     console.log(err);
                 }
-                else{
+                else {
                     res.json({
-                        data1:result,
+                        data1: result,
                         data2: result1,
                     });
                 }
             })
-            
+
         }
     });
 });
@@ -683,15 +683,15 @@ app.get("/getSellersOnClick/:pId/:iId", function (req, res) {
     connection.query(query, [req.params.pId, req.params.iId], function (err, result) {
         if (err) {
             throw err;
-        }else{
+        } else {
             var query2 = "select sf.s_review, sf.s_rating, cd.cName from seller_feedback sf inner join order_details od on sf.order_id = od.order_id inner join cust_details cd on sf.cust_id = cd.cId where sf.seller_id = ? and od.product_id=?;"
-            connection.query(query2,[result[0].sId,req.params.pId], function(err,result1) {
-                if(err){
+            connection.query(query2, [result[0].sId, req.params.pId], function (err, result1) {
+                if (err) {
                     console.log(err);
                 }
-                else{
+                else {
                     res.json({
-                        data1:result,
+                        data1: result,
                         data2: result1,
                     });
                 }
@@ -1834,7 +1834,23 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
 });
 
 
-
+app.get("/sellerFeedbacks", checkAuthenticated, function (req, res) {
+    var query1 = "Select s.sName,b.bPhotoId,s.sId from seller_details s inner join business_details b on s.sId=b.seller where s.sId=?";
+    connection.query(query1, req.user.sId, function (err, rows1) {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "select sf.s_review, sf.s_rating, cd.cName,od.order_id, p.pId, p.pPhotoId, p.pName, p.pBrand from seller_feedback sf inner join order_details od on sf.order_id = od.order_id inner join cust_details cd on sf.cust_id = cd.cId inner join products p on p.pId = od.product_id where sf.seller_id = ?";
+            connection.query(query2, [rows1[0].sId], function (err, rows2) {
+                res.render('seller_feedback', {
+                    name: rows1[0].sName,
+                    source: rows1[0].bPhotoId,
+                    rows2
+                })
+            })
+        }
+    });
+});
 
 
 //myproducts.ejs ends
