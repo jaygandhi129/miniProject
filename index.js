@@ -944,6 +944,7 @@ app.get("/invoice/:order_id", custCheckAuthenticated, function (req, res) {
 app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function (req, res) {
     sflag = 0;
     pflag = 0;
+    orderId = req.params.order_id;
     query = "Select o.cust_id, od.product_id, o.seller_id from orders o join order_details od on o.order_id = od.order_id where o.order_id = ?";
     connection.query(query, [req.params.order_id], function (err, rows) {
         if (err) {
@@ -962,8 +963,8 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                             pflag = 1;
                         }
                     }
-                    var query3 = "Select * from seller_feedback where seller_id = ? and cust_id = ?";
-                    connection.query(query3, [rows[0].seller_id, rows[0].cust_id], function (err, rows3) {
+                    var query3 = "Select * from seller_feedback where seller_id = ? and cust_id = ? and order_id=?";
+                    connection.query(query3, [rows[0].seller_id, rows[0].cust_id,orderId], function (err, rows3) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -1092,7 +1093,7 @@ app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res)
 app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) {
     var s_rating = req.body.s_rating;
     var s_comment = req.body.s_comment;
-    console.log(s_comment);
+
     var orderId = req.body.order_id;
     var cId = req.user.cId;
     var query = "Select seller_id from orders where order_id = ?";
@@ -1100,26 +1101,29 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
         if (err) {
             console.log(err);
         } else {
-            var query2 = "select cust_id from seller_feedback where seller_id = ?"
-            connection.query(query2, [rows[0].seller_id], function (err, rows2) {
+            var query2 = "select cust_id from seller_feedback where seller_id = ? and cust_id= ? and order_id=?"
+            connection.query(query2, [rows[0].seller_id,cId,orderId], function (err, rows2) {
                 if (err) {
                     console.log(err);
                 } else {
+                  console.log(rows2[0]);
                     if (!rows2[0]) {
                         var query3 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
                         connection.query(query3, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
                             if (err) {
                                 console.log(err);
                             } else {
+                                console.log(s_comment);
                                 res.redirect("/myorders");
                             }
                         });
                     } else {
-                        var query4 = "Update seller_feedback set s_rating = ?, s_review = ? where cust_id = ? and seller_id = ?";
-                        connection.query(query4, [s_rating, s_comment, cId, rows[0].seller_id], function (err) {
+                        var query4 = "Update seller_feedback set s_rating = ?, s_review = ? where cust_id = ? and seller_id = ? and order_id=?";
+                        connection.query(query4, [s_rating, s_comment, cId, rows[0].seller_id,orderId], function (err) {
                             if (err) {
                                 console.log(err);
                             } else {
+                              console.log("updated"+s_comment);
                                 res.redirect("/myorders");
                             }
                         });
