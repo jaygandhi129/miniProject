@@ -162,6 +162,8 @@
 								Products</span></a></li>
 					<li class="nav-item"><a class="nav-link active" href="/sellerOrders"><i
 								class="fa fa-list-alt"></i><span>Orders</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/sellerFeedbacks"><i
+														class="fas fa-comments"></i><span>Feedbacks</span></a></li>
 					<li class="nav-item">
 						<form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit"
 								style="color:rgba(255, 255, 255, .8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
@@ -484,7 +486,7 @@
 						});
 						// ...
 						}).catch((error) => {
-					
+
 						$('#wrong-otp-text-2').attr('style', 'display:block;color:red;');
 
 						});

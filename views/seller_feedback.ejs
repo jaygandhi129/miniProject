@@ -111,13 +111,14 @@
                                                 <div class="review" style="font-size: 1.1rem;font-weight:400;">
                                                     <p>Review : <span style="color: black;font-weight: 500;"> <%=row.s_review%> </span></p>
                                                     <p>Rating : <span style="color: black;font-weight: 500;"> <%=row.s_rating%>⭐</span></p>
+                                                    <p>Order Id :<a href="/sellerOrdersDetail/<%=row.order_id%>"> <span style="font-size:1rem;"><%=row.order_id%></span></a></p>
                                                 </div>
                                             </div>
                                             <div class="col-6" style="overflow-x:auto;margin-top:2%;">
                                                 <div class="pPhoto" style="float:right;">
                                                     <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" alt="" style="height: 100px; object-fit:contain;">
                                                     <p style="color: black;font-weight: 500;"> <%=row.pBrand%> <%=row.pName%> </p>
-                                
+
                                                 </div>
                                             </div>
 
