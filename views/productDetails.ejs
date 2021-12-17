@@ -260,12 +260,14 @@
                                 </div>
                             </div>
                             <div class="buybuttons disButton">
-                                <form class="" method="post" action="/order">
+                                <form method="post" action="/order">
                                     <button class="round-black-btn-1" type="submit"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
+                                    
                                     <input id="invent" type="text" name="iId" value="" style="display:none;">
                                     <input id="quant" type="text" name="qty" value="1" style="display:none;">
                                     <input id="siz" type="text" name="size" value="" style="display:none;">
                                 </form>
+                                <button class="round-black-btn-2" id="wishlist_btn"><i class="far fa-heart"></i>&nbsp; Add to wishlist</button>
                                 <br>
                             </div>
                         </div>
@@ -538,6 +540,18 @@
                     });
                     $('#si').on('change', function() {
                         $('#siz').val($(this).val());
+                    });
+
+                    //Wishlist Button
+                    $('#wishlist_btn').on("click",function(event){
+                        $.ajax({
+                        url: "/addToWishlist/"+ "<%=rows[0].pId%>",
+                        type: "GET",
+                        success: function(data) {
+                            console.log("Success");
+
+                        }
+                        })
                     });
                 });
                 $(document).on("click", '.sellerButton', function(event) {

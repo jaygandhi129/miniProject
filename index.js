@@ -657,7 +657,7 @@ app.post("/productDetails/:pId", function (req, res) {
 
 app.get("/getSellers/:pId", function (req, res) {
     var pin = req.cookies.pincode;
-    var query = "SELECT b.bName,b.seller,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile,i.iSize,i.sId, i.sellerPrice,i.iId, i.iDelivery, i.iDescription,COALESCE(avg(sf.s_rating),0) as avg_rating from business_details b inner join inventory i on b.seller = i.sId left outer join seller_feedback sf on sf.seller_id= b.seller where i.pId = ? and b.bZip = ? group by b.seller order by i.sellerPrice";
+    var query = "SELECT b.bName,b.seller,b.bId,b.bWebsite,b.bCity,b.bState,b.bAddress,b.bMobile,i.iSize,i.sId, i.sellerPrice,i.iId, i.iDelivery, i.iDescription,ROUND(COALESCE(avg(sf.s_rating),0),1) as avg_rating from business_details b inner join inventory i on b.seller = i.sId left outer join seller_feedback sf on sf.seller_id= b.seller where i.pId = ? and b.bZip = ? group by b.seller order by i.sellerPrice";
     connection.query(query, [req.params.pId, pin], function (err, result) {
         if (err) {
             throw err;
@@ -1136,7 +1136,11 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
 });
 
 
-
+//Wishlist
+app.get("/addToWishlist/:pId",custCheckAuthenticated,function (req,res){
+    console.log(req.params.pId);
+    res.redirect("/productDetails/"+req.params.pId);
+})
 
 
 

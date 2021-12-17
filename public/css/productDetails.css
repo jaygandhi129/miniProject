@@ -287,6 +287,19 @@
   border: solid 2px #ffbf00;
   transition: all 0.5s ease-in-out 0s;
 }
+.round-black-btn-2 {
+  font-size: 1rem;
+  margin-left: 5px;
+  border-radius: 4px;
+  background: white;
+  color: black;
+  margin-left: 0 !important;
+  padding: 8px 20px;
+  display: inline-block;
+  margin-top: 20px;
+  border: solid 2px #ffbf00;
+  transition: all 0.5s ease-in-out 0s;
+}
 
 .round-black-btn-1:hover,
 .round-black-btn-1:focus {
