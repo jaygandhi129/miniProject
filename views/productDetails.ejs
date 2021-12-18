@@ -390,6 +390,9 @@
                     var thumb = $("#thumb");
                     var slidesPerPage = 1; //globaly define number of elements per page
                     var syncedSecondary = true;
+                    // var alreadyInWishlist = JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>);
+
+                    // console.log("is already"+alreadyInWishlist);
                     slider.owlCarousel({
                         items: 1,
                         slideSpeed: 2000,
@@ -544,14 +547,43 @@
 
                     //Wishlist Button
                     $('#wishlist_btn').on("click",function(event){
+                        //To be created function addToWishList from here
+                        
+                            if(localStorage.getItem('wish_products')){
+                                prev_storage = JSON.parse(localStorage.getItem('wish_products'));
+                                if(! prev_storage.products.includes(<%=rows[0].pId%>)){
+                                    prev_storage.products.push(<%=rows[0].pId%>);
+                                }
+                                localStorage.clear();
+                                localStorage.setItem('wish_products',JSON.stringify(prev_storage));
+                                console.log(JSON.parse(localStorage.getItem('wish_products')));
+                            } 
+                            else{
+                                var arr = [<%=rows[0].pId%>];
+                                var json = {
+                                    "products":arr
+                                }
+
+                                localStorage.setItem('wish_products',JSON.stringify(json));
+                                console.log(JSON.parse(localStorage.getItem('wish_products')));
+                            }   
+                        
+                        if(<%=loggedIn%> == true){
+                            console.log(<%=loggedIn%>);
                         $.ajax({
                         url: "/addToWishlist/"+ "<%=rows[0].pId%>",
-                        type: "GET",
+                        type: "POST",
+                        data:{
+                            "wish_products":JSON.parse(localStorage.getItem('wish_products')).products
+                        },
                         success: function(data) {
                             console.log("Success");
-
                         }
                         })
+                        }
+                        //to here
+                        //to be created function removeFromwishlist
+                        
                     });
                 });
                 $(document).on("click", '.sellerButton', function(event) {

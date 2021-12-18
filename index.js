@@ -1137,8 +1137,14 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
 
 
 //Wishlist
-app.get("/addToWishlist/:pId",custCheckAuthenticated,function (req,res){
-    console.log(req.params.pId);
+app.post("/addToWishlist/:pId",custCheckAuthenticated ,function (req,res){
+    wish_products = req.body.wish_products;
+    console.log("logged in" + wish_products);
+    wish_products.forEach(function(product){
+        var query ="insert into wishlist values(?,?)"
+        connection.query(query,[req.user.cId,product],(err)=>{
+        })
+    })  
     res.redirect("/productDetails/"+req.params.pId);
 })
 
