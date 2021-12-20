@@ -1148,7 +1148,18 @@ app.post("/addToWishlist/:pId",custCheckAuthenticated ,function (req,res){
     res.redirect("/productDetails/"+req.params.pId);
 })
 
-
+app.post("/removeFromWishlist/:pId",custCheckAuthenticated, function (req,res){
+removeProductId = req.params.pId;
+console.log(removeProductId);
+var query = "Delete from wishlist where cust_id = ? and product_id = ?";
+connection.query(query,[req.user.cId,removeProductId],function (err){
+    if(err){
+        console.log(err);
+    }else{
+        res.redirect("/productDetails/"+removeProductId);
+    }
+});
+});
 
 
 

@@ -97,7 +97,6 @@
             <h3 class="text-dark mb-0">My Product</h3><a class="btn btn-primary btn-sm d-sm-inline-block align-right sel-but" role="button" href="/addproduct" style="background: rgba(0,41,102,0.93);"><i
                 class="fas fa-plus-circle fa-sm text-white-50"></i>&nbsp;Add a Product&nbsp;</a>
           </div>
-
         </div>
 
         <% if (edit===false){ %>
@@ -125,7 +124,6 @@
                 <tbody>
                   <%var i=1%>
                   <% rows.forEach(function(row){ %>
-
                   <tr>
                     <th scope="row"><%=i%></th>
                     <td class="w-25">
@@ -141,7 +139,6 @@
                     <td><%=  row.iDelivery %></td>
                     <td><%=  row.iDeliveryCharges %></td>
                     <td>
-
                       <form action="/editProduct" method="post">
                         <input type="text" name="editbtn" value=<%= row.iId %> hidden>
                         <button class="btn btn-primary edit-btn" type="submit"  id="edit-btn" style="width:90%;" ><i class="fas fa-pencil-alt"></i></button>
@@ -151,19 +148,13 @@
                       <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:90%;" name="deleteproduct" data-id=<%= row.iId %>><i class="fas fa-trash"></i></button>
                     </td>
                   </tr>
-
                   <% i=i+1 }); %>
-
-
-
-
                 </tbody>
               </table>
             </div>
           </div>
         </div>
         <%}else{%>
-
         <div class="container">
           <div class="row ">
             <div class="col-12 ">
