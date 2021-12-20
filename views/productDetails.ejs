@@ -267,7 +267,7 @@
                                     <input id="quant" type="text" name="qty" value="1" style="display:none;">
                                     <input id="siz" type="text" name="size" value="" style="display:none;">
                                 </form>
-                                <button class="round-black-btn-2" id="wishlist_btn"><i class="far fa-heart"></i>&nbsp; Add to wishlist</button>
+                                <button class="round-black-btn-2" id="wishlist_btn"><i class="far fa-heart" id="wish"></i>&nbsp; Add to wishlist</button>
                                 <br>
                             </div>
                         </div>
@@ -337,48 +337,6 @@
 
 
 
-            <!-- <div class="container">
-                <div class="product-info-tabs disButton">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" style="font-size:1.5rem">Product Reviews</a>
-                        </li>
-                        <li class="nav-item">
-                     <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false" style="font-size:1.5rem">Seller Reviews</a>
-                     </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane show active " style="margin-bottom: 40px;width:60%;" id="description"  aria-labelledby="description-tab">
-                        <%if(rows1.length){%>
-                          
-                          <% rows1.forEach(function(row){ %>
-                            <div class="" style="margin-bottom: 20px;">
-                                <h5 style="color:#2B2B2B;"><%=row.cName%></h5>
-                                <div class="rating-body" style="margin-top:10px">
-                                    <div class="stars-rating">
-                                        <div class="stars-rating__fill" style="font-size: 2rem; width: <%=row.per_rating%>%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        
-                            <%if(row.p_review){%>
-                                <p style="padding-top:20px;padding-left: 5px; font-size:1.1rem;"><%=row.p_review%>
-                                </p>
-                                <hr style="height:1px;border:none;color:#333;background-color:#333;">
-                                <%}%>
-                          <%})}else{%>
-
-                            <h5>No Reviews Available for this product.</h5>
-                            <%}%>
-                            
-                        </div>
-                        <div class="tab-pane fade seller_review_section" style="margin-bottom: 40px;width:60%;" id="review" role="tabpanel" aria-labelledby="review-tab">
-                     </div>
-                    </div>
-                </div>
-            </div> -->
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -387,6 +345,34 @@
             <script type="text/javascript">
                 var slider = $("#slider");
                 $(document).ready(function() {
+
+
+
+
+                    if(localStorage.length){
+
+                        if(!JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
+                            //if product is not in wishlist
+                            $("#wish").css({"color":"black","font-size":"1rem"});
+                            $("#wish").removeClass("fas");
+                            $("#wish").addClass("far");
+                        }else{
+                            $("#wish").css({"color":"red","font-size":"1.2rem"});
+                            $("#wish").removeClass("far");
+                            $("#wish").addClass("fas");
+                        }
+                    }else{
+                        var arr = [];
+                        var json = {
+                            "products":arr
+                        }
+
+                        localStorage.setItem('wish_products',JSON.stringify(json));
+                    }
+                    
+
+
+
                     var thumb = $("#thumb");
                     var slidesPerPage = 1; //globaly define number of elements per page
                     var syncedSecondary = true;
@@ -546,10 +532,14 @@
                     });
 
                     //Wishlist Button
-                    $('#wishlist_btn').on("click",function(event){
-                        //To be created function addToWishList from here
-                        
-                            if(localStorage.getItem('wish_products')){
+
+                    // fetching wislists from database when logged in
+                    // automatically adding wishlist products from local storage to database after logged in 
+
+
+
+                    function addToWishlist(){
+                        if(localStorage.getItem('wish_products')){
                                 prev_storage = JSON.parse(localStorage.getItem('wish_products'));
                                 if(! prev_storage.products.includes(<%=rows[0].pId%>)){
                                     prev_storage.products.push(<%=rows[0].pId%>);
@@ -558,12 +548,11 @@
                                 localStorage.setItem('wish_products',JSON.stringify(prev_storage));
                                 console.log(JSON.parse(localStorage.getItem('wish_products')));
                             } 
-                            else{
+                            else{   
                                 var arr = [<%=rows[0].pId%>];
                                 var json = {
                                     "products":arr
                                 }
-
                                 localStorage.setItem('wish_products',JSON.stringify(json));
                                 console.log(JSON.parse(localStorage.getItem('wish_products')));
                             }   
@@ -581,8 +570,56 @@
                         }
                         })
                         }
-                        //to here
-                        //to be created function removeFromwishlist
+                    }
+
+                    function removeFromWishlist(){
+                        if(localStorage.getItem('wish_products')){
+                                prev_storage = JSON.parse(localStorage.getItem('wish_products'));
+                                if(prev_storage.products.includes(<%=rows[0].pId%>)){
+                                    prev_storage.products = prev_storage.products.filter(item => item !== <%=rows[0].pId%>);
+                                }
+                                localStorage.clear();
+                                localStorage.setItem('wish_products',JSON.stringify(prev_storage));
+                                console.log(JSON.parse(localStorage.getItem('wish_products')));
+                            } 
+                               
+                        
+                        if(<%=loggedIn%> == true){
+                            
+                        $.ajax({
+                        url: "/removeFromWishlist/"+ "<%=rows[0].pId%>",
+                        type: "POST",
+                        success: function(data) {
+                            console.log("Success");
+                        }
+                        })
+                        }
+
+                    }
+
+
+                    $('#wishlist_btn').on("click",function(event){
+                        if(localStorage.length){
+
+                            if(JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
+                                $("#wish").css({"color":"black","font-size":"1rem"});
+                                $("#wish").removeClass("fas");
+                                $("#wish").addClass("far");
+                                removeFromWishlist();
+                            }else{
+                                $("#wish").css({"color":"red","font-size":"1.2rem"});
+                                $("#wish").removeClass("far");
+                                $("#wish").addClass("fas");
+                                addToWishlist();
+                            }
+                        }else{
+                            var arr = [];
+                                var json = {
+                                    "products":arr
+                                }
+
+                                localStorage.setItem('wish_products',JSON.stringify(json));
+                        }
                         
                     });
                 });
