@@ -345,13 +345,17 @@
             <script type="text/javascript">
                 var slider = $("#slider");
                 $(document).ready(function() {
-                  if(true){
-                    console.log(<%=rows4%>);
-                  }
-
-                    else if(localStorage.length){
-
-
+            
+                    
+                    
+                  if(<%=loggedIn%>){
+                    var str_arr = "<%-rows4%>";
+                    if(str_arr.includes("<%=rows[0].pId%>")){
+                        $("#wish").css({"color":"red","font-size":"1.2rem"});
+                        $("#wish").removeClass("far");
+                        $("#wish").addClass("fas");
+                    };
+                  }else if(localStorage.length){
                         if(!JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
                             //if product is not in wishlist
                             $("#wish").css({"color":"black","font-size":"1rem"});
@@ -504,7 +508,7 @@
                                 $('#invent').val(data.data1[0].iId);
                                 $("#sellerPrice").html("₹ " + data.data1[0].sellerPrice);
                                 var size;
-                                console.log("D : ",data.data1[0].iDescription);
+                            
                                 $("#description").html("<p style='font-size:1.2rem;'>"+data.data1[0].iDescription+"</p>");
 
                                 $("#bName").html(data.data1[0].bName);
