@@ -604,13 +604,20 @@ app.get('/productDetails/:pId', function (req, res) {
                                     if(err){
                                       console.log(err);
                                     }else{
+                                        console.log(rows4);
+                                        var wishlist = [];
+                                        rows4.forEach(function(row){
+                                            wishlist.push(row.product_id)
+                                        });
+                                        console.log(wishlist);
+
                                       res.render('productDetails', {
                                           rows,
                                           rows1,
                                           rows2,
                                           loggedIn: true,
                                           pincode: req.cookies.pincode,
-                                          rows4:rows4,
+                                          rows4:wishlist,
                                           user: req.user
                                       });
                                     }
