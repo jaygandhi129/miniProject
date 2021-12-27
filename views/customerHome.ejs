@@ -716,6 +716,25 @@
                   })
               })()
             </script>
+            <script type="text/javascript">
+              $(document).ready(function(){
+               console.log(<%=loggedIn%>);
+                if(JSON.parse(localStorage.getItem('wish_products')).products.length && <%=loggedIn%>==true){
+                  $.ajax({
+
+                      url: "/addToWishlistremote",
+                      type: "POST",
+                      data: {
+                          "wish_products":JSON.parse(localStorage.getItem('wish_products')).products
+                      },
+                      success: function(data){
+                       localStorage.clear();
+                        console.log("added");
+                  }
+                });
+              }
+              });
+            </script>
 
 </body>
 
