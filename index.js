@@ -594,23 +594,34 @@ app.get('/productDetails/:pId', function (req, res) {
                             console.log(err);
                         }
                         else {
-                            var query3 = ""
+
                             if (req.user) {
                                 pincode = req.cookies.pincode;
                                 if (req.user.role === 1) {
-                                    res.render('productDetails', {
-                                        rows,
-                                        rows1,
-                                        rows2,
-                                        loggedIn: true,
-                                        pincode: req.cookies.pincode,
-                                        user: req.user
-                                    });
+                                  var query4="select product_id from wishlist where cust_id=?";
+
+                                  connection.query(query4,[req.user.cId],function(err,rows4){
+                                    if(err){
+                                      console.log(err);
+                                    }else{
+                                      res.render('productDetails', {
+                                          rows,
+                                          rows1,
+                                          rows2,
+                                          loggedIn: true,
+                                          pincode: req.cookies.pincode,
+                                          rows4:rows4,
+                                          user: req.user
+                                      });
+                                    }
+                                  });
+
                                 } else {
                                     res.render('productDetails', {
                                         rows,
                                         rows1,
                                         rows2,
+                                        rows4:[],
                                         pincode: req.cookies.pincode,
                                         loggedIn: false
                                     });
@@ -620,6 +631,7 @@ app.get('/productDetails/:pId', function (req, res) {
                                     rows,
                                     rows1,
                                     rows2,
+                                    rows4:[],
                                     pincode: req.cookies.pincode,
                                     loggedIn: false
                                 });
@@ -1144,7 +1156,7 @@ app.post("/addToWishlist/:pId",custCheckAuthenticated ,function (req,res){
         var query ="insert into wishlist values(?,?)"
         connection.query(query,[req.user.cId,product],(err)=>{
         })
-    })  
+    })
     res.redirect("/productDetails/"+req.params.pId);
 })
 
@@ -1159,6 +1171,19 @@ connection.query(query,[req.user.cId,removeProductId],function (err){
         res.redirect("/productDetails/"+removeProductId);
     }
 });
+});
+
+app.post("/addToWishlistremote",custCheckAuthenticated,function(req,res){
+  var products=req.body.wish_products;
+  console.log(products);
+  products.forEach(function(product){
+      var query ="insert into wishlist values(?,?)"
+      connection.query(query,[req.user.cId,product],(err)=>{
+      })
+  })
+  console.log("added successfully");
+  res.status(200);
+  res.sendStatus(200);
 });
 
 

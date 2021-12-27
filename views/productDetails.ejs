@@ -172,7 +172,7 @@
                             <%=rows[0].pBrand%>
                                 <%=rows[0].pName%>
                                 <div class="rating">
-                                    
+
                                     <%if(rows1.length){%>
                                         <div class="rating-body">
                                             <div class="stars-rating" style="font-size:3.1rem">
@@ -262,7 +262,7 @@
                             <div class="buybuttons disButton">
                                 <form method="post" action="/order">
                                     <button class="round-black-btn-1" type="submit"><i class="fas fa-wallet"></i>&nbsp; Buy Now</button>
-                                    
+
                                     <input id="invent" type="text" name="iId" value="" style="display:none;">
                                     <input id="quant" type="text" name="qty" value="1" style="display:none;">
                                     <input id="siz" type="text" name="size" value="" style="display:none;">
@@ -302,23 +302,23 @@
                         <h5>Product Reviews</h5>
                         <div style="height: 200px; overflow-y: auto;">
                         <%if(rows1.length){%>
-                          
+
                             <% rows1.forEach(function(row){ %>
                               <div class="" style="display: flex;">
                                   <p style="color:#2B2B2B;"><%=row.cName%></p>
-                                  
+
                                   <p style="margin-left: 5%;font-size: 1.15rem;"><%=row.p_rating%>⭐</p>
                               </div>
-                              
-                          
+
+
                               <%if(row.p_review){%>
-                                
+
                                   <p style="font-size:1.1rem;"><i class="fas fa-comments"></i> &nbsp;<%=row.p_review%>
                                   </p>
                                   <hr style="height:1px;border:none;color:#333;background-color:#333;width: 95%;">
                                   <%}%>
                             <%})}else{%>
-  
+
                               <h5>No Reviews Available for this product.</h5>
                               <%}%>
                             </div>
@@ -345,23 +345,26 @@
             <script type="text/javascript">
                 var slider = $("#slider");
                 $(document).ready(function() {
+                  if(true){
+                    console.log(<%=rows4%>);
+                  }
 
+                    else if(localStorage.length){
 
-
-
-                    if(localStorage.length){
 
                         if(!JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
                             //if product is not in wishlist
                             $("#wish").css({"color":"black","font-size":"1rem"});
                             $("#wish").removeClass("fas");
                             $("#wish").addClass("far");
-                        }else{
+                        }
+                        else{
                             $("#wish").css({"color":"red","font-size":"1.2rem"});
                             $("#wish").removeClass("far");
                             $("#wish").addClass("fas");
                         }
-                    }else{
+                    }
+                    else{
                         var arr = [];
                         var json = {
                             "products":arr
@@ -369,7 +372,7 @@
 
                         localStorage.setItem('wish_products',JSON.stringify(json));
                     }
-                    
+
 
 
 
@@ -467,9 +470,9 @@
                         url: "/getSellers/" + "<%=rows[0].pId%>",
                         type: "GET",
                         success: function(data) {
-                            
+
                             var len = data.data1.length;
-                            
+
                             $("#selldiv").empty();
                             if(data.data2.length){
 
@@ -478,8 +481,8 @@
                                 $(".seller_review_section").append("No Reviews for this seller found.");
 
                             }
-                            
-                            if (len == 0) { 
+
+                            if (len == 0) {
                                 $("#selldiv").append("<h2>No Sellers found</h2>");
                                 $(".MRP").removeClass("line-through");
                                 $(".disButton").attr("style", "display:none;");
@@ -489,7 +492,7 @@
                                 var ys2 = parseInt(data.data1[0].sellerPrice);
                                 var res = ys - ys2;
                                 //For by default rating of first seller
-                                
+
                                 //for other details
                                 $("#youSaved").html("&nbsp; &nbsp; You save ₹ " + res);
                                 $("#youSaved2").html("You save ₹ " + res);
@@ -534,7 +537,7 @@
                     //Wishlist Button
 
                     // fetching wislists from database when logged in
-                    // automatically adding wishlist products from local storage to database after logged in 
+                    // automatically adding wishlist products from local storage to database after logged in
 
 
 
@@ -547,16 +550,16 @@
                                 localStorage.clear();
                                 localStorage.setItem('wish_products',JSON.stringify(prev_storage));
                                 console.log(JSON.parse(localStorage.getItem('wish_products')));
-                            } 
-                            else{   
+                            }
+                            else{
                                 var arr = [<%=rows[0].pId%>];
                                 var json = {
                                     "products":arr
                                 }
                                 localStorage.setItem('wish_products',JSON.stringify(json));
                                 console.log(JSON.parse(localStorage.getItem('wish_products')));
-                            }   
-                        
+                            }
+
                         if(<%=loggedIn%> == true){
                             console.log(<%=loggedIn%>);
                         $.ajax({
@@ -581,11 +584,11 @@
                                 localStorage.clear();
                                 localStorage.setItem('wish_products',JSON.stringify(prev_storage));
                                 console.log(JSON.parse(localStorage.getItem('wish_products')));
-                            } 
-                               
-                        
+                            }
+
+
                         if(<%=loggedIn%> == true){
-                            
+
                         $.ajax({
                         url: "/removeFromWishlist/"+ "<%=rows[0].pId%>",
                         type: "POST",
@@ -599,6 +602,7 @@
 
 
                     $('#wishlist_btn').on("click",function(event){
+
                         if(localStorage.length){
 
                             if(JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
@@ -620,7 +624,7 @@
 
                                 localStorage.setItem('wish_products',JSON.stringify(json));
                         }
-                        
+
                     });
                 });
                 $(document).on("click", '.sellerButton', function(event) {
@@ -666,11 +670,11 @@
                             for (var i = 1; i < size.length; i++) {
                                 $('#si').append('<option  value=' + size[i] + '>' + size[i] + '</option>');
                             }
-                            
+
 
                             }
 
-                        
+
 
                     });
                     $('#si').on('change', function() {
