@@ -9,14 +9,10 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="../css/custOrderDetails.css">
-      <link rel="stylesheet" href="../css/cstyles.css">
-      <!-- <link rel="stylesheet" href="../css/myproducts.css"> -->
+      <link rel="stylesheet" href="../css/custOrderlist.css">
+        <link rel="stylesheet" href="../css/cstyles.css">
       <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-
-
    </head>
    <body style="background-color:rgb(249 248 248)">
       <!-- Pincode Modal Starts -->
@@ -37,7 +33,7 @@
                   <h4 class="modal-title title" id="staticBackdropLabel">ENTER YOUR PINCODE</h4>
                </div>
                <div class="modal-body" style="margin-top:3%;">
-                  <form class="needs-validation" action="/productDetails/<%= pId%>" method="post" novalidate>
+                  <form class="needs-validation" action="/productDetails/<%=rows[0].pId%>" method="post" novalidate>
                      <div class="row g-2">
                        <div class="col col-auto">
                            <input type="text" class="form-control form-custom form-control-md search-bar-input"
@@ -94,21 +90,7 @@
                <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
                   <ul class="navbar-nav me-auto catagory-div">
-                     <!-- <li class="nav-item">
-                        <div class="dropdown">
-                           <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
-                           Sub-Categories
-                           </button>
-                           <ul class="dropdown-menu dropdown-menu-cat" style="width: 300%;" id="category_dropdown" aria-labelledby="dropdownMenuButton2">
-                              <div class="row">
-                                 <div class="col-md-6" id="catDiv1">
-                                 </div>
-                                 <div class="col-md-6" id="catDiv2">
-                                 </div>
-                              </div>
-                           </ul>
-                        </div>
-                     </li> -->
+                     
                      <li class="nav-item"></li>
                   </ul>
                   <ul class="navbar-nav me-auto desktop-hidden">
@@ -157,174 +139,66 @@
             </div>
          </nav>
       </div>
-      <!-- Orderdetails html -->
-      <!------ Include the above in your HEAD tag ---------->
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-      <h3 style="margin-left:3%;margin-top:1%;">Order Details : <span><small>#<%=rows[0].order_id%></small></span></h3>
-      <div class="container" style="margin-top:1%;">
-        <div class="row ">
-          <div class="col-md-7 col-xs-12 row1">
-            <div class="card SOD_table">
-              <div class="card-body">
-                <table class="table table-borderless table-shopping-cart " id="product_table">
-                  <thead class="text-muted">
-                    <tr class="small text-uppercase table-headings"
-                      style="text-align:center;font-size:0.9rem;">
-                      <th scope="col" width:"200" style="text-align:left;">Product</th>
-                      <th scope="col" width="400">Name</th>
-                      <th scope="col" width="100">Quantity</th>
-                      <th scope="col" width="200">Rate</th>
-                      <th scope="col" width="200">Amount</th>
+      <h2 style="margin-top:1%;margin-left: 4%;font-size:1.9rem;">My Wishlist</h2>
+      <div class="container" style="margin-top:20px;">
+          <div class="row">
+            <% for (i = 0; i < rows.length; i++){%>
+                    <div class="col-md-6 col-xs-12" style="margin-bottom:10px;">
+                        
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-3 col-md-3">
+                                        <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[i].pPhotoId %>?alt=media" class="img-small pImage" width="90px" height="130px" style="object-fit: contain;margin-top:5%;">
+                                    </div>
+                                    <div class="col-sm-5 col-xs-5 col-md-5 name-div" style="display:block;">
+                                        <p style="font-weight:300; font-size:1rem;"> <span style="font-weight:bold; font-size:1.1rem;">Name :</span> <%=rows[i].pBrand%> <%=rows[i].pName%> </p>
+                                        <p style="font-weight:300; font-size:1rem;"> <span style="font-weight:bold; font-size:1.1rem;">MRP :</span> Rs <%=rows[i].pMrp%> </p>
 
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr width="200" style="text-align:center;">
-                      <td> <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= rows[0].pPhotoId %>?alt=media" class="img-fluid img-thumbnail"></td>
-                      <td><%=rows[0].pBrand%> <%=rows[0].pName%></td>
-                      <td><%=rows[0].product_qty%></td>
-                      <td>₹ <%=rows[0].price/rows[0].product_qty%></td>
-                      <td>₹ <%=rows[0].total_amount%></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <%if(rows[0].product_size.length>0){%>
-                <p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE :
-                  <%=rows[0].product_size%> </p>
-                <%}%>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5 col-xs-12 row1">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Seller Details
-                </h5>
-                <p>Name :<%=rows[0].bName%></p>
-                <p>
-                  Address :<%=rows[0].bAddress%>
-                  </p>
-                  <p>Contact No :<%=rows[0].bMobile%></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-7 col-xs-12 row2" style="margin-top:1%;">
-            <div class="card" style="margin-bottom:2%;">
-              <div class="container">
-    <div class="row">
-      <%if(rows[0].delivery_method=="Y"){%>
-        <h5 style="margin-left:3%;margin-top:3%;">Order Tracking :<span style="font-weight:bold;">&nbsp;Home Delivery&nbsp;<i class="fas fa-truck"></i></span> </h5>
-      <%}else{%>
-        <h5 style="margin-left:3%;margin-top:3%;">Order Tracking :<span style="font-weight:bold;">&nbsp;Store Pickup&nbsp;<i class="fas fa-shopping-bag"></i></span> </h5>
-      <%}%>
-      <%if(rows[0].paymentStatus=="Refunded"){%>
-        <p style="margin-left:3%; margin-top:1%;">Payment Status: <span style="font-weight:bold;"><%=rows[0].paymentStatus%>&nbsp; on &nbsp; <%=rows[0].refundTimeStamp%><span></p>
-        <small style="margin-left:3%;">Amount will be credited to your Bank Account within 3-5 working days.</small>
-      <%}else{%>
-        <p style="margin-left:3%;margin-top:1%;">Payment Status: <%=rows[0].paymentStatus%></p>
-      <%}%>
-
-  						<div class="col-12 col-md-10 hh-grayBox pt45 pb20">
-
-  							<div class="row justify-content-between">
-  								<div class="order-tracking completed">
-  									<span class="is-complete"></span>
-  									<p>Ordered<br><span><%=rows[0].ordered_timestamp%></span></p>
-  								</div>
-  								<div class="order-tracking waiting">
-  									<span class="is-complete"></span>
-                    <%if(rows[0].order_status=="Accepted, In-progress" || rows[0].order_status=="Awaiting Approval" || rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
-                     <p><%=rows[0].order_status%><br></p>
-  								<%}if(rows[0].order_status=="Order Completed"){%>
-                    <p>Accepted, In-progress<br></p>
-                    <%}%>
-
-                </div>
-  								<div class="order-tracking done">
-  									<span class="is-complete"></span>
-                    <%if(rows[0].order_status=="Order Completed"){%>
-  									<p><%=rows[0].order_status%><br><span><%=rows[0].delivered_timestamp%></span></p>
-                    <%}else if(rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
-                      <p><%=rows[0].order_status%><br></p>
-
-                      <%}%>
-  								</div>
-  							</div>
-  						</div>
-  					</div>
-            </div>
-            </div>
-          </div>
-          <div class="col-md-5 col-xs-12 row1" style="margin-top:0%;">
-            <%if(rows[0].delivery_method=="Y"){%>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Delivery Details<span style="float:right;font-size:0.8rem;"><%=rows[0].ordered_timestamp%></span>
-                </h5>
-                <p>Name : <%=rows[0].del_fname%> <%=rows[0].del_lname%></p>
-                <p>
-                  Address : <%=rows[0].delivery_address%>
-                  </p>
-                  <p>Contact No : <%=rows[0].delivery_phone%></p>
-              </div>
-            </div>
-          <%}%>
-          <%if(rows[0].order_status!="Rejected" && rows[0].order_status!="Cancelled" && rows[0].order_status!="Order Completed" ){%>
-
-          <a href="/cancelOrder/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-outline-danger acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button">Cancel Order</a>
-            <%}else if(rows[0].order_status=="Order Completed"){%>
-
-            <a href="/invoice/<%=rows[0].order_id%>" type="button" class="btn btn-lg btn-success acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button"><i class="fas fa-receipt"></i>&nbsp;&nbsp;&nbsp;E-Receipt</a>
-            <a href="/custOrderDetails/<%=rows[0].order_id%>/feedback" type="button" class="btn btn-lg btn-warning acc_rej_btn"style="font-size: 1.5rem;display:block;margin-left:auto;margin-top:4%;margin-right:auto; width:50%;" name="button"><i class="fas fa-star-half-alt"></i>&nbsp;&nbsp;&nbsp;Feedback</a>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 col-md-4">
+                                       <div class="row">
+                                          <div class="col col-md-12 col-xs-4 buy-div" style="margin-left: 0;margin-top: 6%;">
+                                             <a href="/productDetails/<%=rows[i].pId%>" style="text-decoration:none; color:black;">
+                                                <button class="btn btn-warning buy-now-btn"> <i class="fas fa-wallet"></i> &nbsp Buy Now</button>
+                                             </a>
+                                             <button class="btn delete-btn"  value="<%=rows[i].pId%>"><i class="fas fa-trash"></i></button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                  </div>  
               <%}%>
           </div>
-              </div>
-            </div>
-
-      <script >
-      $(document).ready(function() {
-        if('<%=rows[0].order_status%>' == "Awaiting Approval" || '<%=rows[0].order_status%>' == "Accepted, In-progress"){
-          $(".waiting").addClass("completed");
-        }
-        if('<%=rows[0].order_status%>' == "Order Completed" ){
-          $(".waiting").addClass("completed");
-          $(".done").addClass("completed");
-        }else if('<%=rows[0].order_status%>' == "Rejected" || '<%=rows[0].order_status%>' == "Cancelled"){
-           $('.done').attr('style','visibility:hidden;');
-           $('.waiting .is-complete').attr('style','background-color:red;border-color:red;');
-           $(".waiting").html('<i class="fas fa-times-circle" style="color:red;font-size:2rem;"></i><p style="color:black"><%=rows[0].order_status%></p>');
-           $('order-tracking::before').attr('style','background-color:red');
-        }
-      });
-      </script>
+      </div>
 
 
+
+    
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
       <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-          'use strict'
-
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.querySelectorAll('.needs-validation')
-
-          // Loop over them and prevent submission
-          Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-              form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-              }, false)
-            })
-        })()
+         function removeFromWishlist(pId){
+            if(<%=loggedIn%> == true){
+               $.ajax({
+                  url: "/removeFromWishlist/"+ pId,
+                  type: "POST",
+                  success: function(data) {
+           
+                     window.location.reload()
+                  }
+               })
+            }
+         }
+         $(".delete-btn").on("click",function(e){
+           
+            removeFromWishlist(this.value);
+         });
       </script>
+      
    </body>
 
 </html>

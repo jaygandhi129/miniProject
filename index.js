@@ -604,13 +604,11 @@ app.get('/productDetails/:pId', function (req, res) {
                                     if(err){
                                       console.log(err);
                                     }else{
-                                        console.log(rows4);
+                                   
                                         var wishlist = [];
                                         rows4.forEach(function(row){
                                             wishlist.push(row.product_id)
-                                        });
-                                        console.log(wishlist);
-
+                                        });                                       
                                       res.render('productDetails', {
                                           rows,
                                           rows1,
@@ -773,7 +771,7 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (re
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log("PAYMENT SUCCESSFULL");
+                                    
                                     if (req.user) {
                                         pincode = req.cookies.pincode;
                                         if (req.user.role === 1) {
@@ -826,6 +824,22 @@ app.get("/myorders", custCheckAuthenticated, function (req, res) {
     }
 });
 
+app.get("/mywishlist",custCheckAuthenticated, function (req, res){
+    var query = "select pName,pBrand,pId, pPhotoId, pMrp from products where pId in (select product_id from wishlist where cust_id = ?)";
+    connection.query(query, [req.user.cId],function(err,rows){
+        if(err){
+            console.log(err);
+        }else{
+                res.render('custWishlist', {
+                loggedIn: true,
+                pincode: req.cookies.pincode,
+                user: req.user,
+                rows          
+            });
+    }
+    });
+});
+
 app.get("/custOrderDetails/:order_id", custCheckAuthenticated, function (req, res) {
     query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,b.bAddress,b.bMobile,od.product_qty,od.product_size,od.price,o.order_id,o.delivered_timestamp,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
     connection.query(query, [parseInt(req.params.order_id)], function (err, rows) {
@@ -876,7 +890,7 @@ app.get('/cancelOrder/:order_id', custCheckAuthenticated, function (req, res) {
                                                     if (err) {
                                                         console.log(err);
                                                     } else {
-                                                        console.log("Refund Successfull");
+                                                 
                                                         res.redirect("/custOrderDetails/" + req.params.order_id);
                                                     }
                                                 });
@@ -902,7 +916,7 @@ app.post("/searchtag", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(rows1);
+         
             if (req.user) {
                 pincode = req.cookies.pincode;
                 if (req.user.role === 1) {
@@ -969,7 +983,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
         if (err) {
             console.log(err);
         } else {
-            console.log(rows[0].product_id, rows[0].cust_id);
+         
             if (req.user.cId === rows[0].cust_id) {
                 var query2 = "Select * from product_feedback where pId = ? and cId = ?";
                 connection.query(query2, [rows[0].product_id, rows[0].cust_id], function (err, rows2) {
@@ -987,7 +1001,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                         if (err) {
                             console.log(err);
                         } else {
-                            // console.log(rows3[0].s_review);
+                    
                             if (!rows3[0]) {
                                 sflag = 0;
 
@@ -1037,7 +1051,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                                         rows4
                                     });
                                 } else if (sflag == 1 && pflag == 1) {
-                                    console.log(rows3[0].s_review);
+                         
                                     res.render('feedback', {
                                         loggedIn: true,
                                         pincode: req.cookies.pincode,
@@ -1077,7 +1091,7 @@ app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res)
                     console.log(err);
                 } else {
                     if (!rows2[0]) {
-                        console.log("check1");
+                  
                         var query3 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
                         connection.query(query3, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
                             if (err) {
@@ -1125,7 +1139,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
                 if (err) {
                     console.log(err);
                 } else {
-                  console.log(rows2[0]);
+              
                     if (!rows2[0]) {
                         var query3 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
                         connection.query(query3, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
@@ -1142,7 +1156,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
                             if (err) {
                                 console.log(err);
                             } else {
-                              console.log("updated"+s_comment);
+                    
                                 res.redirect("/myorders");
                             }
                         });
@@ -1158,7 +1172,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
 //Wishlist
 app.post("/addToWishlist/:pId",custCheckAuthenticated ,function (req,res){
     wish_products = req.body.wish_products;
-    console.log("logged in" + wish_products);
+
     wish_products.forEach(function(product){
         var query ="insert into wishlist values(?,?)"
         connection.query(query,[req.user.cId,product],(err)=>{
@@ -1169,7 +1183,7 @@ app.post("/addToWishlist/:pId",custCheckAuthenticated ,function (req,res){
 
 app.post("/removeFromWishlist/:pId",custCheckAuthenticated, function (req,res){
 removeProductId = req.params.pId;
-console.log(removeProductId);
+
 var query = "Delete from wishlist where cust_id = ? and product_id = ?";
 connection.query(query,[req.user.cId,removeProductId],function (err){
     if(err){
@@ -1182,13 +1196,13 @@ connection.query(query,[req.user.cId,removeProductId],function (err){
 
 app.post("/addToWishlistremote",custCheckAuthenticated,function(req,res){
   var products=req.body.wish_products;
-  console.log(products);
+
   products.forEach(function(product){
       var query ="insert into wishlist values(?,?)"
       connection.query(query,[req.user.cId,product],(err)=>{
       })
   })
-  console.log("added successfully");
+
   res.status(200);
   res.sendStatus(200);
 });
@@ -1471,10 +1485,10 @@ app.post('/addproduct', upload.fields([{
     if (pDetails.clothesSize != undefined) {
         if (pDetails.clothesSize.toString().split(",").length > 1) {
             size = (pDetails.clothesSize).join();
-            console.log("SIZE : " + size);
+
         } else {
             size = pDetails.clothesSize;
-            console.log("SIZE : " + size);
+       
         }
 
     } else if (pDetails.shoesSize != undefined) {
@@ -1496,14 +1510,14 @@ app.post('/addproduct', upload.fields([{
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log(rows99[0].bName);
+                            
 
                             var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName + ' ' + rows99[0].bName;
                             connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log("Data Inserted Successfully");
+                                 
                                     res.redirect("/myproducts");
                                 }
                             })
@@ -1559,7 +1573,7 @@ app.post('/addproduct', upload.fields([{
                                         if (err) {
                                             console.log(err);
                                         } else {
-                                            console.log("Photo Id updated Successfully");
+                                
                                         }
                                     });
                                 }
@@ -1575,13 +1589,13 @@ app.post('/addproduct', upload.fields([{
                                             console.log(err);
                                         } else {
 
-                                            console.log(rows99[0].bName);
+                                 
                                             var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName + ' ' + rows99[0].bName;
                                             connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
                                                 if (err) {
                                                     console.log(err);
                                                 } else {
-                                                    console.log("Data Inserted Successfully");
+                                              
                                                     res.redirect("/myproducts");
                                                 }
                                             })
@@ -1674,14 +1688,14 @@ app.get('/myproducts', checkAuthenticated, function (req, res) {
 });
 app.post('/myproducts', checkAuthenticated, function (req, res) {
 
-    console.log(req.body.deleteproduct);
+
     var inventid = req.body.deleteproduct;
     var query4 = "delete from inventory where iId=?";
     connection.query(query4, inventid, function (err, rows) {
         if (err) {
             console.log(err);
         } else {
-            console.log("deleted");
+       
             res.redirect('/myproducts');
         }
     })
@@ -1727,7 +1741,7 @@ app.post("/saveProduct", checkAuthenticated, function (req, res) {
             console.log(err);
         } else {
             var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iDeliveryCharges,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
-            console.log("Products data updated successfully");
+       
             connection.query(query, req.user.sId, function (err, rows) {
                 if (err) {
                     console.log(err);
@@ -1882,7 +1896,7 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log("ORDER COMPLETED");
+                
                     res.sendStatus(200);
                 }
             });
