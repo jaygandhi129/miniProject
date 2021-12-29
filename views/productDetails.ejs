@@ -347,35 +347,50 @@
             <script type="text/javascript">
                 var slider = $("#slider");
                 $(document).ready(function() {
-            
-                    
-                    
+
+
                   if(<%=loggedIn%>){
+                    console.log("logged in wishlist");
                     var str_arr = "<%-rows4%>";
                     if(str_arr.includes("<%=rows[0].pId%>")){
                         $("#wish").css({"color":"red","font-size":"1.2rem"});
                         $("#wish").removeClass("far");
                         $("#wish").addClass("fas");
                     };
-                  }else if(localStorage.length){
-                        if(!JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
-                            //if product is not in wishlist
-                            $("#wish").css({"color":"black","font-size":"1rem"});
-                            $("#wish").removeClass("fas");
-                            $("#wish").addClass("far");
-                        }
-                        else{
-                            $("#wish").css({"color":"red","font-size":"1.2rem"});
-                            $("#wish").removeClass("far");
-                            $("#wish").addClass("fas");
-                        }
+                  }else if(localStorage.getItem("wish_products")){
+                    if(JSON.parse(localStorage.getItem('wish_products')).products.length){
+
+                      console.log("else if ..length not 0");
+                      if(!JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
+                        //if product is not in wishlist
+                        console.log("if product is not in wishlist");
+                        $("#wish").css({"color":"black","font-size":"1rem"});
+                        $("#wish").removeClass("fas");
+                        $("#wish").addClass("far");
+                      }
+                      else{
+                        console.log("if product is in wishlist");
+                        $("#wish").css({"color":"red","font-size":"1.2rem"});
+                        $("#wish").removeClass("far");
+                        $("#wish").addClass("fas");
+                      }
                     }
                     else{
+                      console.log("if localStorage empty");
                         var arr = [];
                         var json = {
                             "products":arr
                         }
+                        localStorage.setItem('wish_products',JSON.stringify(json));
 
+                    }
+                    }
+                    else{
+                      console.log("if localStorage empty");
+                        var arr = [];
+                        var json = {
+                            "products":arr
+                        }
                         localStorage.setItem('wish_products',JSON.stringify(json));
                     }
 
@@ -510,7 +525,7 @@
                                 $('#invent').val(data.data1[0].iId);
                                 $("#sellerPrice").html("₹ " + data.data1[0].sellerPrice);
                                 var size;
-                            
+
                                 $("#description").html("<p style='font-size:1.2rem;'>"+data.data1[0].iDescription+"</p>");
 
                                 $("#bName").html(data.data1[0].bName);
@@ -539,13 +554,13 @@
                     $('#si').on('change', function() {
                         $('#siz').val($(this).val());
                     });
-                    
-                    
-                    
 
-                    
+
+
+
+
                     function addToWishlist(){
-                       
+
                         if(localStorage.getItem('wish_products')){
                                 prev_storage = JSON.parse(localStorage.getItem('wish_products'));
                                 if(! prev_storage.products.includes(<%=rows[0].pId%>)){
@@ -582,7 +597,7 @@
                     }
 
                     function removeFromWishlist(){
-                       
+
                         if(localStorage.getItem('wish_products')){
                                 prev_storage = JSON.parse(localStorage.getItem('wish_products'));
                                 if(prev_storage.products.includes(<%=rows[0].pId%>)){
@@ -601,7 +616,7 @@
                         type: "POST",
                         success: function(data) {
                             console.log("Success");
-                            
+
                         }
                         })
                         }
@@ -610,7 +625,7 @@
 
 
                     $('#wishlist_btn').on("click",function(event){
-                   
+
 
                         if(localStorage.length){
 
