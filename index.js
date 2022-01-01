@@ -490,32 +490,44 @@ app.get('/productList/:cId', function (req, res) {
                         pincode: req.cookies.pincode,
                     });
                 } else {
-                    if (req.user) {
-                        pincode = req.cookies.pincode;
-                        if (req.user.role === 1) {
-                            res.render('productPage', {
-                                rows,
-                                rows1,
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user
-                            });
+                  query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand, round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller inner join product_feedback pf on pf.pId = p.pId where p.pCategory=? and b.bZip=? group by p.pId order by avg_rating desc limit 10;"
+                  connection.query(query3,[parseInt(req.params.cId), parseInt(req.cookies.pincode)],function(err,rows3){
+                    if(err){
+                      console.log(err);
+                    }
+                    else {
+
+                        if (req.user) {
+                            pincode = req.cookies.pincode;
+                            if (req.user.role === 1) {
+                                res.render('productPage', {
+                                    rows,
+                                    rows1,
+                                    rows3,
+                                    loggedIn: true,
+                                    pincode: req.cookies.pincode,
+                                    user: req.user
+                                });
+                            } else {
+                                res.render('productPage', {
+                                    rows,
+                                    rows1,
+                                    rows3,
+                                    pincode: req.cookies.pincode,
+                                    loggedIn: false
+                                });
+                            }
                         } else {
                             res.render('productPage', {
                                 rows,
                                 rows1,
+                                rows3,
                                 pincode: req.cookies.pincode,
                                 loggedIn: false
                             });
                         }
-                    } else {
-                        res.render('productPage', {
-                            rows,
-                            rows1,
-                            pincode: req.cookies.pincode,
-                            loggedIn: false
-                        });
                     }
+                  })
                 }
             });
         }
@@ -542,32 +554,44 @@ app.get('/productListBySub/:subCatId', function (req, res) {
                         user: req.user
                     });
                 } else {
-                    if (req.user) {
-                        pincode = req.cookies.pincode;
-                        if (req.user.role === 1) {
-                            res.render('productPage', {
-                                rows,
-                                rows1,
-                                loggedIn: true,
-                                pincode: req.cookies.pincode,
-                                user: req.user
-                            });
-                        } else {
-                            res.render('productPage', {
-                                rows,
-                                rows1,
-                                pincode: req.cookies.pincode,
-                                loggedIn: false
-                            });
+                  query3="select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller inner join product_feedback pf on pf.pId = p.pId where p.pSubCategory=? and s.bZip=? group by p.pId order by avg_rating desc limit 10;"
+                  connection.query(query3,[parseInt(req.params.subCatId), parseInt(req.cookies.pincode)], function (err, rows3) {
+                      if (err) {
+                          console.log(err);
                         }
-                    } else {
-                        res.render('productPage', {
-                            rows,
-                            rows1,
-                            pincode: req.cookies.pincode,
-                            loggedIn: false
-                        });
-                    }
+                        else{
+                          if (req.user) {
+                              pincode = req.cookies.pincode;
+                              if (req.user.role === 1) {
+                                  res.render('productPage', {
+                                      rows,
+                                      rows1,
+                                      rows3,
+                                      loggedIn: true,
+                                      pincode: req.cookies.pincode,
+                                      user: req.user
+                                  });
+                              } else {
+                                  res.render('productPage', {
+                                      rows,
+                                      rows1,
+                                      rows3,
+                                      pincode: req.cookies.pincode,
+                                      loggedIn: false
+                                  });
+                              }
+                          } else {
+                              res.render('productPage', {
+                                  rows,
+                                  rows1,
+                                  rows3,
+                                  pincode: req.cookies.pincode,
+                                  loggedIn: false
+                              });
+                          }
+                        }
+                      })
+
                 }
             });
         }
@@ -604,11 +628,11 @@ app.get('/productDetails/:pId', function (req, res) {
                                     if(err){
                                       console.log(err);
                                     }else{
-                                   
+
                                         var wishlist = [];
                                         rows4.forEach(function(row){
                                             wishlist.push(row.product_id)
-                                        });                                       
+                                        });
                                       res.render('productDetails', {
                                           rows,
                                           rows1,
@@ -771,7 +795,7 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (re
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    
+
                                     if (req.user) {
                                         pincode = req.cookies.pincode;
                                         if (req.user.role === 1) {
@@ -834,7 +858,7 @@ app.get("/mywishlist",custCheckAuthenticated, function (req, res){
                 loggedIn: true,
                 pincode: req.cookies.pincode,
                 user: req.user,
-                rows          
+                rows
             });
     }
     });
@@ -890,7 +914,7 @@ app.get('/cancelOrder/:order_id', custCheckAuthenticated, function (req, res) {
                                                     if (err) {
                                                         console.log(err);
                                                     } else {
-                                                 
+
                                                         res.redirect("/custOrderDetails/" + req.params.order_id);
                                                     }
                                                 });
@@ -916,7 +940,7 @@ app.post("/searchtag", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-         
+
             if (req.user) {
                 pincode = req.cookies.pincode;
                 if (req.user.role === 1) {
@@ -983,7 +1007,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
         if (err) {
             console.log(err);
         } else {
-         
+
             if (req.user.cId === rows[0].cust_id) {
                 var query2 = "Select * from product_feedback where pId = ? and cId = ?";
                 connection.query(query2, [rows[0].product_id, rows[0].cust_id], function (err, rows2) {
@@ -1001,7 +1025,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                         if (err) {
                             console.log(err);
                         } else {
-                    
+
                             if (!rows3[0]) {
                                 sflag = 0;
 
@@ -1051,7 +1075,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                                         rows4
                                     });
                                 } else if (sflag == 1 && pflag == 1) {
-                         
+
                                     res.render('feedback', {
                                         loggedIn: true,
                                         pincode: req.cookies.pincode,
@@ -1091,7 +1115,7 @@ app.post('/feedback/product/submit', custCheckAuthenticated, function (req, res)
                     console.log(err);
                 } else {
                     if (!rows2[0]) {
-                  
+
                         var query3 = "Insert into product_feedback (pId, order_id, cId, p_rating, p_review) values (?,?,?,?,?)";
                         connection.query(query3, [rows[0].product_id, orderId, cId, p_rating, p_comment], function (err) {
                             if (err) {
@@ -1139,7 +1163,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
                 if (err) {
                     console.log(err);
                 } else {
-              
+
                     if (!rows2[0]) {
                         var query3 = "Insert into seller_feedback (seller_id, s_review, s_rating, order_id, cust_id) values (?,?,?,?,?)";
                         connection.query(query3, [rows[0].seller_id, s_comment, s_rating, orderId, cId], function (err) {
@@ -1156,7 +1180,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
                             if (err) {
                                 console.log(err);
                             } else {
-                    
+
                                 res.redirect("/myorders");
                             }
                         });
@@ -1488,7 +1512,7 @@ app.post('/addproduct', upload.fields([{
 
         } else {
             size = pDetails.clothesSize;
-       
+
         }
 
     } else if (pDetails.shoesSize != undefined) {
@@ -1510,14 +1534,14 @@ app.post('/addproduct', upload.fields([{
                         if (err) {
                             console.log(err);
                         } else {
-                            
+
 
                             var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName + ' ' + rows99[0].bName;
                             connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                 
+
                                     res.redirect("/myproducts");
                                 }
                             })
@@ -1573,7 +1597,7 @@ app.post('/addproduct', upload.fields([{
                                         if (err) {
                                             console.log(err);
                                         } else {
-                                
+
                                         }
                                     });
                                 }
@@ -1589,13 +1613,13 @@ app.post('/addproduct', upload.fields([{
                                             console.log(err);
                                         } else {
 
-                                 
+
                                             var tag = pDetails.pBrand + ' ' + pDetails.pName + ' ' + rows10[0].subCatName + ' ' + rows10[0].catName + ' ' + rows99[0].bName;
                                             connection.query("INSERT INTO inventory (sellerPrice,stockAvailable,sId,pId,iDelivery,iDescription,iSize,iDeliveryCharges,iTags) VALUES(?,?,?,?,?,?,?,?,?)", [parseFloat(pDetails.pPrice), parseInt(pDetails.pQuantity), sId, rows[0].pId, pDetails.pDelivery, pDetails.pDescription, size, deliveryCharges, tag], function (err) {
                                                 if (err) {
                                                     console.log(err);
                                                 } else {
-                                              
+
                                                     res.redirect("/myproducts");
                                                 }
                                             })
@@ -1695,7 +1719,7 @@ app.post('/myproducts', checkAuthenticated, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-       
+
             res.redirect('/myproducts');
         }
     })
@@ -1741,7 +1765,7 @@ app.post("/saveProduct", checkAuthenticated, function (req, res) {
             console.log(err);
         } else {
             var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iDeliveryCharges,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
-       
+
             connection.query(query, req.user.sId, function (err, rows) {
                 if (err) {
                     console.log(err);
@@ -1896,7 +1920,7 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                
+
                     res.sendStatus(200);
                 }
             });
