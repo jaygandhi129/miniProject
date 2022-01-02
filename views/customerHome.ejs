@@ -505,6 +505,28 @@
 
                 </div>
             </div>
+
+            <!-- Last Viewed Products -->
+            <h2 class="font-weight-bold mb-2 headings-cards px-3" id="last-viewed-heading">Recently Viewed Products</h2>
+            <div class="container" id="last-viewed-container">
+                <div class="mob-hidden arrows-left">
+                    <button id="slideBack5" style="height: 80px;width:35px;margin-top: 100%;margin-left:-35%;"
+                        class="btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-left"></i></button>
+                </div>
+                <div class=" mob-hidden arrows-right">
+                    <button id="slide5" style="height: 80px;width:35px;margin-top: 100%;margin-left:110%;"
+                        class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                            class="fa fa-lg fa-chevron-right "></i></button>
+                </div>
+
+                <div class="row cards-row" id="cards-row">
+
+                    <!-- Card 1-->
+                    
+
+                </div>
+            </div>
         </div>
     </div>
     <%}%>
@@ -555,6 +577,27 @@
             <script src="./cIndex.js "></script>
             <script type="text/javascript ">
                 $(document).ready(function() {
+                    if(localStorage.getItem('lastViewed')){
+                        //To get recently viewed products
+                        $.ajax({
+                            url: "/getLastViewedDetails",
+                            data: {
+                                "last_viewed":JSON.parse(localStorage.getItem('lastViewed')).last
+                            },
+                            type: "POST",
+                            success: function(data) {
+                                console.log("Last Viewed Products success",data);
+                                var lastViewedProd = data.prodDetails 
+                                for(var i=0; i< lastViewedProd.length; i++){
+                                    var new_card = '<div class="card cards"><a href="/productDetails/'+lastViewedProd[i].pId+'" class="stretched-link"></a><div class="card-body "><img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/'+lastViewedProd[i].pPhotoId+'?alt=media "alt=" " style="width:250px; height:300px; object-fit:contain;"class="img-fluid d-block mx-auto mb-3 "><div style="height: 75px;text-align: center;"><h5 class="card-title">'+lastViewedProd[i].pBrand+' '+lastViewedProd[i].pName+'</h5></div><div><p style="margin-top:10px;text-align: center;">Lowest Price ₹'+lastViewedProd[i].minPrice+'<i class="fas fa-hand-holding-medical"></i></p></div></div></div>'
+                                    $('#cards-row').append(new_card);
+                                    
+                                }
+                                
+                            }
+                        });
+                    }
+
 
 
 
@@ -725,7 +768,14 @@
             </script>
             <script type="text/javascript">
               $(document).ready(function(){
-      
+                if(localStorage.getItem('wish_products')){
+                    $("#last-viewed-container").css("display","block");
+                    $("#last-viewed-heading").css("display","block");
+                }
+                else{
+                    $("#last-viewed-container").css("display","none");
+                    $("#last-viewed-heading").css("display","none");
+                }
                 if(JSON.parse(localStorage.getItem('wish_products')).products.length && <%=loggedIn%>==true){
                   $.ajax({
 

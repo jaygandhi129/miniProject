@@ -347,8 +347,53 @@
             <script type="text/javascript">
                 var slider = $("#slider");
                 $(document).ready(function() {
+                    // If lastViewd available
+                if(localStorage.getItem('lastViewed')){
+                    // console.log("inside big if");
+                    // only unique products enter into below if
+                    if(!JSON.parse(localStorage.getItem('lastViewed')).last.includes('<%=rows[0].pId%>')){
+                        // if less than 10 products in array, just push at front
+                        if(JSON.parse(localStorage.getItem('lastViewed')).last.length < 10){
+                            var previous_arr = JSON.parse(localStorage.getItem('lastViewed')).last
+                            previous_arr.unshift('<%=rows[0].pId%>');
+                            // console.log('prev_arr',previous_arr);
+                            localStorage.setItem('lastViewed',JSON.stringify({
+                                'last':previous_arr
+                            }))
+                            // console.log('inside if' , JSON.parse(localStorage.getItem('lastViewed')).last);
+                        }
+                        // if more than 10, pop from last and push at front
+                        else{
+                            var prev_array =  JSON.parse(localStorage.getItem('lastViewed')).last;
+                            prev_array.pop();
+                            prev_array.unshift("<%=rows[0].pId%>");
+                            localStorage.setItem('lastViewed',JSON.stringify({
+                                'last':prev_array
+                            }))
+                            // console.log('inside else',JSON.parse(localStorage.getItem('lastViewed')).last );
+                        }
+                    }
+                    else{
+                        var prev_array =  JSON.parse(localStorage.getItem('lastViewed')).last;
+                        const index = prev_array.indexOf("<%=rows[0].pId%>");
+                        if (index > -1) {
+                        prev_array.splice(index, 1);
+                        }
+                        prev_array.unshift("<%=rows[0].pId%>");
+                        console.log(prev_array);
+                        localStorage.setItem('lastViewed',JSON.stringify({
+                                'last':prev_array
+                            }))
 
-
+                    }
+                }
+                // if localstorage does not contain lastViewed, create 
+                else{
+                var last = {
+                    'last':['<%=rows[0].pId%>']
+                }
+                localStorage.setItem('lastViewed',JSON.stringify(last))
+                }
                   if(<%=loggedIn%>){
                     console.log("logged in wishlist");
                     var str_arr = "<%-rows4%>";

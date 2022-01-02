@@ -1231,6 +1231,20 @@ app.post("/addToWishlistremote",custCheckAuthenticated,function(req,res){
   res.sendStatus(200);
 });
 
+app.post('/getLastViewedDetails',function(req,res){
+    // console.log("captured",req.body.data);  
+    var productsArray = req.body.last_viewed;
+    var query = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where b.bZip=? and p.pId in (?) group by p.pId ORDER BY FIELD(p.pId, ?)";
+    connection.query(query,[req.cookies.pincode,productsArray,productsArray],function (err,rows) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json({'prodDetails':rows});
+        }
+    })
+})
+
 
 
 
