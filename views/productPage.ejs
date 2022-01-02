@@ -183,6 +183,62 @@
               <p  class="backtocategory">
                 <a href="/" class="backmob"><< Back to Category</a>
               </p>
+
+              <!-- card -->
+              <% if (rows3.length){%>
+
+              <% if(rows[0].catName){%>
+                  <h1 style="margin-top:3%; font-size:2rem;">
+                      Top Rated in <%=rows[0].catName%>
+                  </h1>
+
+                  <% }else{ %>
+                      <h1 style="margin-top:3%; font-size:2rem;">
+                          Top Rated in <%=rows[0].subCatName%>
+                      </h1>
+                      <% } %>
+              <div class="container">
+                  <div class="mob-hidden arrows-left">
+                      <button id="slideBack3" style="height: 80px;width:35px;margin-top: 100%;margin-left:-35%;"
+                          class="btn btn-outline-secondary btn-sm slide-btn"><i
+                              class="fa fa-lg fa-chevron-left"></i></button>
+                  </div>
+                  <div class=" mob-hidden arrows-right">
+                      <button id="slide3" style="height: 80px;width:35px;margin-top: 100%;margin-left:110%;"
+                          class=" btn btn-outline-secondary btn-sm slide-btn"><i
+                              class="fa fa-lg fa-chevron-right "></i></button>
+                  </div>
+
+                  <div id="rows3" class="row cards-row">
+                      <% rows3.forEach(function(row){ %>
+                      <div class="card cards">
+                          <a href="/productDetails/<%=row.pId%>" class="stretched-link"></a>
+                          <div class="card-body ">
+                              <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
+                                  alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                  class="img-fluid d-block mx-auto mb-3 ">
+                              <div style="height: 75px;text-align: center;">
+                                  <h5 class="card-title">
+                                      <%=row.pBrand%>
+                                      <%=row.pName%>
+                                  </h5>
+                              </div>
+                              <div>
+                                <p style="text-align: center;">Avg. Rating :
+                                    <%=row.avg_rating.toFixed(1)%>⭐
+                                </p>
+                                  <p style="margin-top:10px;text-align: center;">Lowest Price ₹
+                                      <%=row.price%><i class="fas fa-hand-holding-medical"></i>
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                      <%})%>
+                  </div>
+              </div>
+              <%}%>
+              <!-- card end -->
+
                 <% if(rows[0].catName){%>
                     <h1 style="margin-top:3%; font-size:2rem;">
                         <%=rows[0].catName%>
