@@ -1232,7 +1232,6 @@ app.post("/addToWishlistremote",custCheckAuthenticated,function(req,res){
 });
 
 app.post('/getLastViewedDetails',function(req,res){
-    // console.log("captured",req.body.data);  
     var productsArray = req.body.last_viewed;
     var query = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where b.bZip=? and p.pId in (?) group by p.pId ORDER BY FIELD(p.pId, ?)";
     connection.query(query,[req.cookies.pincode,productsArray,productsArray],function (err,rows) {
@@ -1245,6 +1244,18 @@ app.post('/getLastViewedDetails',function(req,res){
     })
 })
 
+app.post('/recommended_lastviewed',function(req,res){
+    var productsArray = req.body.last_viewed;
+    var query = "select t2.pId,t2.max_avg, t2.pCategory,t2.pName,t2.pBrand,t2.pPhotoId, min(i.sellerPrice) as min from (select a.pId, max(a.average) as max_avg,a.pCategory,a.pName,a.pBrand,a.pMrp,a.pPhotoId from (select pf.pId,avg(pf.p_rating) average,p.pCategory,p.pName,p.pBrand,p.pMrp,p.pPhotoId from product_feedback pf inner join products p on p.pId=pf.pId where pf.pId in (?) group by pId order by average desc) as a group by a.pCategory) as t2 inner join inventory i on i.pId  = t2.pId inner join business_details b on b.seller = i.sId where b.bZip = ? group by i.pId;";
+    connection.query(query,[productsArray,req.cookies.pincode],function (err,rows) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json({'prodDetails':rows});
+        }
+    })
+})
 
 
 
