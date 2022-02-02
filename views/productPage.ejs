@@ -180,7 +180,7 @@
 
 
             <div class="container">
-              <p  class="backtocategory">
+              <p  class="backtocategory" style="font-size:1.2rem">
                 <a href="/" class="backmob"><< Back to Category</a>
               </p>
 
@@ -188,34 +188,34 @@
               <% if (rows3.length){%>
 
               <% if(rows[0].catName){%>
-                  <h1 style="margin-top:3%; font-size:2rem;">
+                  <h1 style="margin-top:0%; font-size:1.5rem;">
                       Top Rated in <%=rows[0].catName%>
                   </h1>
 
                   <% }else{ %>
-                      <h1 style="margin-top:3%; font-size:2rem;">
+                      <h1 style="margin-top:0%; font-size:2rem;">
                           Top Rated in <%=rows[0].subCatName%>
                       </h1>
                       <% } %>
               <div class="container">
                   <div class="mob-hidden arrows-left">
-                      <button id="slideBack3" style="height: 80px;width:35px;margin-top: 100%;margin-left:-35%;"
+                      <button id="slideBack7" style="height: 80px;width:35px;margin-top: 0%;margin-left:-35%;"
                           class="btn btn-outline-secondary btn-sm slide-btn"><i
                               class="fa fa-lg fa-chevron-left"></i></button>
                   </div>
                   <div class=" mob-hidden arrows-right">
-                      <button id="slide3" style="height: 80px;width:35px;margin-top: 100%;margin-left:110%;"
+                      <button id="slide7" style="height: 80px;width:35px;margin-top: 0%;margin-left:110%;"
                           class=" btn btn-outline-secondary btn-sm slide-btn"><i
                               class="fa fa-lg fa-chevron-right "></i></button>
                   </div>
 
                   <div id="rows3" class="row cards-row">
                       <% rows3.forEach(function(row){ %>
-                      <div class="card cards">
+                      <div class="card cards" style="height : 350px;width:260px">
                           <a href="/productDetails/<%=row.pId%>" class="stretched-link"></a>
                           <div class="card-body ">
                               <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=row.pPhotoId%>?alt=media "
-                                  alt=" " style="width:250px; height:300px; object-fit:contain;"
+                                  alt=" " style="width:100px; height:130px; object-fit:contain;"
                                   class="img-fluid d-block mx-auto mb-3 ">
                               <div style="height: 75px;text-align: center;">
                                   <h5 class="card-title">
@@ -245,7 +245,7 @@
                     </h1>
 
                     <% }else{ %>
-                        <h1 style="margin-top:3%; font-size:2rem;">
+                        <h1 style="margin-top:0%; font-size:2rem;">
                             <%=rows[0].subCatName%>
                         </h1>
                         <% } %>
@@ -255,10 +255,10 @@
                                 <br />
                                 <div class="row">
                                     <% rows1.forEach(function(row){ %>
-                                        <div class="col-md-3">
-                                            <div class="dress-card product-page-card-pad">
+                                        <div class="col-md-3" >
+                                            <div class=" product-page-card-pad card">
                                                 <div class="dress-card-head">
-                                                    <img class="dress-card-img-top" style="width:300px; height:300px; object-fit:contain;" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" alt="">
+                                                    <img class="dress-card-img-top" style="width:300px; height:300px; object-fit:contain; margin-top: 10px;" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId %>?alt=media" alt="">
                                                 </div>
                                                 <div class="dress-card-body">
                                                     <h4 class="dress-card-title">
@@ -441,6 +441,34 @@
                     }, false)
                   })
               })()
+            </script>
+            <script>
+                var button = document.getElementById('slide7');
+                button.onclick = function() {
+                    var container = document.getElementById('rows3');
+                    sideScroll(container, 'right', 5, 350, 11);
+                };
+
+                var back = document.getElementById('slideBack7');
+                back.onclick = function() {
+                    var container = document.getElementById('rows3');
+                    sideScroll(container, 'left', 5, 350, 11);
+                };
+
+                function sideScroll(element, direction, speed, distance, step) {
+                    scrollAmount = 0;
+                    var slideTimer = setInterval(function() {
+                        if (direction == 'left') {
+                            element.scrollLeft -= step;
+                        } else {
+                            element.scrollLeft += step;
+                        }
+                        scrollAmount += step;
+                        if (scrollAmount >= distance) {
+                            window.clearInterval(slideTimer);
+                        }
+                    }, speed);
+                }
             </script>
 
 </body>
