@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: 185.11.204.106    Database: abeaszgh_projectdb
+-- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	5.7.35-cll-lve
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,18 +23,18 @@ DROP TABLE IF EXISTS `business_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `business_details` (
-  `bId` int(11) NOT NULL AUTO_INCREMENT,
-  `seller` int(11) NOT NULL,
+  `bId` int NOT NULL AUTO_INCREMENT,
+  `seller` int NOT NULL,
   `bName` varchar(80) NOT NULL,
   `bCategory` varchar(45) NOT NULL,
-  `bMobile` bigint(20) NOT NULL,
+  `bMobile` bigint NOT NULL,
   `bGST` varchar(15) NOT NULL,
   `bEmail` varchar(45) NOT NULL,
   `bWebsite` varchar(45) DEFAULT NULL,
   `bAddress` varchar(100) NOT NULL,
   `bCity` varchar(45) NOT NULL,
   `bState` varchar(45) NOT NULL,
-  `bZip` int(11) NOT NULL,
+  `bZip` int NOT NULL,
   `bPhotoId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`bId`),
   UNIQUE KEY `bMobile` (`bMobile`),
@@ -63,13 +63,13 @@ DROP TABLE IF EXISTS `cust_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cust_details` (
-  `cId` int(11) NOT NULL AUTO_INCREMENT,
+  `cId` int NOT NULL AUTO_INCREMENT,
   `cName` varchar(100) NOT NULL,
   `cEmail` varchar(70) NOT NULL,
-  `cMobile` bigint(20) NOT NULL,
-  `cPincode` int(11) NOT NULL,
+  `cMobile` bigint NOT NULL,
+  `cPincode` int NOT NULL,
   `cPassword` varchar(100) NOT NULL,
-  `role` int(11) DEFAULT '1',
+  `role` int DEFAULT '1',
   PRIMARY KEY (`cId`),
   UNIQUE KEY `cEmail_UNIQUE` (`cEmail`),
   UNIQUE KEY `cMobile_UNIQUE` (`cMobile`)
@@ -94,15 +94,15 @@ DROP TABLE IF EXISTS `inventory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventory` (
-  `iId` int(11) NOT NULL AUTO_INCREMENT,
+  `iId` int NOT NULL AUTO_INCREMENT,
   `sellerPrice` float NOT NULL,
-  `stockAvailable` int(11) NOT NULL,
-  `sId` int(11) DEFAULT NULL,
-  `pId` int(11) DEFAULT NULL,
+  `stockAvailable` int NOT NULL,
+  `sId` int DEFAULT NULL,
+  `pId` int DEFAULT NULL,
   `iDelivery` char(1) NOT NULL,
   `iSize` varchar(50) DEFAULT NULL,
   `iDescription` varchar(500) NOT NULL,
-  `iDeliveryCharges` int(11) NOT NULL DEFAULT '0',
+  `iDeliveryCharges` int NOT NULL DEFAULT '0',
   `iTags` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`iId`),
   UNIQUE KEY `sId` (`sId`,`pId`),
@@ -130,9 +130,9 @@ DROP TABLE IF EXISTS `order_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_details` (
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `product_qty` int(11) NOT NULL,
+  `order_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `product_qty` int NOT NULL,
   `price` float NOT NULL,
   `savedAmt` float NOT NULL,
   `product_size` varchar(20) DEFAULT NULL,
@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `order_payment_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_payment_details` (
-  `orderId` int(11) NOT NULL,
+  `orderId` int NOT NULL,
   `razorpayOrderId` varchar(100) NOT NULL,
   `razorpayPaymentId` varchar(100) NOT NULL,
   `paymentMethod` varchar(45) NOT NULL,
@@ -196,18 +196,18 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL AUTO_INCREMENT,
   `delivery_address` varchar(100) DEFAULT NULL,
-  `order_zip` int(11) NOT NULL,
-  `seller_id` int(11) NOT NULL,
-  `cust_id` int(11) NOT NULL,
-  `delivery_charges` int(11) DEFAULT '0',
+  `order_zip` int NOT NULL,
+  `seller_id` int NOT NULL,
+  `cust_id` int NOT NULL,
+  `delivery_charges` int DEFAULT '0',
   `total_amount` float NOT NULL,
   `ordered_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `delivered_timestamp` timestamp NULL DEFAULT NULL,
   `seller_comment` varchar(200) DEFAULT NULL,
   `cust_feedback` varchar(200) DEFAULT NULL,
-  `delivery_phone` bigint(20) NOT NULL,
+  `delivery_phone` bigint NOT NULL,
   `order_status` varchar(100) NOT NULL,
   `del_fname` varchar(45) DEFAULT NULL,
   `del_lname` varchar(45) DEFAULT NULL,
@@ -239,7 +239,7 @@ DROP TABLE IF EXISTS `product_categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_categories` (
-  `catId` int(11) NOT NULL AUTO_INCREMENT,
+  `catId` int NOT NULL AUTO_INCREMENT,
   `catName` varchar(100) NOT NULL,
   PRIMARY KEY (`catId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2000023 DEFAULT CHARSET=utf8;
@@ -263,12 +263,12 @@ DROP TABLE IF EXISTS `product_feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_feedback` (
-  `pId` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `cId` int(11) NOT NULL,
+  `pId` int NOT NULL,
+  `order_id` int NOT NULL,
+  `cId` int NOT NULL,
   `p_rating` float NOT NULL,
   `p_review` varchar(256) DEFAULT NULL,
-  `p_feedback_id` int(11) NOT NULL AUTO_INCREMENT,
+  `p_feedback_id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`p_feedback_id`),
   KEY `pId` (`pId`),
   KEY `order_id` (`order_id`),
@@ -297,9 +297,9 @@ DROP TABLE IF EXISTS `product_subcategories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_subcategories` (
-  `subCatId` int(11) NOT NULL AUTO_INCREMENT,
+  `subCatId` int NOT NULL AUTO_INCREMENT,
   `subCatName` varchar(200) NOT NULL,
-  `catId` int(11) DEFAULT NULL,
+  `catId` int DEFAULT NULL,
   PRIMARY KEY (`subCatId`),
   KEY `product_subcategories_ibfk_1` (`catId`),
   CONSTRAINT `product_subcategories_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `product_categories` (`catId`)
@@ -324,12 +324,12 @@ DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
-  `pId` int(11) NOT NULL AUTO_INCREMENT,
+  `pId` int NOT NULL AUTO_INCREMENT,
   `pName` varchar(100) NOT NULL,
   `pMrp` float NOT NULL,
-  `pCategory` int(11) NOT NULL,
+  `pCategory` int NOT NULL,
   `pPhotoId` varchar(100) DEFAULT NULL,
-  `pSubCategory` int(11) DEFAULT NULL,
+  `pSubCategory` int DEFAULT NULL,
   `pBrand` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`pId`),
   KEY `pCategory` (`pCategory`),
@@ -357,19 +357,19 @@ DROP TABLE IF EXISTS `seller_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seller_details` (
-  `sId` int(11) NOT NULL AUTO_INCREMENT,
+  `sId` int NOT NULL AUTO_INCREMENT,
   `sName` varchar(45) NOT NULL,
-  `sPhoneNo` bigint(20) NOT NULL,
+  `sPhoneNo` bigint NOT NULL,
   `sDOB` date NOT NULL,
   `sGender` char(1) NOT NULL,
   `sAddress` varchar(100) NOT NULL,
   `sCity` varchar(45) NOT NULL,
   `sState` varchar(45) NOT NULL,
-  `sZip` int(11) NOT NULL,
-  `sAadhar` bigint(20) NOT NULL,
+  `sZip` int NOT NULL,
+  `sAadhar` bigint NOT NULL,
   `sPAN` char(10) NOT NULL,
   `sPassword` varchar(100) NOT NULL,
-  `role` int(11) DEFAULT '0',
+  `role` int DEFAULT '0',
   PRIMARY KEY (`sId`),
   UNIQUE KEY `sPhoneNo` (`sPhoneNo`),
   UNIQUE KEY `sAadhar` (`sAadhar`),
@@ -395,12 +395,12 @@ DROP TABLE IF EXISTS `seller_feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seller_feedback` (
-  `s_feedback_id` int(11) NOT NULL AUTO_INCREMENT,
-  `seller_id` int(11) NOT NULL,
+  `s_feedback_id` int NOT NULL AUTO_INCREMENT,
+  `seller_id` int NOT NULL,
   `s_review` varchar(256) DEFAULT NULL,
   `s_rating` float NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `cust_id` int(11) NOT NULL,
+  `order_id` int NOT NULL,
+  `cust_id` int NOT NULL,
   PRIMARY KEY (`s_feedback_id`),
   KEY `seller_id` (`seller_id`),
   KEY `cust_id` (`cust_id`),
@@ -429,13 +429,13 @@ DROP TABLE IF EXISTS `wishlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wishlist` (
-  `cust_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `cust_id` int NOT NULL,
+  `product_id` int NOT NULL,
   PRIMARY KEY (`cust_id`,`product_id`),
   KEY `cust_id_idx` (`cust_id`),
   KEY `pId_idx` (`product_id`),
-  CONSTRAINT `cId` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `pId` FOREIGN KEY (`product_id`) REFERENCES `products` (`pId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `cId` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`),
+  CONSTRAINT `pId` FOREIGN KEY (`product_id`) REFERENCES `products` (`pId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -458,4 +458,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-28 15:30:36
+-- Dump completed on 2022-02-03 14:36:10
