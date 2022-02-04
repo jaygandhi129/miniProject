@@ -6,6 +6,7 @@ const path = require('path');
 const md5 = require('md5');
 const bcrypt = require('bcrypt');
 const ejs = require("ejs")
+const webpush = require('web-push');
 const mysql = require('mysql')
 const multer = require("multer");
 const func = require('./func');
@@ -42,11 +43,6 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-
-
-
-
-
 
 
 
@@ -146,6 +142,37 @@ function custCheckNotAuthenticated(req, res, next) {
 
 
 
+//Push Notifications
+// Generating vapid keys for push notifications
+
+let publicVapKey = 'BMDSmegidXe3Cj9BKhYmgQvxQy_np9vrhcNvPccxtgSy0qQ26BfQnn8d0wHxMCW938Lb1RAvMfiKe8dgd_lyX8U';
+let privateVapKey = process.env.PRIVATE_NOTIFICATION_KEY;
+webpush.setVapidDetails('mailto:cornerkart4@gmail.com',publicVapKey,privateVapKey);
+app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
+    //Get subscription object
+    const subscription = req.body;
+    // console.log("Subscription: ",subscription);
+    //Sending subscription to database
+    connection.query(`INSERT INTO customer_subscription VALUES (?,?)`,[req.user.cId,JSON.stringify(subscription)],(err,result)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("Subscription added to database");
+        }
+    });
+    //Send 201 - resource created
+    res.status(201).json({});
+    //Create payload
+    const payload = JSON.stringify({
+        title:'Push Test',
+        body:'This is a test notification',
+        icon:'https://i.ibb.co/0jqXFdv/logo.png',
+    });
+    //Sending Notification
+    webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+
+});
 
 
 
@@ -824,6 +851,7 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (re
 });
 
 app.get("/myorders", custCheckAuthenticated, function (req, res) {
+    
     if (req.user) {
         pincode = req.cookies.pincode;
         if (req.user.role === 1) {

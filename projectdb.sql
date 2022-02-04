@@ -87,6 +87,31 @@ INSERT INTO `cust_details` VALUES (800003,'Tejas Gandhi','tg.gandhi@gmail.com',8
 UNLOCK TABLES;
 
 --
+-- Table structure for table `customer_subscription`
+--
+
+DROP TABLE IF EXISTS `customer_subscription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customer_subscription` (
+  `cId` int NOT NULL,
+  `subscription` text NOT NULL,
+  PRIMARY KEY (`cId`),
+  CONSTRAINT `cId_sub` FOREIGN KEY (`cId`) REFERENCES `cust_details` (`cId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_subscription`
+--
+
+LOCK TABLES `customer_subscription` WRITE;
+/*!40000 ALTER TABLE `customer_subscription` DISABLE KEYS */;
+INSERT INTO `customer_subscription` VALUES (800005,'{\"endpoint\":\"https://fcm.googleapis.com/fcm/send/eB6bJXhyT14:APA91bEEtv2MRLRMO-5iz-rKHTQoOyKE6bm_TW_SCX8HpGTCXGHtitrh6hjpwdX333KeBbTOvN2HegTHbq3PBI8uP-sIj6Vz23Ehjye6lRlUcez1PMw3n_KGI0QSQtxyJM1d_rQRqU2o\",\"expirationTime\":null,\"keys\":{\"p256dh\":\"BLc_zMCdXmsCA1Q4kCjTFGVtODrQhp7D-yBUo0FMDPTmwBiw6XVZmjJDmyxUpfqufyLt2AQEH9Vu5rFiX572HPc\",\"auth\":\"C7j4zo8wEQKLjI9wuLnrRw\"}}');
+/*!40000 ALTER TABLE `customer_subscription` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -458,4 +483,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-03 14:36:10
+-- Dump completed on 2022-02-04 12:45:58
