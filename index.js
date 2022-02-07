@@ -153,14 +153,35 @@ app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
     const subscription = req.body;
     // console.log("Subscription: ",subscription);
     //Sending subscription to database
-    connection.query(`INSERT INTO customer_subscription VALUES (?,?)`,[req.user.cId,JSON.stringify(subscription)],(err,result)=>{
+    connection.query('select * from customer_subscription where cId = ?',[req.user.cId],(err,result)=>{
         if(err){
             console.log(err);
         }
-        else{
-            console.log("Subscription added to database");
+        else if(result.length>0){
+            // console.log("Subscription already exists");
+            connection.query("update customer_subscription set subscription = ? where cId = ?",[JSON.stringify(subscription),req.user.cId],(err,result)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Subscription already exists");
+                    console.log("Subscription Updated");
+                }
+            });
         }
-    });
+        else{
+            // console.log("Subscription added");
+            connection.query(`INSERT INTO customer_subscription VALUES (?,?)`,[req.user.cId,JSON.stringify(subscription)],(err,result)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Subscription added to database");
+                }
+            });
+        }
+    })
+    
     //Send 201 - resource created
     res.status(201).json({});
     //Create payload
@@ -1890,7 +1911,9 @@ app.get('/sellerOrdersDetail/:order_id', checkAuthenticated, function (req, res)
 });
 
 app.post('/acceptOrder', checkAuthenticated, function (req, res) {
-    var query = "update orders set order_status = 'Accepted, In-progress' where order_id = ?"
+    var cId = req.body.cId;
+    var pId = req.body.pId;
+    var query = "update orders set order_status = 'Accepted, In-progress' where order_id = ?";
     connection.query(query, parseInt(req.body.orderId), function (err) {
         if (err) {
             console.log(err);
@@ -1900,6 +1923,33 @@ app.post('/acceptOrder', checkAuthenticated, function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
+                    var query3 = 'select * from customer_subscription where cId = ?';
+                    connection.query(query3, cId, function (err, rows) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            if(rows[0]){
+                                subscription = JSON.parse(rows[0].subscription);
+                                console.log(subscription);
+                                var query4 = "select pPhotoId from products where pId = ?";
+                                var payload;
+                                connection.query(query4, pId, function (err, rows1) {
+                                    if(err){
+                                        console.log(err);
+                                    }
+                                    else{
+                                        
+                                    }
+                                })
+                                payload = JSON.stringify({
+                                    title:'Order Accepted',
+                                    body:'Your order has been accepted by the seller. Please wait for the seller to deliver the product.',
+                                    icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                    url:'/custOrderDetails/'+req.body.orderId,
+                                });
+                                webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+                            }
+                        }})
                     res.redirect("/sellerOrdersDetail/" + req.body.orderId);
                 }
             });
@@ -1911,6 +1961,9 @@ const {
     connect
 } = require('tls');
 app.post('/rejectOrder', checkAuthenticated, function (req, res) {
+    var pId = req.body.pId;
+    var cId = req.body.cId;
+    var subscription1;
     var query = "update orders set order_status = 'Rejected' , seller_comment = ? where order_id = ?"
     connection.query(query, [req.body.reason, parseInt(req.body.orderId)], function (err) {
         if (err) {
@@ -1945,13 +1998,51 @@ app.post('/rejectOrder', checkAuthenticated, function (req, res) {
                                                         console.log(err);
                                                     } else {
                                                         console.log("Refund Successfull");
+                                                        //Sending Notification
+                                                        var query3 = 'select * from customer_subscription where cId = ?';
+                                                        connection.query(query3, cId, function (err, rows) {
+                                                            if (err) {
+                                                                console.log(err);
+                                                            } else {
+                                                                if(rows[0]){
+                                                                    subscription = JSON.parse(rows[0].subscription);
+                                                                    console.log(subscription);
+                                                                    var query4 = "select pPhotoId from products where pId = ?";
+                                                                    var payload;
+                                                                    connection.query(query4, pId, function (err, rows1) {
+                                                                        if(err){
+                                                                            console.log(err);
+                                                                        }
+                                                                        else{
+                                                                            
+                                                                        }
+                                                                    })
+                                                                    payload = JSON.stringify({
+                                                                        title:'Order Rejected',
+                                                                        body:'Your order has been rejected by the seller.\n Reason: '+req.body.reason +'\nRefund will be initiated shortly.',
+                                                                        icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                                                        url:'/custOrderDetails/'+req.body.orderId,
+                                                                    });
+                                                                    subscription1 = subscription;
+                                                                    webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+                                                                }
+                                                            }})
                                                         res.redirect("/sellerOrdersDetail/" + req.body.orderId);
+
                                                     }
                                                 });
                                             }
                                         });
+                                        payload = JSON.stringify({
+                                            title:'Amount Refunded',
+                                            body:'Refund for rejected order is initiated. Amount will reflect in your bank account in 4-5 working days.',
+                                            icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                            url:'/custOrderDetails/'+req.body.orderId,
+                                        });
+                                        webpush.sendNotification(subscription1,payload).catch(err=> console.log(err));
                                     }
                                 });
+
                             }).catch((err) => {
                                 console.log("Refund not successfull: " + err);
                             });
@@ -1973,7 +2064,32 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-
+                    connection.query('select cust_id from orders where order_id=?', [parseInt(req.params.orderId)], function (err, rows) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            var cId = rows[0].cust_id;
+                            var query3 = 'select * from customer_subscription where cId = ?';
+                            connection.query(query3, cId, function (err, rows) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    if(rows[0]){
+                                        subscription = JSON.parse(rows[0].subscription);
+                                        // console.log(subscription);
+                                        var payload;
+                                        payload = JSON.stringify({
+                                            title:'Order Delivered',
+                                            body:'Your order has been delivered. Thank you for shopping with us.',
+                                            icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                            url:'/custOrderDetails/'+req.body.orderId,
+                                        });
+                                        webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+                                    }
+                                }})
+                        }
+                    })
                     res.sendStatus(200);
                 }
             });

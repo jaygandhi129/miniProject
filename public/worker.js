@@ -9,10 +9,25 @@ self.addEventListener("push", e => {
     icon: data.icon,
     vibrate: [100, 50, 100],
     data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
+      url: data.url
     }
   };
   if (Notification.permission == 'granted') {
   self.registration.showNotification(data.title, options);}
 });
+
+self.addEventListener("pushsubscriptionchange", event => {
+  event.waitUntil(swRegistration.pushManager.subscribe(event.oldSubscription.options)
+    .then(subscription => {
+      return fetch("/subscribeNotification", {
+        method: "post",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          subscription
+        })
+      });
+    })
+  );
+}, false);

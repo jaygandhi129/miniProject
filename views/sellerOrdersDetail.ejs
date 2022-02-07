@@ -47,6 +47,8 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
 					<form action="/acceptOrder" method="post">
+						<input type="text" name="cId" value="<%=rows[0].cust_id%>" style="display:none;">
+						<input type="text" name="pId" value="<%=rows[0].product_id%>" style="display:none;">
 						<button type="submit" id="confirm" name="orderId" value="<%=rows[0].order_id%>"
 							class="btn btn-success">Yes, Accept.</button>
 					</form>
@@ -65,6 +67,8 @@
 				</div>
 				<div class="modal-body">
 					<form action="/rejectOrder" method="post">
+						<input type="text" name="cId" value="<%=rows[0].cust_id%>" style="display:none;">
+						<input type="text" name="pId" value="<%=rows[0].product_id%>" style="display:none;">
 						<p style="color:#242e3d;">Order will be Rejected Permanently and payment will be refunded to the
 							customer.</p>
 						<textarea name="reason" class="form-control" id="txt-area" rows="2"
@@ -384,6 +388,7 @@
 
 					<script>
 						$(document).ready(function () {
+							// console.log('row:<%=rows[0].cust_id%>');
 							$("#exampleModal2").on('shown.bs.modal', function () {
 								$(this).find('#txt-area').focus();
 							});
