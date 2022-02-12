@@ -2,7 +2,7 @@ console.log("Service Worker Loaded...");
 
 self.addEventListener("push", e => {
   const data = e.data.json();
-  console.log(data);
+  console.log("inside push listener",data);
   console.log("Push Recieved...");
   var options = {
     body: data.body,
@@ -13,10 +13,12 @@ self.addEventListener("push", e => {
     }
   };
   if (Notification.permission == 'granted') {
+    console.log("Showing notification");
   self.registration.showNotification(data.title, options);}
 });
 
 self.addEventListener("pushsubscriptionchange", event => {
+  console.log("change here");
   event.waitUntil(swRegistration.pushManager.subscribe(event.oldSubscription.options)
     .then(subscription => {
       return fetch("/subscribeNotification", {

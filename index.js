@@ -145,9 +145,11 @@ function custCheckNotAuthenticated(req, res, next) {
 //Push Notifications
 // Generating vapid keys for push notifications
 
-let publicVapKey = 'BMDSmegidXe3Cj9BKhYmgQvxQy_np9vrhcNvPccxtgSy0qQ26BfQnn8d0wHxMCW938Lb1RAvMfiKe8dgd_lyX8U';
+let publicVapKey = "BMDSmegidXe3Cj9BKhYmgQvxQy_np9vrhcNvPccxtgSy0qQ26BfQnn8d0wHxMCW938Lb1RAvMfiKe8dgd_lyX8U";
 let privateVapKey = process.env.PRIVATE_NOTIFICATION_KEY;
 webpush.setVapidDetails('mailto:cornerkart4@gmail.com',publicVapKey,privateVapKey);
+
+
 app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
     //Get subscription object
     const subscription = req.body;
@@ -181,7 +183,7 @@ app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
             });
         }
     })
-    
+
     //Send 201 - resource created
     res.status(201).json({});
     //Create payload
@@ -192,6 +194,54 @@ app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
     });
     //Sending Notification
     webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+
+});
+
+app.post('/subscribeNotificationSeller',checkAuthenticated,(req,res)=>{
+    //Get subscription object
+    const subscription = req.body;
+     console.log("Subscription: ",subscription);
+    //Sending subscription to database
+    connection.query('select * from seller_subscription where sId = ?',[req.user.sId],(err,result)=>{
+        if(err){
+            console.log(err);
+        }
+        else if(result.length>0){
+            // console.log("Subscription already exists");
+            connection.query("update seller_subscription set subscription = ? where sId = ?",[JSON.stringify(subscription),req.user.sId],(err,result)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Subscription already exists");
+                    console.log("Subscription Updated");
+                }
+            });
+        }
+        else{
+            // console.log("Subscription added");
+            connection.query(`INSERT INTO seller_subscription VALUES (?,?)`,[req.user.sId,JSON.stringify(subscription)],(err,result)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Subscription added to database");
+                }
+            });
+        }
+    })
+    console.log("hellooooooo");
+    //Send 201 - resource created
+    res.status(201).json({});
+    //Create payload
+    const payload = JSON.stringify({
+        title:'Push Test',
+        body:'This is a test notification',
+        icon:'https://i.ibb.co/0jqXFdv/logo.png',
+    });
+    //Sending Notification
+    webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+    console.log("noti-sent");
 
 });
 
@@ -872,7 +922,7 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (re
 });
 
 app.get("/myorders", custCheckAuthenticated, function (req, res) {
-    
+
     if (req.user) {
         pincode = req.cookies.pincode;
         if (req.user.role === 1) {
@@ -1938,7 +1988,7 @@ app.post('/acceptOrder', checkAuthenticated, function (req, res) {
                                         console.log(err);
                                     }
                                     else{
-                                        
+
                                     }
                                 })
                                 payload = JSON.stringify({
@@ -2014,7 +2064,7 @@ app.post('/rejectOrder', checkAuthenticated, function (req, res) {
                                                                             console.log(err);
                                                                         }
                                                                         else{
-                                                                            
+
                                                                         }
                                                                     })
                                                                     payload = JSON.stringify({
