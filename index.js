@@ -190,8 +190,8 @@ app.post('/subscribeNotification', custCheckAuthenticated, (req, res) => {
                     console.log(err);
                 }
                 else {
-                    // console.log("Subscription already exists");
-                    // console.log("Subscription Updated");
+                    console.log("Subscription already exists");
+                    console.log("Subscription Updated");
                 }
             });
         }
@@ -202,7 +202,7 @@ app.post('/subscribeNotification', custCheckAuthenticated, (req, res) => {
                     console.log(err);
                 }
                 else {
-                    // console.log("Subscription added to database");
+                    console.log("Subscription added to database");
                 }
             });
         }
@@ -224,7 +224,7 @@ app.post('/subscribeNotification', custCheckAuthenticated, (req, res) => {
 app.post('/subscribeNotificationSeller', checkAuthenticated, (req, res) => {
     //Get subscription object
     const subscription = req.body;
-    // console.log("Subscription: ", subscription);
+    console.log("Subscription: ", subscription);
     //Sending subscription to database
     connection.query('select * from seller_subscription where sId = ?', [req.user.sId], (err, result) => {
         if (err) {
@@ -237,8 +237,8 @@ app.post('/subscribeNotificationSeller', checkAuthenticated, (req, res) => {
                     console.log(err);
                 }
                 else {
-                    // console.log("Subscription already exists");
-                    // console.log("Subscription Updated");
+                    console.log("Subscription already exists");
+                    console.log("Subscription Updated");
                 }
             });
         }
@@ -249,7 +249,7 @@ app.post('/subscribeNotificationSeller', checkAuthenticated, (req, res) => {
                     console.log(err);
                 }
                 else {
-                    // console.log("Subscription added to database");
+                    console.log("Subscription added to database");
                 }
             });
         }
@@ -265,7 +265,7 @@ app.post('/subscribeNotificationSeller', checkAuthenticated, (req, res) => {
     });
     //Sending Notification
     webpush.sendNotification(subscription, payload).catch(err => console.log(err));
-    // console.log("noti-sent");
+    console.log("noti-sent");
 
 });
 
