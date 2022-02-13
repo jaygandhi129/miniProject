@@ -612,7 +612,6 @@
                             },
                             type: "POST",
                             success: function(data) {
-                                console.log("Last Viewed Products success",data);
                                 var lastViewedProd = data.prodDetails 
                                 for(var i=0; i< lastViewedProd.length; i++){
                                     var new_card = '<div class="card cards"><a href="/productDetails/'+lastViewedProd[i].pId+'" class="stretched-link"></a><div class="card-body "><img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/'+lastViewedProd[i].pPhotoId+'?alt=media "alt=" " style="width:250px; height:300px; object-fit:contain;"class="img-fluid d-block mx-auto mb-3 "><div style="height: 75px;text-align: center;"><h5 class="card-title">'+lastViewedProd[i].pBrand+' '+lastViewedProd[i].pName+'</h5></div><div><p style="margin-top:10px;text-align: center;">Lowest Price ₹'+lastViewedProd[i].minPrice+'<i class="fas fa-hand-holding-medical"></i></p></div></div></div>'

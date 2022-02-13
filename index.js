@@ -137,6 +137,30 @@ function custCheckNotAuthenticated(req, res, next) {
     }
 }
 
+function adminCheckAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.role == 2) {
+            return next()
+        } else {
+            res.redirect('/adminLogin');
+        }
+    } else {
+        res.redirect('/adminLogin');
+    }
+}
+
+function adminCheckNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.role == 2) {
+            res.redirect('/adminDashboard');
+        } else {
+            next();
+        }
+    } else {
+        next()
+    }
+}
+
 
 
 
@@ -158,22 +182,26 @@ app.post('/subscribeNotification', custCheckAuthenticated, (req, res) => {
     connection.query('select * from customer_subscription where cId = ?', [req.user.cId], (err, result) => {
         if (err) {
             console.log(err);
-        } else if (result.length > 0) {
+        }
+        else if (result.length > 0) {
             // console.log("Subscription already exists");
             connection.query("update customer_subscription set subscription = ? where cId = ?", [JSON.stringify(subscription), req.user.cId], (err, result) => {
                 if (err) {
                     console.log(err);
-                } else {
+                }
+                else {
                     console.log("Subscription already exists");
                     console.log("Subscription Updated");
                 }
             });
-        } else {
+        }
+        else {
             // console.log("Subscription added");
             connection.query(`INSERT INTO customer_subscription VALUES (?,?)`, [req.user.cId, JSON.stringify(subscription)], (err, result) => {
                 if (err) {
                     console.log(err);
-                } else {
+                }
+                else {
                     console.log("Subscription added to database");
                 }
             });
@@ -201,22 +229,26 @@ app.post('/subscribeNotificationSeller', checkAuthenticated, (req, res) => {
     connection.query('select * from seller_subscription where sId = ?', [req.user.sId], (err, result) => {
         if (err) {
             console.log(err);
-        } else if (result.length > 0) {
+        }
+        else if (result.length > 0) {
             // console.log("Subscription already exists");
             connection.query("update seller_subscription set subscription = ? where sId = ?", [JSON.stringify(subscription), req.user.sId], (err, result) => {
                 if (err) {
                     console.log(err);
-                } else {
+                }
+                else {
                     console.log("Subscription already exists");
                     console.log("Subscription Updated");
                 }
             });
-        } else {
+        }
+        else {
             // console.log("Subscription added");
             connection.query(`INSERT INTO seller_subscription VALUES (?,?)`, [req.user.sId, JSON.stringify(subscription)], (err, result) => {
                 if (err) {
                     console.log(err);
-                } else {
+                }
+                else {
                     console.log("Subscription added to database");
                 }
             });
@@ -584,7 +616,8 @@ app.get('/productList/:cId', function (req, res) {
                     connection.query(query3, [parseInt(req.params.cId), parseInt(req.cookies.pincode)], function (err, rows3) {
                         if (err) {
                             console.log(err);
-                        } else {
+                        }
+                        else {
 
                             if (req.user) {
                                 pincode = req.cookies.pincode;
@@ -647,7 +680,8 @@ app.get('/productListBySub/:subCatId', function (req, res) {
                     connection.query(query3, [parseInt(req.params.subCatId), parseInt(req.cookies.pincode)], function (err, rows3) {
                         if (err) {
                             console.log(err);
-                        } else {
+                        }
+                        else {
                             if (req.user) {
                                 pincode = req.cookies.pincode;
                                 if (req.user.role === 1) {
@@ -704,7 +738,8 @@ app.get('/productDetails/:pId', function (req, res) {
 
                         if (err) {
                             console.log(err);
-                        } else {
+                        }
+                        else {
 
                             if (req.user) {
                                 pincode = req.cookies.pincode;
@@ -794,7 +829,8 @@ app.get("/getSellers/:pId", function (req, res) {
             connection.query(query2, [result[0].sId, req.params.pId], function (err, result1) {
                 if (err) {
                     console.log(err);
-                } else {
+                }
+                else {
                     res.json({
                         data1: result,
                         data2: result1,
@@ -815,7 +851,8 @@ app.get("/getSellersOnClick/:pId/:iId", function (req, res) {
             connection.query(query2, [result[0].sId, req.params.pId], function (err, result1) {
                 if (err) {
                     console.log(err);
-                } else {
+                }
+                else {
                     res.json({
                         data1: result,
                         data2: result1,
@@ -880,27 +917,7 @@ app.post('/is-order-complete/:item/:order', custCheckAuthenticated, function (re
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    //Notification to seller about order
-                                    var query3 = 'select * from seller_subscription where sId = ?';
-                                    var sId = order.sellerId;
-                                    connection.query(query3, sId, function (err, rows) {
-                                        if (err) {
-                                            console.log(err);
-                                        } else {
-                                            if (rows[0]) {
-                                                subscription = JSON.parse(rows[0].subscription);
-                                                console.log(subscription);
-                                                var payload = JSON.stringify({
-                                                    title: 'New order Received',
-                                                    body: 'You have received a new order. Please accept/reject it by logging in to dashboard.',
-                                                    icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
-                                                    url: '/business/login',
-                                                });
-                                                webpush.sendNotification(subscription, payload).catch(err => console.log(err));
-                                            }
-                                        }
-                                    })
-                                    //Redirecting
+
                                     if (req.user) {
                                         pincode = req.cookies.pincode;
                                         if (req.user.role === 1) {
@@ -1020,33 +1037,6 @@ app.get('/cancelOrder/:order_id', custCheckAuthenticated, function (req, res) {
                                                     if (err) {
                                                         console.log(err);
                                                     } else {
-                                                        // Notifying seller
-                                                        var query6 = 'select seller_id from orders where order_id = ?';
-                                                        connection.query(query6, [parseInt(req.params.order_id)], function (err, rows6) {
-                                                            if (err) {
-                                                                console.log(err);
-                                                            } else {
-                                                                var query7 = 'select * from seller_subscription where sId = ?';
-                                                                var sId = rows6[0].seller_id;
-                                                                connection.query(query7, sId, function (err, rows7) {
-                                                                    if (err) {
-                                                                        console.log(err);
-                                                                    } else {
-                                                                        if (rows7[0]) {
-                                                                            subscription = JSON.parse(rows7[0].subscription);
-                                                                            console.log(subscription);
-                                                                            var payload = JSON.stringify({
-                                                                                title: 'Order Cancelled',
-                                                                                body: 'An order has been cancelled.. Amount is refunded to customer. Please check your dashboard for more details.',
-                                                                                icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
-                                                                                url: '/business/login', 
-                                                                            });
-                                                                            webpush.sendNotification(subscription, payload).catch(err => console.log(err));
-                                                                        }
-                                                                    }
-                                                                })
-                                                            }
-                                                        });
 
                                                         res.redirect("/custOrderDetails/" + req.params.order_id);
                                                     }
@@ -1332,7 +1322,8 @@ app.post("/addToWishlist/:pId", custCheckAuthenticated, function (req, res) {
 
     wish_products.forEach(function (product) {
         var query = "insert into wishlist values(?,?)"
-        connection.query(query, [req.user.cId, product], (err) => {})
+        connection.query(query, [req.user.cId, product], (err) => {
+        })
     })
     res.redirect("/productDetails/" + req.params.pId);
 })
@@ -1355,7 +1346,8 @@ app.post("/addToWishlistremote", custCheckAuthenticated, function (req, res) {
 
     products.forEach(function (product) {
         var query = "insert into wishlist values(?,?)"
-        connection.query(query, [req.user.cId, product], (err) => {})
+        connection.query(query, [req.user.cId, product], (err) => {
+        })
     })
 
     res.status(200);
@@ -1368,10 +1360,9 @@ app.post('/getLastViewedDetails', function (req, res) {
     connection.query(query, [req.cookies.pincode, productsArray, productsArray], function (err, rows) {
         if (err) {
             console.log(err);
-        } else {
-            res.json({
-                'prodDetails': rows
-            });
+        }
+        else {
+            res.json({ 'prodDetails': rows });
         }
     })
 })
@@ -1382,10 +1373,9 @@ app.post('/recommended_lastviewed', function (req, res) {
     connection.query(query, [productsArray, req.cookies.pincode], function (err, rows) {
         if (err) {
             console.log(err);
-        } else {
-            res.json({
-                'prodDetails': rows
-            });
+        }
+        else {
+            res.json({ 'prodDetails': rows });
         }
     })
 })
@@ -2020,7 +2010,8 @@ app.post('/acceptOrder', checkAuthenticated, function (req, res) {
                                 connection.query(query4, pId, function (err, rows1) {
                                     if (err) {
                                         console.log(err);
-                                    } else {
+                                    }
+                                    else {
 
                                     }
                                 })
@@ -2096,7 +2087,8 @@ app.post('/rejectOrder', checkAuthenticated, function (req, res) {
                                                                     connection.query(query4, pId, function (err, rows1) {
                                                                         if (err) {
                                                                             console.log(err);
-                                                                        } else {
+                                                                        }
+                                                                        else {
 
                                                                         }
                                                                     })
@@ -2151,7 +2143,8 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
                     connection.query('select cust_id from orders where order_id=?', [parseInt(req.params.orderId)], function (err, rows) {
                         if (err) {
                             console.log(err);
-                        } else {
+                        }
+                        else {
                             var cId = rows[0].cust_id;
                             var query3 = 'select * from customer_subscription where cId = ?';
                             connection.query(query3, cId, function (err, rows) {
@@ -2205,6 +2198,41 @@ app.get("/sellerFeedbacks", checkAuthenticated, function (req, res) {
 
 /************************************Seller Ends*************************************************/
 
+
+
+/************************************Admin Starts*************************************************/
+
+
+
+
+app.get("/adminLogin", adminCheckNotAuthenticated, function (req, res) {
+    res.render("adminLogin");
+});
+
+app.post('/adminLogin', adminCheckNotAuthenticated, passport.authenticate('adminLocal', {
+    successRedirect: '/adminDashboard',
+    failureRedirect: '/adminloginfail',
+    failureFlash: true
+}));
+app.get('/adminloginfail', function (req, res) {
+    res.render("adminLogin", {
+        err: "Incorrect Admin ID or Password"
+    });
+});
+
+app.get("/adminDashboard", adminCheckAuthenticated, function (req, res) {
+    res.render("adminDashboard");
+});
+
+
+
+
+
+/************************************Admin Ends*************************************************/
+
+
 app.listen(process.env.PORT || 3000, function () {
     console.log("Connected at 3000");
 });
+
+
