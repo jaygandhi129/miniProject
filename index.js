@@ -137,6 +137,30 @@ function custCheckNotAuthenticated(req, res, next) {
     }
 }
 
+function adminCheckAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.role == 2) {
+            return next()
+        } else {
+            res.redirect('/adminLogin');
+        }
+    } else {
+        res.redirect('/adminLogin');
+    }
+}
+
+function adminCheckNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.role == 2) {
+            res.redirect('/adminDashboard');
+        } else {
+            next();
+        }
+    } else {
+        next()
+    }
+}
+
 
 
 
@@ -147,38 +171,38 @@ function custCheckNotAuthenticated(req, res, next) {
 
 let publicVapKey = "BMDSmegidXe3Cj9BKhYmgQvxQy_np9vrhcNvPccxtgSy0qQ26BfQnn8d0wHxMCW938Lb1RAvMfiKe8dgd_lyX8U";
 let privateVapKey = process.env.PRIVATE_NOTIFICATION_KEY;
-webpush.setVapidDetails('mailto:cornerkart4@gmail.com',publicVapKey,privateVapKey);
+webpush.setVapidDetails('mailto:cornerkart4@gmail.com', publicVapKey, privateVapKey);
 
 
-app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
+app.post('/subscribeNotification', custCheckAuthenticated, (req, res) => {
     //Get subscription object
     const subscription = req.body;
     // console.log("Subscription: ",subscription);
     //Sending subscription to database
-    connection.query('select * from customer_subscription where cId = ?',[req.user.cId],(err,result)=>{
-        if(err){
+    connection.query('select * from customer_subscription where cId = ?', [req.user.cId], (err, result) => {
+        if (err) {
             console.log(err);
         }
-        else if(result.length>0){
+        else if (result.length > 0) {
             // console.log("Subscription already exists");
-            connection.query("update customer_subscription set subscription = ? where cId = ?",[JSON.stringify(subscription),req.user.cId],(err,result)=>{
-                if(err){
+            connection.query("update customer_subscription set subscription = ? where cId = ?", [JSON.stringify(subscription), req.user.cId], (err, result) => {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    console.log("Subscription already exists");
-                    console.log("Subscription Updated");
+                else {
+                    // console.log("Subscription already exists");
+                    // console.log("Subscription Updated");
                 }
             });
         }
-        else{
+        else {
             // console.log("Subscription added");
-            connection.query(`INSERT INTO customer_subscription VALUES (?,?)`,[req.user.cId,JSON.stringify(subscription)],(err,result)=>{
-                if(err){
+            connection.query(`INSERT INTO customer_subscription VALUES (?,?)`, [req.user.cId, JSON.stringify(subscription)], (err, result) => {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    console.log("Subscription added to database");
+                else {
+                    // console.log("Subscription added to database");
                 }
             });
         }
@@ -188,44 +212,44 @@ app.post('/subscribeNotification',custCheckAuthenticated,(req,res)=>{
     res.status(201).json({});
     //Create payload
     const payload = JSON.stringify({
-        title:'Push Test',
-        body:'This is a test notification',
-        icon:'https://i.ibb.co/0jqXFdv/logo.png',
+        title: 'Push Test',
+        body: 'This is a test notification',
+        icon: 'https://i.ibb.co/0jqXFdv/logo.png',
     });
     //Sending Notification
-    webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+    webpush.sendNotification(subscription, payload).catch(err => console.log(err));
 
 });
 
-app.post('/subscribeNotificationSeller',checkAuthenticated,(req,res)=>{
+app.post('/subscribeNotificationSeller', checkAuthenticated, (req, res) => {
     //Get subscription object
     const subscription = req.body;
-     console.log("Subscription: ",subscription);
+    // console.log("Subscription: ", subscription);
     //Sending subscription to database
-    connection.query('select * from seller_subscription where sId = ?',[req.user.sId],(err,result)=>{
-        if(err){
+    connection.query('select * from seller_subscription where sId = ?', [req.user.sId], (err, result) => {
+        if (err) {
             console.log(err);
         }
-        else if(result.length>0){
+        else if (result.length > 0) {
             // console.log("Subscription already exists");
-            connection.query("update seller_subscription set subscription = ? where sId = ?",[JSON.stringify(subscription),req.user.sId],(err,result)=>{
-                if(err){
+            connection.query("update seller_subscription set subscription = ? where sId = ?", [JSON.stringify(subscription), req.user.sId], (err, result) => {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    console.log("Subscription already exists");
-                    console.log("Subscription Updated");
+                else {
+                    // console.log("Subscription already exists");
+                    // console.log("Subscription Updated");
                 }
             });
         }
-        else{
+        else {
             // console.log("Subscription added");
-            connection.query(`INSERT INTO seller_subscription VALUES (?,?)`,[req.user.sId,JSON.stringify(subscription)],(err,result)=>{
-                if(err){
+            connection.query(`INSERT INTO seller_subscription VALUES (?,?)`, [req.user.sId, JSON.stringify(subscription)], (err, result) => {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    console.log("Subscription added to database");
+                else {
+                    // console.log("Subscription added to database");
                 }
             });
         }
@@ -235,13 +259,13 @@ app.post('/subscribeNotificationSeller',checkAuthenticated,(req,res)=>{
     res.status(201).json({});
     //Create payload
     const payload = JSON.stringify({
-        title:'Push Test',
-        body:'This is a test notification',
-        icon:'https://i.ibb.co/0jqXFdv/logo.png',
+        title: 'Push Test',
+        body: 'This is a test notification',
+        icon: 'https://i.ibb.co/0jqXFdv/logo.png',
     });
     //Sending Notification
-    webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
-    console.log("noti-sent");
+    webpush.sendNotification(subscription, payload).catch(err => console.log(err));
+    // console.log("noti-sent");
 
 });
 
@@ -588,24 +612,33 @@ app.get('/productList/:cId', function (req, res) {
                         pincode: req.cookies.pincode,
                     });
                 } else {
-                  query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand, round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller inner join product_feedback pf on pf.pId = p.pId where p.pCategory=? and b.bZip=? group by p.pId order by avg_rating desc limit 10;"
-                  connection.query(query3,[parseInt(req.params.cId), parseInt(req.cookies.pincode)],function(err,rows3){
-                    if(err){
-                      console.log(err);
-                    }
-                    else {
+                    query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand, round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller inner join product_feedback pf on pf.pId = p.pId where p.pCategory=? and b.bZip=? group by p.pId order by avg_rating desc limit 10;"
+                    connection.query(query3, [parseInt(req.params.cId), parseInt(req.cookies.pincode)], function (err, rows3) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
 
-                        if (req.user) {
-                            pincode = req.cookies.pincode;
-                            if (req.user.role === 1) {
-                                res.render('productPage', {
-                                    rows,
-                                    rows1,
-                                    rows3,
-                                    loggedIn: true,
-                                    pincode: req.cookies.pincode,
-                                    user: req.user
-                                });
+                            if (req.user) {
+                                pincode = req.cookies.pincode;
+                                if (req.user.role === 1) {
+                                    res.render('productPage', {
+                                        rows,
+                                        rows1,
+                                        rows3,
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user
+                                    });
+                                } else {
+                                    res.render('productPage', {
+                                        rows,
+                                        rows1,
+                                        rows3,
+                                        pincode: req.cookies.pincode,
+                                        loggedIn: false
+                                    });
+                                }
                             } else {
                                 res.render('productPage', {
                                     rows,
@@ -615,17 +648,8 @@ app.get('/productList/:cId', function (req, res) {
                                     loggedIn: false
                                 });
                             }
-                        } else {
-                            res.render('productPage', {
-                                rows,
-                                rows1,
-                                rows3,
-                                pincode: req.cookies.pincode,
-                                loggedIn: false
-                            });
                         }
-                    }
-                  })
+                    })
                 }
             });
         }
@@ -652,43 +676,43 @@ app.get('/productListBySub/:subCatId', function (req, res) {
                         user: req.user
                     });
                 } else {
-                  query3="select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller inner join product_feedback pf on pf.pId = p.pId where p.pSubCategory=? and s.bZip=? group by p.pId order by avg_rating desc limit 10;"
-                  connection.query(query3,[parseInt(req.params.subCatId), parseInt(req.cookies.pincode)], function (err, rows3) {
-                      if (err) {
-                          console.log(err);
+                    query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller inner join product_feedback pf on pf.pId = p.pId where p.pSubCategory=? and s.bZip=? group by p.pId order by avg_rating desc limit 10;"
+                    connection.query(query3, [parseInt(req.params.subCatId), parseInt(req.cookies.pincode)], function (err, rows3) {
+                        if (err) {
+                            console.log(err);
                         }
-                        else{
-                          if (req.user) {
-                              pincode = req.cookies.pincode;
-                              if (req.user.role === 1) {
-                                  res.render('productPage', {
-                                      rows,
-                                      rows1,
-                                      rows3,
-                                      loggedIn: true,
-                                      pincode: req.cookies.pincode,
-                                      user: req.user
-                                  });
-                              } else {
-                                  res.render('productPage', {
-                                      rows,
-                                      rows1,
-                                      rows3,
-                                      pincode: req.cookies.pincode,
-                                      loggedIn: false
-                                  });
-                              }
-                          } else {
-                              res.render('productPage', {
-                                  rows,
-                                  rows1,
-                                  rows3,
-                                  pincode: req.cookies.pincode,
-                                  loggedIn: false
-                              });
-                          }
+                        else {
+                            if (req.user) {
+                                pincode = req.cookies.pincode;
+                                if (req.user.role === 1) {
+                                    res.render('productPage', {
+                                        rows,
+                                        rows1,
+                                        rows3,
+                                        loggedIn: true,
+                                        pincode: req.cookies.pincode,
+                                        user: req.user
+                                    });
+                                } else {
+                                    res.render('productPage', {
+                                        rows,
+                                        rows1,
+                                        rows3,
+                                        pincode: req.cookies.pincode,
+                                        loggedIn: false
+                                    });
+                                }
+                            } else {
+                                res.render('productPage', {
+                                    rows,
+                                    rows1,
+                                    rows3,
+                                    pincode: req.cookies.pincode,
+                                    loggedIn: false
+                                });
+                            }
                         }
-                      })
+                    })
 
                 }
             });
@@ -720,35 +744,35 @@ app.get('/productDetails/:pId', function (req, res) {
                             if (req.user) {
                                 pincode = req.cookies.pincode;
                                 if (req.user.role === 1) {
-                                  var query4="select product_id from wishlist where cust_id=?";
+                                    var query4 = "select product_id from wishlist where cust_id=?";
 
-                                  connection.query(query4,[req.user.cId],function(err,rows4){
-                                    if(err){
-                                      console.log(err);
-                                    }else{
+                                    connection.query(query4, [req.user.cId], function (err, rows4) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
 
-                                        var wishlist = [];
-                                        rows4.forEach(function(row){
-                                            wishlist.push(row.product_id)
-                                        });
-                                      res.render('productDetails', {
-                                          rows,
-                                          rows1,
-                                          rows2,
-                                          loggedIn: true,
-                                          pincode: req.cookies.pincode,
-                                          rows4:wishlist,
-                                          user: req.user
-                                      });
-                                    }
-                                  });
+                                            var wishlist = [];
+                                            rows4.forEach(function (row) {
+                                                wishlist.push(row.product_id)
+                                            });
+                                            res.render('productDetails', {
+                                                rows,
+                                                rows1,
+                                                rows2,
+                                                loggedIn: true,
+                                                pincode: req.cookies.pincode,
+                                                rows4: wishlist,
+                                                user: req.user
+                                            });
+                                        }
+                                    });
 
                                 } else {
                                     res.render('productDetails', {
                                         rows,
                                         rows1,
                                         rows2,
-                                        rows4:[],
+                                        rows4: [],
                                         pincode: req.cookies.pincode,
                                         loggedIn: false
                                     });
@@ -758,7 +782,7 @@ app.get('/productDetails/:pId', function (req, res) {
                                     rows,
                                     rows1,
                                     rows2,
-                                    rows4:[],
+                                    rows4: [],
                                     pincode: req.cookies.pincode,
                                     loggedIn: false
                                 });
@@ -947,19 +971,19 @@ app.get("/myorders", custCheckAuthenticated, function (req, res) {
     }
 });
 
-app.get("/mywishlist",custCheckAuthenticated, function (req, res){
+app.get("/mywishlist", custCheckAuthenticated, function (req, res) {
     var query = "select pName,pBrand,pId, pPhotoId, pMrp from products where pId in (select product_id from wishlist where cust_id = ?)";
-    connection.query(query, [req.user.cId],function(err,rows){
-        if(err){
+    connection.query(query, [req.user.cId], function (err, rows) {
+        if (err) {
             console.log(err);
-        }else{
-                res.render('custWishlist', {
+        } else {
+            res.render('custWishlist', {
                 loggedIn: true,
                 pincode: req.cookies.pincode,
                 user: req.user,
                 rows
             });
-    }
+        }
     });
 });
 
@@ -1120,7 +1144,7 @@ app.get("/custOrderDetails/:order_id/feedback", custCheckAuthenticated, function
                         }
                     }
                     var query3 = "Select * from seller_feedback where seller_id = ? and cust_id = ? and order_id=?";
-                    connection.query(query3, [rows[0].seller_id, rows[0].cust_id,orderId], function (err, rows3) {
+                    connection.query(query3, [rows[0].seller_id, rows[0].cust_id, orderId], function (err, rows3) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -1258,7 +1282,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
             console.log(err);
         } else {
             var query2 = "select cust_id from seller_feedback where seller_id = ? and cust_id= ? and order_id=?"
-            connection.query(query2, [rows[0].seller_id,cId,orderId], function (err, rows2) {
+            connection.query(query2, [rows[0].seller_id, cId, orderId], function (err, rows2) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -1275,7 +1299,7 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
                         });
                     } else {
                         var query4 = "Update seller_feedback set s_rating = ?, s_review = ? where cust_id = ? and seller_id = ? and order_id=?";
-                        connection.query(query4, [s_rating, s_comment, cId, rows[0].seller_id,orderId], function (err) {
+                        connection.query(query4, [s_rating, s_comment, cId, rows[0].seller_id, orderId], function (err) {
                             if (err) {
                                 console.log(err);
                             } else {
@@ -1293,65 +1317,65 @@ app.post('/feedback/seller/submit', custCheckAuthenticated, function (req, res) 
 
 
 //Wishlist
-app.post("/addToWishlist/:pId",custCheckAuthenticated ,function (req,res){
+app.post("/addToWishlist/:pId", custCheckAuthenticated, function (req, res) {
     wish_products = req.body.wish_products;
 
-    wish_products.forEach(function(product){
-        var query ="insert into wishlist values(?,?)"
-        connection.query(query,[req.user.cId,product],(err)=>{
+    wish_products.forEach(function (product) {
+        var query = "insert into wishlist values(?,?)"
+        connection.query(query, [req.user.cId, product], (err) => {
         })
     })
-    res.redirect("/productDetails/"+req.params.pId);
+    res.redirect("/productDetails/" + req.params.pId);
 })
 
-app.post("/removeFromWishlist/:pId",custCheckAuthenticated, function (req,res){
-removeProductId = req.params.pId;
+app.post("/removeFromWishlist/:pId", custCheckAuthenticated, function (req, res) {
+    removeProductId = req.params.pId;
 
-var query = "Delete from wishlist where cust_id = ? and product_id = ?";
-connection.query(query,[req.user.cId,removeProductId],function (err){
-    if(err){
-        console.log(err);
-    }else{
-        res.redirect("/productDetails/"+removeProductId);
-    }
-});
-});
-
-app.post("/addToWishlistremote",custCheckAuthenticated,function(req,res){
-  var products=req.body.wish_products;
-
-  products.forEach(function(product){
-      var query ="insert into wishlist values(?,?)"
-      connection.query(query,[req.user.cId,product],(err)=>{
-      })
-  })
-
-  res.status(200);
-  res.sendStatus(200);
+    var query = "Delete from wishlist where cust_id = ? and product_id = ?";
+    connection.query(query, [req.user.cId, removeProductId], function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/productDetails/" + removeProductId);
+        }
+    });
 });
 
-app.post('/getLastViewedDetails',function(req,res){
+app.post("/addToWishlistremote", custCheckAuthenticated, function (req, res) {
+    var products = req.body.wish_products;
+
+    products.forEach(function (product) {
+        var query = "insert into wishlist values(?,?)"
+        connection.query(query, [req.user.cId, product], (err) => {
+        })
+    })
+
+    res.status(200);
+    res.sendStatus(200);
+});
+
+app.post('/getLastViewedDetails', function (req, res) {
     var productsArray = req.body.last_viewed;
     var query = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where b.bZip=? and p.pId in (?) group by p.pId ORDER BY FIELD(p.pId, ?)";
-    connection.query(query,[req.cookies.pincode,productsArray,productsArray],function (err,rows) {
-        if(err){
+    connection.query(query, [req.cookies.pincode, productsArray, productsArray], function (err, rows) {
+        if (err) {
             console.log(err);
         }
-        else{
-            res.json({'prodDetails':rows});
+        else {
+            res.json({ 'prodDetails': rows });
         }
     })
 })
 
-app.post('/recommended_lastviewed',function(req,res){
+app.post('/recommended_lastviewed', function (req, res) {
     var productsArray = req.body.last_viewed;
     var query = "select t2.pId,t2.max_avg, t2.pCategory,t2.pName,t2.pBrand,t2.pPhotoId, min(i.sellerPrice) as min from (select a.pId, max(a.average) as max_avg,a.pCategory,a.pName,a.pBrand,a.pMrp,a.pPhotoId from (select pf.pId,avg(pf.p_rating) average,p.pCategory,p.pName,p.pBrand,p.pMrp,p.pPhotoId from product_feedback pf inner join products p on p.pId=pf.pId where pf.pId in (?) group by pId order by average desc) as a group by a.pCategory) as t2 inner join inventory i on i.pId  = t2.pId inner join business_details b on b.seller = i.sId where b.bZip = ? group by i.pId;";
-    connection.query(query,[productsArray,req.cookies.pincode],function (err,rows) {
-        if(err){
+    connection.query(query, [productsArray, req.cookies.pincode], function (err, rows) {
+        if (err) {
             console.log(err);
         }
-        else{
-            res.json({'prodDetails':rows});
+        else {
+            res.json({ 'prodDetails': rows });
         }
     })
 })
@@ -1978,28 +2002,29 @@ app.post('/acceptOrder', checkAuthenticated, function (req, res) {
                         if (err) {
                             console.log(err);
                         } else {
-                            if(rows[0]){
+                            if (rows[0]) {
                                 subscription = JSON.parse(rows[0].subscription);
                                 console.log(subscription);
                                 var query4 = "select pPhotoId from products where pId = ?";
                                 var payload;
                                 connection.query(query4, pId, function (err, rows1) {
-                                    if(err){
+                                    if (err) {
                                         console.log(err);
                                     }
-                                    else{
+                                    else {
 
                                     }
                                 })
                                 payload = JSON.stringify({
-                                    title:'Order Accepted',
-                                    body:'Your order has been accepted by the seller. Please wait for the seller to deliver the product.',
-                                    icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
-                                    url:'/custOrderDetails/'+req.body.orderId,
+                                    title: 'Order Accepted',
+                                    body: 'Your order has been accepted by the seller. Please wait for the seller to deliver the product.',
+                                    icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                    url: '/custOrderDetails/' + req.body.orderId,
                                 });
-                                webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+                                webpush.sendNotification(subscription, payload).catch(err => console.log(err));
                             }
-                        }})
+                        }
+                    })
                     res.redirect("/sellerOrdersDetail/" + req.body.orderId);
                 }
             });
@@ -2054,29 +2079,30 @@ app.post('/rejectOrder', checkAuthenticated, function (req, res) {
                                                             if (err) {
                                                                 console.log(err);
                                                             } else {
-                                                                if(rows[0]){
+                                                                if (rows[0]) {
                                                                     subscription = JSON.parse(rows[0].subscription);
                                                                     console.log(subscription);
                                                                     var query4 = "select pPhotoId from products where pId = ?";
                                                                     var payload;
                                                                     connection.query(query4, pId, function (err, rows1) {
-                                                                        if(err){
+                                                                        if (err) {
                                                                             console.log(err);
                                                                         }
-                                                                        else{
+                                                                        else {
 
                                                                         }
                                                                     })
                                                                     payload = JSON.stringify({
-                                                                        title:'Order Rejected',
-                                                                        body:'Your order has been rejected by the seller.\n Reason: '+req.body.reason +'\nRefund will be initiated shortly.',
-                                                                        icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
-                                                                        url:'/custOrderDetails/'+req.body.orderId,
+                                                                        title: 'Order Rejected',
+                                                                        body: 'Your order has been rejected by the seller.\n Reason: ' + req.body.reason + '\nRefund will be initiated shortly.',
+                                                                        icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                                                        url: '/custOrderDetails/' + req.body.orderId,
                                                                     });
                                                                     subscription1 = subscription;
-                                                                    webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+                                                                    webpush.sendNotification(subscription, payload).catch(err => console.log(err));
                                                                 }
-                                                            }})
+                                                            }
+                                                        })
                                                         res.redirect("/sellerOrdersDetail/" + req.body.orderId);
 
                                                     }
@@ -2084,12 +2110,12 @@ app.post('/rejectOrder', checkAuthenticated, function (req, res) {
                                             }
                                         });
                                         payload = JSON.stringify({
-                                            title:'Amount Refunded',
-                                            body:'Refund for rejected order is initiated. Amount will reflect in your bank account in 4-5 working days.',
-                                            icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
-                                            url:'/custOrderDetails/'+req.body.orderId,
+                                            title: 'Amount Refunded',
+                                            body: 'Refund for rejected order is initiated. Amount will reflect in your bank account in 4-5 working days.',
+                                            icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                            url: '/custOrderDetails/' + req.body.orderId,
                                         });
-                                        webpush.sendNotification(subscription1,payload).catch(err=> console.log(err));
+                                        webpush.sendNotification(subscription1, payload).catch(err => console.log(err));
                                     }
                                 });
 
@@ -2115,29 +2141,30 @@ app.get('/deliveredOrder/:orderId', checkAuthenticated, function (req, res) {
                     console.log(err);
                 } else {
                     connection.query('select cust_id from orders where order_id=?', [parseInt(req.params.orderId)], function (err, rows) {
-                        if(err){
+                        if (err) {
                             console.log(err);
                         }
-                        else{
+                        else {
                             var cId = rows[0].cust_id;
                             var query3 = 'select * from customer_subscription where cId = ?';
                             connection.query(query3, cId, function (err, rows) {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    if(rows[0]){
+                                    if (rows[0]) {
                                         subscription = JSON.parse(rows[0].subscription);
                                         // console.log(subscription);
                                         var payload;
                                         payload = JSON.stringify({
-                                            title:'Order Delivered',
-                                            body:'Your order has been delivered. Thank you for shopping with us.',
-                                            icon:'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
-                                            url:'/custOrderDetails/'+req.body.orderId,
+                                            title: 'Order Delivered',
+                                            body: 'Your order has been delivered. Thank you for shopping with us.',
+                                            icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                            url: '/custOrderDetails/' + req.body.orderId,
                                         });
-                                        webpush.sendNotification(subscription,payload).catch(err=> console.log(err));
+                                        webpush.sendNotification(subscription, payload).catch(err => console.log(err));
                                     }
-                                }})
+                                }
+                            })
                         }
                     })
                     res.sendStatus(200);
@@ -2171,6 +2198,41 @@ app.get("/sellerFeedbacks", checkAuthenticated, function (req, res) {
 
 /************************************Seller Ends*************************************************/
 
+
+
+/************************************Admin Starts*************************************************/
+
+
+
+
+app.get("/adminLogin", adminCheckNotAuthenticated, function (req, res) {
+    res.render("adminLogin");
+});
+
+app.post('/adminLogin', adminCheckNotAuthenticated, passport.authenticate('adminLocal', {
+    successRedirect: '/adminDashboard',
+    failureRedirect: '/adminloginfail',
+    failureFlash: true
+}));
+app.get('/adminloginfail', function (req, res) {
+    res.render("adminLogin", {
+        err: "Incorrect Admin ID or Password"
+    });
+});
+
+app.get("/adminDashboard", adminCheckAuthenticated, function (req, res) {
+    res.render("adminDashboard");
+});
+
+
+
+
+
+/************************************Admin Ends*************************************************/
+
+
 app.listen(process.env.PORT || 3000, function () {
     console.log("Connected at 3000");
 });
+
+

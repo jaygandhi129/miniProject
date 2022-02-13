@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Administration</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="/css/sellerLogin.css">
+</head>
+
+<body style="background-color: #a2c6e8;">
+    <div class="login-fg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col col-md-6 col-sm-12 login">
+                    <div class="login-section">
+                        <div class="logo">
+                            <img src="/images/logo-no-bg.png" alt="" width="200px">
+                        </div>
+                        <div class="logo clearfix" style="margin-bottom: 10%;">
+                            <a href="/business" style="text-decoration: none;">
+                                Admin Login
+                            </a>
+                        </div>
+
+                        <%if (messages.error){%>
+                        <%=messages.error%>
+                        <%}%>
+
+                        <div class="form-container">
+                            <form method="POST" action="/adminLogin">
+                                <div class="form-group form-fg">
+                                    <input type="text" name="adminId" class="input-text" placeholder="Admin ID">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="form-group form-fg">
+                                    <input type="password" name="aPassword" class="input-text" placeholder="Password">
+                                    <i class="fa fa-unlock-alt"></i>
+                                </div>
+
+                                <div class="form-group mt-2">
+                                    <button type="submit" class="btn-md btn-fg btn-block">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="/images/adminLogo-removebg.png" alt="" class="login-img" >
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/js/bootstrap.bundle.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/js/bootstrap.bundle.min.js">
+</script>.
+</body>
+
+</html>
