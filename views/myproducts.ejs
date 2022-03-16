@@ -8,12 +8,14 @@
   <title>My Products</title>
   <link rel="stylesheet" href="css/myproducts.css">
   <link rel="stylesheet" href="css/sellerDashboard.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/datatables.min.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/datatables.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 </head>
@@ -45,57 +47,82 @@
   <!-- modal ends -->
 
   <div id="wrapper">
-      <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgba(0,41,102,0.93);">
-          <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                  <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-shopping-cart"></i></div>
-                  <div class="sidebar-brand-text mx-3"><span>Cornerkart</span></div>
-              </a>
-              <hr class="sidebar-divider my-0">
-              <ul class="navbar-nav text-light" id="accordionSidebar">
-                  <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href="/sellerprofile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                  <li class="nav-item"><a class="nav-link active" href="/myproducts"><i class="fas fa-boxes"></i><span>My Products</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href="/sellerOrders"><i class="fa fa-list-alt"></i><span>Orders</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href="/sellerFeedbacks"><i class="fas fa-comments"></i><span>Feedbacks</span></a></li>
-                  <li class="nav-item"><form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit" style="color:rgba(255, 255, 255, .8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i class="fa fa-power-off"></i><span>Logout</span></button></form></li>
-              </ul>
-              <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
-          </div>
-      </nav>
-      <div class="d-flex flex-column" id="content-wrapper">
-          <div id="content">
-              <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                  <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                      <!-- <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+      style="background: rgba(0,41,102,0.93);">
+      <div class="container-fluid d-flex flex-column p-0"><a
+          class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+          <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-shopping-cart"></i></div>
+          <div class="sidebar-brand-text mx-3"><span>Cornerkart</span></div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item"><a class="nav-link" href="/dashboard"><i
+                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/sellerprofile"><i
+                class="fas fa-user"></i><span>Profile</span></a></li>
+          <li class="nav-item"><a class="nav-link active" href="/myproducts"><i class="fas fa-boxes"></i><span>My
+                Products</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/sellerOrders"><i
+                class="fa fa-list-alt"></i><span>Orders</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/sellerFeedbacks"><i
+                class="fas fa-comments"></i><span>Feedbacks</span></a></li>
+          <li class="nav-item">
+            <form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit"
+                style="color:rgba(255, 255, 255, .8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
+                  class="fa fa-power-off"></i><span>Logout</span></button></form>
+          </li>
+        </ul>
+        <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle"
+            type="button"></button></div>
+      </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+          <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop"
+              type="button"><i class="fas fa-bars"></i></button>
+            <!-- <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                           <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button" style="background: rgba(0,41,102,0.93);"><i class="fas fa-search"></i></button></div>
                       </form> -->
-                      <ul class="navbar-nav flex-nowrap ms-auto">
-                          <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
-                              <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
-                                  <form class="me-auto navbar-search w-100">
-                                      <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                          <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                                      </div>
-                                  </form>
-                              </div>
-                          </li>
-                          <div class="d-none d-sm-block topbar-divider"></div>
-                          <li class="nav-item dropdown no-arrow">
-                              <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"><%=name%></span>
-                                  <img class="border rounded-circle img-profile" src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=source%>?alt=media"></a>
-                                  <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="/sellerprofile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
-                                      <div class="dropdown-divider"></div><form action="/logout?_method=DELETE" method="post"><button class="dropdown-item" style="color:rgba(19, 19, 19, 0.8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button></form>
-                                  </div>
-                              </div>
-                          </li>
-                      </ul>
+            <ul class="navbar-nav flex-nowrap ms-auto">
+              <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                  data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                  <form class="me-auto navbar-search w-100">
+                    <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                        placeholder="Search for ...">
+                      <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i
+                            class="fas fa-search"></i></button></div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+              <div class="d-none d-sm-block topbar-divider"></div>
+              <li class="nav-item dropdown no-arrow">
+                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                    data-bs-toggle="dropdown" href="#"><span
+                      class="d-none d-lg-inline me-2 text-gray-600 small"><%=name%></span>
+                    <img class="border rounded-circle img-profile"
+                      src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=source%>?alt=media"></a>
+                  <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item"
+                      href="/sellerprofile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <form action="/logout?_method=DELETE" method="post"><button class="dropdown-item"
+                        style="color:rgba(19, 19, 19, 0.8);background-color: transparent;outline: none;border:none;box-shadow:none;"><i
+                          class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button></form>
                   </div>
-              </nav>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
 
         <div class="container-fluid">
           <div class="d-sm-flex justify-content-between align-items-center mb-4">
-            <h3 class="text-dark mb-0">My Product</h3><a class="btn btn-primary btn-sm d-sm-inline-block align-right sel-but" role="button" href="/addproduct" style="background: rgba(0,41,102,0.93);"><i
-                class="fas fa-plus-circle fa-sm text-white-50"></i>&nbsp;Add a Product&nbsp;</a>
+            <h3 class="text-dark mb-0">My Product</h3><a
+              class="btn btn-primary btn-sm d-sm-inline-block align-right sel-but" role="button" href="/addproduct"
+              style="background: rgba(0,41,102,0.93);"><i class="fas fa-plus-circle fa-sm text-white-50"></i>&nbsp;Add a
+              Product&nbsp;</a>
           </div>
         </div>
 
@@ -127,12 +154,14 @@
                   <tr>
                     <th scope="row"><%=i%></th>
                     <td class="w-25">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
+                      <img
+                        src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media"
+                        class="img-fluid img-thumbnail">
                     </td>
-                    <td ><%=  row.pBrand %></td>
+                    <td><%=  row.pBrand %></td>
                     <td><%= row.pName %></td>
-                    <td ><%=  row.catName %></td>
-                    <td ><%=  row.subCatName %></td>
+                    <td><%=  row.catName %></td>
+                    <td><%=  row.subCatName %></td>
                     <td><%=  row.stockAvailable %></td>
                     <td><%=  row.sellerPrice %></td>
                     <td><%=  row.pMrp %></td>
@@ -141,11 +170,14 @@
                     <td>
                       <form action="/editProduct" method="post">
                         <input type="text" name="editbtn" value=<%= row.iId %> hidden>
-                        <button class="btn btn-primary edit-btn" type="submit"  id="edit-btn" style="width:90%;" ><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn btn-primary edit-btn" type="submit" id="edit-btn" style="width:90%;"><i
+                            class="fas fa-pencil-alt"></i></button>
                       </form>
                     </td>
                     <td>
-                      <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:90%;" name="deleteproduct" data-id=<%= row.iId %>><i class="fas fa-trash"></i></button>
+                      <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        style="width:90%;" name="deleteproduct" data-id=<%= row.iId %>><i
+                          class="fas fa-trash"></i></button>
                     </td>
                   </tr>
                   <% i=i+1 }); %>
@@ -181,38 +213,42 @@
                   <% rows.forEach(function(row){ %>
 
 
-                    <%if( editValue == row.iId){%>
+                  <%if( editValue == row.iId){%>
                   <tr>
                     <th scope="row"><%=i%></th>
                     <td class="w-25">
 
-                      <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media" class="img-fluid img-thumbnail">
+                      <img
+                        src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media"
+                        class="img-fluid img-thumbnail">
                     </td>
                     <form class="" action="/saveProduct" method="post">
-                      <td ><%=  row.pBrand %></td>
+                      <td><%=  row.pBrand %></td>
                       <td><%= row.pName %></td>
-                      <td ><%=  row.catName %></td>
-                      <td ><%=  row.subCatName %></td>
-                      <td><input class="form-control" type="text" name="stockAvailable" value=<%=  row.stockAvailable %> pattern="[0-9]*"></td>
+                      <td><%=  row.catName %></td>
+                      <td><%=  row.subCatName %></td>
+                      <td><input class="form-control" type="text" name="stockAvailable" value=<%=  row.stockAvailable %>
+                          pattern="[0-9]*"></td>
                       <td><input class="form-control" type="text" name="sellerPrice" value=<%=  row.sellerPrice %>
                           pattern="[0-9.]*"></td>
                       <td><%=  row.pMrp %></td>
                       <td>
                         <select id="inputState" name="iDelivery" class="form-select" required>
-                            <option selected><%=  row.iDelivery %></option>
-                            <% if  (row.iDelivery == "N") {%>
-                            <option>Y</option>
+                          <option selected><%=  row.iDelivery %></option>
+                          <% if  (row.iDelivery == "N") {%>
+                          <option>Y</option>
                           <%}else{%>
-                            <option>N</option>
+                          <option>N</option>
                           <%}%>
                         </select>
                       </td>
                       <td><input class="form-control" type="text" name="pDeliveryCharges"
                           value=<%=row.iDeliveryCharges%> pattern="[0-9]*"></td>
-                      <td><button class="btn btn-primary edit-btn" id="edit-btn" type="submit" name="savebtn" style="width:90%;" value=<%= row.iId %>>Save</button></td>
+                      <td><button class="btn btn-primary edit-btn" id="edit-btn" type="submit" name="savebtn"
+                          style="width:90%;" value=<%= row.iId %>>Save</button></td>
                     </form>
                   </tr>
-                    <%  }console.log(i) %>
+                  <%  }console.log(i) %>
                   <% i=i+1 }); %>
                 </tbody>
               </table>
@@ -220,6 +256,9 @@
           </div>
         </div>
         <%}%>
+    </div>
+    </div>
+  </div>
         <script>
         $(".delete-btn").on("click", function () {
           var inventId = $(this).data("id");
