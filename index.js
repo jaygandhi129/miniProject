@@ -2224,15 +2224,39 @@ app.get("/adminDashboard", adminCheckAuthenticated, function (req, res) {
     res.render("adminDashboard");
 });
 
-app.get("/getProducts", adminCheckAuthenticated, function (req, res) {
-    res.render("adminProducts");
+app.get("/admingetProducts", adminCheckAuthenticated, function (req, res) {
+    var query = "select * from products p inner join product_categories c on p.pCategory=c.catId inner join product_subcategories s on p.pSubCategory=s.subCatId where isBan=0";
+    connection.query(query, function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("admingetProducts", {
+                rows
+            });
+        }
+    });
 });
 
-app.get("/getUsers", adminCheckAuthenticated, function (req, res) {
-    res.render("getUsers");
+app.post('/banProduct',adminCheckAuthenticated,function(req,res){
+    var pId = req.body.banProduct;
+    console.log(pId);
+    var query = "update products set isBan = 1 where pId = ?";
+    connection.query(query,[pId],(err,rows)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/admingetProducts');
+        }
+
+    });
+
 });
-app.get("/getSellers", adminCheckAuthenticated, function (req, res) {
-    res.render("getSellers");
+
+app.get("/admingetUsers", adminCheckAuthenticated, function (req, res) {
+    res.render("admingetUsers");
+});
+app.get("/admingetSellers", adminCheckAuthenticated, function (req, res) {
+    res.render("admingetSellers");
 });
 
 

@@ -35,7 +35,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-                    <form action="/getProducts" method="post">
+                    <form action="/banProduct" method="post">
                         <input name="banProduct" value="" id="confirm-delete" hidden>
                         <button type="submit" id="confirm" value="" class="btn btn-danger">Yes, BAN.</button>
                     </form>
@@ -58,15 +58,15 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/adminDashboard"><i
                                 class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link " href="/getSellers"><i
+                    <li class="nav-item"><a class="nav-link " href="/admingetSellers"><i
                                 class="fas fa-user"></i><span>Sellers</span></a></li>
-                    <li class="nav-item"><a class="nav-link  active" href="/getProducts"><i
+                    <li class="nav-item"><a class="nav-link  active" href="/admingetProducts"><i
                                 class="fas fa-boxes"></i><span>Products</span></a></li>
-                    <li class="nav-item"><a class="nav-link " href="/getUsers"><i
+                    <li class="nav-item"><a class="nav-link " href="/admingetUsers"><i
                                 class="fas fa-boxes"></i><span>Users</span></a></li>
-                    <li class="nav-item"><a class="nav-link " href="/productComplaint"><i
+                    <li class="nav-item"><a class="nav-link " href="/adminproductComplaint"><i
                                 class="fa fa-list-alt"></i><span>Product Complaint</span></a></li>
-                    <li class="nav-item"><a class="nav-link " href="/sellerComplaint"><i
+                    <li class="nav-item"><a class="nav-link " href="/adminsellerComplaint"><i
                                 class="fas fa-comments"></i><span>Seller Complaint</span></a></li>
                     <li class="nav-item">
                         <form action="/logout?_method=DELETE" method="post"><button class="nav-link" type="submit"
@@ -138,12 +138,30 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Category</th>
                                         <th scope="col">Sub Category</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">MRP</th>
                                         <th scope="col">BAN</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%var i=1%>
+                  <% rows.forEach(function(row){ %>
+                  <tr>
+                    <th scope="row"><%=i%></th>
+                    <td class="w-25">
+                      <img
+                        src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media"
+                        class="img-fluid img-thumbnail">
+                    </td>
+                    <td><%=  row.pBrand %></td>
+                    <td><%= row.pName %></td>
+                    <td><%=  row.catName %></td>
+                    <td><%=  row.subCatName %></td>
+                    <td>
+                        <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                          style="width:90%;" name="banproduct" data-id=<%= row.pId %>><i
+                            class="fas fa-trash"></i></button>
+                      </td>
+                  </tr>
+                  <% i=i+1 }); %>
                                 </tbody>
                             </table>
                         </div>

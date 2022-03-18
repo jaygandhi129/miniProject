@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: project_db
+-- Host: localhost    Database: projectdb
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -67,7 +67,7 @@ CREATE TABLE `business_details` (
   UNIQUE KEY `bEmail` (`bEmail`),
   KEY `sellerBusiness` (`seller`),
   CONSTRAINT `sellerBusiness` FOREIGN KEY (`seller`) REFERENCES `seller_details` (`sId`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `cust_details` (
   PRIMARY KEY (`cId`),
   UNIQUE KEY `cEmail_UNIQUE` (`cEmail`),
   UNIQUE KEY `cMobile_UNIQUE` (`cMobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=800009 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=800009 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `inventory` (
   KEY `pId` (`pId`),
   CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`sId`) REFERENCES `seller_details` (`sId`),
   CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`pId`) REFERENCES `products` (`pId`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +192,7 @@ CREATE TABLE `order_details` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`pId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +225,7 @@ CREATE TABLE `order_payment_details` (
   `refundTimeStamp` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`orderId`,`razorpayPaymentId`),
   CONSTRAINT `order_payment_details_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +268,7 @@ CREATE TABLE `orders` (
   KEY `cust_id` (`cust_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `seller_details` (`sId`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `cust_details` (`cId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4000134 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4000134 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +292,7 @@ CREATE TABLE `product_categories` (
   `catId` int NOT NULL AUTO_INCREMENT,
   `catName` varchar(100) NOT NULL,
   PRIMARY KEY (`catId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2000023 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2000023 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -353,7 +353,7 @@ CREATE TABLE `product_subcategories` (
   PRIMARY KEY (`subCatId`),
   KEY `product_subcategories_ibfk_1` (`catId`),
   CONSTRAINT `product_subcategories_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `product_categories` (`catId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3000260 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3000260 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,12 +381,13 @@ CREATE TABLE `products` (
   `pPhotoId` varchar(100) DEFAULT NULL,
   `pSubCategory` int DEFAULT NULL,
   `pBrand` varchar(100) DEFAULT NULL,
+  `isBan` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`pId`),
   KEY `pCategory` (`pCategory`),
   KEY `pSubCategory` (`pSubCategory`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`pCategory`) REFERENCES `product_categories` (`catId`),
   CONSTRAINT `products_ibfk_2` FOREIGN KEY (`pSubCategory`) REFERENCES `product_subcategories` (`subCatId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50124 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=50124 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -395,7 +396,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (50054,'The Immortals of Meluha',320,2000018,'Product%2F50054-photo.jpg',3000216,'Shiva Trilogy'),(50055,'The Oath of the Vayuputras',320,2000018,'Product%2F50055-photo.jpg',3000216,'Shiva Trilogy'),(50056,'The Secret Of The Nagas',320,2000018,'Product%2F50056-photo.jpg',3000216,'Shiva Trilogy'),(50057,'The Fault in Our Stars',399,2000018,'Product%2F50057-photo.jpg',3000216,'John Green\'s'),(50058,'Rockerz 450 Bluetooth Headset ',3999,2000007,'Product%2F50058-photo.jpeg',3000097,'BOAT'),(50059,'Hot Chocolate  (20 g)',15,2000022,'Product%2F50059-photo.jpeg',3000245,'Cadbury '),(50060,'Bean Bag XXXL (Filled)',3500,2000010,'Product%2F50060-photo.jpeg',3000147,'Beanskart'),(50061,'Casual Shirt',500,2000001,'Product%2F50061-photo.jpeg',3000002,'SANGAM  Men Regular'),(50062,'Cotton Mens Casual Shirt',500,2000001,'Product%2F50062-photo.jpg',3000001,'Clinkx'),(50063,'Pushup Bars Stands Handles',599,2000020,'Product%2F50063-photo.jpeg',3000226,'NIRVA '),(50064,'HEXA-5KG COMBO16 Fixed Weight',2000,2000020,'Product%2F50064-photo.jpeg',3000226,'Headly Dumbbell'),(50065,'9 Pro 5G',64999,2000007,'Product%2F50065-photo.png',3000088,'OnePlus'),(50066,'N95 Reusable Washable Mask',399,2000007,'Product%2F50066-photo.jpeg',3000088,'DALUCI'),(50067,'N95 Mask (Pack of 2)',399,2000021,'Product%2F50067-photo.jpeg',3000235,'DALUCI'),(50068,'Alcohol Based Hand Sanitizer 500ml',248,2000021,'Product%2F50068-photo.jpg',3000237,'Lifebuoy'),(50069,'Signature Intense Long Lasting No Gas Deodorant Bodyspray For Men 154 ml',250,2000014,'Product%2F50069-photo.jpg',3000192,'Axe'),(50070,'Badminton Racket',3400,2000020,'Product%2F50070-photo.jpg',3000229,'Yonex'),(50071,'3 Seater Sofa  (Finish Color - Blue, Knock Down)',26799,2000016,'Product%2F50071-photo.jpeg',3000199,'METSMITH'),(50072,'9',44999,2000007,'Product%2F50072-photo.jpg',3000088,'OnePlus'),(50073,'S21 Ultra 5G',71999,2000007,'Product%2F50073-photo.png',3000088,'Samsung'),(50074,'iPhone 12',79900,2000007,'Product%2F50074-photo.jpg',3000088,'Apple'),(50075,'Riding Gears',1200,2000015,'Product%2F50075-photo.jpg',3000197,'Byke'),(50076,'mi 11 Ultra',74999,2000007,'Product%2F50076-photo.jpg',3000088,'Xiaomi'),(50077,'ROG Phone 5',55999,2000007,'Product%2F50077-photo.png',3000088,'Asus'),(50078,'Alex Wood Open Book Shelf  ',9999,2000016,'Product%2F50078-photo.jpeg',3000206,'BLUEWUD'),(50079,'dsfsd',14999,2000017,'Product%2F50079-photo.jpeg',3000212,'sdfsd'),(50080,'as',14999,2000015,'Product%2F50080-photo.jpeg',3000197,'saa'),(50081,'sas',320,2000017,'Product%2F50081-photo.jpeg',3000211,'asd'),(50082,'Girlfriend ',255,2000018,'Product%2F50082-photo.jpg',3000216,' Half'),(50083,'ROG Phone 5	',55999,2000007,'Product%2F50083-photo.png',3000088,'Asus'),(50084,'Nitro 5',94999,2000005,'Product%2F50084-photo.jpg',3000045,'Acer'),(50085,'Wood King Box Bed',29999,2000016,'Product%2F50085-photo.jpeg',3000204,'Okra Sunflower '),(50086,'Straight Kurta',699,2000001,'Product%2F50086-photo.jpeg',3000008,'Women Solid Cotton Blend '),(50087,'Jaipuri Style Women\'s Cocktail Midi Dress',999,2000001,'Product%2F50087-photo.jpg',3000008,'QwikFashion'),(50088,'Medium Check-in Luggage',4350,2000004,'Product%2F50088-photo.jpeg',3000039,'ARISTOCRAT '),(50089,'Full Sleeve Solid Boys Casual Jacket',2499,2000001,'Product%2F50089-photo.jpeg',3000011,'PUMA'),(50090,'Card game  (Multicolor)',200,2000013,'Product%2F50090-photo.jpeg',3000259,'Uno'),(50091,'T shirt',399,2000001,'Product%2F50091-photo.jpg',3000011,'Cotton King'),(50092,'Air',10000,2000003,'Product%2F50092-photo.jpg',3000024,'Nike'),(50093,'Embroidered Fashion Poly Silk Saree ',1200,2000001,'Product%2F50093-photo.jpg',3000009,'Rudra Fashion'),(50094,'90 x KN95 Face Mask',80,2000021,'Product%2F50094-photo.jpg',3000235,'Respair'),(50095,'Regular Men Blue Jeans',999,2000001,'Product%2F50095-photo.jpg',3000001,'Lzard'),(50096,'Redmi Note 9 Pro Max (6GB RAM, 64GB Storage)',18999,2000007,'Product%2F50096-photo.jpg',3000088,'Xiaomi'),(50097,'9 Pro 5G',200,2000001,NULL,3000005,'ABC'),(50098,'Saree',999,2000001,'Product%2F50098-photo.png',3000009,'Lzard'),(50099,'Men\'s T-shirt ',799,2000001,'Product%2F50099-photo.jpg',3000001,'MOOCHSINGH'),(50100,'Men\'s Formal Shoes',1999,2000003,'Product%2F50100-photo.jpg',3000025,'Centrino'),(50101,'Men\'s Formal Shoes',999,2000003,NULL,3000025,'Centrin'),(50102,'Waterproof Casual Sandals for Mens/Boys, Slippers & Flip Flops',699,2000003,'Product%2F50102-photo.jpg',3000030,'Zerol'),(50103,'Massage Oil',400,2000017,'Product%2F50103-photo.jpeg',3000214,'HIMALAYA'),(50104,'Baby No More Tears Shampoo 500 ml',375,2000017,'Product%2F50104-photo.jpeg',3000214,'JOHNSON\'S'),(50105,'Combination Screwdriver Set  (Pack of 9)',400,2000012,'Product%2F50105-photo.jpeg',3000167,'VISKO 111-Red'),(50106,'Black Electric Guitar Electro-acoustic',11999,2000019,'Product%2F50106-photo.jpeg',3000223,'Swan'),(50107,'Conference Folder IV',1195,2000009,'Product%2F50107-photo.jpg',3000134,'LEATHER TALKS'),(50108,'Sugar Sulphurfree Sugar  (1 kg)',60,2000022,'Product%2F50108-photo.jpeg',3000251,'Uttam'),(50109,'Iodized Salt  (1 kg)',21,2000022,'Product%2F50109-photo.jpeg',3000250,'Tata'),(50110,'9 5G (Winter Mist, 12GB RAM, 256GB Storage)',54999,2000007,'Product%2F50110-photo.jpg',3000088,'OnePlus'),(50111,'BACKGAMMON® 15X15 Tournament Chess Game Black & White Chess Board with Solid Plastic Pieces for Prof',259,2000013,NULL,3000179,'BACKGAMMON'),(50112,'BACKGAMMON® 15X15 Tournament Chess Game Black & White Chess Board with Solid Plastic Pieces for Prof',259,2000013,NULL,3000179,'BACKGAMMON'),(50113,'Scrabble Board Game, Word, Letters Game, Multi Color',899,2000013,'Product%2F50113-photo.jpg',3000179,'Mattel'),(50114,'BACKGAMMON® 15X15 Tournament Chess Game Black & White Chess Board with Solid Plastic Pieces for Prof',259,2000013,NULL,3000179,'BACKGAMMON'),(50115,'15X15 Tournament Chess Game Black & White Chess Board',259,2000013,'Product%2F50115-photo.jpg',3000179,'BACKGAMMON'),(50116,'Smartguard Lightweight Reusable Face Shield',499,2000021,'Product%2F50116-photo.jpg',3000241,'Covid Comfort'),(50117,'Men\'s Slim fit Casual Shirt',1599,2000001,'Product%2F50117-photo.jpg',3000001,'Allen Solly'),(50118,'Women\'s Maxi A-line Dress',720,2000001,'Product%2F50118-photo.jpg',3000008,'Harpa'),(50119,'Unisex\'s Cotton Face Mask ',299,2000021,'Product%2F50119-photo.jpg',3000235,'Jockey '),(50120,'Power110 (4.5cm,Big Battery, Deep Blue)',1599,2000007,'Product%2F50120-photo.jpg',3000089,'Itel'),(50121,'A74 5G (Fantastic Purple, 6GB RAM, 128GB Storage)',20999,2000007,'Product%2F50121-photo.jpg',3000088,'OPPO '),(50122,'iPhone 12 (64GB) - Black',79900,2000007,'Product%2F50122-photo.jpg',3000088,'Apple'),(50123,'Smith UK-212 Ultimate Soprano UKulele Starter Kit (Black)',2499,2000019,'Product%2F50123-photo.jpg',3000223,'Martin');
+INSERT INTO `products` VALUES (50054,'The Immortals of Meluha',320,2000018,'Product%2F50054-photo.jpg',3000216,'Shiva Trilogy',0),(50055,'The Oath of the Vayuputras',320,2000018,'Product%2F50055-photo.jpg',3000216,'Shiva Trilogy',0),(50056,'The Secret Of The Nagas',320,2000018,'Product%2F50056-photo.jpg',3000216,'Shiva Trilogy',0),(50057,'The Fault in Our Stars',399,2000018,'Product%2F50057-photo.jpg',3000216,'John Green\'s',0),(50058,'Rockerz 450 Bluetooth Headset ',3999,2000007,'Product%2F50058-photo.jpeg',3000097,'BOAT',0),(50059,'Hot Chocolate  (20 g)',15,2000022,'Product%2F50059-photo.jpeg',3000245,'Cadbury ',0),(50060,'Bean Bag XXXL (Filled)',3500,2000010,'Product%2F50060-photo.jpeg',3000147,'Beanskart',0),(50061,'Casual Shirt',500,2000001,'Product%2F50061-photo.jpeg',3000002,'SANGAM  Men Regular',1),(50062,'Cotton Mens Casual Shirt',500,2000001,'Product%2F50062-photo.jpg',3000001,'Clinkx',0),(50063,'Pushup Bars Stands Handles',599,2000020,'Product%2F50063-photo.jpeg',3000226,'NIRVA ',0),(50064,'HEXA-5KG COMBO16 Fixed Weight',2000,2000020,'Product%2F50064-photo.jpeg',3000226,'Headly Dumbbell',0),(50065,'9 Pro 5G',64999,2000007,'Product%2F50065-photo.png',3000088,'OnePlus',0),(50066,'N95 Reusable Washable Mask',399,2000007,'Product%2F50066-photo.jpeg',3000088,'DALUCI',0),(50067,'N95 Mask (Pack of 2)',399,2000021,'Product%2F50067-photo.jpeg',3000235,'DALUCI',0),(50068,'Alcohol Based Hand Sanitizer 500ml',248,2000021,'Product%2F50068-photo.jpg',3000237,'Lifebuoy',0),(50069,'Signature Intense Long Lasting No Gas Deodorant Bodyspray For Men 154 ml',250,2000014,'Product%2F50069-photo.jpg',3000192,'Axe',0),(50070,'Badminton Racket',3400,2000020,'Product%2F50070-photo.jpg',3000229,'Yonex',0),(50071,'3 Seater Sofa  (Finish Color - Blue, Knock Down)',26799,2000016,'Product%2F50071-photo.jpeg',3000199,'METSMITH',0),(50072,'9',44999,2000007,'Product%2F50072-photo.jpg',3000088,'OnePlus',0),(50073,'S21 Ultra 5G',71999,2000007,'Product%2F50073-photo.png',3000088,'Samsung',0),(50074,'iPhone 12',79900,2000007,'Product%2F50074-photo.jpg',3000088,'Apple',0),(50075,'Riding Gears',1200,2000015,'Product%2F50075-photo.jpg',3000197,'Byke',0),(50076,'mi 11 Ultra',74999,2000007,'Product%2F50076-photo.jpg',3000088,'Xiaomi',0),(50077,'ROG Phone 5',55999,2000007,'Product%2F50077-photo.png',3000088,'Asus',0),(50078,'Alex Wood Open Book Shelf  ',9999,2000016,'Product%2F50078-photo.jpeg',3000206,'BLUEWUD',0),(50079,'dsfsd',14999,2000017,'Product%2F50079-photo.jpeg',3000212,'sdfsd',0),(50080,'as',14999,2000015,'Product%2F50080-photo.jpeg',3000197,'saa',0),(50081,'sas',320,2000017,'Product%2F50081-photo.jpeg',3000211,'asd',0),(50082,'Girlfriend ',255,2000018,'Product%2F50082-photo.jpg',3000216,' Half',0),(50083,'ROG Phone 5	',55999,2000007,'Product%2F50083-photo.png',3000088,'Asus',0),(50084,'Nitro 5',94999,2000005,'Product%2F50084-photo.jpg',3000045,'Acer',0),(50085,'Wood King Box Bed',29999,2000016,'Product%2F50085-photo.jpeg',3000204,'Okra Sunflower ',0),(50086,'Straight Kurta',699,2000001,'Product%2F50086-photo.jpeg',3000008,'Women Solid Cotton Blend ',0),(50087,'Jaipuri Style Women\'s Cocktail Midi Dress',999,2000001,'Product%2F50087-photo.jpg',3000008,'QwikFashion',0),(50088,'Medium Check-in Luggage',4350,2000004,'Product%2F50088-photo.jpeg',3000039,'ARISTOCRAT ',0),(50089,'Full Sleeve Solid Boys Casual Jacket',2499,2000001,'Product%2F50089-photo.jpeg',3000011,'PUMA',0),(50090,'Card game  (Multicolor)',200,2000013,'Product%2F50090-photo.jpeg',3000259,'Uno',0),(50091,'T shirt',399,2000001,'Product%2F50091-photo.jpg',3000011,'Cotton King',0),(50092,'Air',10000,2000003,'Product%2F50092-photo.jpg',3000024,'Nike',0),(50093,'Embroidered Fashion Poly Silk Saree ',1200,2000001,'Product%2F50093-photo.jpg',3000009,'Rudra Fashion',0),(50094,'90 x KN95 Face Mask',80,2000021,'Product%2F50094-photo.jpg',3000235,'Respair',0),(50095,'Regular Men Blue Jeans',999,2000001,'Product%2F50095-photo.jpg',3000001,'Lzard',0),(50096,'Redmi Note 9 Pro Max (6GB RAM, 64GB Storage)',18999,2000007,'Product%2F50096-photo.jpg',3000088,'Xiaomi',0),(50097,'9 Pro 5G',200,2000001,NULL,3000005,'ABC',0),(50098,'Saree',999,2000001,'Product%2F50098-photo.png',3000009,'Lzard',0),(50099,'Men\'s T-shirt ',799,2000001,'Product%2F50099-photo.jpg',3000001,'MOOCHSINGH',0),(50100,'Men\'s Formal Shoes',1999,2000003,'Product%2F50100-photo.jpg',3000025,'Centrino',0),(50101,'Men\'s Formal Shoes',999,2000003,NULL,3000025,'Centrin',0),(50102,'Waterproof Casual Sandals for Mens/Boys, Slippers & Flip Flops',699,2000003,'Product%2F50102-photo.jpg',3000030,'Zerol',0),(50103,'Massage Oil',400,2000017,'Product%2F50103-photo.jpeg',3000214,'HIMALAYA',0),(50104,'Baby No More Tears Shampoo 500 ml',375,2000017,'Product%2F50104-photo.jpeg',3000214,'JOHNSON\'S',0),(50105,'Combination Screwdriver Set  (Pack of 9)',400,2000012,'Product%2F50105-photo.jpeg',3000167,'VISKO 111-Red',0),(50106,'Black Electric Guitar Electro-acoustic',11999,2000019,'Product%2F50106-photo.jpeg',3000223,'Swan',0),(50107,'Conference Folder IV',1195,2000009,'Product%2F50107-photo.jpg',3000134,'LEATHER TALKS',0),(50108,'Sugar Sulphurfree Sugar  (1 kg)',60,2000022,'Product%2F50108-photo.jpeg',3000251,'Uttam',0),(50109,'Iodized Salt  (1 kg)',21,2000022,'Product%2F50109-photo.jpeg',3000250,'Tata',0),(50110,'9 5G (Winter Mist, 12GB RAM, 256GB Storage)',54999,2000007,'Product%2F50110-photo.jpg',3000088,'OnePlus',0),(50111,'BACKGAMMON® 15X15 Tournament Chess Game Black & White Chess Board with Solid Plastic Pieces for Prof',259,2000013,NULL,3000179,'BACKGAMMON',0),(50112,'BACKGAMMON® 15X15 Tournament Chess Game Black & White Chess Board with Solid Plastic Pieces for Prof',259,2000013,NULL,3000179,'BACKGAMMON',0),(50113,'Scrabble Board Game, Word, Letters Game, Multi Color',899,2000013,'Product%2F50113-photo.jpg',3000179,'Mattel',0),(50114,'BACKGAMMON® 15X15 Tournament Chess Game Black & White Chess Board with Solid Plastic Pieces for Prof',259,2000013,NULL,3000179,'BACKGAMMON',0),(50115,'15X15 Tournament Chess Game Black & White Chess Board',259,2000013,'Product%2F50115-photo.jpg',3000179,'BACKGAMMON',0),(50116,'Smartguard Lightweight Reusable Face Shield',499,2000021,'Product%2F50116-photo.jpg',3000241,'Covid Comfort',0),(50117,'Men\'s Slim fit Casual Shirt',1599,2000001,'Product%2F50117-photo.jpg',3000001,'Allen Solly',0),(50118,'Women\'s Maxi A-line Dress',720,2000001,'Product%2F50118-photo.jpg',3000008,'Harpa',0),(50119,'Unisex\'s Cotton Face Mask ',299,2000021,'Product%2F50119-photo.jpg',3000235,'Jockey ',0),(50120,'Power110 (4.5cm,Big Battery, Deep Blue)',1599,2000007,'Product%2F50120-photo.jpg',3000089,'Itel',0),(50121,'A74 5G (Fantastic Purple, 6GB RAM, 128GB Storage)',20999,2000007,'Product%2F50121-photo.jpg',3000088,'OPPO ',0),(50122,'iPhone 12 (64GB) - Black',79900,2000007,'Product%2F50122-photo.jpg',3000088,'Apple',0),(50123,'Smith UK-212 Ultimate Soprano UKulele Starter Kit (Black)',2499,2000019,'Product%2F50123-photo.jpg',3000223,'Martin',0);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,7 +425,7 @@ CREATE TABLE `seller_details` (
   UNIQUE KEY `sPhoneNo` (`sPhoneNo`),
   UNIQUE KEY `sAadhar` (`sAadhar`),
   UNIQUE KEY `sPAN` (`sPAN`)
-) ENGINE=InnoDB AUTO_INCREMENT=1055 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1055 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,4 +534,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-13 16:16:46
+-- Dump completed on 2022-03-18 12:26:56
