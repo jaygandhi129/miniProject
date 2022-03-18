@@ -2224,6 +2224,17 @@ app.get("/adminDashboard", adminCheckAuthenticated, function (req, res) {
     res.render("adminDashboard");
 });
 
+app.get("/getProducts", adminCheckAuthenticated, function (req, res) {
+    res.render("adminProducts");
+});
+
+app.get("/getUsers", adminCheckAuthenticated, function (req, res) {
+    res.render("getUsers");
+});
+app.get("/getSellers", adminCheckAuthenticated, function (req, res) {
+    res.render("getSellers");
+});
+
 
 
 
