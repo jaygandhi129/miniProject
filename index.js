@@ -355,23 +355,23 @@ app.get("/", function (req, res) {
 
     if (req.cookies.pincode !== undefined) {
 
-        var query = "select  p.pId,p.pName,p.pPhotoId,p.pBrand,p.pMrp,min(i.sellerPrice) as minPrice,ceil(((p.pMrp - i.sellerPrice)/p.pMrp*100)) as difference from products p inner join inventory i on p.pId = i.pId inner join business_details b on i.sId = b.seller where b.bZip = ? group by p.pId order by difference desc limit 8; ";
+        var query = "select  p.pId,p.pName,p.pPhotoId,p.pBrand,p.pMrp,min(i.sellerPrice) as minPrice,ceil(((p.pMrp - i.sellerPrice)/p.pMrp*100)) as difference from products p inner join inventory i on p.pId = i.pId inner join business_details b on i.sId = b.seller where p.isBan=0 and b.bZip = ? group by p.pId order by difference desc limit 8; ";
         connection.query(query, [req.cookies.pincode], function (err, rows) {
             if (err) {
                 console.log(err);
             } else {
-                var query2 = "select  p.pId,p.pName,p.pPhotoId,p.pBrand,p.pMrp,min(i.sellerPrice) as minPrice from products p inner join inventory i on p.pId = i.pId inner join business_details b on i.sId = b.seller where b.bZip = ? and p.pCategory = 2000021 group by p.pId limit 8";
+                var query2 = "select  p.pId,p.pName,p.pPhotoId,p.pBrand,p.pMrp,min(i.sellerPrice) as minPrice from products p inner join inventory i on p.pId = i.pId inner join business_details b on i.sId = b.seller where p.isBan=0 and b.bZip = ? and p.pCategory = 2000021 group by p.pId limit 8";
                 connection.query(query2, [req.cookies.pincode], function (err, rows2) {
                     if (err) {
                         console.log(err);
                     } else {
-                        var query3 = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where pCategory=2000007 and pSubCategory=3000088 and b.bZip=? group by p.pId limit 8";
+                        var query3 = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where p.isBan=0 and pCategory=2000007 and pSubCategory=3000088 and b.bZip=? group by p.pId limit 8";
                         connection.query(query3, [req.cookies.pincode], function (err, rows3) {
                             if (err) {
                                 console.log(err);
                             } else {
 
-                                var query4 = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where pCategory=2000001 and pSubCategory!=3000011 and pSubCategory!=3000012 and pSubCategory!=3000013 and b.bZip=? group by p.pId limit 8";
+                                var query4 = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where p.isBan=0 and pCategory=2000001 and pSubCategory!=3000011 and pSubCategory!=3000012 and pSubCategory!=3000013 and b.bZip=? group by p.pId limit 8";
                                 connection.query(query4, [req.cookies.pincode], function (err, rows4) {
                                     if (err) {
                                         console.log(err);
@@ -382,7 +382,7 @@ app.get("/", function (req, res) {
                                             if (err) {
                                                 console.log(err);
                                             } else {
-                                                query6 = "select count(od.product_id) as count,od.product_id,p.pPhotoId,p.pName,p.pBrand,p.pMRP,min(i.sellerPrice) from order_details od inner join products p on od.product_id = p.pId inner join inventory i on i.pId = od.product_id inner join orders o on o.order_id = od.order_id where o.order_zip = ? and od.prod_status = 'Order Completed'  group by od.product_id order by count(od.product_id) desc limit 8;";
+                                                query6 = "select count(od.product_id) as count,od.product_id,p.pPhotoId,p.pName,p.pBrand,p.pMRP,min(i.sellerPrice) from order_details od inner join products p on od.product_id = p.pId inner join inventory i on i.pId = od.product_id inner join orders o on o.order_id = od.order_id where p.isBan=0 and o.order_zip = ? and od.prod_status = 'Order Completed'  group by od.product_id order by count(od.product_id) desc limit 8;";
                                                 connection.query(query6, [req.cookies.pincode], function (err, rows6) {
                                                     if (err) {
                                                         console.log(err);
@@ -601,7 +601,7 @@ app.get('/productList/:cId', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            query2 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller where p.pCategory=? and b.bZip=? group by p.pId;"
+            query2 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller where p.isBan=0 and p.pCategory=? and b.bZip=? group by p.pId;"
             connection.query(query2, [parseInt(req.params.cId), parseInt(req.cookies.pincode)], function (err, rows1) {
                 if (err) {
                     console.log(err);
@@ -612,7 +612,7 @@ app.get('/productList/:cId', function (req, res) {
                         pincode: req.cookies.pincode,
                     });
                 } else {
-                    query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand, round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller inner join product_feedback pf on pf.pId = p.pId where p.pCategory=? and b.bZip=? group by p.pId order by avg_rating desc limit 10;"
+                    query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand, round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details b on i.sId = b.seller inner join product_feedback pf on pf.pId = p.pId where p.isBan=0 and p.pCategory=? and b.bZip=? group by p.pId order by avg_rating desc limit 10;"
                     connection.query(query3, [parseInt(req.params.cId), parseInt(req.cookies.pincode)], function (err, rows3) {
                         if (err) {
                             console.log(err);
@@ -664,7 +664,7 @@ app.get('/productListBySub/:subCatId', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            query2 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller where p.pSubCategory=? and s.bZip=? group by p.pId;"
+            query2 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller where p.isBan=0 and p.pSubCategory=? and s.bZip=? group by p.pId;"
             connection.query(query2, [parseInt(req.params.subCatId), parseInt(req.cookies.pincode)], function (err, rows1) {
                 if (err) {
                     console.log(err);
@@ -676,7 +676,7 @@ app.get('/productListBySub/:subCatId', function (req, res) {
                         user: req.user
                     });
                 } else {
-                    query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller inner join product_feedback pf on pf.pId = p.pId where p.pSubCategory=? and s.bZip=? group by p.pId order by avg_rating desc limit 10;"
+                    query3 = "select p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,round(avg(pf.p_rating),2) as avg_rating,min(i.sellerPrice) as price from products p inner join inventory i on p.pId =i.pId inner join business_details s on i.sId = s.seller inner join product_feedback pf on pf.pId = p.pId where p.isBan=0 and p.pSubCategory=? and s.bZip=? group by p.pId order by avg_rating desc limit 10;"
                     connection.query(query3, [parseInt(req.params.subCatId), parseInt(req.cookies.pincode)], function (err, rows3) {
                         if (err) {
                             console.log(err);
@@ -723,7 +723,7 @@ app.get('/productListBySub/:subCatId', function (req, res) {
 // productDetails.ejs Starts
 app.get('/productDetails/:pId', function (req, res) {
     var pId = req.params.pId;
-    var query = "select p.pId,p.pName,p.pMrp,p.pCategory,p.pSubCategory,p.pBrand,p.pPhotoId,sc.subCatName,sc.subCatId,c.catName,c.catId from products p inner join product_subcategories sc on p.pSubCategory = sc.subCatId inner join product_categories c on p.pCategory = c.catId where pId = ?"
+    var query = "select p.pId,p.pName,p.pMrp,p.pCategory,p.pSubCategory,p.pBrand,p.pPhotoId,sc.subCatName,sc.subCatId,c.catName,c.catId from products p inner join product_subcategories sc on p.pSubCategory = sc.subCatId inner join product_categories c on p.pCategory = c.catId where p.isBan=0 and pId = ?"
     connection.query(query, [pId], function (err, rows) {
         if (err) {
             console.log(err);
@@ -950,7 +950,7 @@ app.get("/myorders", custCheckAuthenticated, function (req, res) {
     if (req.user) {
         pincode = req.cookies.pincode;
         if (req.user.role === 1) {
-            query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,od.product_qty,o.order_id,o.total_amount,o.order_status,o.ordered_timestamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id where o.cust_id=? order by o.ordered_timestamp desc";
+            query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,od.product_qty,o.order_id,o.total_amount,o.order_status,o.ordered_timestamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id where p.isBan=0 and o.cust_id=? order by o.ordered_timestamp desc";
             connection.query(query, [parseInt(req.user.cId)], function (err, rows) {
                 if (err) {
                     console.log(err);
@@ -972,7 +972,7 @@ app.get("/myorders", custCheckAuthenticated, function (req, res) {
 });
 
 app.get("/mywishlist", custCheckAuthenticated, function (req, res) {
-    var query = "select pName,pBrand,pId, pPhotoId, pMrp from products where pId in (select product_id from wishlist where cust_id = ?)";
+    var query = "select pName,pBrand,pId, pPhotoId, pMrp from products where p.isBan=0 and pId in (select product_id from wishlist where cust_id = ?)";
     connection.query(query, [req.user.cId], function (err, rows) {
         if (err) {
             console.log(err);
@@ -1058,7 +1058,7 @@ app.get('/cancelOrder/:order_id', custCheckAuthenticated, function (req, res) {
 
 
 app.post("/searchtag", function (req, res) {
-    query = "select i.pId,p.pName,p.pBrand,p.pPhotoId,p.pMrp,min(i.sellerPrice) as price from inventory i inner join business_details bd on i.sId=bd.seller inner join products p on i.pId=p.pId where iTags like '%" + req.body.searchQueryInput + "%' and bd.bZip=? group by i.pId";
+    query = "select i.pId,p.pName,p.pBrand,p.pPhotoId,p.pMrp,min(i.sellerPrice) as price from inventory i inner join business_details bd on i.sId=bd.seller inner join products p on i.pId=p.pId where p.isBan=0 and iTags like '%" + req.body.searchQueryInput + "%' and bd.bZip=? group by i.pId";
     connection.query(query, [parseInt(req.cookies.pincode)], function (err, rows1) {
         if (err) {
             console.log(err);
@@ -1356,7 +1356,7 @@ app.post("/addToWishlistremote", custCheckAuthenticated, function (req, res) {
 
 app.post('/getLastViewedDetails', function (req, res) {
     var productsArray = req.body.last_viewed;
-    var query = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where b.bZip=? and p.pId in (?) group by p.pId ORDER BY FIELD(p.pId, ?)";
+    var query = "SELECT p.pId,p.pName,p.pMrp,p.pPhotoId,p.pBrand,min(i.sellerPrice) as minPrice FROM products p inner join inventory i on p.pId=i.pId inner join business_details b on i.sId=b.seller where p.isBan=0 and b.bZip=? and p.pId in (?) group by p.pId ORDER BY FIELD(p.pId, ?)";
     connection.query(query, [req.cookies.pincode, productsArray, productsArray], function (err, rows) {
         if (err) {
             console.log(err);
@@ -1835,7 +1835,7 @@ app.post("/updateprofilebusiness", checkAuthenticated, function (req, res) {
 
 //myproducts.ejs starts
 app.get('/myproducts', checkAuthenticated, function (req, res) {
-    var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iDeliveryCharges,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
+    var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.isBan,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iDeliveryCharges,i.iId,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
     var photos = [];
     connection.query(query, req.user.sId, function (err, rows) {
         if (err) {
@@ -1877,7 +1877,7 @@ app.post('/myproducts', checkAuthenticated, function (req, res) {
 })
 
 app.post("/editProduct", checkAuthenticated, function (req, res) {
-    var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.iDeliveryCharges,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where i.sId = ? "
+    var query = "SELECT p.pId,p.pSubCategory,p.pBrand,p.isBan,p.pName,p.pMrp,p.pCategory,c.catName,sc.subCatName,p.pPhotoId,i.iId,i.iDeliveryCharges,i.sellerPrice,i.stockAvailable,i.iDelivery from products p inner join inventory i on p.pId = i.pId inner join product_categories c on c.catId = p.pCategory inner join product_subcategories sc on sc.subCatId = p.pSubCategory where p.isBan=0 and i.sId = ? "
     var photos = [];
     var editValue = req.body.editbtn;
 
@@ -2225,7 +2225,7 @@ app.get("/adminDashboard", adminCheckAuthenticated, function (req, res) {
 });
 
 app.get("/admingetProducts", adminCheckAuthenticated, function (req, res) {
-    var query = "select * from products p inner join product_categories c on p.pCategory=c.catId inner join product_subcategories s on p.pSubCategory=s.subCatId where isBan=0";
+    var query = "select * from products p inner join product_categories c on p.pCategory=c.catId inner join product_subcategories s on p.pSubCategory=s.subCatId";
     connection.query(query, function (err, rows) {
         if (err) {
             console.log(err);
@@ -2237,14 +2237,14 @@ app.get("/admingetProducts", adminCheckAuthenticated, function (req, res) {
     });
 });
 
-app.post('/banProduct',adminCheckAuthenticated,function(req,res){
+app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
     var pId = req.body.banProduct;
     console.log(pId);
     var query = "update products set isBan = 1 where pId = ?";
-    connection.query(query,[pId],(err,rows)=>{
-        if(err){
+    connection.query(query, [pId], (err, rows) => {
+        if (err) {
             console.log(err);
-        }else{
+        } else {
             res.redirect('/admingetProducts');
         }
 
