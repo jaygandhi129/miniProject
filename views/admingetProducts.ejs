@@ -143,22 +143,28 @@
                                 </thead>
                                 <tbody>
                                     <%var i=1%>
-                  <% rows.forEach(function(row){ %>
-                  <tr>
-                    <th scope="row"><%=i%></th>
-                    <td class="w-25">
-                      <img
-                        src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media"
-                        class="img-fluid img-thumbnail">
-                    </td>
-                    <td><%=  row.pBrand %></td>
-                    <td><%= row.pName %></td>
-                    <td><%=  row.catName %></td>
-                    <td><%=  row.subCatName %></td>
-                    <td>
-                        <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                          style="width:90%;" name="banproduct" data-id=<%= row.pId %>><i
-                            class="fas fa-trash"></i></button>
+                                    <% rows.forEach(function(row){ %>
+                                    <tr>
+                                        <th scope="row"><%=i%></th>
+                                        <td class="w-25">
+                                            <img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%= row.pPhotoId%>?alt=media"
+                                                class="img-fluid img-thumbnail">
+                                        </td>
+                                        <td><%=  row.pBrand %></td>
+                                        <td><%= row.pName %></td>
+                                        <td><%=  row.catName %></td>
+                                        <td><%=  row.subCatName %></td>
+                                        <td>
+                                            <%if(row.isBan==0){%>
+                                            <button value="0" class="btn btn-danger delete-btn" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" style="width:90%;" name="banproduct"
+                                                data-id=<%= row.pId %>><i class="fas fa-ban"></i></button>
+                                            <%}else{%>
+                                            <button disabled value="1" class="btn btn-danger delete-btn"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:90%;"
+                                                name="banproduct" data-id=<%= row.pId %>><i
+                                                    class="fas fa-ban"></i></button>
+                                            <%}%>
                       </td>
                   </tr>
                   <% i=i+1 }); %>
