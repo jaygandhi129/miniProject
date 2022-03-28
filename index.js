@@ -2236,16 +2236,127 @@ app.get("/admingetProducts", adminCheckAuthenticated, function (req, res) {
         }
     });
 });
+function cancelOrderViaAdmin(order_id){
+    query = "UPDATE order_details set prod_status='Cancelled' where order_id=?";
+    connection.query(query, [parseInt(order_id)], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            query = "UPDATE orders set order_status='Cancelled' where order_id=?";
+            connection.query(query, [parseInt(order_id)], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var query3 = "SELECT razorpayPaymentId, amount from order_payment_details where orderId = ?"
+                    connection.query(query3, [parseInt(order_id)], function (err, rows3) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            razorpay.payments.refund(rows3[0].razorpayPaymentId, {
+                                'amount': rows3[0].amount
+                            }).then((result) => {
+                                console.log("Refund : " + result.id + " TIME : " + result.created_at);
+                                razorpay.refunds.fetch(result.id, {
+                                    'payment_id': result.payment_id
+                                }).then((refundResult) => {
+                                    if (refundResult.status == "processed") {
+                                        var query4 = "update order_payment_details set refundId = ?, refundTimeStamp = FROM_UNIXTIME(?) where orderId = ?"
+                                        connection.query(query4, [refundResult.id, refundResult.created_at, parseInt(order_id)], function (err) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                var query5 = "update orders set paymentStatus = 'Refunded' where order_id = ?"
+                                                connection.query(query5, [parseInt(order_id)], function (err) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    } else {
+                                                        var query6 = "select cust_id, seller_id from orders where order_id=?";
+                                                        connection.query(query6,[order_id],function(err,rows6){
+                                                            if(err){
+                                                                console.log(err);
+                                                            }else{
+                                                                var query7 = "select subscription from customer_subscription where cId=?";
+                                                                connection.query(query7,rows6[0].cust_id,function(err,rows7){
+                                                                    if(err){
+                                                                        console.log(err);
+                                                                    }else{
+                                                                        var subscription = JSON.parse(rows7[0].subscription);
+                                                                        var payload;
+                                                                        payload = JSON.stringify({
+                                                                            title: 'Ordered product has been banned.',
+                                                                            body: 'Your ordered product has been banned from our platform and your order is cancelled. If payment is done, refund will be initiated shortly. Please contact us for further details.',
+                                                                            icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                                                            url: '/custOrderDetails/' + order_id,
+                                                                        });
+                                                                        webpush.sendNotification(subscription, payload).catch(err => console.log(err));
+                                                                    }
+                                                                });
+                                                                var query8 = "select subscription from seller_subscription where sId=?";
+                                                                connection.query(query8,rows6[0].seller_id,function(err,rows8){
+                                                                    if(err){
+                                                                        console.log(err);
+                                                                    }else{
+                                                                        var subscription = JSON.parse(rows8[0].subscription);
+                                                                        var payload;
+                                                                        payload = JSON.stringify({
+                                                                            title: 'Product has been banned.',
+                                                                            body: 'All orders of your banned product have been cancelled.',
+                                                                            icon: 'https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/Product%2F50058-photo.jpeg',
+                                                                            url: '/custOrderDetails/' + order_id,
+                                                                        });
+                                                                        webpush.sendNotification(subscription, payload).catch(err => console.log(err));
+                                                                    }
+                                                                });
+
+                                                            }
+                                                        });
+                                                        return;
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }).catch((err) => {
+                                console.log("Refund not successfull: " + err);
+                            });
+                        }
+                    });
+                }
+            })
+        }
+    });
+}
+
+
 
 app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
     var pId = req.body.banProduct;
     console.log(pId);
+    
     var query = "update products set isBan = 1 where pId = ?";
     connection.query(query, [pId], (err, rows) => {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/admingetProducts');
+            var query2="select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
+    connection.query(query2,[pId],function(err,rows1){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(rows1);
+            if(rows1.length>0){
+                
+                console.log("Orders are cancelled");
+                for(i=0;i<rows1.length;i++){
+                    
+                cancelOrderViaAdmin(rows1[i].order_id);
+            }
+                
+                res.redirect("/admingetProducts");
+            }
+        }
+    });
         }
 
     });
