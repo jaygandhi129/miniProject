@@ -2236,7 +2236,7 @@ app.get("/admingetProducts", adminCheckAuthenticated, function (req, res) {
         }
     });
 });
-function cancelOrderViaAdmin(order_id){
+function cancelOrderViaAdmin(order_id) {
     query = "UPDATE order_details set prod_status='Cancelled' where order_id=?";
     connection.query(query, [parseInt(order_id)], function (err, rows) {
         if (err) {
@@ -2271,15 +2271,15 @@ function cancelOrderViaAdmin(order_id){
                                                         console.log(err);
                                                     } else {
                                                         var query6 = "select cust_id, seller_id from orders where order_id=?";
-                                                        connection.query(query6,[order_id],function(err,rows6){
-                                                            if(err){
+                                                        connection.query(query6, [order_id], function (err, rows6) {
+                                                            if (err) {
                                                                 console.log(err);
-                                                            }else{
+                                                            } else {
                                                                 var query7 = "select subscription from customer_subscription where cId=?";
-                                                                connection.query(query7,rows6[0].cust_id,function(err,rows7){
-                                                                    if(err){
+                                                                connection.query(query7, rows6[0].cust_id, function (err, rows7) {
+                                                                    if (err) {
                                                                         console.log(err);
-                                                                    }else{
+                                                                    } else {
                                                                         var subscription = JSON.parse(rows7[0].subscription);
                                                                         var payload;
                                                                         payload = JSON.stringify({
@@ -2292,10 +2292,10 @@ function cancelOrderViaAdmin(order_id){
                                                                     }
                                                                 });
                                                                 var query8 = "select subscription from seller_subscription where sId=?";
-                                                                connection.query(query8,rows6[0].seller_id,function(err,rows8){
-                                                                    if(err){
+                                                                connection.query(query8, rows6[0].seller_id, function (err, rows8) {
+                                                                    if (err) {
                                                                         console.log(err);
-                                                                    }else{
+                                                                    } else {
                                                                         var subscription = JSON.parse(rows8[0].subscription);
                                                                         var payload;
                                                                         payload = JSON.stringify({
@@ -2332,31 +2332,33 @@ function cancelOrderViaAdmin(order_id){
 
 app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
     var pId = req.body.banProduct;
-    console.log(pId);
-    
+    console.log("pid : " + pId);
+
     var query = "update products set isBan = 1 where pId = ?";
     connection.query(query, [pId], (err, rows) => {
         if (err) {
             console.log(err);
         } else {
-            var query2="select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
-    connection.query(query2,[pId],function(err,rows1){
-        if(err){
-            console.log(err);
-        }else{
-            console.log(rows1);
-            if(rows1.length>0){
-                
-                console.log("Orders are cancelled");
-                for(i=0;i<rows1.length;i++){
-                    
-                cancelOrderViaAdmin(rows1[i].order_id);
-            }
-                
-                res.redirect("/admingetProducts");
-            }
-        }
-    });
+            var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
+            connection.query(query2, [pId], function (err, rows1) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(rows1);
+                    if (rows1.length > 0) {
+
+                        console.log("Orders are cancelled");
+                        for (i = 0; i < rows1.length; i++) {
+
+                            cancelOrderViaAdmin(rows1[i].order_id);
+                        }
+
+                        res.redirect("/admingetProducts");
+                    } else {
+                        res.redirect("/admingetProducts");
+                    }
+                }
+            });
         }
 
     });
