@@ -236,29 +236,60 @@
 					<div class="row ">
 						<div class="col-md-7 col-xs-12 row1">
 							<div class="card SOD_table">
-								<div class="card-body">
+								<%if(rows[0].isBan==1){%>
+								<div class="card-body" style="background-color: #f66666;">
+									<%}else{%>
+										<div class="card-body">
+										<%}%>
 									<table class="table table-borderless table-shopping-cart " id="product_table">
+										<%if(rows[0].isBan==1){%>
+											<h6 style="color: rgb(237, 233, 233);">This Product has been BANNED by the Admin. We have cancelled this order and money will be refunded to the customer.</h6>
+
+										<%}%>
 										<thead class="text-muted">
+											<%if(rows[0].isBan==1){%>
 											<tr class="small text-uppercase table-headings"
+												style="text-align:center;font-size:0.9rem;color: white;">
+												<th scope="col" width:"200" style="text-align:left;">Product</th>
+												<th scope="col" width="400">Name</th>
+												<th scope="col" width="100">Quantity</th>
+												<th scope="col" width="200">Rate</th>
+												<th scope="col" width="200">Amount</th>
+											</tr>
+											<%}else{%>
+												<tr class="small text-uppercase table-headings"
 												style="text-align:center;font-size:0.9rem;">
 												<th scope="col" width:"200" style="text-align:left;">Product</th>
 												<th scope="col" width="400">Name</th>
 												<th scope="col" width="100">Quantity</th>
 												<th scope="col" width="200">Rate</th>
 												<th scope="col" width="200">Amount</th>
-
 											</tr>
+												<%}%>
 										</thead>
 										<tbody>
-											<tr width="200" style="text-align:center;">
-												<td> <img
-														src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=rows[0].pPhotoId%>?alt=media"
-														class="img-fluid img-thumbnail"></td>
-												<td><%=rows[0].pBrand+" "+rows[0].pName%></td>
-												<td><%=rows[0].product_qty%></td>
-												<td>₹ <%=rows[0].price/rows[0].product_qty%></td>
-												<td>₹ <%=rows[0].price%></td>
-											</tr>
+											<%if(rows[0].isBan==1){%>
+												<tr width="200" style="text-align:center;color: white;">
+													<td> <img
+															src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=rows[0].pPhotoId%>?alt=media"
+															class="img-fluid img-thumbnail"></td>
+													<td><%=rows[0].pBrand+" "+rows[0].pName%></td>
+													<td><%=rows[0].product_qty%></td>
+													<td>₹ <%=rows[0].price/rows[0].product_qty%></td>
+													<td>₹ <%=rows[0].price%></td>
+												</tr>
+												<%}else{%>
+													<tr width="200" style="text-align:center;">
+														<td> <img
+																src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/<%=rows[0].pPhotoId%>?alt=media"
+																class="img-fluid img-thumbnail"></td>
+														<td><%=rows[0].pBrand+" "+rows[0].pName%></td>
+														<td><%=rows[0].product_qty%></td>
+														<td>₹ <%=rows[0].price/rows[0].product_qty%></td>
+														<td>₹ <%=rows[0].price%></td>
+													</tr>
+													<%}%>
+											
 										</tbody>
 									</table>
 									<%if(rows[0].product_size.length>0){%>

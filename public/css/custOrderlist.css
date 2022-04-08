@@ -28,6 +28,10 @@
 }
 
 @media (max-width:700px){
+  .notify-btn{
+    width: 100%;
+    padding: 10px 0px !important;
+  }
   .img-small{
     width: 100px;
     height: 100px;
