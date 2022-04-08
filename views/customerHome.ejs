@@ -273,12 +273,12 @@
             <!-- Recommended Products -->
             <h2 class="font-weight-bold mb-2 headings-cards px-3" id="last-viewed-heading">Handpicked for you</h2>
             <div class="container" id="last-viewed-container">
-                <div class="mob-hidden arrows-left">
+                <div class="mob-hidden arrows-left recommended_prod_arrow">
                     <button id="slideBack8" style="height: 80px;width:35px;margin-top: 100%;margin-left:-35%;"
                         class="btn btn-outline-secondary btn-sm slide-btn"><i
                             class="fa fa-lg fa-chevron-left"></i></button>
                 </div>
-                <div class=" mob-hidden arrows-right">
+                <div class=" mob-hidden arrows-right recommended_prod_arrow">
                     <button id="slide8" style="height: 80px;width:35px;margin-top: 100%;margin-left:110%;"
                         class=" btn btn-outline-secondary btn-sm slide-btn"><i
                             class="fa fa-lg fa-chevron-right "></i></button>
@@ -629,7 +629,12 @@
                         type: "POST",
                         success: function(data) {
                 
-                            var recommended_prod = data.prodDetails 
+                            var recommended_prod = data.prodDetails
+                            if(recommended_prod.length==0){
+                                $("#last-viewed-heading").css("display","none");
+                                $(".recommended_prod_arrow").css("display","none");
+                            } 
+
                             for(var i=0; i< recommended_prod.length; i++){
                                 var new_card = '<div class="card cards"><a href="/productDetails/'+recommended_prod[i].pId+'" class="stretched-link"></a><div class="card-body "><img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/'+recommended_prod[i].pPhotoId+'?alt=media "alt=" " style="width:250px; height:300px; object-fit:contain;"class="img-fluid d-block mx-auto mb-3 "><div style="height: 75px;text-align: center;"><h5 class="card-title">'+recommended_prod[i].pBrand+' '+recommended_prod[i].pName+'</h5></div><div><p style="margin-top:10px;text-align: center;">Lowest Price ₹'+recommended_prod[i].min+'<i class="fas fa-hand-holding-medical"></i></p></div></div></div>'
                                 $('#cards-row2').append(new_card);

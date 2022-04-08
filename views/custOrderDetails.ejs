@@ -165,7 +165,11 @@
         <div class="row ">
           <div class="col-md-7 col-xs-12 row1">
             <div class="card SOD_table">
-              <div class="card-body">
+              <%if(rows[0].isBan==1){%>
+                <div class="card-body" style="background-color: #e16666;">
+                <%}else{%>
+                <div class="card-body">
+                  <%}%>
                 <table class="table table-borderless table-shopping-cart " id="product_table">
                   <thead class="text-muted">
                     <tr class="small text-uppercase table-headings"
@@ -188,6 +192,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <%if(rows[0].isBan==1){%>
+                <h5 style="color: rgb(237, 233, 233);">This Product has been BANNED by the Admin. Please contact support.</h5>
+                <%}%>
                 <%if(rows[0].product_size.length>0){%>
                 <p style="margin-top:3%;margin-left:1%;color:grey;font-weight:bold;">SIZE :
                   <%=rows[0].product_size%> </p>
@@ -219,39 +226,42 @@
       <%}%>
       <%if(rows[0].paymentStatus=="Refunded"){%>
         <p style="margin-left:3%; margin-top:1%;">Payment Status: <span style="font-weight:bold;"><%=rows[0].paymentStatus%>&nbsp; on &nbsp; <%=rows[0].refundTimeStamp%><span></p>
-        <small style="margin-left:3%;">Amount will be credited to your Bank Account within 3-5 working days.</small>
-      <%}else{%>
+          <%}else{%>
+            <small style="margin-left:3%;">Amount will be credited to your Bank Account within 3-5 working days.</small>
         <p style="margin-left:3%;margin-top:1%;">Payment Status: <%=rows[0].paymentStatus%></p>
       <%}%>
 
   						<div class="col-12 col-md-10 hh-grayBox pt45 pb20">
-
+               
   							<div class="row justify-content-between">
   								<div class="order-tracking completed">
   									<span class="is-complete"></span>
   									<p>Ordered<br><span><%=rows[0].ordered_timestamp%></span></p>
   								</div>
   								<div class="order-tracking waiting">
-  									<span class="is-complete"></span>
+                    <span class="is-complete"></span>
                     <%if(rows[0].order_status=="Accepted, In-progress" || rows[0].order_status=="Awaiting Approval" || rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
-                     <p><%=rows[0].order_status%><br></p>
-  								<%}if(rows[0].order_status=="Order Completed"){%>
-                    <p>Accepted, In-progress<br></p>
-                    <%}%>
-
-                </div>
-  								<div class="order-tracking done">
-  									<span class="is-complete"></span>
-                    <%if(rows[0].order_status=="Order Completed"){%>
-  									<p><%=rows[0].order_status%><br><span><%=rows[0].delivered_timestamp%></span></p>
-                    <%}else if(rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
                       <p><%=rows[0].order_status%><br></p>
-
-                      <%}%>
-  								</div>
-  							</div>
-  						</div>
-  					</div>
+                      
+                      <%}if(rows[0].order_status=="Order Completed"){%>
+                        <p>Accepted, In-progress<br></p>
+                        <%}%>
+                      </div>
+                      
+                      <div class="order-tracking done">
+                        <span class="is-complete"></span>
+                        <%if(rows[0].order_status=="Order Completed"){%>
+                          <p><%=rows[0].order_status%><br><span><%=rows[0].delivered_timestamp%></span></p>
+                          <%}else if(rows[0].order_status=="Rejected" || rows[0].order_status=="Cancelled"){%>
+                            <p><%=rows[0].order_status%><br></p>
+                            
+                            <%}%>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                   
             </div>
             </div>
           </div>

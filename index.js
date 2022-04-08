@@ -817,6 +817,18 @@ app.post("/productDetails/:pId", function (req, res) {
     }
 });
 
+app.get("/reportProduct/:pId", custCheckAuthenticated,function(req,res){
+    var pId = req.params.pId;
+    console.log(req.user);
+    res.render('reportProductForm', {
+        loggedIn: true,
+        pincode: req.cookies.pincode,
+        user: req.user,
+        pId: pId,
+        user: req.user
+    });
+});
+
 
 app.get("/getSellers/:pId", function (req, res) {
     var pin = req.cookies.pincode;
@@ -950,7 +962,7 @@ app.get("/myorders", custCheckAuthenticated, function (req, res) {
     if (req.user) {
         pincode = req.cookies.pincode;
         if (req.user.role === 1) {
-            query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,od.product_qty,o.order_id,o.total_amount,o.order_status,o.ordered_timestamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id where p.isBan=0 and o.cust_id=? order by o.ordered_timestamp desc";
+            query = "SELECT p.pName,p.pBrand,p.isBan,p.pId,p.pPhotoId,b.bName,od.product_qty,o.order_id,o.total_amount,o.order_status,o.ordered_timestamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id where o.cust_id=? order by o.ordered_timestamp desc";
             connection.query(query, [parseInt(req.user.cId)], function (err, rows) {
                 if (err) {
                     console.log(err);
@@ -972,7 +984,7 @@ app.get("/myorders", custCheckAuthenticated, function (req, res) {
 });
 
 app.get("/mywishlist", custCheckAuthenticated, function (req, res) {
-    var query = "select pName,pBrand,pId, pPhotoId, pMrp from products where p.isBan=0 and pId in (select product_id from wishlist where cust_id = ?)";
+    var query = "select pName,pBrand,pId, pPhotoId, pMrp from products where isBan=0 and pId in (select product_id from wishlist where cust_id = ?)";
     connection.query(query, [req.user.cId], function (err, rows) {
         if (err) {
             console.log(err);
@@ -988,7 +1000,7 @@ app.get("/mywishlist", custCheckAuthenticated, function (req, res) {
 });
 
 app.get("/custOrderDetails/:order_id", custCheckAuthenticated, function (req, res) {
-    query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,b.bName,b.bAddress,b.bMobile,od.product_qty,od.product_size,od.price,o.order_id,o.delivered_timestamp,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
+    query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,p.isBan,b.bName,b.bAddress,b.bMobile,od.product_qty,od.product_size,od.price,o.order_id,o.delivered_timestamp,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
     connection.query(query, [parseInt(req.params.order_id)], function (err, rows) {
         if (err) {
             console.log(err);
@@ -1963,7 +1975,7 @@ app.get('/sellerOrders', checkAuthenticated, function (req, res) {
     });
 });
 app.get('/sellerOrdersDetail/:order_id', checkAuthenticated, function (req, res) {
-    var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile,p.pName,p.pBrand,p.pPhotoId,p.pId,pay.refundTimeStamp from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId inner join products p on od.product_id = p.pId inner join order_payment_details pay on o.order_id = pay.orderId where o.seller_id = ? and o.order_id = ?"
+    var query = "SELECT o.order_id,o.total_amount,o.delivery_address,o.order_zip,o.cust_id,o.delivery_charges,o.delivery_phone,o.del_fname,o.del_lname,o.paymentMethod,o.paymentStatus,o.ordered_timestamp,o.order_status,od.delivery_method,od.product_id,od.product_qty,od.price,od.product_size,od.delivery_method,c.cName,c.cEmail,c.cMobile,p.pName,p.pBrand,p.pPhotoId,p.isBan,p.pId,pay.refundTimeStamp from orders o inner join order_details od on o.order_id = od.order_id inner join cust_details c on o.cust_id = c.cId inner join products p on od.product_id = p.pId inner join order_payment_details pay on o.order_id = pay.orderId where o.seller_id = ? and o.order_id = ?"
     connection.query(query, [req.user.sId, req.params.order_id], function (err, rows) {
         if (err) {
             console.log(err);

@@ -162,12 +162,18 @@
             <h2 style="margin-top:1%;">My Orders</h2>
          </div>
          <div class="col col-md-6 col-sm-12">
-            <button class="btn btn-primary" id="notify-btn">Notify me about orders</button>
+            <button style="float: right; margin-top: 10px;" class="btn btn-primary notify-btn" id="notify-btn">Notify me about orders</button>
          </div>
       </div>
       <div class="row" >
         <% for (i = 0; i < rows.length; i++){%>
-        <div class="card order-card ">
+        
+         <%if(rows[i].isBan==1){%>
+         <div class="card order-card" style="background-color: #e16666;">
+            <h5 style="color: rgb(237, 233, 233);">This product has been banned by the admin.</h5>
+         <%}else{%>
+         <div class="card order-card ">            
+         <%}%>
           <a href="/custOrderDetails/<%=rows[i].order_id%>" class="stretched-link"></a>
       <div class="row g-0" style="overflow-x:auto;">
         <div class="col-sm-3 col-6">

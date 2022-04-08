@@ -231,7 +231,7 @@
                                 <%if(rows[0].catName=="Clothing" || rows[0].catName=="Footware"){%>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label style="" class="Size" for="si">Size</label>
+                                            <label  class="Size" for="si">Size</label>
                                             <select id="si" name="size" class="form-control size-input">
 
 								</select>
@@ -239,8 +239,13 @@
                                     </div>
                                     <%}%>
 
-
-                            </div>
+                                </div>
+                                <div>
+                                    <div class="" style="padding-right:8%;">
+                                        <a class="btn btn-warning" href="/reportProduct/<%=rows[0].pId%>" style="margin-top:8%;">Report
+                                    this product</a>
+                                    </div>
+                                </div>
                         </div>
                         <div class="col-md-6" style="float:right;">
                             <div class="container storeDet disButton">
@@ -275,6 +280,7 @@
                         </div>
                     </div>
                 </div>
+    
             </div>
             <div class="container">
                 <div class="product-info-tabs disButton">
@@ -380,7 +386,7 @@
                         prev_array.splice(index, 1);
                         }
                         prev_array.unshift("<%=rows[0].pId%>");
-                        console.log(prev_array);
+                       
                         localStorage.setItem('lastViewed',JSON.stringify({
                                 'last':prev_array
                             }))
