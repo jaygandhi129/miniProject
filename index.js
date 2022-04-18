@@ -823,9 +823,51 @@ app.get("/reportProduct/:pId", custCheckAuthenticated,function(req,res){
         loggedIn: true,
         pincode: req.cookies.pincode,
         user: req.user,
-        pId: pId,
-        user: req.user
+        pId: pId
     });
+});
+
+app.post('/reportProduct',custCheckAuthenticated,function(req,res){
+    var pId = req.body.pId;
+    var cId = req.body.cId;
+    var reason = req.body.reason;
+    var query = "insert into report_product(pId,cId,reason) values(?,?,?)";
+    connection.query(query,[pId,cId,reason],function(err,rows){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect("/productDetails/"+pId);
+        }
+    });
+    
+});
+app.get("/reportSeller/:sId", custCheckAuthenticated,function(req,res){
+    var sId = req.params.sId;
+    console.log(req.user);
+    res.render('reportSellerForm', {
+        loggedIn: true,
+        pincode: req.cookies.pincode,
+        user: req.user,
+        sId: sId
+    });
+});
+
+
+app.post('/reportSeller',custCheckAuthenticated,function(req,res){
+    var sId = req.body.sId;
+    var cId = req.body.cId;
+    var reason = req.body.reason;
+    var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
+    connection.query(query,[sId,cId,reason],function(err,rows){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect("/myorders");
+        }
+    });
+    
 });
 
 
@@ -999,7 +1041,7 @@ app.get("/mywishlist", custCheckAuthenticated, function (req, res) {
 });
 
 app.get("/custOrderDetails/:order_id", custCheckAuthenticated, function (req, res) {
-    query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,p.isBan,b.bName,b.bAddress,b.bMobile,od.product_qty,od.product_size,od.price,o.order_id,o.delivered_timestamp,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
+    query = "SELECT p.pName,p.pBrand,p.pId,p.pPhotoId,p.isBan,b.bName,b.bAddress,b.bMobile,b.seller,od.product_qty,od.product_size,od.price,o.order_id,o.delivered_timestamp,o.total_amount,o.del_fname,o.del_lname,o.delivery_address,o.delivery_phone,od.delivery_method,o.paymentStatus,o.order_status,o.ordered_timestamp,op.refundTimeStamp from products p inner join order_details od on p.pId = od.product_id inner join orders o on od.order_id=o.order_id inner join business_details b on b.seller=o.seller_id inner join order_payment_details op on op.orderId=o.order_id where o.order_id=?";
     connection.query(query, [parseInt(req.params.order_id)], function (err, rows) {
         if (err) {
             console.log(err);
@@ -2358,7 +2400,7 @@ app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
                     console.log(rows1);
                     if (rows1.length > 0) {
 
-                        console.log("Orders are cancelled");
+                        console.log("Orders are cancelled.");
                         for (i = 0; i < rows1.length; i++) {
 
                             cancelOrderViaAdmin(rows1[i].order_id);

@@ -401,6 +401,58 @@ INSERT INTO `products` VALUES (50054,'The Immortals of Meluha',320,2000018,'Prod
 UNLOCK TABLES;
 
 --
+-- Table structure for table `report_product`
+--
+
+DROP TABLE IF EXISTS `report_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `report_product` (
+  `cId` int NOT NULL,
+  `pId` int NOT NULL,
+  `reason` varchar(500) NOT NULL,
+  `isDismissed` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`cId`,`pId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `report_product`
+--
+
+LOCK TABLES `report_product` WRITE;
+/*!40000 ALTER TABLE `report_product` DISABLE KEYS */;
+INSERT INTO `report_product` VALUES (800005,50084,'sadsa',0);
+/*!40000 ALTER TABLE `report_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `report_seller`
+--
+
+DROP TABLE IF EXISTS `report_seller`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `report_seller` (
+  `sId` int NOT NULL,
+  `cId` int NOT NULL,
+  `reason` varchar(500) DEFAULT NULL,
+  `isDismissed` int DEFAULT '0',
+  PRIMARY KEY (`sId`,`cId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `report_seller`
+--
+
+LOCK TABLES `report_seller` WRITE;
+/*!40000 ALTER TABLE `report_seller` DISABLE KEYS */;
+INSERT INTO `report_seller` VALUES (1053,800005,'Fraud',0);
+/*!40000 ALTER TABLE `report_seller` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `seller_details`
 --
 
@@ -534,4 +586,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-29  1:14:38
+-- Dump completed on 2022-04-18 16:01:23
