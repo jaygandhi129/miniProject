@@ -819,7 +819,6 @@ app.post("/productDetails/:pId", function (req, res) {
 
 app.get("/reportProduct/:pId", custCheckAuthenticated,function(req,res){
     var pId = req.params.pId;
-    console.log(req.user);
     res.render('reportProductForm', {
         loggedIn: true,
         pincode: req.cookies.pincode,

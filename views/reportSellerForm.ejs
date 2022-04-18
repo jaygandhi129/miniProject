@@ -17,21 +17,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 
-    
-    
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+r
+
 </head>
 
 <body style="background-color:rgb(249 248 248)">
     <!-- Pincode Modal Starts -->
     <%if(pincode===undefined){%>
-        <script>
-            function showModal() {
+    <script>
+        function showModal() {
             $('#staticBackdrop').modal('show');
         }
-        
+
         $(window).on('load', function () {
             $('#staticBackdrop').modal('show');
         });
@@ -50,9 +51,9 @@
                                 <input type="text" class="form-control form-custom form-control-md search-bar-input"
                                     placeholder="Ex: 444000" name="pincode" value="" required pattern="^[1-9][0-9]{5}$"
                                     maxlength="6">
-                                    <div class="invalid-feedback">
-                                        Enter a valid pincode.
-                                    </div>
+                                <div class="invalid-feedback">
+                                    Enter a valid pincode.
+                                </div>
                             </div>
                             <div class="col col-auto">
                                 <button type="submit" class="btn btn-warning btn-md">Submit</button>
@@ -80,13 +81,13 @@
     <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li><a class="dropdown-item" href="/changePincodeCat">Change Pincode</a></li>
     </ul> -->
-</div>
+    </div>
     <%if(loggedIn == false){%>
     <a class="btn btn-light action-button desktop-hidden" role="button"
         style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
-        <%}else{%>
-            <div class="dropdown desktop-hidden user-dropdown-menu">
-                <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black"
+    <%}else{%>
+    <div class="dropdown desktop-hidden user-dropdown-menu">
+        <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black"
             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <%=user.cName%>
         </button>
@@ -97,7 +98,7 @@
             <li>
                 <form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
                         class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                    </form>
+                </form>
             </li>
         </ul>
     </div>
@@ -178,16 +179,18 @@
       <div class="container form-container">
         <div class="formStart" >
             <div class="card form-card">
-                <form action="/reportProduct" class="form">
-                    <label for="reason" class="form-control">Enter reason before reporting the product.</label>
+                <form action="/reportSeller" class="form">
+                    <label for="reason" class="form-control">Why do you want to report this seller?</label>
                     <textarea required class="form-control text-area" name="reason" id="reason" rows="10"></textarea>
-                    <input type="text" name="pId" class="hidden" value="<%=pId%>">
-                    <input type="text" name="cId" class="hidden" value="<%=user.cId%>">
-                    <button type="submit" class="btn btn-danger report-btn">Report</button>
-                </form>
-            </div>
-        </div>
+                    <input type="text" name="sId" class="hidden" value="<%=sId%>">
+    <input type="text" name="cId" class="hidden" value="<%=user.cId%>">
+    <button type="submit" class="btn btn-danger report-btn">Report</button>
+    </form>
     </div>
-      <!------ Include the above in your HEAD tag ---------->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js "></script>
-      </html>
+    </div>
+    </div>
+    <!------ Include the above in your HEAD tag ---------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js ">
+    </script>
+
+</html>
