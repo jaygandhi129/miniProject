@@ -1422,7 +1422,7 @@ app.post('/getLastViewedDetails', function (req, res) {
 
 app.post('/recommended_lastviewed', function (req, res) {
     var productsArray = req.body.last_viewed;
-    var query = "select t2.pId,t2.max_avg, t2.pCategory,t2.pName,t2.pBrand,t2.pPhotoId, min(i.sellerPrice) as min from (select a.pId, max(a.average) as max_avg,a.pCategory,a.pName,a.pBrand,a.pMrp,a.pPhotoId from (select pf.pId,avg(pf.p_rating) average,p.pCategory,p.pName,p.pBrand,p.pMrp,p.pPhotoId from product_feedback pf inner join products p on p.pId=pf.pId where pf.pId in (?) group by pId order by average desc) as a group by a.pCategory) as t2 inner join inventory i on i.pId  = t2.pId inner join business_details b on b.seller = i.sId where b.bZip = ? group by i.pId;";
+    var query = "select t2.pId,t2.max_avg, t2.pCategory,t2.pName,t2.pBrand,t2.pPhotoId, min(i.sellerPrice) as min from (select a.pId, max(a.average) as max_avg,a.pCategory,a.pName,a.pBrand,a.pMrp,a.pPhotoId from (select pf.pId,avg(pf.p_rating) average,p.pCategory,p.pName,p.pBrand,p.pMrp,p.pPhotoId from product_feedback pf inner join products p on p.pId=pf.pId where p.isBan=0 and pf.pId in (?) group by pId order by average desc) as a group by a.pCategory) as t2 inner join inventory i on i.pId  = t2.pId inner join business_details b on b.seller = i.sId where  b.bZip = ? group by i.pId;";
     connection.query(query, [productsArray, req.cookies.pincode], function (err, rows) {
         if (err) {
             console.log(err);
@@ -2425,8 +2425,34 @@ app.get("/admingetSellers", adminCheckAuthenticated, function (req, res) {
     res.render("admingetSellers");
 });
 
+app.get("/dismissProduct/:pId",adminCheckAuthenticated, function (req, res) {
+    //var pId = req.body.dismissproduct;
+    //console.log("pid : " + pId);
 
+    var query = "update report_product set isDismissed = 1 where pId = ?";
+    connection.query(query, [req.params.pId], (err, rows) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/adminproductComplaint");
+        }
 
+    });
+    
+});
+
+app.get("/adminproductComplaint", adminCheckAuthenticated, function (req, res) {
+    var query = "select p.pId,p.pName,p.pPhotoId,p.pBrand,r.cId,r.reason,r.isDismissed from products p inner join report_product r on r.pId = p.pId where r.isDismissed = 0";
+    connection.query(query, function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("adminproductComplaint", {
+                rows
+            });
+        }
+    });
+});
 
 
 /************************************Admin Ends*************************************************/
