@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Users</title>
+    <title>Customers</title>
     <link rel="stylesheet" href="css/myproducts.css">
     <link rel="stylesheet" href="css/sellerDashboard.css">
     <link rel="stylesheet"
@@ -31,11 +31,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Do you want to BAN this User?
+                    Do you want to BAN this Customer?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-                    <form action="/getUsers" method="post">
+                    <form action="/banCustomers" method="post">
                         <input name="banUsers" value="" id="confirm-delete" hidden>
                         <button type="submit" id="confirm" value="" class="btn btn-danger">Yes, BAN.</button>
                     </form>
@@ -63,7 +63,7 @@
                     <li class="nav-item"><a class="nav-link " href="/admingetProducts"><i
                                 class="fas fa-boxes"></i><span>Products</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="/admingetUsers"><i
-                                class="fas fa-boxes"></i><span>Users</span></a></li>
+                                class="fas fa-boxes"></i><span>Customers</span></a></li>
                     <li class="nav-item"><a class="nav-link " href="/adminproductComplaint"><i
                                 class="fa fa-list-alt"></i><span>Product Complaint</span></a></li>
                     <li class="nav-item"><a class="nav-link " href="/adminsellerComplaint"><i
@@ -132,6 +132,7 @@
                                 id="test-table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Sr. No.</th>
                                         <th scope="col">Customer ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Phone</th>
@@ -141,6 +142,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%var i=1;%>
+                                    <%rows.forEach(function(row){%>
+                                    <tr>
+                                        <td scope="col"><%=i%></td>
+                                        <td scope="col"><%=row.cId%></td>
+                                        <td scope="col"><%=row.cName%></td>
+                                        <td scope="col"><%=row.cMobile%></td>
+                                        <td scope="col"><%=row.cPincode%></td>
+                                        <td scope="col"><%=row.cEmail%></td>
+                                        <td>
+                                            <%if(row.isBan==0){%>
+                                            <button value="0" class="btn btn-danger delete-btn" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" style="width:90%;" name="banCustomer"
+                                                data-id=<%= row.cId %>><i class="fas fa-ban"></i></button>
+                                            <%}else{%>
+                                            <button disabled value="1" class="btn btn-danger delete-btn"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:90%;"
+                                                name="banCustomer" data-id=<%= row.cId %>><i
+                                                    class="fas fa-ban"></i></button>
+                                            <%}%>
+                                    </td>
+                                </tr>
+                                    <%i++;});%>
                                 </tbody>
                             </table>
                         </div>
