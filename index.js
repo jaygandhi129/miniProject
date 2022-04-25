@@ -817,7 +817,7 @@ app.post("/productDetails/:pId", function (req, res) {
     }
 });
 
-app.get("/reportProduct/:pId", custCheckAuthenticated,function(req,res){
+app.get("/reportProduct/:pId", custCheckAuthenticated, function (req, res) {
     var pId = req.params.pId;
     res.render('reportProductForm', {
         loggedIn: true,
@@ -827,22 +827,22 @@ app.get("/reportProduct/:pId", custCheckAuthenticated,function(req,res){
     });
 });
 
-app.post('/reportProduct',custCheckAuthenticated,function(req,res){
+app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
     var pId = req.body.pId;
     var cId = req.body.cId;
     var reason = req.body.reason;
     var query = "insert into report_product(pId,cId,reason) values(?,?,?)";
-    connection.query(query,[pId,cId,reason],function(err,rows){
-        if(err){
+    connection.query(query, [pId, cId, reason], function (err, rows) {
+        if (err) {
             console.log(err);
         }
-        else{
-            res.redirect("/productDetails/"+pId);
+        else {
+            res.redirect("/productDetails/" + pId);
         }
     });
-    
+
 });
-app.get("/reportSeller/:sId", custCheckAuthenticated,function(req,res){
+app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
     var sId = req.params.sId;
     console.log(req.user);
     res.render('reportSellerForm', {
@@ -854,20 +854,20 @@ app.get("/reportSeller/:sId", custCheckAuthenticated,function(req,res){
 });
 
 
-app.post('/reportSeller',custCheckAuthenticated,function(req,res){
+app.post('/reportSeller', custCheckAuthenticated, function (req, res) {
     var sId = req.body.sId;
     var cId = req.body.cId;
     var reason = req.body.reason;
     var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
-    connection.query(query,[sId,cId,reason],function(err,rows){
-        if(err){
+    connection.query(query, [sId, cId, reason], function (err, rows) {
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
             res.redirect("/myorders");
         }
     });
-    
+
 });
 
 
@@ -2415,17 +2415,59 @@ app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
         }
 
     });
-
 });
 
 app.get("/admingetUsers", adminCheckAuthenticated, function (req, res) {
-    res.render("admingetUsers");
+    var query = "Select * from cust_details"
+    connection.query(query, function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("admingetUsers", { rows });
+        }
+    });
 });
+
+app.post('/banCustomers', adminCheckAuthenticated, function (req, res) {
+    var cId = req.body.banCustomer;
+    console.log("cid : " + cId);
+
+    var query = "update cust_details set isBan = 1 where cId = ?";
+    connection.query(query, [pId], (err, rows) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
+            connection.query(query2, [pId], function (err, rows1) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(rows1);
+                    if (rows1.length > 0) {
+
+                        console.log("Orders are cancelled.");
+                        for (i = 0; i < rows1.length; i++) {
+
+                            cancelOrderViaAdmin(rows1[i].order_id);
+                        }
+
+                        res.redirect("/admingetProducts");
+                    } else {
+                        res.redirect("/admingetProducts");
+                    }
+                }
+            });
+        }
+
+    });
+});
+
+
 app.get("/admingetSellers", adminCheckAuthenticated, function (req, res) {
     res.render("admingetSellers");
 });
 
-app.get("/dismissProduct/:pId",adminCheckAuthenticated, function (req, res) {
+app.get("/dismissProduct/:pId", adminCheckAuthenticated, function (req, res) {
     //var pId = req.body.dismissproduct;
     //console.log("pid : " + pId);
 
@@ -2438,7 +2480,7 @@ app.get("/dismissProduct/:pId",adminCheckAuthenticated, function (req, res) {
         }
 
     });
-    
+
 });
 
 app.get("/dismissSeller/:sId",adminCheckAuthenticated, function (req, res) {
