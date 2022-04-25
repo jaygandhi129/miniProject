@@ -116,7 +116,13 @@ function checkNotAuthenticated(req, res, next) {
 function custCheckAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         if (req.user.role == 1) {
-            return next()
+            console.log(req.user);
+            if (req.user.isBan == 0) {
+                return next()
+            } else {
+                console.log("else isBan");
+                res.redirect("/allBannedPage");
+            }
         } else {
             res.redirect('/');
         }
@@ -539,6 +545,12 @@ app.post("/productList/:catId", function (req, res) {
 app.get("/login", custCheckNotAuthenticated, function (req, res) {
     res.render("cLoginSignup", {
         err: undefined
+    });
+});
+
+app.get("/allBannedPage", function (req, res) {
+    res.render("allBannedPage",{
+        loggedIn:false
     });
 });
 
@@ -2385,7 +2397,6 @@ function cancelOrderViaAdmin(order_id) {
 
 app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
     var pId = req.body.banProduct;
-    console.log("pid : " + pId);
 
     var query = "update products set isBan = 1 where pId = ?";
     connection.query(query, [pId], (err, rows) => {
@@ -2405,7 +2416,6 @@ app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
 
                             cancelOrderViaAdmin(rows1[i].order_id);
                         }
-
                         res.redirect("/admingetProducts");
                     } else {
                         res.redirect("/admingetProducts");
@@ -2428,17 +2438,16 @@ app.get("/admingetUsers", adminCheckAuthenticated, function (req, res) {
     });
 });
 
-app.post('/banCustomers', adminCheckAuthenticated, function (req, res) {
+app.post('/banCustomer', adminCheckAuthenticated, function (req, res) {
     var cId = req.body.banCustomer;
-    console.log("cid : " + cId);
 
     var query = "update cust_details set isBan = 1 where cId = ?";
-    connection.query(query, [pId], (err, rows) => {
+    connection.query(query, [cId], (err, rows) => {
         if (err) {
             console.log(err);
         } else {
-            var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
-            connection.query(query2, [pId], function (err, rows1) {
+            var query2 = "select order_id from orders where cust_id=? and (order_status='Accepted, In-progress')";
+            connection.query(query2, [cId], function (err, rows1) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -2451,9 +2460,9 @@ app.post('/banCustomers', adminCheckAuthenticated, function (req, res) {
                             cancelOrderViaAdmin(rows1[i].order_id);
                         }
 
-                        res.redirect("/admingetProducts");
+                        res.redirect("/admingetUsers");
                     } else {
-                        res.redirect("/admingetProducts");
+                        res.redirect("/admingetUsers");
                     }
                 }
             });
@@ -2483,7 +2492,7 @@ app.get("/dismissProduct/:pId", adminCheckAuthenticated, function (req, res) {
 
 });
 
-app.get("/dismissSeller/:sId",adminCheckAuthenticated, function (req, res) {
+app.get("/dismissSeller/:sId", adminCheckAuthenticated, function (req, res) {
     //var pId = req.body.dismissproduct;
     //console.log("pid : " + pId);
 
@@ -2496,7 +2505,7 @@ app.get("/dismissSeller/:sId",adminCheckAuthenticated, function (req, res) {
         }
 
     });
-    
+
 });
 
 app.get("/adminproductComplaint", adminCheckAuthenticated, function (req, res) {

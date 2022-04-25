@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>You have been banned !</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reportForm.css">
+    <link rel="stylesheet" href="../css/cstyles.css">
+    <!-- <link rel="stylesheet" href="../css/myproducts.css"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+    
+    
+</head>
+
+<body style="background-color:rgb(249 248 248)">
+    
+      <!-- Pincode Modal Ends -->
+      <div class="text-nowrap">
+         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="padding-bottom: 0px;">
+            <div class="dropdown ">
+               <!-- <button class="btn btn-outline-warning dropdown-toggle pincode-dropdown pincode-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                   <i class="fas fa-map-marker-alt" style="margin-right: 8px;margin-left: 2px;"></i>
+    </button> -->
+    <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/changePincodeCat">Change Pincode</a></li>
+    </ul> -->
+</div>
+    <%if(loggedIn == false){%>
+    <a class="btn btn-light action-button desktop-hidden" role="button"
+        style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+        <%}else{%>
+            <div class="dropdown desktop-hidden user-dropdown-menu">
+                <button class="btn btn-outline-warning dropdown-toggle user-dropdown" type="button" style="color:black"
+            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <%=user.cName%>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li> -->
+            <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+            <li><a class="dropdown-item" href="/mywishlist"><i class="fas fa-heart"></i> My Wishlist</a></li>
+            <li>
+                <form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
+                        class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </form>
+            </li>
+        </ul>
+    </div>
+    <%}%>
+    <div class="container" style="margin-left:0">
+               <a class="navbar-brand expand" href="/success-login"><button class="btn btn-link" type="button" style="background-color: rgba(0,123,255,0);"><img style="max-width: 170px;height: 55px;" src="../images/logo.png"></button></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+               <div class="collapse navbar-collapse d-xl-flex justify-content-xl-center" id="navcol-1">
+                  <ul class="navbar-nav me-auto catagory-div">
+                     <!-- <li class="nav-item">
+                        <div class="dropdown">
+                           <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;">
+                           Sub-Categories
+                           </button>
+                           <ul class="dropdown-menu dropdown-menu-cat" style="width: 300%;" id="category_dropdown" aria-labelledby="dropdownMenuButton2">
+                              <div class="row">
+                                 <div class="col-md-6" id="catDiv1">
+                                 </div>
+                                 <div class="col-md-6" id="catDiv2">
+                                 </div>
+                              </div>
+                           </ul>
+                        </div>
+                    </li> -->
+                     <li class="nav-item"></li>
+                  </ul>
+                  <ul class="navbar-nav me-auto desktop-hidden">
+                     <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                  </ul>
+                  <div class="col text-start padMar">
+                      <div class="wrapper">
+                      <form class="" action="/searchtag" method="post">
+                          <div class="searchBar">
+                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search Products" value="" />
+                            <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+<svg style="width:24px;height:24px;" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+</svg>
+</button>
+</div>
+<!-- </div> -->
+</form>
+                    </div>
+                  </div>
+                  <form class="d-sm-block me-auto" target="_self">
+                     <div class="form-group mb-3"><label class="form-label" for="search-field"></label></div>
+                    </form>
+                    <ul class="navbar-nav me-auto mob-hidden">
+                     <li class="nav-item"><a class="nav-link active" style="height: 44px;font-size: 20px;margin-top: -15px;display:none;" href="#"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                  </ul>
+                  <%if(loggedIn == false){%>
+    <span class="navbar-text actions">
+        <a class="btn btn-outline-warning action-button mob-hidden" role="button"
+            style="font-size: 20pxs;background-color: #ffbf00;margin-top: 0px;" href="/login">Login or Signup</a>
+    </span>
+    <%}else{%>
+    <div class="dropdown mob-hidden user-dropdown-menu" style="font-size:1.2rem">
+        <button class="btn dropdown-toggle user-dropdown" style="color:black" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <%=user.cName%>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li> -->
+            <li><a class="dropdown-item" href="/myorders"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+            <li><a class="dropdown-item" href="/mywishlist"><i class="fas fa-heart"></i> My Wishlist</a></li>
+            <li>
+                <form action="/logout-customer?_method=DELETE" method="post"><button type="submit"
+                        class="btn dropdown-item" style="margin:0"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <%}%>
+</div>
+</div>
+         </nav>
+         
+      </div>
+      <!-- alert -->
+      <div class="container" style="text-align: center;">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Oops!</h4>
+            <p>You have been Banned from CornerKart. Contact Support for more Information.</p>
+        </div>
+        <a href="/" class="btn btn-warning">Back to home</a>
+    </div>
+      <!------ Include the above in your HEAD tag ---------->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js "></script>
+      </html>
