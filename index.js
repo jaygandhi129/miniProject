@@ -823,7 +823,8 @@ app.get("/reportProduct/:pId", custCheckAuthenticated, function (req, res) {
         loggedIn: true,
         pincode: req.cookies.pincode,
         user: req.user,
-        pId: pId
+        pId: pId,
+        alreadyReported: false
     });
 });
 
@@ -831,7 +832,21 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
     var pId = req.body.pId;
     var cId = req.body.cId;
     var reason = req.body.reason;
-    var query = "insert into report_product(pId,cId,reason) values(?,?,?)";
+    var query1 = "select * from report_product where cId = ? and pId=?;"
+    connection.query(query1, [cId, pId], function (err, rows) {
+        if (err) { 
+            console.log(err);  
+        } else {
+            if (rows.length > 0) {
+                res.render('reportProductForm', {
+                    loggedIn: true,
+                    pincode: req.cookies.pincode,
+                    user: req.user,
+                    pId: pId,
+                    alreadyReported: true
+                });
+            } else {
+                var query = "insert into report_product(pId,cId,reason) values(?,?,?)";
     connection.query(query, [pId, cId, reason], function (err, rows) {
         if (err) {
             console.log(err);
@@ -840,6 +855,11 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
             res.redirect("/productDetails/" + pId);
         }
     });
+            }
+        }
+
+    });
+    
 
 });
 app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
@@ -849,7 +869,8 @@ app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
         loggedIn: true,
         pincode: req.cookies.pincode,
         user: req.user,
-        sId: sId
+        sId: sId,
+        alreadyReported:false
     });
 });
 
@@ -858,6 +879,21 @@ app.post('/reportSeller', custCheckAuthenticated, function (req, res) {
     var sId = req.body.sId;
     var cId = req.body.cId;
     var reason = req.body.reason;
+    var query1 = "select * from report_seller where cId = ? and sId=?;"
+    connection.query(query1, [cId, sId], function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (rows.length > 0) {
+                res.render('reportSellerForm', {
+                    loggedIn: true,
+                    pincode: req.cookies.pincode,
+                    user: req.user,
+                    sId: sId,
+                    alreadyReported: true
+                });
+            } else {
+
     var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
     connection.query(query, [sId, cId, reason], function (err, rows) {
         if (err) {
@@ -867,7 +903,10 @@ app.post('/reportSeller', custCheckAuthenticated, function (req, res) {
             res.redirect("/myorders");
         }
     });
-
+            }  
+        }
+    
+});
 });
 
 
@@ -2531,5 +2570,4 @@ app.get("/adminsellerComplaint", adminCheckAuthenticated, function (req, res) {
 app.listen(process.env.PORT || 3000, function () {
     console.log("Connected at 3000");
 });
-
 
