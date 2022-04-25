@@ -2441,8 +2441,24 @@ app.get("/dismissProduct/:pId",adminCheckAuthenticated, function (req, res) {
     
 });
 
+app.get("/dismissSeller/:sId",adminCheckAuthenticated, function (req, res) {
+    //var pId = req.body.dismissproduct;
+    //console.log("pid : " + pId);
+
+    var query = "update report_seller set isDismissed = 1 where sId = ?";
+    connection.query(query, [req.params.sId], (err, rows) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/adminsellerComplaint");
+        }
+
+    });
+    
+});
+
 app.get("/adminproductComplaint", adminCheckAuthenticated, function (req, res) {
-    var query = "select p.pId,p.pName,p.pPhotoId,p.pBrand,r.cId,r.reason,r.isDismissed from products p inner join report_product r on r.pId = p.pId where r.isDismissed = 0";
+    var query = "select p.pId,p.pName,p.pPhotoId,p.pBrand,r.cId,r.reason,r.isDismissed,p.isBan from products p inner join report_product r on r.pId = p.pId where r.isDismissed = 0";
     connection.query(query, function (err, rows) {
         if (err) {
             console.log(err);
@@ -2454,6 +2470,18 @@ app.get("/adminproductComplaint", adminCheckAuthenticated, function (req, res) {
     });
 });
 
+app.get("/adminsellerComplaint", adminCheckAuthenticated, function (req, res) {
+    var query = "select s.sId,s.sName,s.sPhoneNo,s.sZip,r.cId,r.reason,r.isDismissed,s.isBan from seller_details s inner join report_seller r on r.sId = s.sId where r.isDismissed = 0";
+    connection.query(query, function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("adminsellerComplaint", {
+                rows
+            });
+        }
+    });
+});
 
 /************************************Admin Ends*************************************************/
 
