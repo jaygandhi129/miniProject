@@ -176,6 +176,17 @@ r
          
       </div>
       <!-- Form -->
+      <%if(alreadyReported==true){%>
+        <div class="container" style="text-align: center;">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Oops!</h4>
+                <p>You have already reported this seller.</p>
+                <hr>
+                <p class="mb-0">Please wait for the seller to respond.</p>
+            </div>
+            <a href="/" class="btn btn-warning">Back to home</a>
+        </div>
+        <%}else{%>
       <div class="container form-container">
         <div class="formStart" >
             <div class="card form-card">
@@ -189,6 +200,7 @@ r
     </div>
     </div>
     </div>
+    <%}%>
     <!------ Include the above in your HEAD tag ---------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js ">
     </script>
