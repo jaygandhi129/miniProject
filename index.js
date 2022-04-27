@@ -120,7 +120,7 @@ function custCheckAuthenticated(req, res, next) {
             if (req.user.isBan == 0) {
                 return next()
             } else {
-                console.log("else isBan");
+                req.logOut();
                 res.redirect("/allBannedPage");
             }
         } else {
@@ -549,8 +549,8 @@ app.get("/login", custCheckNotAuthenticated, function (req, res) {
 });
 
 app.get("/allBannedPage", function (req, res) {
-    res.render("allBannedPage",{
-        loggedIn:false
+    res.render("allBannedPage", {
+        loggedIn: false
     });
 });
 
@@ -846,8 +846,8 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
     var reason = req.body.reason;
     var query1 = "select * from report_product where cId = ? and pId=?;"
     connection.query(query1, [cId, pId], function (err, rows) {
-        if (err) { 
-            console.log(err);  
+        if (err) {
+            console.log(err);
         } else {
             if (rows.length > 0) {
                 res.render('reportProductForm', {
@@ -859,19 +859,19 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
                 });
             } else {
                 var query = "insert into report_product(pId,cId,reason) values(?,?,?)";
-    connection.query(query, [pId, cId, reason], function (err, rows) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.redirect("/productDetails/" + pId);
-        }
-    });
+                connection.query(query, [pId, cId, reason], function (err, rows) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.redirect("/productDetails/" + pId);
+                    }
+                });
             }
         }
 
     });
-    
+
 
 });
 app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
@@ -882,7 +882,7 @@ app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
         pincode: req.cookies.pincode,
         user: req.user,
         sId: sId,
-        alreadyReported:false
+        alreadyReported: false
     });
 });
 
@@ -906,19 +906,19 @@ app.post('/reportSeller', custCheckAuthenticated, function (req, res) {
                 });
             } else {
 
-    var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
-    connection.query(query, [sId, cId, reason], function (err, rows) {
-        if (err) {
-            console.log(err);
+                var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
+                connection.query(query, [sId, cId, reason], function (err, rows) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.redirect("/myorders");
+                    }
+                });
+            }
         }
-        else {
-            res.redirect("/myorders");
-        }
+
     });
-            }  
-        }
-    
-});
 });
 
 
