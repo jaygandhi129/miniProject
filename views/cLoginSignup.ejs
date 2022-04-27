@@ -23,9 +23,9 @@
         <div class="formBx">
           <form action="/custlogin" method="POST" autocomplete="off">
             <h2>Log In</h2>
-            <%if(err){%>
-              <p style="color:red;"><%=err%></p>
-            <%}%>
+            <%if (messages.error){%>
+              <p style="color:red;"><%=messages.error%></p>
+              <%}%>
             <input type="text" name="cMobile" placeholder="Mobile No" autocomplete="off" required maxlength="10"/>
             <input type="password" name="cPassword" placeholder="Password" autocomplete="new-password" required/>
             <%# <input type="submit" name="" value="Login" /> %>

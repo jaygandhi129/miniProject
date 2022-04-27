@@ -143,27 +143,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <%var i=1;%>
-                                  <%rows.forEach(function(row){%>
-                                  <tr>
-                                      <td scope="col"><%=i%></td>
-                                      <td scope="col"><%=row.sId%></td>
-                                      <td scope="col"><%=row.sName%></td>
-                                      <td scope="col"><%=row.bName%> </td>
-                                      <td scope="col"><%=row.sPhoneNo%></td>
-                                      <td scope="col"><%=row.sZip%></td>
-                                      <td scope="col"><%=row.bEmail%></td>
-                                      <td>
-                                          <%if(row.isBan==0){%>
-                                          <button value="0" class="btn btn-danger delete-btn" data-bs-toggle="modal"
-                                              data-bs-target="#exampleModal" style="width:90%;" name="banSeller"
-                                              data-id=<%= row.sId %>><i class="fas fa-ban"></i></button>
-                                          <%}else{%>
-                                          <button disabled value="1" class="btn btn-danger delete-btn"
-                                              data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:90%;"
-                                              name="banSeller" data-id=<%= row.sId %>><i
-                                                  class="fas fa-ban"></i></button>
-                                          <%}%>
+                                    <%var i=1;%>
+                                    <%rows.forEach(function(row){%>
+                                    <tr>
+                                        <td scope="col"><%=i%></td>
+                                        <td scope="col"><%=row.sId%></td>
+                                        <td scope="col"><%=row.sName%></td>
+                                        <td scope="col"><%=row.bName%> </td>
+                                        <td scope="col"><%=row.sPhoneNo%></td>
+                                        <td scope="col"><%=row.sZip%></td>
+                                        <td scope="col"><%=row.bEmail%></td>
+                                        <td>
+                                            <%if(row.isBan==0){%>
+                                            <button value="0" class="btn btn-danger delete-btn" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" style="width:90%;" name="banSeller"
+                                                data-id=<%= row.sId %>><i class="fas fa-ban"></i></button>
+                                            <%}else{%>
+                                            <button disabled value="1" class="btn btn-danger delete-btn" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" style="width:90%;" name="banSeller"
+                                                data-id=<%= row.sId %>><i class="fas fa-ban"></i></button>
+                                            <%}%>
                                   </td>
                               </tr>
                                   <%i++;});%>

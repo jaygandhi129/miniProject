@@ -92,7 +92,12 @@ initialize(passport);
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         if (req.user.role === 0) {
-            return next()
+            if (req.user.isBan == 0) {
+                return next()
+            } else {
+                req.logOut();
+                res.redirect("/business/login");
+            }
         } else {
             res.redirect('/business/login');
         }
@@ -120,7 +125,7 @@ function custCheckAuthenticated(req, res, next) {
             if (req.user.isBan == 0) {
                 return next()
             } else {
-                console.log("else isBan");
+                req.logOut();
                 res.redirect("/allBannedPage");
             }
         } else {
@@ -549,8 +554,8 @@ app.get("/login", custCheckNotAuthenticated, function (req, res) {
 });
 
 app.get("/allBannedPage", function (req, res) {
-    res.render("allBannedPage",{
-        loggedIn:false
+    res.render("allBannedPage", {
+        loggedIn: false
     });
 });
 
@@ -859,14 +864,14 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
                 });
             } else {
                 var query = "insert into report_product(pId,cId,reason) values(?,?,?)";
-    connection.query(query, [pId, cId, reason], function (err, rows) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.redirect("/productDetails/" + pId);
-        }
-    });
+                connection.query(query, [pId, cId, reason], function (err, rows) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.redirect("/productDetails/" + pId);
+                    }
+                });
             }
         }
 
@@ -882,7 +887,7 @@ app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
         pincode: req.cookies.pincode,
         user: req.user,
         sId: sId,
-        alreadyReported:false
+        alreadyReported: false
     });
 });
 
@@ -906,19 +911,19 @@ app.post('/reportSeller', custCheckAuthenticated, function (req, res) {
                 });
             } else {
 
-    var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
-    connection.query(query, [sId, cId, reason], function (err, rows) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.redirect("/myorders");
-        }
-    });
+                var query = "insert into report_seller(sId,cId,reason) values(?,?,?)";
+                connection.query(query, [sId, cId, reason], function (err, rows) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.redirect("/myorders");
+                    }
+                });
             }
         }
 
-});
+    });
 });
 
 
@@ -1542,7 +1547,7 @@ app.get("/business/register", checkNotAuthenticated, function (req, res) {
     res.render('sellerRegister1', {
         flag: false
     });
-})
+});
 
 app.post("/business/register/home", checkNotAuthenticated, function (req, res) {
     var b_name = req.body.b_name;
@@ -2435,35 +2440,35 @@ function cancelOrderViaAdmin(order_id) {
 
 
 app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
-  var pId = req.body.banProduct;
+    var pId = req.body.banProduct;
 
-  var query = "update products set isBan = 1 where pId = ?";
-  connection.query(query, [pId], (err, rows) => {
-      if (err) {
-          console.log(err);
-      } else {
-          var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
-          connection.query(query2, [pId], function (err, rows1) {
-              if (err) {
-                  console.log(err);
-              } else {
-                  console.log(rows1);
-                  if (rows1.length > 0) {
+    var query = "update products set isBan = 1 where pId = ?";
+    connection.query(query, [pId], (err, rows) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
+            connection.query(query2, [pId], function (err, rows1) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(rows1);
+                    if (rows1.length > 0) {
 
-                      console.log("Orders are cancelled.");
-                      for (i = 0; i < rows1.length; i++) {
+                        console.log("Orders are cancelled.");
+                        for (i = 0; i < rows1.length; i++) {
 
-                          cancelOrderViaAdmin(rows1[i].order_id);
-                      }
-                      res.redirect("/admingetProducts");
-                  } else {
-                      res.redirect("/admingetProducts");
-                  }
-              }
-          });
-      }
+                            cancelOrderViaAdmin(rows1[i].order_id);
+                        }
+                        res.redirect("/admingetProducts");
+                    } else {
+                        res.redirect("/admingetProducts");
+                    }
+                }
+            });
+        }
 
-  });
+    });
 });
 
 app.get("/admingetUsers", adminCheckAuthenticated, function (req, res) {
@@ -2512,14 +2517,14 @@ app.post('/banCustomer', adminCheckAuthenticated, function (req, res) {
 
 
 app.get("/admingetSellers", adminCheckAuthenticated, function (req, res) {
-   var query="select s.sId,s.sName,s.sPhoneNo,s.sZip,b.bName,b.bEmail,b.seller from seller_details s inner join business_details b on s.sId=b.seller";
-   connection.query(query, function (err, rows) {
-       if (err) {
-           console.log(err);
-       } else {
-           res.render("admingetSellers", { rows });
-       }
-   });
+    var query = "select s.sId,s.sName,s.sPhoneNo,s.sZip,b.bName,s.isBan,b.bEmail,b.seller from seller_details s inner join business_details b on s.sId=b.seller";
+    connection.query(query, function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("admingetSellers", { rows });
+        }
+    });
 });
 
 app.post('/banSeller', adminCheckAuthenticated, function (req, res) {

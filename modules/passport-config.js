@@ -22,7 +22,7 @@ function initialize(passport) {
     passReqToCallback: true
   },
     function (req, mobile, password, done) {
-      
+
       connection.query('SELECT * from seller_details where sPhoneNo = ?', mobile, function (err, rows) {
         if (err) {
           console.log(err);
@@ -38,8 +38,14 @@ function initialize(passport) {
           console.log("Password wrong");
           return done(null, false, {
             'message': 'Oops! Wrong password.'
+          }); 
+        }
+        if (rows[0].isBan == 1) {
+          return done(null, false, {
+            'message': 'You have been banned. Please contact Support.'
           });
-        } else {
+        }
+         else {
           return done(null, rows[0]);
         }
         // bcrypt.compare(password, rows[0].sPassword).then(function(){
@@ -87,7 +93,14 @@ function initialize(passport) {
           return done(null, false, {
             'message': 'Oops! Wrong password.'
           });
-        } else {
+
+        }
+        if (rows[0].isBan == 1) {
+          return done(null, false, {
+            'message': 'You have been banned. Please contact Support.'
+          });
+        }
+        else {
           console.log("Authenticated");
           return done(null, rows[0]);
         }

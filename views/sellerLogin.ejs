@@ -23,11 +23,10 @@
                             </a>
                         </div>
                         <h3>Login into your account</h3>
-
                         <%if (messages.error){%>
-                            <%=messages.error%>
+                            <P style="color: red;"><%=messages.error%></P>
+                            
                         <%}%>
-
                         <div class="form-container">
                             <form method="POST" action="/business/login">
                                 <div class="form-group form-fg">
