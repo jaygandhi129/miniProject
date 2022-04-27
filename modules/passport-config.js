@@ -38,8 +38,14 @@ function initialize(passport) {
           console.log("Password wrong");
           return done(null, false, {
             'message': 'Oops! Wrong password.'
+          }); 
+        }
+        if (rows[0].isBan == 1) {
+          return done(null, false, {
+            'message': 'You have been banned. Please contact Support.'
           });
-        } else {
+        }
+         else {
           return done(null, rows[0]);
         }
         // bcrypt.compare(password, rows[0].sPassword).then(function(){
