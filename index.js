@@ -846,8 +846,8 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
     var reason = req.body.reason;
     var query1 = "select * from report_product where cId = ? and pId=?;"
     connection.query(query1, [cId, pId], function (err, rows) {
-        if (err) { 
-            console.log(err);  
+        if (err) {
+            console.log(err);
         } else {
             if (rows.length > 0) {
                 res.render('reportProductForm', {
@@ -871,7 +871,7 @@ app.post('/reportProduct', custCheckAuthenticated, function (req, res) {
         }
 
     });
-    
+
 
 });
 app.get("/reportSeller/:sId", custCheckAuthenticated, function (req, res) {
@@ -915,9 +915,9 @@ app.post('/reportSeller', custCheckAuthenticated, function (req, res) {
             res.redirect("/myorders");
         }
     });
-            }  
+            }
         }
-    
+
 });
 });
 
@@ -2435,35 +2435,35 @@ function cancelOrderViaAdmin(order_id) {
 
 
 app.post('/banProduct', adminCheckAuthenticated, function (req, res) {
-    var pId = req.body.banProduct;
+  var pId = req.body.banProduct;
 
-    var query = "update products set isBan = 1 where pId = ?";
-    connection.query(query, [pId], (err, rows) => {
-        if (err) {
-            console.log(err);
-        } else {
-            var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
-            connection.query(query2, [pId], function (err, rows1) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(rows1);
-                    if (rows1.length > 0) {
+  var query = "update products set isBan = 1 where pId = ?";
+  connection.query(query, [pId], (err, rows) => {
+      if (err) {
+          console.log(err);
+      } else {
+          var query2 = "select order_id from order_details where product_id=? and (prod_status='Accepted, In-progress' or prod_status='Awaiting Approval')";
+          connection.query(query2, [pId], function (err, rows1) {
+              if (err) {
+                  console.log(err);
+              } else {
+                  console.log(rows1);
+                  if (rows1.length > 0) {
 
-                        console.log("Orders are cancelled.");
-                        for (i = 0; i < rows1.length; i++) {
+                      console.log("Orders are cancelled.");
+                      for (i = 0; i < rows1.length; i++) {
 
-                            cancelOrderViaAdmin(rows1[i].order_id);
-                        }
-                        res.redirect("/admingetProducts");
-                    } else {
-                        res.redirect("/admingetProducts");
-                    }
-                }
-            });
-        }
+                          cancelOrderViaAdmin(rows1[i].order_id);
+                      }
+                      res.redirect("/admingetProducts");
+                  } else {
+                      res.redirect("/admingetProducts");
+                  }
+              }
+          });
+      }
 
-    });
+  });
 });
 
 app.get("/admingetUsers", adminCheckAuthenticated, function (req, res) {
@@ -2512,8 +2512,48 @@ app.post('/banCustomer', adminCheckAuthenticated, function (req, res) {
 
 
 app.get("/admingetSellers", adminCheckAuthenticated, function (req, res) {
-    res.render("admingetSellers");
+   var query="select s.sId,s.sName,s.sPhoneNo,s.sZip,b.bName,b.bEmail,b.seller from seller_details s inner join business_details b on s.sId=b.seller";
+   connection.query(query, function (err, rows) {
+       if (err) {
+           console.log(err);
+       } else {
+           res.render("admingetSellers", { rows });
+       }
+   });
 });
+
+app.post('/banSeller', adminCheckAuthenticated, function (req, res) {
+    var sId = req.body.banSeller;
+
+    var query = "update seller_details set isBan = 1 where sId = ?";
+    connection.query(query, [sId], (err, rows) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var query2 = "select order_id from orders where seller_id=? and (order_status='Accepted, In-progress')";
+            connection.query(query2, [sId], function (err, rows1) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(rows1);
+                    if (rows1.length > 0) {
+
+                        console.log("Orders are cancelled.");
+                        for (i = 0; i < rows1.length; i++) {
+
+                            cancelOrderViaAdmin(rows1[i].order_id);
+                        }
+                        res.redirect("/admingetSellers");
+                    } else {
+                        res.redirect("/admingetSellers");
+                    }
+                }
+            });
+        }
+
+    });
+});
+
 
 app.get("/dismissProduct/:pId", adminCheckAuthenticated, function (req, res) {
     //var pId = req.body.dismissproduct;
@@ -2579,4 +2619,3 @@ app.get("/adminsellerComplaint", adminCheckAuthenticated, function (req, res) {
 app.listen(process.env.PORT || 3000, function () {
     console.log("Connected at 3000");
 });
-
