@@ -35,8 +35,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-                    <form action="/getUsers" method="post">
-                        <input name="banUsers" value="" id="confirm-delete" hidden>
+                    <form action="/banSeller" method="post">
+                        <input name="banSeller" value="" id="confirm-delete" hidden>
                         <button type="submit" id="confirm" value="" class="btn btn-danger">Yes, BAN.</button>
                     </form>
                 </div>
@@ -132,8 +132,10 @@
                                 id="test-table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Sr. No.</th>
                                         <th scope="col">Seller ID</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">Seller Name</th>
+                                        <th scope="col">Shop Name</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Pincode</th>
                                         <th scope="col">Email</th>
@@ -141,6 +143,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  <%var i=1;%>
+                                  <%rows.forEach(function(row){%>
+                                  <tr>
+                                      <td scope="col"><%=i%></td>
+                                      <td scope="col"><%=row.sId%></td>
+                                      <td scope="col"><%=row.sName%></td>
+                                      <td scope="col"><%=row.bName%> </td>
+                                      <td scope="col"><%=row.sPhoneNo%></td>
+                                      <td scope="col"><%=row.sZip%></td>
+                                      <td scope="col"><%=row.bEmail%></td>
+                                      <td>
+                                          <%if(row.isBan==0){%>
+                                          <button value="0" class="btn btn-danger delete-btn" data-bs-toggle="modal"
+                                              data-bs-target="#exampleModal" style="width:90%;" name="banSeller"
+                                              data-id=<%= row.sId %>><i class="fas fa-ban"></i></button>
+                                          <%}else{%>
+                                          <button disabled value="1" class="btn btn-danger delete-btn"
+                                              data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:90%;"
+                                              name="banSeller" data-id=<%= row.sId %>><i
+                                                  class="fas fa-ban"></i></button>
+                                          <%}%>
+                                  </td>
+                              </tr>
+                                  <%i++;});%>
                                 </tbody>
                             </table>
                         </div>
