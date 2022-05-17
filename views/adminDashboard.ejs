@@ -103,9 +103,8 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Feature
-                                                    1</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>123</span></div>
+                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total No. of Customers</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><%=rows1[0].customerCount%></span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
                                     </div>
@@ -118,9 +117,8 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Feature
-                                                    2</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>₹ 123</span></div>
+                                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Total No. of Sellers</span></span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><%=rows2[0].sellerCount%></span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-wallet fa-2x text-gray-300"></i></div>
                                     </div>
@@ -133,11 +131,10 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Feature
-                                                    3</span></div>
+                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Total No. of Products</span></div>
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span>123</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span><%=rows[0].productCount%></span></div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm">
@@ -160,9 +157,8 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Feature
-                                                    4</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>123</span></div>
+                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Total Orders Done</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><%=rows5[0].orderCount%></span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-spinner fa-2x text-gray-300"></i></div>
                                     </div>
@@ -177,7 +173,7 @@
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="text-primary fw-bold m-0" style="font-size:1.2rem;">List 1</h6>
+                                    <h6 class="text-primary fw-bold m-0" style="font-size:1.2rem;">Seller Complaint</h6>
                                     <div class="container">
                                         <div class="row ">
                                             <div class="col-12 " style="overflow-x:auto;margin-top:2%;">
@@ -185,11 +181,17 @@
                                                     id="test-table2" style="width: 100%; margin: 0 auto;">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">col 1</th>
-                                                            <th scope="col">col 2</th>
-                                                            <th scope="col">col 3</th>
-                                                            <th scope="col">col 4</th>
+                                                          <th scope="col">Seller</th>
+                                                          <th scope="col">Number of Complaints received</th>
                                                         </tr>
+                                                        <%var i=1;%>
+                                                        <%rows3.forEach(function(row){%>
+                                                        <tr>
+                                                          <td scope="col"><%=row.sName%></td>
+                                                          <td scope="col"><%=row.sCount%></td>
+                                                        </tr>
+                                                          <%i++;});%>
+
                                                     </thead>
                                                     <tbody>
                                                     </tbody>
@@ -205,7 +207,7 @@
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="text-primary fw-bold m-0" style="font-size:1.2rem;">List 2</h6>
+                                    <h6 class="text-primary fw-bold m-0" style="font-size:1.2rem;">Product Complaint</h6>
                                     <div class="container">
                                         <div class="row ">
                                             <div class="col-12 " style="overflow-x:auto;margin-top:2%;">
@@ -213,11 +215,17 @@
                                                     id="test-table2" style="width: 100%; margin: 0 auto;">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">col 1</th>
-                                                            <th scope="col">col 2</th>
-                                                            <th scope="col">col 3</th>
-                                                            <th scope="col">col 4</th>
+                                                          <th scope="col">Product</th>
+                                                          <th scope="col">Number of Complaints received</th>
                                                         </tr>
+                                                        <%var i=1;%>
+                                                        <%rows4.forEach(function(row){%>
+                                                        <tr>
+                                                          <td scope="col"><%=row.pName%></td>
+                                                          <td scope="col"><%=row.pCount%></td>
+                                                        </tr>
+                                                          <%i++;});%>
+
                                                     </thead>
                                                     <tbody>
                                                     </tbody>
