@@ -2330,7 +2330,67 @@ app.get('/adminloginfail', function (req, res) {
 });
 
 app.get("/adminDashboard", adminCheckAuthenticated, function (req, res) {
-    res.render("adminDashboard");
+  var query = "select count(p.pId) as productCount from products p inner join product_categories c on p.pCategory=c.catId inner join product_subcategories s on p.pSubCategory=s.subCatId";
+  connection.query(query, function (err, rows) {
+      if (err) {
+          console.log(err);
+      } else {
+          var query1 = "Select count(*) as customerCount from cust_details";
+          connection.query(query1,function(err,rows1){
+            if (err) {
+                console.log(err);
+            } else {
+
+              var query2 = "select count(*) as sellerCount from seller_details";
+              connection.query(query2, function (err, rows2) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+
+                  var query3 = "select count(s.sId) as sCount, s.sName from report_seller r inner join seller_details s on r.sId = s.sId group by s.sId order by sCount desc;";
+                    connection.query(query3,function(err,rows3){
+                      if (err) {
+                          console.log(err);
+                      }
+                      else{
+                        var query4 = "select count(p.pId) as pCount, p.pName from report_product r inner join products p on r.pId = p.pId group by p.pId order by pCount desc;";
+                          connection.query(query4,function(err,rows4){
+                            if (err) {
+                                console.log(err);
+                            }
+                            else{
+                              var query5 = "select count(*) as orderCount from order_details where prod_status = 'Order Completed'";
+                              connection.query(query5,function(err,rows5){
+                                if (err) {
+                                    console.log(err);
+                                }else{
+                                  console.log(rows[0].productCount);
+                                  console.log(rows1[0].customerCount);
+                                  console.log(rows2[0].sellerCount);
+                                  console.log(rows3);
+                                    res.render("adminDashboard", {
+                                        rows,
+                                        rows1,
+                                        rows2,
+                                        rows3,
+                                        rows4,
+                                        rows5
+                                    });
+                                }
+                              });
+
+                            }
+                          });
+
+                      }
+                    });
+                  }
+                });
+              }
+          });
+      }
+  });
+
 });
 
 app.get("/admingetProducts", adminCheckAuthenticated, function (req, res) {
