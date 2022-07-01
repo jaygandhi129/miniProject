@@ -280,7 +280,7 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
             <div class="container">
                 <div class="product-info-tabs disButton">
@@ -386,14 +386,14 @@
                         prev_array.splice(index, 1);
                         }
                         prev_array.unshift("<%=rows[0].pId%>");
-                       
+
                         localStorage.setItem('lastViewed',JSON.stringify({
                                 'last':prev_array
                             }))
 
                     }
                 }
-                // if localstorage does not contain lastViewed, create 
+                // if localstorage does not contain lastViewed, create
                 else{
                 var last = {
                     'last':['<%=rows[0].pId%>']
@@ -679,7 +679,7 @@
 
 
                         if(localStorage.length){
-
+                            if(localStorage.getItem('wish_products')!=null){
                             if(JSON.parse(localStorage.getItem('wish_products')).products.includes(<%=rows[0].pId%>)){
                                 $("#wish").css({"color":"black","font-size":"1rem"});
                                 $("#wish").removeClass("fas");
@@ -698,7 +698,7 @@
                             }
                             localStorage.setItem('wish_products',JSON.stringify(json));
                             addToWishlist();
-                        }
+                        }}
 
                     });
                 });
