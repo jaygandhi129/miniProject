@@ -287,7 +287,7 @@
                 <div class="row cards-row" id="cards-row2">
 
                     <!-- Card 1-->
-                    
+
 
                 </div>
             </div>
@@ -329,9 +329,7 @@
 
                             <div>
                                 <p style="margin-top:10px;text-align: center;"><span
-                                        style="font-size: 1.3rem;color:#048f83">Save upto <%=row.difference%>%</span> on
-                                    ₹
-                                    <%=row.pMrp%>
+                                        style="font-size: 1.3rem;color:#048f83">Save upto <%=row.difference%>%</span> on ₹                                     <%=row.pMrp%>
                                 </p>
                             </div>
                         </div>
@@ -498,7 +496,7 @@
                 <div class="row cards-row" id="cards-row">
 
                     <!-- Card 1-->
-                    
+
 
                 </div>
             </div>
@@ -552,7 +550,7 @@
                 </div>
             </div>
 
-            
+
         </div>
     </div>
     <%}%>
@@ -612,13 +610,13 @@
                             },
                             type: "POST",
                             success: function(data) {
-                                var lastViewedProd = data.prodDetails 
+                                var lastViewedProd = data.prodDetails
                                 for(var i=0; i< lastViewedProd.length; i++){
                                     var new_card = '<div class="card cards"><a href="/productDetails/'+lastViewedProd[i].pId+'" class="stretched-link"></a><div class="card-body "><img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/'+lastViewedProd[i].pPhotoId+'?alt=media "alt=" " style="width:250px; height:300px; object-fit:contain;"class="img-fluid d-block mx-auto mb-3 "><div style="height: 75px;text-align: center;"><h5 class="card-title">'+lastViewedProd[i].pBrand+' '+lastViewedProd[i].pName+'</h5></div><div><p style="margin-top:10px;text-align: center;">Lowest Price ₹'+lastViewedProd[i].minPrice+'<i class="fas fa-hand-holding-medical"></i></p></div></div></div>'
                                     $('#cards-row').append(new_card);
-                                    
+
                                 }
-                                
+
                             }
                         });
                         $.ajax({
@@ -628,18 +626,18 @@
                         },
                         type: "POST",
                         success: function(data) {
-                
+
                             var recommended_prod = data.prodDetails
                             if(recommended_prod.length==0){
                                 $("#last-viewed-heading").css("display","none");
                                 $(".recommended_prod_arrow").css("display","none");
-                            } 
+                            }
 
                             for(var i=0; i< recommended_prod.length; i++){
                                 var new_card = '<div class="card cards"><a href="/productDetails/'+recommended_prod[i].pId+'" class="stretched-link"></a><div class="card-body "><img src="https://firebasestorage.googleapis.com/v0/b/cornerkart-cd3d7.appspot.com/o/'+recommended_prod[i].pPhotoId+'?alt=media "alt=" " style="width:250px; height:300px; object-fit:contain;"class="img-fluid d-block mx-auto mb-3 "><div style="height: 75px;text-align: center;"><h5 class="card-title">'+recommended_prod[i].pBrand+' '+recommended_prod[i].pName+'</h5></div><div><p style="margin-top:10px;text-align: center;">Lowest Price ₹'+recommended_prod[i].min+'<i class="fas fa-hand-holding-medical"></i></p></div></div></div>'
                                 $('#cards-row2').append(new_card);
-                                
-                            }    
+
+                            }
                         }
                         })
                     }
@@ -655,7 +653,7 @@
 
                             var len = data.length;
 
-                          
+
                             $("#catDiv1").empty();
                             $("#catDiv2").empty();
 
@@ -682,7 +680,7 @@
 
                             var len = data.length;
 
-                    
+
                             $("#catDiv1").empty();
                             $("#catDiv2").empty();
 
@@ -857,7 +855,7 @@
                       },
                       success: function(data){
                        localStorage.clear();
-                
+
                   }
                 });
               }
@@ -866,7 +864,7 @@
 
               });
             </script>
-            
+
 
 </body>
 
